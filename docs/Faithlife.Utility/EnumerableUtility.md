@@ -10,7 +10,6 @@ public static class EnumerableUtility
 
 | name | description |
 | --- | --- |
-| static [Append&lt;T&gt;](EnumerableUtility/Append.md)(…) | Returns a new sequence that appends the specified item. |
 | static [AppendIfNotAlreadyPresent&lt;T&gt;](EnumerableUtility/AppendIfNotAlreadyPresent.md)(…) | Returns a new sequence that conditionally has the specified item appended to the end (appended iff it doesn't equal an existing sequence item) |
 | static [AreEqual&lt;T&gt;](EnumerableUtility/AreEqual.md)(…) | Returns a value indicating whether the specified sequences are equal. Supports one or both sequences being null. (3 methods) |
 | static [AsSet&lt;T&gt;](EnumerableUtility/AsSet.md)(…) | Returns a set of the elements in the specified sequence. |
@@ -40,7 +39,6 @@ public static class EnumerableUtility
 | static [NullableSum](EnumerableUtility/NullableSum.md)(…) | Returns the sum of a sequence of nullable values. (2 methods) |
 | static [NullIfEmpty&lt;T&gt;](EnumerableUtility/NullIfEmpty.md)(…) | Returns the specified sequence, or null if it is empty. |
 | static [Order&lt;T&gt;](EnumerableUtility/Order.md)(…) | Sorts the sequence. A shortcut for OrderBy(x =&gt; x). (2 methods) |
-| static [Prepend&lt;T&gt;](EnumerableUtility/Prepend.md)(…) | Returns a new sequence that "prepends" the specified item. |
 | static [Range&lt;T&gt;](EnumerableUtility/Range.md)(…) | Returns a range of values. |
 | static [RangeTo](EnumerableUtility/RangeTo.md)(…) | Returns a range of integers. |
 | static [RangeTo&lt;T&gt;](EnumerableUtility/RangeTo.md)(…) | Returns a range of values. |

@@ -12,27 +12,6 @@ namespace Faithlife.Utility
 	public static class EnumerableUtility
 	{
 		/// <summary>
-		/// Returns a new sequence that appends the specified item.
-		/// </summary>
-		/// <typeparam name="T">The type of element.</typeparam>
-		/// <param name="seq">The sequence.</param>
-		/// <param name="item">The item.</param>
-		/// <returns>A new sequence that appends the specified item.</returns>
-		public static IEnumerable<T> Append<T>(this IEnumerable<T> seq, T item)
-		{
-			if (seq == null)
-				throw new ArgumentNullException("seq");
-			return DoAppend(seq, item);
-		}
-
-		private static IEnumerable<T> DoAppend<T>(IEnumerable<T> seq, T item)
-		{
-			foreach (T itemSeq in seq)
-				yield return itemSeq;
-			yield return item;
-		}
-
-		/// <summary>
 		/// Returns a new sequence that conditionally has the specified item appended to the end (appended iff it doesn't equal an existing sequence item)
 		/// </summary>
 		/// <typeparam name="T">The type of the sequence items.</typeparam>
@@ -705,27 +684,6 @@ namespace Faithlife.Utility
 		public static T NullIfEmpty<T>(this T seq) where T : class, IEnumerable
 		{
 			return IsNullOrEmpty(seq) ? null : seq;
-		}
-
-		/// <summary>
-		/// Returns a new sequence that "prepends" the specified item.
-		/// </summary>
-		/// <typeparam name="T">The type of element.</typeparam>
-		/// <param name="seq">The sequence.</param>
-		/// <param name="item">The item.</param>
-		/// <returns>A new sequence that "prepends" the specified item.</returns>
-		public static IEnumerable<T> Prepend<T>(this IEnumerable<T> seq, T item)
-		{
-			if (seq == null)
-				throw new ArgumentNullException("seq");
-			return DoPrepend(seq, item);
-		}
-
-		private static IEnumerable<T> DoPrepend<T>(IEnumerable<T> seq, T item)
-		{
-			yield return item;
-			foreach (T itemSeq in seq)
-				yield return itemSeq;
 		}
 
 		/// <summary>
