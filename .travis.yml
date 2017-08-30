@@ -1,3 +1,4 @@
+language: csharp
 sudo: required
 dist: trusty
 
@@ -9,4 +10,4 @@ before_install:
 - sudo apt-get install dotnet-sdk-2.0.0
 
 script:
-- dotnet test tests/Faithlife.Utility.Tests -c Release /p:SourceLinkCreate=false /p:SourceLinkTest=false
+- ./build.sh --target=NuGetPackage
