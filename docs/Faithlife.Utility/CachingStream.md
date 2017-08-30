@@ -13,6 +13,8 @@ public sealed class CachingStream : WrappingStream
 | [CachingStream](CachingStream/CachingStream.md)(…) | Initializes a new instance of the [`CachingStream`](CachingStream.md) class. |
 | override [CanWrite](CachingStream/CanWrite.md) { get; } | Gets a value indicating whether the current stream supports writing. |
 | override [Position](CachingStream/Position.md) { get; set; } | Gets or sets the position within the current stream. |
+| override [BeginWrite](CachingStream/BeginWrite.md)(…) | Begins an asynchronous write operation. |
+| override [EndWrite](CachingStream/EndWrite.md)(…) | Waits for the pending asynchronous read to complete. |
 | override [Read](CachingStream/Read.md)(…) | Reads a sequence of bytes from the current stream and advances the position within the stream by the number of bytes read. |
 | override [ReadByte](CachingStream/ReadByte.md)() | Reads a byte from the stream and advances the position within the stream by one byte, or returns -1 if at the end of the stream. |
 | override [Seek](CachingStream/Seek.md)(…) | Sets the position within the current stream. |

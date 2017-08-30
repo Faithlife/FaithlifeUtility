@@ -19,7 +19,11 @@ public class WrappingStream : Stream
 | override [Position](WrappingStream/Position.md) { get; set; } | Gets or sets the position within the current stream. |
 | override [ReadTimeout](WrappingStream/ReadTimeout.md) { get; set; } | Gets or sets a value, in miliseconds, that determines how long the stream will attempt to read before timing out. |
 | override [WriteTimeout](WrappingStream/WriteTimeout.md) { get; set; } | Gets or sets a value, in miliseconds, that determines how long the stream will attempt to write before timing out. |
+| override [BeginRead](WrappingStream/BeginRead.md)(…) | Begins an asynchronous read operation. |
+| override [BeginWrite](WrappingStream/BeginWrite.md)(…) | Begins an asynchronous write operation. |
 | override [CopyToAsync](WrappingStream/CopyToAsync.md)(…) | Asynchronously reads the bytes from the current stream and writes them to another stream, using a specified buffer size and cancellation token. |
+| override [EndRead](WrappingStream/EndRead.md)(…) | Waits for the pending asynchronous read to complete. |
+| override [EndWrite](WrappingStream/EndWrite.md)(…) | Ends an asynchronous write operation. |
 | override [Flush](WrappingStream/Flush.md)() | Clears all buffers for this stream and causes any buffered data to be written to the underlying device. |
 | override [FlushAsync](WrappingStream/FlushAsync.md)(…) | Asynchronously clears all buffers for this stream, causes any buffered data to be written to the underlying device, and monitors cancellation requests. |
 | override [Read](WrappingStream/Read.md)(…) | Reads a sequence of bytes from the current stream and advances the position within the stream by the number of bytes read. |

@@ -141,6 +141,24 @@ namespace Faithlife.Utility
 			throw new NotSupportedException();
 		}
 
+#if !NETSTANDARD1_4
+		/// <summary>
+		/// Begins an asynchronous write operation.
+		/// </summary>
+		public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback, object state)
+		{
+			throw new NotSupportedException();
+		}
+
+		/// <summary>
+		/// Waits for the pending asynchronous read to complete.
+		/// </summary>
+		public override void EndWrite(IAsyncResult asyncResult)
+		{
+			throw new NotSupportedException();
+		}
+#endif
+
 		private byte[] LoadData(int blockIndex)
 		{
 			ThrowIfDisposed();

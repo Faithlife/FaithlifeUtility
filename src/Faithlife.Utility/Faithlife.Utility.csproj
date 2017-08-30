@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Version>0.1.0</Version>
-    <TargetFramework>netstandard1.4</TargetFramework>
+    <TargetFrameworks>netstandard1.4;netstandard2.0;net46</TargetFrameworks>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
@@ -24,6 +24,9 @@
     <DotNetCliToolReference Include="dotnet-sourcelink" Version="2.1.0" />
     <DotNetCliToolReference Include="dotnet-sourcelink-git" Version="2.1.0" />
     <PackageReference Include="JetBrains.Annotations" Version="10.4.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.4' OR '$(TargetFramework)' == 'net46' ">
     <PackageReference Include="System.ValueTuple" Version="4.3.0" />
   </ItemGroup>
 
