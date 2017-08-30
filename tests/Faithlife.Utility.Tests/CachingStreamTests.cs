@@ -164,6 +164,7 @@ namespace Faithlife.Utility.Tests
 				Assert.Throws<NotSupportedException>(() => cachingStream.SetLength(2000));
 				Assert.Throws<NotSupportedException>(() => cachingStream.Write(new byte[1], 0, 1));
 				Assert.Throws<NotSupportedException>(() => cachingStream.WriteByte(1));
+				Assert.Throws<NotSupportedException>(() => cachingStream.BeginWrite(new byte[1], 0, 1, null, null));
 			}
 		}
 
