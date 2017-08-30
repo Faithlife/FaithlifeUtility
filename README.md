@@ -10,7 +10,7 @@ Ubuntu | Windows | NuGet
 
 ## Documentation
 
-http://faithlife.github.io/FaithlifeUtility/
+https://faithlife.github.io/FaithlifeUtility/
 
 ## License
 
