@@ -46,19 +46,6 @@ namespace Faithlife.Utility.Tests
 		}
 
 		[Test]
-		public void AppendBadArguments()
-		{
-			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.Append(default(IEnumerable<int>), 1));
-		}
-
-		[Test]
-		public void Append()
-		{
-			CollectionAssert.AreEqual(new[] { 1, 2, 3, 4 }, new[] { 1, 2, 3 }.Append(4));
-			CollectionAssert.AreEqual(new[] { "test", null, "hello", null }, new[] { "test", null, "hello" }.Append(null));
-		}
-
-		[Test]
 		public void GivenBadArgumentsWhenCallingAppendIfNotAlreadyPresentShouldThrow()
 		{
 			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.AppendIfNotAlreadyPresent(default(IEnumerable<int>), 1).ToList());
@@ -920,19 +907,6 @@ namespace Faithlife.Utility.Tests
 			}
 
 			readonly int m_size;
-		}
-
-		[Test]
-		public void PrependBadArguments()
-		{
-			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.Prepend(default(IEnumerable<int>), 1));
-		}
-
-		[Test]
-		public void Prepend()
-		{
-			CollectionAssert.AreEqual(new[] { 1, 2, 3, 4 }, new[] { 2, 3, 4 }.Prepend(1));
-			CollectionAssert.AreEqual(new[] { null, "test", null, "hello" }, new[] { "test", null, "hello" }.Prepend(null));
 		}
 
 		[Test]

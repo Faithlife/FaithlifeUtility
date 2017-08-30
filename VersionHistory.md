@@ -9,6 +9,7 @@ Prefix the description of the change with `[major]`, `[minor]` or `[patch]` in a
 
 * [minor] Support `netstandard2.0`
 * [patch] Support `BeginRead`, `BeginWrite`, `EndRead`, `EndWrite` in `WrappingStream`, `ReadOnlyStream`, `CachingStream`, `TruncatedStream`.
+* [minor] Remove `EnumerableUtility.Append` and `.Prepend`. Equivalent methods exist in .NET Standard 1.6.
 
 ## Released
 
