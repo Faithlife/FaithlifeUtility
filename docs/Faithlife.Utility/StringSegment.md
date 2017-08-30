@@ -3,7 +3,7 @@
 Encapsulates a length of characters from a string starting at a particular offset.
 
 ```csharp
-public struct StringSegment : IEnumerable<char>, IEquatable<StringSegment>, IComparable<StringSegment>
+public struct StringSegment : IComparable<StringSegment>, IEnumerable<char>, IEquatable<StringSegment>
 ```
 
 ## Public Members
