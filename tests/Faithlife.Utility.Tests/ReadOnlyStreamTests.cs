@@ -89,9 +89,11 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void Write()
 		{
-			Assert.Throws<NotSupportedException>(delegate() { m_stream.Write(m_abyStreamData, 0, 1); });
-			Assert.Throws<NotSupportedException>(delegate() { m_stream.WriteByte(0); });
-			Assert.Throws<NotSupportedException>(delegate() { m_stream.SetLength(0); });
+			Assert.Throws<NotSupportedException>(delegate { m_stream.Write(m_abyStreamData, 0, 1); });
+			Assert.Throws<NotSupportedException>(delegate { m_stream.WriteByte(0); });
+			Assert.Throws<NotSupportedException>(delegate { m_stream.BeginWrite(m_abyStreamData, 0, 1, null, null); });
+			Assert.Throws<NotSupportedException>(delegate { m_stream.EndWrite(null); });
+			Assert.Throws<NotSupportedException>(delegate { m_stream.SetLength(0); });
 		}
 
 		private Stream m_memStream;
