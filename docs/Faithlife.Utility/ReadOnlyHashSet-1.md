@@ -3,7 +3,7 @@
 Implements a read-only wrapper around a HashSet.
 
 ```csharp
-public sealed class ReadOnlyHashSet<T> : ISet<T>, IReadOnlyCollection<T>
+public sealed class ReadOnlyHashSet<T> : IReadOnlyCollection<T>, ISet<T>
 ```
 
 | parameter | description |

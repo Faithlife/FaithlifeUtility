@@ -1,4 +1,4 @@
-#tool "nuget:?package=XmlDocMarkdown&version=0.5.3"
+#tool "nuget:?package=XmlDocMarkdown&version=0.5.4"
 
 using System.Text.RegularExpressions;
 
