@@ -1,6 +1,6 @@
 # Faithlife.Utility
 
-Description
+Common .NET utility code in use at [Faithlife](http://faithlife.codes).
 
 ## Build Status
 

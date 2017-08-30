@@ -1,6 +1,6 @@
 # Faithlife.Utility
 
-**Faithlife.Utility** description
+**Faithlife.Utility** contains common .NET utility code in use at [Faithlife](http://faithlife.codes).
 
 ## Installation
 
