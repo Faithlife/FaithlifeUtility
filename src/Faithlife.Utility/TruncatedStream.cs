@@ -47,6 +47,42 @@ namespace Faithlife.Utility
 			set { m_offset = base.Position = value; }
 		}
 
+#if !NETSTANDARD1_4
+		/// <summary>
+		/// Starts an asynchronous read.
+		/// </summary>
+		public override IAsyncResult BeginRead(byte[] buffer, int offset, int count, AsyncCallback callback, object state)
+		{
+			return base.BeginRead(buffer, offset, TruncateCount(count), callback, state);
+		}
+
+		/// <summary>
+		/// Throws an exception; writes are not supported.
+		/// </summary>
+		public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback, object state)
+		{
+			throw CreateWriteNotSupportedException();
+		}
+
+		/// <summary>
+		/// Finishes an asynchronous read.
+		/// </summary>
+		public override int EndRead(IAsyncResult asyncResult)
+		{
+			int byteCount = base.EndRead(asyncResult);
+			m_offset += byteCount;
+			return byteCount;
+		}
+
+		/// <summary>
+		/// Throws an exception; writes are not supported.
+		/// </summary>
+		public override void EndWrite(IAsyncResult asyncResult)
+		{
+			throw CreateWriteNotSupportedException();
+		}
+#endif
+
 		/// <summary>
 		/// Reads from the stream.
 		/// </summary>
