@@ -1,0 +1,34 @@
+using System;
+
+namespace Faithlife.Utility
+{
+	/// <summary>
+	/// Provides helper methods for working with <see cref="UriBuilder"/>.
+	/// </summary>
+	public static class UriBuilderUtility
+	{
+		/// <summary>
+		/// Appends the specified string to the end of the <see cref="UriBuilder.Query"/>.
+		/// </summary>
+		/// <param name="builder">The <see cref="UriBuilder"/>.</param>
+		/// <param name="query">The query parameter (name and value) to add; this string should not begin with '&amp;'.</param>
+		public static UriBuilder AppendQuery(this UriBuilder builder, string query)
+		{
+			if (query == null)
+				throw new ArgumentNullException("query");
+
+			if (query.Length > 0)
+			{
+				// NOTE: From http://msdn.microsoft.com/en-us/library/system.uribuilder.query.aspx:
+				// Do not append a string directly to this property. If the length of Query is greater than 1, retrieve the property value as a string,
+				// remove the leading question mark, append the new query string, and set the property with the combined string.
+				if (builder.Query != null && builder.Query.Length > 1)
+					builder.Query = builder.Query.Substring(1) + "&" + query;
+				else
+					builder.Query = query;
+			}
+
+			return builder;
+		}
+	}
+}
