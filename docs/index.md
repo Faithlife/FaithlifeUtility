@@ -1,12 +1,12 @@
-# ProjectName
+# Faithlife.Utility
 
-**ProjectName** description
+**Faithlife.Utility** description
 
 ## Installation
 
-ProjectName should be installed [via NuGet](https://www.nuget.org/packages/ProjectName).
+Faithlife.Utility should be installed [via NuGet](https://www.nuget.org/packages/Faithlife.Utility).
 
 ## Documentation
 
-* [Reference Documentation](ProjectName.md)
+* [Reference Documentation](Faithlife.Utility.md)
 

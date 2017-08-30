@@ -9,4 +9,4 @@ before_install:
 - sudo apt-get install dotnet-sdk-2.0.0
 
 script:
-- dotnet test tests/ProjectName.Tests -c Release /p:SourceLinkCreate=false /p:SourceLinkTest=false
+- dotnet test tests/Faithlife.Utility.Tests -c Release /p:SourceLinkCreate=false /p:SourceLinkTest=false

@@ -2,9 +2,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectName", "src\ProjectName\ProjectName.csproj", "{E1BF8BA1-9E9D-4E27-83FC-777B8D14F806}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faithlife.Utility", "src\Faithlife.Utility\Faithlife.Utility.csproj", "{E1BF8BA1-9E9D-4E27-83FC-777B8D14F806}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectName.Tests", "tests\ProjectName.Tests\ProjectName.Tests.csproj", "{DF559AD1-5287-43B1-AB47-61B6F342B0FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faithlife.Utility.Tests", "tests\Faithlife.Utility.Tests\Faithlife.Utility.Tests.csproj", "{DF559AD1-5287-43B1-AB47-61B6F342B0FE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{028A6C6D-8F8F-4A91-A063-45FFCF892109}"
 	ProjectSection(SolutionItems) = preProject
