@@ -14,6 +14,10 @@ public sealed class TruncatedStream : WrappingStream
 | override [CanWrite](TruncatedStream/CanWrite.md) { get; } | Returns false; writes are not supported. |
 | override [Length](TruncatedStream/Length.md) { get; } | Returns the (truncated) length of the stream. |
 | override [Position](TruncatedStream/Position.md) { get; set; } | The current position in the stream. |
+| override [BeginRead](TruncatedStream/BeginRead.md)(…) | Starts an asynchronous read. |
+| override [BeginWrite](TruncatedStream/BeginWrite.md)(…) | Throws an exception; writes are not supported. |
+| override [EndRead](TruncatedStream/EndRead.md)(…) | Finishes an asynchronous read. |
+| override [EndWrite](TruncatedStream/EndWrite.md)(…) | Throws an exception; writes are not supported. |
 | override [Read](TruncatedStream/Read.md)(…) | Reads from the stream. |
 | override [ReadAsync](TruncatedStream/ReadAsync.md)(…) | Reads from the stream asynchronously. |
 | override [ReadByte](TruncatedStream/ReadByte.md)() | Reads a byte from the stream. |
