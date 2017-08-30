@@ -1,6 +1,5 @@
 #tool "nuget:?package=XmlDocMarkdown&version=0.5.3"
 
-using System.Globalization;
 using System.Text.RegularExpressions;
 
 var target = Argument("target", "Default");
@@ -106,14 +105,14 @@ void GenerateDocs(string docsAssembly, string docsSourceUri, bool verify)
 	if (exitCode == 1 && verify)
 		throw new InvalidOperationException("Generated docs don't match; use -target=GenerateDocs to regenerate.");
 	else if (exitCode != 0)
-		throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "Docs generation failed with exit code {0}.", exitCode));
+		throw new InvalidOperationException(string.Format("Docs generation failed with exit code {0}.", exitCode));
 }
 
 void ExecuteProcess(string exePath, string arguments)
 {
 	int exitCode = StartProcess(exePath, arguments);
 	if (exitCode != 0)
-		throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "{0} failed with exit code {1}.", exePath, exitCode));
+		throw new InvalidOperationException(string.Format("{0} failed with exit code {1}.", exePath, exitCode));
 }
 
 RunTarget(target);
