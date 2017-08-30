@@ -1,13 +1,8 @@
 using System;
 using System.IO;
 using System.Linq;
-#if !MAC
 using System.Threading;
 using System.Threading.Tasks;
-#endif
-#if __MOBILE__
-
-#endif
 using NUnit.Framework;
 
 namespace Faithlife.Utility.Tests
@@ -59,16 +54,20 @@ namespace Faithlife.Utility.Tests
 			Assert.IsFalse(m_stream.CanSeek);
 			Assert.IsFalse(m_stream.CanWrite);
 
-			Assert.Throws<ObjectDisposedException>(delegate() { long i = m_stream.Length; });
-			Assert.Throws<ObjectDisposedException>(delegate() { long i = m_stream.Position; });
-			Assert.Throws<ObjectDisposedException>(delegate() { m_stream.Position = 0; });
-			Assert.Throws<ObjectDisposedException>(delegate() { m_stream.Flush(); });
-			Assert.Throws<ObjectDisposedException>(delegate() { m_stream.Read(new byte[1], 0, 1); });
-			Assert.Throws<ObjectDisposedException>(delegate() { m_stream.ReadByte(); });
-			Assert.Throws<ObjectDisposedException>(delegate() { m_stream.Write(new byte[1], 0, 1); });
-			Assert.Throws<ObjectDisposedException>(delegate() { m_stream.WriteByte(0); });
-			Assert.Throws<ObjectDisposedException>(delegate() { m_stream.Seek(0, SeekOrigin.Begin); });
-			Assert.Throws<ObjectDisposedException>(delegate() { m_stream.SetLength(16); });
+			Assert.Throws<ObjectDisposedException>(delegate { long i = m_stream.Length; });
+			Assert.Throws<ObjectDisposedException>(delegate { long i = m_stream.Position; });
+			Assert.Throws<ObjectDisposedException>(delegate { m_stream.Position = 0; });
+			Assert.Throws<ObjectDisposedException>(delegate { m_stream.BeginRead(new byte[1], 0, 1, null, null); });
+			Assert.Throws<ObjectDisposedException>(delegate { m_stream.EndRead(null); });
+			Assert.Throws<ObjectDisposedException>(delegate { m_stream.BeginWrite(new byte[1], 0, 1, null, null); });
+			Assert.Throws<ObjectDisposedException>(delegate { m_stream.EndWrite(null); });
+			Assert.Throws<ObjectDisposedException>(delegate { m_stream.Flush(); });
+			Assert.Throws<ObjectDisposedException>(delegate { m_stream.Read(new byte[1], 0, 1); });
+			Assert.Throws<ObjectDisposedException>(delegate { m_stream.ReadByte(); });
+			Assert.Throws<ObjectDisposedException>(delegate { m_stream.Write(new byte[1], 0, 1); });
+			Assert.Throws<ObjectDisposedException>(delegate { m_stream.WriteByte(0); });
+			Assert.Throws<ObjectDisposedException>(delegate { m_stream.Seek(0, SeekOrigin.Begin); });
+			Assert.Throws<ObjectDisposedException>(delegate { m_stream.SetLength(16); });
 		}
 
 		[Test]
@@ -77,13 +76,11 @@ namespace Faithlife.Utility.Tests
 			m_stream.Flush();
 		}
 
-#if !MAC && !__MOBILE__
 		[Test]
 		public async Task FlushAsync()
 		{
 			await m_stream.FlushAsync().ConfigureAwait(false);
 		}
-#endif
 
 		[Test]
 		public void Read()
@@ -91,6 +88,16 @@ namespace Faithlife.Utility.Tests
 			m_stream.Position = 0;
 			byte[] aby = new byte[s_abyStreamData.Length];
 			Assert.AreEqual(aby.Length, m_stream.Read(aby, 0, aby.Length));
+			CollectionAssert.AreEqual(s_abyStreamData, aby);
+		}
+
+		[Test]
+		public void BeginRead()
+		{
+			m_stream.Position = 0;
+			byte[] aby = new byte[s_abyStreamData.Length];
+			IAsyncResult ar = m_stream.BeginRead(aby, 0, 8, null, null);
+			Assert.AreEqual(aby.Length, m_stream.EndRead(ar));
 			CollectionAssert.AreEqual(s_abyStreamData, aby);
 		}
 
@@ -146,6 +153,14 @@ namespace Faithlife.Utility.Tests
 		}
 
 		[Test]
+		public void BeginWrite()
+		{
+			IAsyncResult ar = m_stream.BeginWrite(s_abyStreamData, 0, s_abyStreamData.Length, null, null);
+			m_stream.EndWrite(ar);
+			VerifyWrite();
+		}
+
+		[Test]
 		public async Task WriteAsync()
 		{
 			await m_stream.WriteAsync(s_abyStreamData, 0, s_abyStreamData.Length, CancellationToken.None).ConfigureAwait(false);
@@ -183,6 +198,6 @@ namespace Faithlife.Utility.Tests
 		Stream m_memStream;
 		Stream m_stream;
 
-		static readonly byte[] s_abyStreamData = new byte[] { 0, 1, 2, 3, 4, 5, 6, 7 };
+		static readonly byte[] s_abyStreamData = { 0, 1, 2, 3, 4, 5, 6, 7 };
 	}
 }

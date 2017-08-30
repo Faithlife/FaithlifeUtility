@@ -61,6 +61,30 @@ namespace Faithlife.Utility
 			set => WrappedStream.Position = value;
 		}
 
+#if !NETSTANDARD1_4
+		/// <summary>
+		/// Begins an asynchronous read operation.
+		/// </summary>
+		public override IAsyncResult BeginRead(byte[] buffer, int offset, int count, AsyncCallback callback, object state) =>
+			WrappedStream.BeginRead(buffer, offset, count, callback, state);
+
+		/// <summary>
+		/// Begins an asynchronous write operation.
+		/// </summary>
+		public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback, object state) =>
+			WrappedStream.BeginWrite(buffer, offset, count, callback, state);
+
+		/// <summary>
+		/// Waits for the pending asynchronous read to complete.
+		/// </summary>
+		public override int EndRead(IAsyncResult asyncResult) => WrappedStream.EndRead(asyncResult);
+
+		/// <summary>
+		/// Ends an asynchronous write operation.
+		/// </summary>
+		public override void EndWrite(IAsyncResult asyncResult) => WrappedStream.EndWrite(asyncResult);
+#endif
+
 		/// <summary>
 		/// Clears all buffers for this stream and causes any buffered data to be written to the underlying device.
 		/// </summary>
