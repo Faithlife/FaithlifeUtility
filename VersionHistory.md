@@ -7,10 +7,12 @@ is updated in preparation for publishing an updated NuGet package.
 
 Prefix the description of the change with `[major]`, `[minor]` or `[patch]` in accordance with [SemVer](http://semver.org).
 
-* [major] **Breaking** Remove `EnumerableUtility.ToReadOnlyCollection`.
-* [minor] Add `EnumerableUtility.AsReadOnlyList`.
-
 ## Released
+
+### 0.3.0
+
+* **Breaking** Remove `EnumerableUtility.ToReadOnlyCollection`.
+* Add `EnumerableUtility.AsReadOnlyList`.
 
 ### 0.2.0
 
