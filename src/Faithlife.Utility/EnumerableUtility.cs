@@ -179,14 +179,14 @@ namespace Faithlife.Utility
 		{
 			if (sequences == null)
 				throw new ArgumentNullException("sequences");
-			var collections = sequences.Select(x => x.ToReadOnlyCollection()).ToReadOnlyCollection();
+			var collections = sequences.Select(x => x.AsReadOnlyList()).AsReadOnlyList();
 			if (collections.Count == 0)
 				throw new ArgumentException("There must be at least one sequence.", "sequences");
 
 			return DoCrossProduct(collections);
 		}
 
-		private static IEnumerable<IEnumerable<T>> DoCrossProduct<T>(ReadOnlyCollection<ReadOnlyCollection<T>> collections)
+		private static IEnumerable<IEnumerable<T>> DoCrossProduct<T>(IReadOnlyList<IReadOnlyList<T>> collections)
 		{
 			var indexes = new int[collections.Count];
 			var lengths = collections.Select(x => x.Count).ToArray();
@@ -970,24 +970,25 @@ namespace Faithlife.Utility
 				queue.Enqueue(item);
 			}
 
-			return queue.ToReadOnlyCollection();
+			return queue.ToList().AsReadOnly();
 		}
 
 		/// <summary>
-		/// Represents the sequence as a <see cref="ReadOnlyCollection{T}"/>.
+		/// Represents the sequence as an <see cref="IReadOnlyList{T}"/>.
 		/// </summary>
-		/// <typeparam name="T">The type of the element.</typeparam>
-		/// <param name="seq">The sequence.</param>
-		/// <returns>An <see cref="ReadOnlyCollection{T}"/> containing the items in the sequence.</returns>
-		/// <remarks>If the sequence is an <see cref="IList{T}"/>, a <see cref="ReadOnlyCollection{T}"/> is
-		/// created to wrap it. Otherwise, the sequence is copied into a <see cref="IList{T}"/> and then wrapped
-		/// in a <see cref="ReadOnlyCollection{T}"/>. This method is useful for forcing evaluation of a potentially
-		/// lazy sequence while retaining reasonable performance for sequences that are already an
-		/// <see cref="IList{T}"/>.</remarks>
-		public static ReadOnlyCollection<T> ToReadOnlyCollection<T>(this IEnumerable<T> seq)
-		{
-			return seq as ReadOnlyCollection<T> ?? (seq as IList<T> ?? seq.ToList()).AsReadOnly();
-		}
+		/// <typeparam name="T">The type of items in the collection.</typeparam>
+		/// <param name="sequence">The sequence.</param>
+		/// <returns>An <see cref="IReadOnlyList{T}"/> containing the items in the sequence.</returns>
+		/// <remarks>If the sequence is an <see cref="IReadOnlyList{T}"/>, it is returned directly.
+		/// If it is an <see cref="IList{T}"/>, an adapter is created to wrap it. Otherwise, the sequence
+		/// is copied into a <see cref="List{T}"/> and then wrapped in a <see cref="ReadOnlyCollection{T}"/>.
+		/// This method is useful for forcing evaluation of a potentially lazy sequence while retaining reasonable
+		/// performance for sequences that are already an <see cref="IReadOnlyList{T}"/> or <see cref="IList{T}"/>.</remarks>
+		public static IReadOnlyList<T> AsReadOnlyList<T>(this IEnumerable<T> sequence) =>
+			sequence as IReadOnlyList<T> ??
+				(sequence is IList<T> list ?
+					(IReadOnlyList<T>) new ReadOnlyListAdapter<T>(list) :
+					sequence.ToList().AsReadOnly());
 
 		/// <summary>
 		/// Returns a new set of the elements in the specified sequence.

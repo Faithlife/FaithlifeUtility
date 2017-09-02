@@ -973,30 +973,38 @@ namespace Faithlife.Utility.Tests
 		}
 
 		[Test]
-		public void ReadOnlyCollectionToReadOnlyCollection()
+		public void ListAsReadOnlyList()
 		{
-			// ToReadOnlyCollection should not rewrap a ReadOnlyCollection
+			// AsReadOnlyList should not rewrap a List
 			List<int> list = new List<int> { 1, 2 };
-			IEnumerable<int> readOnlyList = new ReadOnlyCollection<int>(list);
-			Assert.AreSame(readOnlyList, readOnlyList.ToReadOnlyCollection());
+			Assert.AreSame(list, list.AsReadOnlyList());
 		}
 
 		[Test]
-		public void ListToReadOnlyCollection()
+		public void ReadOnlyCollectionAsReadOnlyList()
 		{
-			// ToReadOnlyCollection should not duplicate an IList
-			List<int> list = new List<int> { 1, 2 };
-			ReadOnlyCollection<int> readOnlyList = list.ToReadOnlyCollection();
+			// AsReadOnlyList should not rewrap a ReadOnlyCollection
+			var list = new List<int> { 1, 2 };
+			IEnumerable<int> readOnlyList = new ReadOnlyCollection<int>(list);
+			Assert.AreSame(readOnlyList, readOnlyList.AsReadOnlyList());
+		}
+
+		[Test]
+		public void MutateListAsReadOnlyList()
+		{
+			// AsReadOnlyList does not guarantee that the collection can't be mutated by someone else
+			var list = new List<int> { 1, 2 };
+			var readOnlyList = list.AsReadOnlyList();
 			list.Add(3);
 			Assert.AreEqual(3, readOnlyList.Count);
 		}
 
 		[Test]
-		public void DictionaryToReadOnlyCollection()
+		public void DictionaryAsReadOnlyList()
 		{
-			// ToReadOnlyCollection must duplicate a non-IList
-			Dictionary<int, int> dictionary = new Dictionary<int, int> { { 2, 4 } };
-			ReadOnlyCollection<KeyValuePair<int, int>> readOnlyList = dictionary.ToReadOnlyCollection();
+			// AsReadOnlyList must duplicate a non-IList
+			var dictionary = new Dictionary<int, int> { { 2, 4 } };
+			IReadOnlyList<KeyValuePair<int, int>> readOnlyList = dictionary.AsReadOnlyList();
 			dictionary.Add(3, 9);
 			Assert.AreEqual(1, readOnlyList.Count);
 			Assert.AreEqual(new KeyValuePair<int, int>(2, 4), readOnlyList[0]);

@@ -12,6 +12,7 @@ public static class EnumerableUtility
 | --- | --- |
 | static [AppendIfNotAlreadyPresent&lt;T&gt;](EnumerableUtility/AppendIfNotAlreadyPresent.md)(…) | Returns a new sequence that conditionally has the specified item appended to the end (appended iff it doesn't equal an existing sequence item) |
 | static [AreEqual&lt;T&gt;](EnumerableUtility/AreEqual.md)(…) | Returns a value indicating whether the specified sequences are equal. Supports one or both sequences being null. (3 methods) |
+| static [AsReadOnlyList&lt;T&gt;](EnumerableUtility/AsReadOnlyList.md)(…) | Represents the sequence as an IReadOnlyList. |
 | static [AsSet&lt;T&gt;](EnumerableUtility/AsSet.md)(…) | Returns a set of the elements in the specified sequence. |
 | static [CountIsAtLeast&lt;T&gt;](EnumerableUtility/CountIsAtLeast.md)(…) | Returns true if the count is greater than or equal to the specified value. |
 | static [CountIsExactly&lt;T&gt;](EnumerableUtility/CountIsExactly.md)(…) | Returns true if the count is as specified. |
@@ -46,7 +47,6 @@ public static class EnumerableUtility
 | static [SequenceHashCode&lt;T&gt;](EnumerableUtility/SequenceHashCode.md)(…) | Gets the hash code for a sequence. (2 methods) |
 | static [SplitIntoBins&lt;T&gt;](EnumerableUtility/SplitIntoBins.md)(…) | Splits the *seq* sequence into *nBinCount* equal-sized bins. If *nBinCount* does not evenly divide the total element count, then the first (total count % *nBinCount*) bins will have one more element than the following bins. |
 | static [TakeLast&lt;T&gt;](EnumerableUtility/TakeLast.md)(…) | Returns the specified number of items from the end of the sequence. |
-| static [ToReadOnlyCollection&lt;T&gt;](EnumerableUtility/ToReadOnlyCollection.md)(…) | Represents the sequence as a ReadOnlyCollection. |
 | static [ToSet&lt;T&gt;](EnumerableUtility/ToSet.md)(…) | Returns a new set of the elements in the specified sequence. (2 methods) |
 | static [ToStrings](EnumerableUtility/ToStrings.md)(…) | Converts the sequence to a sequence of strings by calling ToString on each item. |
 | static [ToStrings&lt;T&gt;](EnumerableUtility/ToStrings.md)(…) | Converts the sequence to a sequence of strings by calling ToString on each item. |
