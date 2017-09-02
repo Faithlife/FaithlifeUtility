@@ -13,6 +13,7 @@
     <PackageProjectUrl>https://github.com/Faithlife/FaithlifeUtility</PackageProjectUrl>
     <PackageReleaseNotes>https://github.com/Faithlife/FaithlifeUtility/VersionHistory.md</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/Faithlife/FaithlifeUtility.git</RepositoryUrl>
+    <Description>Common .NET utility code in use at Faithlife</Description>
     <Authors>Faithlife Corporation</Authors>
     <Copyright>Copyright 2017 Faithlife Corporation</Copyright>
     <SourceLinkUrl>https://raw.githubusercontent.com/Faithlife/FaithlifeUtility/{commit}/*</SourceLinkUrl>
