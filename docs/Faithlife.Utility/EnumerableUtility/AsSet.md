@@ -3,13 +3,13 @@
 Returns a set of the elements in the specified sequence.
 
 ```csharp
-public static ISet<T> AsSet<T>(this IEnumerable<T> seq)
+public static ISet<T> AsSet<T>(this IEnumerable<T> sequence)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type of element in the source sequence. |
-| seq | The sequence. |
+| sequence | The sequence. |
 
 ## Return Value
 

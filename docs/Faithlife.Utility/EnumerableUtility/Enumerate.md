@@ -3,12 +3,12 @@
 Enumerates the specified argument.
 
 ```csharp
-public static IEnumerable<T> Enumerate<T>(T arg)
+public static IEnumerable<T> Enumerate<T>(T item)
 ```
 
 | parameter | description |
 | --- | --- |
-| arg | The argument to enumerate. |
+| item | The argument to enumerate. |
 
 ## Return Value
 
@@ -24,7 +24,7 @@ The enumerated arguments.
 # EnumerableUtility.Enumerate&lt;T&gt; method (2 of 2)
 
 ```csharp
-public static IEnumerable<T> Enumerate<T>(T[] args)
+public static IEnumerable<T> Enumerate<T>(T[] items)
 ```
 
 ## See Also

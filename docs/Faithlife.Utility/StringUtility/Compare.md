@@ -3,13 +3,13 @@
 Compares two specified String objects, ignoring or honoring their case, and using culture-specific information to influence the comparison, and returns an integer that indicates their relative position in the sort order.
 
 ```csharp
-public static int Compare(string strLeft, string strRight, bool ignoreCase, CultureInfo cultureInfo)
+public static int Compare(string left, string right, bool ignoreCase, CultureInfo cultureInfo)
 ```
 
 | parameter | description |
 | --- | --- |
-| strLeft | The first string to compare. |
-| strRight | The second string to compare. |
+| left | The first string to compare. |
+| right | The second string to compare. |
 | ignoreCase | `true` to ignore case during the comparison; otherwise, `false`. |
 | cultureInfo | An object that supplies culture-specific comparison information. |
 
@@ -29,16 +29,16 @@ A 32-bit signed integer that indicates the lexical relationship between the two 
 Compares two specified String objects, ignoring or honoring their case, and using culture-specific information to influence the comparison, and returns an integer that indicates their relative position in the sort order.
 
 ```csharp
-public static int Compare(string strLeft, int offsetLeft, string strRight, int offsetRight, int length, 
+public static int Compare(string left, int offsetLeft, string right, int offsetRight, int length, 
     bool ignoreCase, CultureInfo cultureInfo)
 ```
 
 | parameter | description |
 | --- | --- |
-| strLeft | The first string to compare. |
-| offsetLeft | The position of the substring within *strLeft*. |
-| strRight | The second string to compare. |
-| offsetRight | The position of the substring within *strRight*. |
+| left | The first string to compare. |
+| offsetLeft | The position of the substring within *left*. |
+| right | The second string to compare. |
+| offsetRight | The position of the substring within *right*. |
 | length | The maximum number of characters in the substrings to compare. |
 | ignoreCase | `true` to ignore case during the comparison; otherwise, `false`. |
 | cultureInfo | An object that supplies culture-specific comparison information. |

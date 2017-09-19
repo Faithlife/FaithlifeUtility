@@ -10,7 +10,7 @@ public static class TimeSpanUtility
 
 | name | description |
 | --- | --- |
-| static [FormatForLogging](TimeSpanUtility/FormatForLogging.md)(…) | Formats *ts* as a concise string suitable for logging; the precision of the returned string (which is not culture-sensitive) depends on the duration of the TimeSpan. |
+| static [FormatForLogging](TimeSpanUtility/FormatForLogging.md)(…) | Formats *timeSpan* as a concise string suitable for logging; the precision of the returned string (which is not culture-sensitive) depends on the duration of the TimeSpan. |
 
 ## See Also
 

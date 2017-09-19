@@ -3,13 +3,13 @@
 Returns a new set of the elements in the specified sequence.
 
 ```csharp
-public static HashSet<T> ToSet<T>(this IEnumerable<T> seq)
+public static HashSet<T> ToSet<T>(this IEnumerable<T> sequence)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type of element in the source sequence. |
-| seq | The sequence. |
+| sequence | The sequence. |
 
 ## Return Value
 
@@ -37,13 +37,13 @@ AsSet{T}
 Returns a set of the elements in the specified sequence, using the specified equality comparer.
 
 ```csharp
-public static HashSet<T> ToSet<T>(this IEnumerable<T> seq, IEqualityComparer<T> comparer)
+public static HashSet<T> ToSet<T>(this IEnumerable<T> sequence, IEqualityComparer<T> comparer)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type of element in the source sequence. |
-| seq | The sequence. |
+| sequence | The sequence. |
 | comparer | The equality comparer. |
 
 ## Return Value

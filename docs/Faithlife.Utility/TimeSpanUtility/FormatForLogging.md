@@ -1,14 +1,14 @@
 # TimeSpanUtility.FormatForLogging method
 
-Formats *ts* as a concise string suitable for logging; the precision of the returned string (which is not culture-sensitive) depends on the duration of the TimeSpan.
+Formats *timeSpan* as a concise string suitable for logging; the precision of the returned string (which is not culture-sensitive) depends on the duration of the TimeSpan.
 
 ```csharp
-public static string FormatForLogging(TimeSpan ts)
+public static string FormatForLogging(TimeSpan timeSpan)
 ```
 
 | parameter | description |
 | --- | --- |
-| ts | The TimeSpan to render. |
+| timeSpan | The TimeSpan to render. |
 
 ## Return Value
 

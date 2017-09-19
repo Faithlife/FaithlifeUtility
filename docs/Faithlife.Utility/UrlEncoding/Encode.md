@@ -3,12 +3,12 @@
 Encodes a string with the default settings.
 
 ```csharp
-public static string Encode(string str)
+public static string Encode(string value)
 ```
 
 | parameter | description |
 | --- | --- |
-| str | The string to encode. |
+| value | The string to encode. |
 
 ## Return Value
 
@@ -26,12 +26,12 @@ The encoded string.
 Encodes a string with the specified settings.
 
 ```csharp
-public static string Encode(string str, UrlEncodingSettings settings)
+public static string Encode(string value, UrlEncodingSettings settings)
 ```
 
 | parameter | description |
 | --- | --- |
-| str | The string to encode. |
+| value | The string to encode. |
 | settings | The settings to use when encoding. |
 
 ## Return Value

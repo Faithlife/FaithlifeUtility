@@ -3,12 +3,12 @@
 Returns `true` if the sequence is null or contains no elements.
 
 ```csharp
-public static bool IsNullOrEmpty(this IEnumerable seq)
+public static bool IsNullOrEmpty(this IEnumerable sequence)
 ```
 
 | parameter | description |
 | --- | --- |
-| seq | The sequence. |
+| sequence | The sequence. |
 
 ## Return Value
 
@@ -26,12 +26,12 @@ public static bool IsNullOrEmpty(this IEnumerable seq)
 Returns `true` if the sequence is null or contains no elements.
 
 ```csharp
-public static bool IsNullOrEmpty<T>(this IEnumerable<T> seq)
+public static bool IsNullOrEmpty<T>(this IEnumerable<T> sequence)
 ```
 
 | parameter | description |
 | --- | --- |
-| seq | The sequence. |
+| sequence | The sequence. |
 
 ## Return Value
 

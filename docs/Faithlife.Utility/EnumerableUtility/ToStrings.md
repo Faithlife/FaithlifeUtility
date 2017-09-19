@@ -3,12 +3,12 @@
 Converts the sequence to a sequence of strings by calling ToString on each item.
 
 ```csharp
-public static IEnumerable<string> ToStrings(this IEnumerable seq)
+public static IEnumerable<string> ToStrings(this IEnumerable sequence)
 ```
 
 | parameter | description |
 | --- | --- |
-| seq | The sequence. |
+| sequence | The sequence. |
 
 ## Return Value
 
@@ -26,12 +26,12 @@ A sequence of strings.
 Converts the sequence to a sequence of strings by calling ToString on each item.
 
 ```csharp
-public static IEnumerable<string> ToStrings<T>(this IEnumerable<T> seq)
+public static IEnumerable<string> ToStrings<T>(this IEnumerable<T> sequence)
 ```
 
 | parameter | description |
 | --- | --- |
-| seq | The sequence. |
+| sequence | The sequence. |
 
 ## Return Value
 

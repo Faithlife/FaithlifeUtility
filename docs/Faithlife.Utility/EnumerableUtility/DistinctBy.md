@@ -3,15 +3,15 @@
 Returns distinct elements from a sequence based on a key by using the default equality comparer.
 
 ```csharp
-public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> seq, Func<TSource, TKey> fnKeySelector)
+public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> sequence, Func<TSource, TKey> keySelector)
 ```
 
 | parameter | description |
 | --- | --- |
 | TSource | The type of the object in the sequence. |
 | TKey | The type of the key used for equality comparison. |
-| seq | The sequence to remove duplicate objects from. |
-| fnKeySelector | The function that determines the key. |
+| sequence | The sequence to remove duplicate objects from. |
+| keySelector | The function that determines the key. |
 
 ## Return Value
 
@@ -29,16 +29,16 @@ An IEnumerable that contains distinct elements from the source sequence.
 Returns distinct elements from a sequence based on a key by using a specified IEqualityComparer to compare values.
 
 ```csharp
-public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> seq, 
-    Func<TSource, TKey> fnKeySelector, IEqualityComparer<TKey> equalityComparer)
+public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> sequence, 
+    Func<TSource, TKey> keySelector, IEqualityComparer<TKey> equalityComparer)
 ```
 
 | parameter | description |
 | --- | --- |
 | TSource | The type of the object in the sequence. |
 | TKey | The type of the key used for equality comparison. |
-| seq | The sequence to remove duplicate objects from. |
-| fnKeySelector | The function that determines the key. |
+| sequence | The sequence to remove duplicate objects from. |
+| keySelector | The function that determines the key. |
 | equalityComparer | The IEqualityComparer used to compare keys; if `null`, the default comparer will be used. |
 
 ## Return Value

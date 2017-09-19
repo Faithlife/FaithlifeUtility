@@ -3,13 +3,13 @@
 Transforms the elements of a list in place.
 
 ```csharp
-public static IList<T> TransformInPlace<T>(this IList<T> list, Func<T, T> fn)
+public static IList<T> TransformInPlace<T>(this IList<T> list, Func<T, T> predicate)
 ```
 
 | parameter | description |
 | --- | --- |
 | list | The list. |
-| fn | The converter. |
+| predicate | The converter. |
 
 ## See Also
 

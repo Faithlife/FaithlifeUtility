@@ -3,13 +3,13 @@
 Enumerates the indices of all instances of the specified character in a string.
 
 ```csharp
-public static IEnumerable<int> GetIndexesOf(this string str, char ch)
+public static IEnumerable<int> GetIndexesOf(this string source, char character)
 ```
 
 | parameter | description |
 | --- | --- |
-| str | The string to search. |
-| ch | The character to find. |
+| source | The string to search. |
+| character | The character to find. |
 
 ## Return Value
 

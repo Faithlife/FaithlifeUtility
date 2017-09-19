@@ -3,13 +3,13 @@
 Enumerates a sequence of elements in batches.
 
 ```csharp
-public static IEnumerable<ReadOnlyCollection<T>> EnumerateBatches<T>(this IEnumerable<T> seq, Func<T, bool> startsNewBatch)
+public static IEnumerable<ReadOnlyCollection<T>> EnumerateBatches<T>(this IEnumerable<T> sequence, Func<T, bool> startsNewBatch)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type of object in the sequence. |
-| seq | The sequence of elements to process in batches. |
+| sequence | The sequence of elements to process in batches. |
 | startsNewBatch | Should return true if the item should start a new batch. |
 
 ## Return Value
@@ -32,14 +32,14 @@ The contents of each batch are eagerly enumerated, to avoid potential errors cau
 Enumerates a sequence of elements in batches.
 
 ```csharp
-public static IEnumerable<ReadOnlyCollection<T>> EnumerateBatches<T>(this IEnumerable<T> seq, int nBatchSize)
+public static IEnumerable<ReadOnlyCollection<T>> EnumerateBatches<T>(this IEnumerable<T> sequence, int batchSize)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type of object in the sequence. |
-| seq | The sequence of elements to process in batches. |
-| nBatchSize | The batch size. |
+| sequence | The sequence of elements to process in batches. |
+| batchSize | The batch size. |
 
 ## Return Value
 

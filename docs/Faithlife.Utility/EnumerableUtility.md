@@ -45,7 +45,7 @@ public static class EnumerableUtility
 | static [RangeTo&lt;T&gt;](EnumerableUtility/RangeTo.md)(…) | Returns a range of values. |
 | static [SequenceCompare&lt;T&gt;](EnumerableUtility/SequenceCompare.md)(…) | Compares two sequences. (2 methods) |
 | static [SequenceHashCode&lt;T&gt;](EnumerableUtility/SequenceHashCode.md)(…) | Gets the hash code for a sequence. (2 methods) |
-| static [SplitIntoBins&lt;T&gt;](EnumerableUtility/SplitIntoBins.md)(…) | Splits the *seq* sequence into *nBinCount* equal-sized bins. If *nBinCount* does not evenly divide the total element count, then the first (total count % *nBinCount*) bins will have one more element than the following bins. |
+| static [SplitIntoBins&lt;T&gt;](EnumerableUtility/SplitIntoBins.md)(…) | Splits the *sequence* sequence into *binCount* equal-sized bins. If *binCount* does not evenly divide the total element count, then the first (total count % *binCount*) bins will have one more element than the following bins. |
 | static [TakeLast&lt;T&gt;](EnumerableUtility/TakeLast.md)(…) | Returns the specified number of items from the end of the sequence. |
 | static [ToSet&lt;T&gt;](EnumerableUtility/ToSet.md)(…) | Returns a new set of the elements in the specified sequence. (2 methods) |
 | static [ToStrings](EnumerableUtility/ToStrings.md)(…) | Converts the sequence to a sequence of strings by calling ToString on each item. |

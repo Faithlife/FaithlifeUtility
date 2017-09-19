@@ -3,16 +3,16 @@
 Initializes a new instance of the [`StringSegment`](../StringSegment.md) class.
 
 ```csharp
-public StringSegment(string str)
+public StringSegment(string source)
 ```
 
 | parameter | description |
 | --- | --- |
-| str | The owner string. |
+| source | The source string. |
 
 ## Remarks
 
-Creates a segment that represents the entire owner string.
+Creates a segment that represents the entire source string.
 
 ## See Also
 
@@ -26,12 +26,12 @@ Creates a segment that represents the entire owner string.
 Initializes a new instance of the [`StringSegment`](../StringSegment.md) class.
 
 ```csharp
-public StringSegment(string str, Capture capture)
+public StringSegment(string source, Capture capture)
 ```
 
 | parameter | description |
 | --- | --- |
-| str | The owner string. |
+| source | The source string. |
 | capture | The Capture to represent. |
 
 ## See Also
@@ -46,13 +46,13 @@ public StringSegment(string str, Capture capture)
 Initializes a new instance of the [`StringSegment`](../StringSegment.md) class.
 
 ```csharp
-public StringSegment(string str, int nOffset)
+public StringSegment(string source, int offset)
 ```
 
 | parameter | description |
 | --- | --- |
-| str | The owner string. |
-| nOffset | The offset of the segment. |
+| source | The source string. |
+| offset | The offset of the segment. |
 
 ## Exceptions
 
@@ -62,7 +62,7 @@ public StringSegment(string str, int nOffset)
 
 ## Remarks
 
-Creates a segment that starts at the specified offset and continues to the end of the owner string.
+Creates a segment that starts at the specified offset and continues to the end of the source string.
 
 ## See Also
 
@@ -76,14 +76,14 @@ Creates a segment that starts at the specified offset and continues to the end o
 Initializes a new instance of the [`StringSegment`](../StringSegment.md) class.
 
 ```csharp
-public StringSegment(string str, int nOffset, int nLength)
+public StringSegment(string source, int offset, int length)
 ```
 
 | parameter | description |
 | --- | --- |
-| str | The owner string. |
-| nOffset | The offset of the segment. |
-| nLength | The length of the segment. |
+| source | The source string. |
+| offset | The offset of the segment. |
+| length | The length of the segment. |
 
 ## Exceptions
 

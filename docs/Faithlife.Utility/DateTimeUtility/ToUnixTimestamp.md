@@ -3,12 +3,12 @@
 Returns the converted DateTime, in seconds since Unix epoch.
 
 ```csharp
-public static long ToUnixTimestamp(DateTime dtValue)
+public static long ToUnixTimestamp(DateTime date)
 ```
 
 | parameter | description |
 | --- | --- |
-| dtValue | The UTC DateTime requiring conversion. |
+| date | The UTC DateTime requiring conversion. |
 
 ## Return Value
 

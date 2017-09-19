@@ -3,12 +3,12 @@
 Determines whether a string ends with the specified character.
 
 ```csharp
-public static bool EndsWith(this string str, char value)
+public static bool EndsWith(this string source, char value)
 ```
 
 | parameter | description |
 | --- | --- |
-| str | The string. |
+| source | The string. |
 | value | The character. |
 
 ## Return Value

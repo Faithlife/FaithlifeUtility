@@ -3,12 +3,12 @@
 Returns the specified sequence, or an empty sequence if it is null.
 
 ```csharp
-public static IEnumerable EmptyIfNull(this IEnumerable seq)
+public static IEnumerable EmptyIfNull(this IEnumerable sequence)
 ```
 
 | parameter | description |
 | --- | --- |
-| seq | The sequence. |
+| sequence | The sequence. |
 
 ## Return Value
 
@@ -26,13 +26,13 @@ The specified sequence, or an empty sequence if it is null.
 Returns the specified sequence, or an empty sequence if it is null.
 
 ```csharp
-public static IEnumerable<T> EmptyIfNull<T>(this IEnumerable<T> seq)
+public static IEnumerable<T> EmptyIfNull<T>(this IEnumerable<T> sequence)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type of object in the sequence. |
-| seq | The sequence. |
+| sequence | The sequence. |
 
 ## Return Value
 

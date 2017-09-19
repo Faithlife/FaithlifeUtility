@@ -3,13 +3,13 @@
 Replaces a string with a default value, if the string is null or empty.
 
 ```csharp
-public static string DefaultIfEmpty(this string str, string strDefaultValue)
+public static string DefaultIfEmpty(this string value, string defaultValue)
 ```
 
 | parameter | description |
 | --- | --- |
-| str | The string to test for contents. |
-| strDefaultValue | The default string to replace with. |
+| value | The string to test for contents. |
+| defaultValue | The default string to replace with. |
 
 ## Return Value
 

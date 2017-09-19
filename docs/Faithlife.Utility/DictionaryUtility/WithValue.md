@@ -3,16 +3,16 @@
 Tries to get a value from the dictionary, executing the specified action if it exists.
 
 ```csharp
-public static void WithValue<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, Action<TValue> fn)
+public static void WithValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Action<TValue> action)
 ```
 
 | parameter | description |
 | --- | --- |
 | TKey | The type of the key. |
 | TValue | The type of the value. |
-| dict | The dictionary. |
+| dictionary | The dictionary. |
 | key | The key. |
-| fn | The action. |
+| action | The action. |
 
 ## See Also
 
@@ -26,7 +26,7 @@ public static void WithValue<TKey, TValue>(this IDictionary<TKey, TValue> dict, 
 Tries to get a value from the dictionary, executing the specified action if it exists.
 
 ```csharp
-public static TResult WithValue<TKey, TValue, TResult>(this IDictionary<TKey, TValue> dict, TKey key, Func<TValue, TResult> fn)
+public static TResult WithValue<TKey, TValue, TResult>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<TValue, TResult> convert)
 ```
 
 | parameter | description |
@@ -34,9 +34,9 @@ public static TResult WithValue<TKey, TValue, TResult>(this IDictionary<TKey, TV
 | TKey | The type of the key. |
 | TValue | The type of the value. |
 | TResult | The type of the result. |
-| dict | The dictionary. |
+| dictionary | The dictionary. |
 | key | The key. |
-| fn | The action. |
+| convert | The action. |
 
 ## See Also
 

@@ -3,14 +3,14 @@
 Executes the specified action for each item in the sequence, including a zero-based index.
 
 ```csharp
-public static void ForEach<T>(this IEnumerable<T> seq, Action<T, int> fn)
+public static void ForEach<T>(this IEnumerable<T> sequence, Action<T, int> action)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type of object in the sequence. |
-| seq | The sequence. |
-| fn | The action (including the zero-based index). |
+| sequence | The sequence. |
+| action | The action (including the zero-based index). |
 
 ## See Also
 
@@ -24,14 +24,14 @@ public static void ForEach<T>(this IEnumerable<T> seq, Action<T, int> fn)
 Executes the specified action for each item in the sequence.
 
 ```csharp
-public static void ForEach<T>(this IEnumerable<T> seq, Action<T> fn)
+public static void ForEach<T>(this IEnumerable<T> sequence, Action<T> action)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type of object in the sequence. |
-| seq | The sequence. |
-| fn | The action. |
+| sequence | The sequence. |
+| action | The action. |
 
 ## See Also
 

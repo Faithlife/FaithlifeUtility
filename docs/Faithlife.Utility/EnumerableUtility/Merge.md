@@ -3,13 +3,13 @@
 Lazily merges two sorted sequences, maintaining sort order. Does not remove duplicates.
 
 ```csharp
-public static IEnumerable<T> Merge<T>(IEnumerable<T> seq1, IEnumerable<T> seq2, IComparer<T> comparer)
+public static IEnumerable<T> Merge<T>(IEnumerable<T> sequence1, IEnumerable<T> sequence2, IComparer<T> comparer)
 ```
 
 | parameter | description |
 | --- | --- |
-| seq1 | a sorted sequence |
-| seq2 | a sorted sequence |
+| sequence1 | a sorted sequence |
+| sequence2 | a sorted sequence |
 | comparer | a comparer by which both input sequences must already be sorted, and by which the result will be sorted |
 
 ## Return Value

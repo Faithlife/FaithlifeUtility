@@ -3,12 +3,12 @@
 Returns true if the string is null or empty.
 
 ```csharp
-public static bool IsNullOrEmpty(this string str)
+public static bool IsNullOrEmpty(this string value)
 ```
 
 | parameter | description |
 | --- | --- |
-| str | The string. |
+| value | The string. |
 
 ## Return Value
 

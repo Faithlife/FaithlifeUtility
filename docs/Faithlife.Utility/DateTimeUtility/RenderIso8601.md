@@ -3,12 +3,12 @@
 Formats the date in the standard ISO 8601 format.
 
 ```csharp
-public static string RenderIso8601(DateTime dtValue)
+public static string RenderIso8601(DateTime date)
 ```
 
 | parameter | description |
 | --- | --- |
-| dtValue | The date to format. |
+| date | The date to format. |
 
 ## Return Value
 

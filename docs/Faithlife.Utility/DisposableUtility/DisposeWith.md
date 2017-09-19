@@ -3,15 +3,15 @@
 Adds the specified IDisposable object to *disposables* and returns it.
 
 ```csharp
-public static T DisposeWith<T>(this T t, Disposables disposables)
+public static T DisposeWith<T>(this T disposable, Disposables disposables)
     where T : IDisposable
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type of the IDisposable object. |
-| t | The IDisposable object. |
-| disposables | A *disposables* that will dispose *t* when it is disposed. |
+| disposable | The IDisposable object. |
+| disposables | A *disposables* that will dispose *disposable* when it is disposed. |
 
 ## Return Value
 

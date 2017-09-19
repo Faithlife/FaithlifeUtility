@@ -3,12 +3,12 @@
 Joins the specified strings into one string.
 
 ```csharp
-public static string Join(this IEnumerable<string> seq)
+public static string Join(this IEnumerable<string> strings)
 ```
 
 | parameter | description |
 | --- | --- |
-| seq | The strings. |
+| strings | The strings. |
 
 ## Return Value
 
@@ -49,12 +49,12 @@ All of the strings concatenated with no separator.
 Joins the specified strings using the specified separator.
 
 ```csharp
-public static string Join(this IEnumerable<string> seq, char separator)
+public static string Join(this IEnumerable<string> strings, char separator)
 ```
 
 | parameter | description |
 | --- | --- |
-| seq | The strings. |
+| strings | The strings. |
 | separator | The separator. |
 
 ## Return Value
@@ -73,12 +73,12 @@ All of the strings concatenated with the specified separator.
 Joins the specified strings using the specified separator.
 
 ```csharp
-public static string Join(this IEnumerable<string> seq, string separator)
+public static string Join(this IEnumerable<string> strings, string separator)
 ```
 
 | parameter | description |
 | --- | --- |
-| seq | The strings. |
+| strings | The strings. |
 | separator | The separator. (The empty string is used if null.) |
 
 ## Return Value

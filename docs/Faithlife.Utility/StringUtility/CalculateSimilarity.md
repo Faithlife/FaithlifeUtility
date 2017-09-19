@@ -3,13 +3,13 @@
 Compare the two strings for similarity
 
 ```csharp
-public static int CalculateSimilarity(string strLeft, string strRight)
+public static int CalculateSimilarity(string left, string right)
 ```
 
 | parameter | description |
 | --- | --- |
-| strLeft | The left string. |
-| strRight | The right string. |
+| left | The left string. |
+| right | The right string. |
 
 ## Return Value
 
@@ -27,18 +27,17 @@ The percentage that they are similar.
 Compare the two strings for similarity
 
 ```csharp
-public static int CalculateSimilarity(string strLeft, int nStartLeft, int nLengthLeft, string strRight, 
-    int nStartRight, int nLengthRight)
+public static int CalculateSimilarity(string left, int startLeft, int lengthLeft, string right, int startRight, int lengthRight)
 ```
 
 | parameter | description |
 | --- | --- |
-| strLeft | The left string. |
-| nStartLeft | The start index of the left. |
-| nLengthLeft | The length of the left. |
-| strRight | The right string. |
-| nStartRight | The start index of the right. |
-| nLengthRight | The length of the right. |
+| left | The left string. |
+| startLeft | The start index of the left. |
+| lengthLeft | The length of the left. |
+| right | The right string. |
+| startRight | The start index of the right. |
+| lengthRight | The length of the right. |
 
 ## Return Value
 

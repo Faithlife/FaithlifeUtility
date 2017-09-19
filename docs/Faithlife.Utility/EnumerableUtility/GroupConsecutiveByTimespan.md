@@ -3,14 +3,14 @@
 Groups the elements of a sequence that occur near each other in time. Items are presumed to be in chronological order and an item is considered part of the group if the time between the previous item is within the provided time span. Thus, the total time between the first and last items in the group may be greater than the time span.
 
 ```csharp
-public static IEnumerable<IGrouping<DateTimeOffset, TSource>> GroupConsecutiveByTimespan<TSource>(this IEnumerable<TSource> seq, 
+public static IEnumerable<IGrouping<DateTimeOffset, TSource>> GroupConsecutiveByTimespan<TSource>(this IEnumerable<TSource> sequence, 
     TimeSpan timeSpan, Func<TSource, DateTimeOffset> dateSelector)
 ```
 
 | parameter | description |
 | --- | --- |
 | TSource | The type of the elements of source. |
-| seq | A sequence whose elements to group. |
+| sequence | A sequence whose elements to group. |
 | timeSpan | The difference by which a consecutive element is considered to be in the same group. |
 | dateSelector | A function to extract the date for each element. |
 

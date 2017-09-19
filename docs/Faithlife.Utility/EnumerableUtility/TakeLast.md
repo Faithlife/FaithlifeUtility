@@ -3,13 +3,13 @@
 Returns the specified number of items from the end of the sequence.
 
 ```csharp
-public static ReadOnlyCollection<T> TakeLast<T>(this IEnumerable<T> seq, int count)
+public static ReadOnlyCollection<T> TakeLast<T>(this IEnumerable<T> sequence, int count)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type of the sequence. |
-| seq | The source sequence. |
+| sequence | The source sequence. |
 | count | The number of items to take from the end of the sequence. |
 
 ## Return Value

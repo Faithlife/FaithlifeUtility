@@ -26,12 +26,12 @@ A hash code for the specified Boolean.
 Gets a hash code for the specified Int32; this hash code is guaranteed not to change in future.
 
 ```csharp
-public static int GetPersistentHashCode(int nValue)
+public static int GetPersistentHashCode(int value)
 ```
 
 | parameter | description |
 | --- | --- |
-| nValue | The Int32 to hash. |
+| value | The Int32 to hash. |
 
 ## Return Value
 
@@ -53,12 +53,12 @@ Based on "Robert Jenkins' 32 bit integer hash function" at http://www.concentric
 Gets a hash code for the specified Int64; this hash code is guaranteed not to change in future.
 
 ```csharp
-public static int GetPersistentHashCode(long nValue)
+public static int GetPersistentHashCode(long value)
 ```
 
 | parameter | description |
 | --- | --- |
-| nValue | The Int64 to hash. |
+| value | The Int64 to hash. |
 
 ## Return Value
 

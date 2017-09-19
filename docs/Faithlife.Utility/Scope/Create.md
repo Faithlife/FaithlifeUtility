@@ -3,12 +3,12 @@
 Creates a [`Scope`](../Scope.md) for the specified delegate.
 
 ```csharp
-public static Scope Create(Action fnDispose)
+public static Scope Create(Action dispose)
 ```
 
 | parameter | description |
 | --- | --- |
-| fnDispose | The delegate. |
+| dispose | The delegate. |
 
 ## Return Value
 
@@ -16,7 +16,7 @@ An instance of [`Scope`](../Scope.md) that calls the delegate when disposed.
 
 ## Remarks
 
-If fnDispose is null, the instance does nothing when disposed.
+If dispose is null, the instance does nothing when disposed.
 
 ## See Also
 

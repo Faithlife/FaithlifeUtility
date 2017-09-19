@@ -14,11 +14,11 @@ public struct StringSegment : IComparable<StringSegment>, IEnumerable<char>, IEq
 | static readonly [Empty](StringSegment/Empty.md) | An empty segment of the empty string. |
 | [Chars](StringSegment/Chars.md) { get; } | Gets the Char with the specified index. |
 | [Length](StringSegment/Length.md) { get; } | Gets the length of the segment. |
-| [Offset](StringSegment/Offset.md) { get; } | Gets the offset into the owner string. |
-| [Owner](StringSegment/Owner.md) { get; } | Gets the owner string. |
-| [After](StringSegment/After.md)() | Returns everything that follows this segment in the owner string. |
+| [Offset](StringSegment/Offset.md) { get; } | Gets the offset into the source string. |
+| [Owner](StringSegment/Owner.md) { get; } | Gets the source string. |
+| [After](StringSegment/After.md)() | Returns everything that follows this segment in the source string. |
 | [AppendToStringBuilder](StringSegment/AppendToStringBuilder.md)(…) | Appends the segment to the specified StringBuilder. |
-| [Before](StringSegment/Before.md)() | Returns everything that precedes this segment in the owner string. |
+| [Before](StringSegment/Before.md)() | Returns everything that precedes this segment in the source string. |
 | [CompareTo](StringSegment/CompareTo.md)(…) | Compares the current object with another object of the same type. |
 | [CopyTo](StringSegment/CopyTo.md)(…) | Copies the characters of the string segment to an array. |
 | override [Equals](StringSegment/Equals.md)(…) | Indicates whether this instance and a specified object are equal. |

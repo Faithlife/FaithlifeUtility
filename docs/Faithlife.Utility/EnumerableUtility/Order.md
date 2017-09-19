@@ -3,12 +3,12 @@
 Sorts the sequence. A shortcut for OrderBy(x =&gt; x).
 
 ```csharp
-public static IEnumerable<T> Order<T>(this IEnumerable<T> seq)
+public static IEnumerable<T> Order<T>(this IEnumerable<T> sequence)
 ```
 
 | parameter | description |
 | --- | --- |
-| seq | The sequence. |
+| sequence | The sequence. |
 
 ## Return Value
 
@@ -26,12 +26,12 @@ The sorted sequence.
 Sorts the sequence. A shortcut for OrderBy(x =&gt; x, comparer).
 
 ```csharp
-public static IEnumerable<T> Order<T>(this IEnumerable<T> seq, IComparer<T> comparer)
+public static IEnumerable<T> Order<T>(this IEnumerable<T> sequence, IComparer<T> comparer)
 ```
 
 | parameter | description |
 | --- | --- |
-| seq | The sequence. |
+| sequence | The sequence. |
 | comparer | The comparer. |
 
 ## Return Value

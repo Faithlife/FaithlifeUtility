@@ -3,7 +3,7 @@
 Gets a value from the dictionary, returning null if it is missing.
 
 ```csharp
-public static TValue? GetNullableValue<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key)
+public static TValue? GetNullableValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
     where TValue : struct
 ```
 
@@ -11,7 +11,7 @@ public static TValue? GetNullableValue<TKey, TValue>(this IDictionary<TKey, TVal
 | --- | --- |
 | TKey | The type of the key. |
 | TValue | The type of the value. |
-| dict | The dictionary. |
+| dictionary | The dictionary. |
 | key | The key. |
 
 ## Return Value

@@ -3,13 +3,13 @@
 Returns a new sequence that conditionally has the specified item appended to the end (appended iff it doesn't equal an existing sequence item)
 
 ```csharp
-public static IEnumerable<T> AppendIfNotAlreadyPresent<T>(this IEnumerable<T> seq, T item, IEqualityComparer<T> comparer = null)
+public static IEnumerable<T> AppendIfNotAlreadyPresent<T>(this IEnumerable<T> sequence, T item, IEqualityComparer<T> comparer = null)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type of the sequence items. |
-| seq | The sequence. |
+| sequence | The sequence. |
 | item | The item to conditionally append. |
 | comparer | Comparer used to check whether item is already present. If not provided, default comparer is used. |
 

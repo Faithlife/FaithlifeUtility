@@ -3,13 +3,13 @@
 Compares two string segments ordinally.
 
 ```csharp
-public static int CompareOrdinal(StringSegment segA, StringSegment segB)
+public static int CompareOrdinal(StringSegment segmentA, StringSegment segmentB)
 ```
 
 | parameter | description |
 | --- | --- |
-| segA | The first segment. |
-| segB | The second segment. |
+| segmentA | The first segment. |
+| segmentB | The second segment. |
 
 ## Return Value
 

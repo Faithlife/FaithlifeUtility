@@ -3,13 +3,13 @@
 Removes items from the end of the specified sequence that match the given predicate.
 
 ```csharp
-public static IEnumerable<T> TrimEndWhere<T>(this IEnumerable<T> seq, Func<T, bool> fnPredicate)
+public static IEnumerable<T> TrimEndWhere<T>(this IEnumerable<T> sequence, Func<T, bool> fnPredicate)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type of the sequence. |
-| seq | The sequence to enumerate |
+| sequence | The sequence to enumerate |
 | fnPredicate | The predicate to apply to the items in the sequence. |
 
 ## Return Value

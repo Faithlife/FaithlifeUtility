@@ -3,14 +3,14 @@
 Creates a dictionary from key value pairs.
 
 ```csharp
-public static Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> seq)
+public static Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> keyValuePairs)
 ```
 
 | parameter | description |
 | --- | --- |
 | TKey | The type of the key. |
 | TValue | The type of the value. |
-| seq | The key value pairs. |
+| keyValuePairs | The key value pairs. |
 
 ## Return Value
 

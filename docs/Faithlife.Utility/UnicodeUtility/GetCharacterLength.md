@@ -3,13 +3,13 @@
 Gets the length (in chars) of the Unicode character at the specified offset in the given string.
 
 ```csharp
-public static int GetCharacterLength(string s, int nIndex)
+public static int GetCharacterLength(string value, int index)
 ```
 
 | parameter | description |
 | --- | --- |
-| s | A String. |
-| nIndex | The character position in *s*. |
+| value | A String. |
+| index | The character position in *value*. |
 
 ## Return Value
 
@@ -27,13 +27,13 @@ The number of chars (i.e., UTF-16 code units) it takes to encode the character.
 Gets the length (in chars) of the Unicode character at the specified offset in the given StringBuilder.
 
 ```csharp
-public static int GetCharacterLength(StringBuilder sb, int nIndex)
+public static int GetCharacterLength(StringBuilder stringBuilder, int index)
 ```
 
 | parameter | description |
 | --- | --- |
-| sb | A StringBuilder. |
-| nIndex | The character position in *sb*. |
+| stringBuilder | A StringBuilder. |
+| index | The character position in *stringBuilder*. |
 
 ## Return Value
 

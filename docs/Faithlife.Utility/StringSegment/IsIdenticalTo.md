@@ -3,12 +3,12 @@
 Determines whether this segment is identical to the specified segment.
 
 ```csharp
-public bool IsIdenticalTo(StringSegment seg)
+public bool IsIdenticalTo(StringSegment segment)
 ```
 
 | parameter | description |
 | --- | --- |
-| seg | The other segment. |
+| segment | The other segment. |
 
 ## Return Value
 

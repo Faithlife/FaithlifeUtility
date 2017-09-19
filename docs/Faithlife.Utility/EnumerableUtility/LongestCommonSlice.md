@@ -1,7 +1,7 @@
 # EnumerableUtility.LongestCommonSlice&lt;T&gt; method
 
 ```csharp
-public static int LongestCommonSlice<T>(IEnumerable<T> seqFirst, IEnumerable<T> seqSecond, out int nFirstIndex, out int nSecondIndex)
+public static int LongestCommonSlice<T>(IEnumerable<T> first, IEnumerable<T> second, out int firstIndex, out int secondIndex)
 ```
 
 ## See Also

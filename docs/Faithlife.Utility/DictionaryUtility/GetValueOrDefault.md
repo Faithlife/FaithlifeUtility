@@ -3,14 +3,14 @@
 Gets a value from the dictionary, returning a default value if it is missing.
 
 ```csharp
-public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key)
+public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
 ```
 
 | parameter | description |
 | --- | --- |
 | TKey | The type of the key. |
 | TValue | The type of the value. |
-| dict | The dictionary. |
+| dictionary | The dictionary. |
 | key | The key. |
 
 ## Return Value
@@ -29,16 +29,16 @@ The value, or a default value.
 Gets a value from the dictionary, returning the generated default value if it is missing.
 
 ```csharp
-public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, Func<TValue> fnDefault)
+public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<TValue> getDefaultValue)
 ```
 
 | parameter | description |
 | --- | --- |
 | TKey | The type of the key. |
 | TValue | The type of the value. |
-| dict | The dictionary. |
+| dictionary | The dictionary. |
 | key | The key. |
-| fnDefault | The default value generator. |
+| getDefaultValue | The default value generator. |
 
 ## Return Value
 
@@ -56,16 +56,16 @@ The value, or a default value.
 Gets a value from the dictionary, returning the specified default value if it is missing.
 
 ```csharp
-public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, TValue valueDefault)
+public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue)
 ```
 
 | parameter | description |
 | --- | --- |
 | TKey | The type of the key. |
 | TValue | The type of the value. |
-| dict | The dictionary. |
+| dictionary | The dictionary. |
 | key | The key. |
-| valueDefault | The default value. |
+| defaultValue | The default value. |
 
 ## Return Value
 

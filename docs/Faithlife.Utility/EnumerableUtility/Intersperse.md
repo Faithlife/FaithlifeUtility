@@ -3,13 +3,13 @@
 Intersperses the specified value between the elements of the source collection.
 
 ```csharp
-public static IEnumerable<T> Intersperse<T>(this IEnumerable<T> seq, T value)
+public static IEnumerable<T> Intersperse<T>(this IEnumerable<T> sequence, T value)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The element type of the source sequence. |
-| seq | The source sequence. |
+| sequence | The source sequence. |
 | value | The value to intersperse. |
 
 ## Return Value

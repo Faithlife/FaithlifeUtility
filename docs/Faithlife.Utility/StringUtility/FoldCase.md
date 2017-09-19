@@ -3,12 +3,12 @@
 Performs a full case folding as defined by Section 5.18 of the Unicode Standard 5.0.
 
 ```csharp
-public static string FoldCase(this string str)
+public static string FoldCase(this string value)
 ```
 
 | parameter | description |
 | --- | --- |
-| str | The string to be case-folded. |
+| value | The string to be case-folded. |
 
 ## Return Value
 

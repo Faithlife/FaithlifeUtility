@@ -3,12 +3,12 @@
 Returns true if the string is `null`, empty, or consists only of white-space characters.
 
 ```csharp
-public static bool IsNullOrWhiteSpace(this string str)
+public static bool IsNullOrWhiteSpace(this string value)
 ```
 
 | parameter | description |
 | --- | --- |
-| str |  |
+| value |  |
 
 ## See Also
 

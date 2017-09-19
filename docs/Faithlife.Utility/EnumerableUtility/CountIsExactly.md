@@ -3,14 +3,14 @@
 Returns true if the count is as specified.
 
 ```csharp
-public static bool CountIsExactly<T>(this IEnumerable<T> seq, int nCount)
+public static bool CountIsExactly<T>(this IEnumerable<T> sequence, int count)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type of the element. |
-| seq | The sequence. |
-| nCount | The count. |
+| sequence | The sequence. |
+| count | The count. |
 
 ## Return Value
 

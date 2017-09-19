@@ -3,14 +3,14 @@
 Finds the maximum element in the specified collection, using the specified comparison.
 
 ```csharp
-public static T Max<T>(this IEnumerable<T> seq, Func<T, T, int> fnComparison)
+public static T Max<T>(this IEnumerable<T> sequence, Func<T, T, int> comparison)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type of element in the collection. |
-| seq | The sequence to search. |
-| fnComparison | The comparison function. |
+| sequence | The sequence to search. |
+| comparison | The comparison function. |
 
 ## Return Value
 

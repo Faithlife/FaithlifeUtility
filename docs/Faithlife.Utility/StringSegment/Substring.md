@@ -3,12 +3,12 @@
 Returns a sub-segment of this segment.
 
 ```csharp
-public StringSegment Substring(int nIndex)
+public StringSegment Substring(int index)
 ```
 
 | parameter | description |
 | --- | --- |
-| nIndex | The start index into this segment. |
+| index | The start index into this segment. |
 
 ## Return Value
 
@@ -26,13 +26,13 @@ A sub-segment of this segment
 Returns a sub-segment of this segment.
 
 ```csharp
-public StringSegment Substring(int nIndex, int nLength)
+public StringSegment Substring(int index, int length)
 ```
 
 | parameter | description |
 | --- | --- |
-| nIndex | The start index into this segment. |
-| nLength | The length of the sub-segment. |
+| index | The start index into this segment. |
+| length | The length of the sub-segment. |
 
 ## Return Value
 

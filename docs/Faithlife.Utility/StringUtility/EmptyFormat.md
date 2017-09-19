@@ -3,12 +3,12 @@
 Replaces all of the {0}, {1} etc. formatting elements with the empty string.
 
 ```csharp
-public static string EmptyFormat(this string strFormat)
+public static string EmptyFormat(this string format)
 ```
 
 | parameter | description |
 | --- | --- |
-| strFormat | The format string. |
+| format | The format string. |
 
 ## Return Value
 

@@ -3,13 +3,13 @@
 Creates an equality comparer from delegates.
 
 ```csharp
-public static EqualityComparer<T> CreateEqualityComparer<T>(Func<T, T, bool> fnEquals)
+public static EqualityComparer<T> CreateEqualityComparer<T>(Func<T, T, bool> equals)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type to compare. |
-| fnEquals | The equals delegate. |
+| equals | The equals delegate. |
 
 ## Return Value
 
@@ -31,14 +31,14 @@ If GetHashCode is called, it will throw a NotImplementedException.
 Creates an equality comparer from delegates.
 
 ```csharp
-public static EqualityComparer<T> CreateEqualityComparer<T>(Func<T, T, bool> fnEquals, Func<T, int> fnGetHashCode)
+public static EqualityComparer<T> CreateEqualityComparer<T>(Func<T, T, bool> equals, Func<T, int> getHashCode)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type to compare. |
-| fnEquals | The equals delegate. |
-| fnGetHashCode | The hash code delegate. |
+| equals | The equals delegate. |
+| getHashCode | The hash code delegate. |
 
 ## Return Value
 
@@ -46,7 +46,7 @@ The equality comparer.
 
 ## Remarks
 
-If fnGetHashCode is null and GetHashCode is called, it will throw a NotImplementedException.
+If getHashCode is null and GetHashCode is called, it will throw a NotImplementedException.
 
 ## See Also
 

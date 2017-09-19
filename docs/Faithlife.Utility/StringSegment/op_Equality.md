@@ -3,13 +3,13 @@
 Compares two string segments for equality.
 
 ```csharp
-public static bool operator ==(StringSegment segA, StringSegment segB)
+public static bool operator ==(StringSegment segmentA, StringSegment segmentB)
 ```
 
 | parameter | description |
 | --- | --- |
-| segA | The first string segment. |
-| segB | The second string segment. |
+| segmentA | The first string segment. |
+| segmentB | The second string segment. |
 
 ## Return Value
 

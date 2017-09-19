@@ -3,7 +3,7 @@
 Performs standard validation of parameters passed to an implementation of the Int32) method.
 
 ```csharp
-public static void CheckReadParameters(byte[] buffer, int offset, int count, bool bStreamOpen, bool bCanRead)
+public static void CheckReadParameters(byte[] buffer, int offset, int count, bool isStreamOpen, bool bCanRead)
 ```
 
 | parameter | description |
@@ -11,7 +11,7 @@ public static void CheckReadParameters(byte[] buffer, int offset, int count, boo
 | buffer | An array of bytes. |
 | offset | The zero-based byte offset in *buffer* at which to begin storing the data read from the current stream. |
 | count | The maximum number of bytes to be read from the current stream. |
-| bStreamOpen | Whether the stream is currently open (`true`) or closed (`false`). |
+| isStreamOpen | Whether the stream is currently open (`true`) or closed (`false`). |
 | bCanRead | Whether the current stream supports reading. |
 
 ## Exceptions

@@ -3,12 +3,12 @@
 Combines the specified hash codes.
 
 ```csharp
-public static int CombineHashCodes(int nHashCode1)
+public static int CombineHashCodes(int hashCode1)
 ```
 
 | parameter | description |
 | --- | --- |
-| nHashCode1 | The first hash code. |
+| hashCode1 | The first hash code. |
 
 ## Return Value
 
@@ -30,12 +30,12 @@ This is a specialization of [`CombineHashCodes`](CombineHashCodes.md) for effici
 Combines the specified hash codes.
 
 ```csharp
-public static int CombineHashCodes(int[] anHashCodes)
+public static int CombineHashCodes(int[] hashCodes)
 ```
 
 | parameter | description |
 | --- | --- |
-| anHashCodes | An array of hash codes. |
+| hashCodes | An array of hash codes. |
 
 ## Return Value
 
@@ -57,13 +57,13 @@ This method is based on the "hashword" function at http://burtleburtle.net/bob/c
 Combines the specified hash codes.
 
 ```csharp
-public static int CombineHashCodes(int nHashCode1, int nHashCode2)
+public static int CombineHashCodes(int hashCode1, int hashCode2)
 ```
 
 | parameter | description |
 | --- | --- |
-| nHashCode1 | The first hash code. |
-| nHashCode2 | The second hash code. |
+| hashCode1 | The first hash code. |
+| hashCode2 | The second hash code. |
 
 ## Return Value
 
@@ -85,14 +85,14 @@ This is a specialization of [`CombineHashCodes`](CombineHashCodes.md) for effici
 Combines the specified hash codes.
 
 ```csharp
-public static int CombineHashCodes(int nHashCode1, int nHashCode2, int nHashCode3)
+public static int CombineHashCodes(int hashCode1, int hashCode2, int hashCode3)
 ```
 
 | parameter | description |
 | --- | --- |
-| nHashCode1 | The first hash code. |
-| nHashCode2 | The second hash code. |
-| nHashCode3 | The third hash code. |
+| hashCode1 | The first hash code. |
+| hashCode2 | The second hash code. |
+| hashCode3 | The third hash code. |
 
 ## Return Value
 
@@ -114,15 +114,15 @@ This is a specialization of [`CombineHashCodes`](CombineHashCodes.md) for effici
 Combines the specified hash codes.
 
 ```csharp
-public static int CombineHashCodes(int nHashCode1, int nHashCode2, int nHashCode3, int nHashCode4)
+public static int CombineHashCodes(int hashCode1, int hashCode2, int hashCode3, int hashCode4)
 ```
 
 | parameter | description |
 | --- | --- |
-| nHashCode1 | The first hash code. |
-| nHashCode2 | The second hash code. |
-| nHashCode3 | The third hash code. |
-| nHashCode4 | The fourth hash code. |
+| hashCode1 | The first hash code. |
+| hashCode2 | The second hash code. |
+| hashCode3 | The third hash code. |
+| hashCode4 | The fourth hash code. |
 
 ## Return Value
 

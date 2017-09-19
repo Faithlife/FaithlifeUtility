@@ -3,13 +3,13 @@
 Enumerates the specified collection, casting each element to a base type.
 
 ```csharp
-public static IEnumerable<TDest> Upcast<TSource, TDest>(this IEnumerable<TSource> coll)
+public static IEnumerable<TDest> Upcast<TSource, TDest>(this IEnumerable<TSource> sequence)
     where TSource : TDest
 ```
 
 | parameter | description |
 | --- | --- |
-| coll | The collection to enumerate. |
+| sequence | The collection to enumerate. |
 
 ## Return Value
 

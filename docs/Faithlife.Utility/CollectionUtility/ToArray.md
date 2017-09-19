@@ -3,13 +3,13 @@
 Converts the specified collection to an array.
 
 ```csharp
-public static TOutput[] ToArray<TInput, TOutput>(this ICollection<TInput> coll, Func<TInput, TOutput> fnConvert)
+public static TOutput[] ToArray<TInput, TOutput>(this ICollection<TInput> collection, Func<TInput, TOutput> convert)
 ```
 
 | parameter | description |
 | --- | --- |
-| coll | The collection to convert. |
-| fnConvert | Converts from collection elements to array elements. |
+| collection | The collection to convert. |
+| convert | Converts from collection elements to array elements. |
 
 ## Return Value
 

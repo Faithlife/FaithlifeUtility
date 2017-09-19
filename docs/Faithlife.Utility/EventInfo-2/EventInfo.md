@@ -3,13 +3,13 @@
 Initializes a new instance of the [`EventInfo`](../EventInfo-2.md) class.
 
 ```csharp
-public EventInfo(Action<TSource, TEventHandler> fnAddHandler, Action<TSource, TEventHandler> fnRemoveHandler)
+public EventInfo(Action<TSource, TEventHandler> addHandler, Action<TSource, TEventHandler> removeHandler)
 ```
 
 | parameter | description |
 | --- | --- |
-| fnAddHandler | A delegate that adds an event handler to the event of the specified source. |
-| fnRemoveHandler | A delegate that removes an event handler from the event of the specified source. |
+| addHandler | A delegate that adds an event handler to the event of the specified source. |
+| removeHandler | A delegate that removes an event handler from the event of the specified source. |
 
 ## See Also
 

@@ -3,12 +3,12 @@
 Returns the union of this segment with another segment of the same string.
 
 ```csharp
-public StringSegment Union(StringSegment seg)
+public StringSegment Union(StringSegment segment)
 ```
 
 | parameter | description |
 | --- | --- |
-| seg | Another segment of the same string. |
+| segment | Another segment of the same string. |
 
 ## Return Value
 

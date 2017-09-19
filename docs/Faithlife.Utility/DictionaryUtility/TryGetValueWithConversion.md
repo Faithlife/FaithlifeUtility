@@ -2,7 +2,7 @@
 
 ```csharp
 public static bool TryGetValueWithConversion<TKey, TValue, TOut>(this IDictionary<TKey, TValue> dictionary, 
-    TKey key, out TOut result, Func<TValue, TOut> fnConvert)
+    TKey key, out TOut result, Func<TValue, TOut> convert)
 ```
 
 ## See Also

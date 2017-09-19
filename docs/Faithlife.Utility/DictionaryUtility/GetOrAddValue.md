@@ -3,13 +3,13 @@
 Gets a value from the dictionary, adding and returning a new instance if it is missing.
 
 ```csharp
-public static TValue GetOrAddValue<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key)
+public static TValue GetOrAddValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
     where TValue : new()
 ```
 
 | parameter | description |
 | --- | --- |
-| dict | The dictionary. |
+| dictionary | The dictionary. |
 | key | The key. |
 
 ## Return Value
@@ -28,14 +28,14 @@ The new or existing value.
 Gets a value from the dictionary, adding and returning a new instance if it is missing.
 
 ```csharp
-public static TValue GetOrAddValue<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, Func<TKey, TValue> creator)
+public static TValue GetOrAddValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<TKey, TValue> creator)
 ```
 
 | parameter | description |
 | --- | --- |
 | TKey | The type of the key. |
 | TValue | The type of the value. |
-| dict | The dictionary. |
+| dictionary | The dictionary. |
 | key | The key. |
 | creator | Used to create a new value if necessary; the function is called with specified key. |
 
@@ -55,14 +55,14 @@ The new or existing value.
 Gets a value from the dictionary, adding and returning a new instance if it is missing.
 
 ```csharp
-public static TValue GetOrAddValue<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, Func<TValue> creator)
+public static TValue GetOrAddValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<TValue> creator)
 ```
 
 | parameter | description |
 | --- | --- |
 | TKey | The type of the key. |
 | TValue | The type of the value. |
-| dict | The dictionary. |
+| dictionary | The dictionary. |
 | key | The key. |
 | creator | Used to create a new value if necessary |
 

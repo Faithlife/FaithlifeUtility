@@ -3,14 +3,14 @@
 Returns the specified sequence, or null if it is empty.
 
 ```csharp
-public static T NullIfEmpty<T>(this T seq)
+public static T NullIfEmpty<T>(this T sequence)
     where T : class, IEnumerable
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type of object in the sequence. |
-| seq | The sequence. |
+| sequence | The sequence. |
 
 ## Return Value
 

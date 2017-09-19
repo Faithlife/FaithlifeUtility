@@ -1,6 +1,6 @@
 # StringSegment.Owner property
 
-Gets the owner string.
+Gets the source string.
 
 ```csharp
 public string Owner { get; }
@@ -8,7 +8,7 @@ public string Owner { get; }
 
 ## Property Value
 
-The owner string of the segment.
+The source string of the segment.
 
 ## See Also
 

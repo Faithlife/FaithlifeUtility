@@ -3,13 +3,13 @@
 Copies all the data after the current position in the source stream to the destination stream.
 
 ```csharp
-public static long CopyStream(Stream streamFrom, Stream streamTo)
+public static long CopyStream(Stream fromStream, Stream toStream)
 ```
 
 | parameter | description |
 | --- | --- |
-| streamFrom | The source stream. |
-| streamTo | The destination stream. |
+| fromStream | The source stream. |
+| toStream | The destination stream. |
 
 ## Return Value
 
@@ -27,14 +27,14 @@ The number of bytes actually copied.
 Copies up to the specified number of bytes from the source stream to the destination stream.
 
 ```csharp
-public static long CopyStream(Stream streamFrom, Stream streamTo, long nBytesToCopy)
+public static long CopyStream(Stream fromStream, Stream toStream, long bytesToCopy)
 ```
 
 | parameter | description |
 | --- | --- |
-| streamFrom | The source stream. |
-| streamTo | The destination stream. |
-| nBytesToCopy | The maximum number of bytes to copy. |
+| fromStream | The source stream. |
+| toStream | The destination stream. |
+| bytesToCopy | The maximum number of bytes to copy. |
 
 ## Return Value
 
@@ -52,15 +52,15 @@ The number of bytes actually copied.
 Copies up to the specified number of bytes from the source stream to the destination stream.
 
 ```csharp
-public static long CopyStream(Stream streamFrom, Stream streamTo, long nBytesToCopy, int nBufferSize)
+public static long CopyStream(Stream fromStream, Stream toStream, long bytesToCopy, int bufferSize)
 ```
 
 | parameter | description |
 | --- | --- |
-| streamFrom | The source stream. |
-| streamTo | The destination stream. |
-| nBytesToCopy | The maximum number of bytes to copy. |
-| nBufferSize | The internal buffer size to use when copying. |
+| fromStream | The source stream. |
+| toStream | The destination stream. |
+| bytesToCopy | The maximum number of bytes to copy. |
+| bufferSize | The internal buffer size to use when copying. |
 
 ## Return Value
 
@@ -78,15 +78,15 @@ The number of bytes actually copied.
 Copies up to the specified number of bytes from the source stream to the destination stream.
 
 ```csharp
-public static long CopyStream(Stream streamFrom, Stream streamTo, long nBytesToCopy, int nBufferSize, IWorkState workState)
+public static long CopyStream(Stream fromStream, Stream toStream, long bytesToCopy, int bufferSize, IWorkState workState)
 ```
 
 | parameter | description |
 | --- | --- |
-| streamFrom | The source stream. |
-| streamTo | The destination stream. |
-| nBytesToCopy | The maximum number of bytes to copy. |
-| nBufferSize | The internal buffer size to use when copying. |
+| fromStream | The source stream. |
+| toStream | The destination stream. |
+| bytesToCopy | The maximum number of bytes to copy. |
+| bufferSize | The internal buffer size to use when copying. |
 | workState | The work state. |
 
 ## Return Value
@@ -106,16 +106,16 @@ The number of bytes actually copied.
 Copies up to the specified number of bytes from the source stream to the destination stream.
 
 ```csharp
-public static long CopyStream(Stream streamFrom, Stream streamTo, long nBytesToCopy, int nBufferSize, 
+public static long CopyStream(Stream fromStream, Stream toStream, long bytesToCopy, int bufferSize, 
     IWorkState workState, Action<long> notifier)
 ```
 
 | parameter | description |
 | --- | --- |
-| streamFrom | The source stream. |
-| streamTo | The destination stream. |
-| nBytesToCopy | The maximum number of bytes to copy. |
-| nBufferSize | The internal buffer size to use when copying. |
+| fromStream | The source stream. |
+| toStream | The destination stream. |
+| bytesToCopy | The maximum number of bytes to copy. |
+| bufferSize | The internal buffer size to use when copying. |
 | workState | The work state. |
 | notifier | Pass in an Action to be called as the stream is copied (gives a chance to update progress). The long passed to the action represents the current total of bytes copied. |
 

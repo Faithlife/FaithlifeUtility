@@ -22,12 +22,12 @@ The string segment as a StringBuilder.
 Returns the string segment as a StringBuilder.
 
 ```csharp
-public StringBuilder ToStringBuilder(int nCapacity)
+public StringBuilder ToStringBuilder(int capacity)
 ```
 
 | parameter | description |
 | --- | --- |
-| nCapacity | The capacity of the new StringBuilder. |
+| capacity | The capacity of the new StringBuilder. |
 
 ## Return Value
 

@@ -1,7 +1,7 @@
 # GuidUtility.TryParse method
 
 ```csharp
-public static bool TryParse(string strGuid, out Guid guid)
+public static bool TryParse(string value, out Guid guid)
 ```
 
 ## See Also

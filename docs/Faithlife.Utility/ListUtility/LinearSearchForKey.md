@@ -1,8 +1,7 @@
 # ListUtility.LinearSearchForKey&lt;TItem,TKey&gt; method
 
 ```csharp
-public static int LinearSearchForKey<TItem, TKey>(IList<TItem> list, TKey key, 
-    Func<TItem, TKey, int> fnCompare, out int nIndex)
+public static int LinearSearchForKey<TItem, TKey>(IList<TItem> list, TKey key, Func<TItem, TKey, int> compare, out int index)
 ```
 
 ## See Also

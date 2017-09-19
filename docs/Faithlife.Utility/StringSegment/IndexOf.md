@@ -3,12 +3,12 @@
 Returns the first index of the specified character in the string segment.
 
 ```csharp
-public int IndexOf(char ch)
+public int IndexOf(char value)
 ```
 
 | parameter | description |
 | --- | --- |
-| ch | The character to find. |
+| value | The character to find. |
 
 ## Return Value
 
@@ -26,12 +26,12 @@ The first index of the specified character in the string segment, or -1 if the c
 Returns the first index of the specified character in the string segment.
 
 ```csharp
-public int IndexOf(char ch, int startIndex)
+public int IndexOf(char value, int startIndex)
 ```
 
 | parameter | description |
 | --- | --- |
-| ch | The character to find. |
+| value | The character to find. |
 | startIndex | The search starting position. |
 
 ## Return Value
@@ -50,12 +50,12 @@ The first index of the specified character in the string segment, or -1 if the c
 Returns the first index of the specified string in the string segment.
 
 ```csharp
-public int IndexOf(string str, StringComparison sc)
+public int IndexOf(string value, StringComparison sc)
 ```
 
 | parameter | description |
 | --- | --- |
-| str | The string to find. |
+| value | The string to find. |
 | sc | The string comparison options. |
 
 ## Return Value

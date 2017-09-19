@@ -3,12 +3,12 @@
 Returns the last index of the specified character in the string segment.
 
 ```csharp
-public int LastIndexOf(char ch)
+public int LastIndexOf(char value)
 ```
 
 | parameter | description |
 | --- | --- |
-| ch | The character to find. |
+| value | The character to find. |
 
 ## Return Value
 
@@ -26,13 +26,13 @@ The last index of the specified character in the string segment, or -1 if the ch
 Returns the last index of the specified string in the string segment.
 
 ```csharp
-public int LastIndexOf(string str, StringComparison sc)
+public int LastIndexOf(string value, StringComparison comparison)
 ```
 
 | parameter | description |
 | --- | --- |
-| str | The string to find. |
-| sc | The string comparison options. |
+| value | The string to find. |
+| comparison | The string comparison options. |
 
 ## Return Value
 

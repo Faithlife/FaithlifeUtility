@@ -3,13 +3,13 @@
 Like SingleOrDefault, but doesn't throw an exception if there is more than one (instead returns default value).
 
 ```csharp
-public static T ExactlyOneOrDefault<T>(this IEnumerable<T> seq)
+public static T ExactlyOneOrDefault<T>(this IEnumerable<T> sequence)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type of object in the sequence. |
-| seq | The sequence of elements. |
+| sequence | The sequence of elements. |
 
 ## Return Value
 
@@ -27,13 +27,13 @@ The first item in the sequence if there is exactly one item in the sequence; oth
 Like SingleOrDefault, but doesn't throw an exception if there is more than one (instead returns default value).
 
 ```csharp
-public static T ExactlyOneOrDefault<T>(this IEnumerable<T> seq, Func<T, bool> predicate)
+public static T ExactlyOneOrDefault<T>(this IEnumerable<T> sequence, Func<T, bool> predicate)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type of object in the sequence. |
-| seq | The sequence of elements. |
+| sequence | The sequence of elements. |
 | predicate | The predicate used to determine whether there is one matching element that should be returned. |
 
 ## Return Value

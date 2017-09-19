@@ -3,13 +3,13 @@
 Determines whether the specified sequence is sorted.
 
 ```csharp
-public static bool IsSorted<T>(this IEnumerable<T> seq)
+public static bool IsSorted<T>(this IEnumerable<T> sequence)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The element type. |
-| seq | The sequence. |
+| sequence | The sequence. |
 
 ## Return Value
 
@@ -27,13 +27,13 @@ public static bool IsSorted<T>(this IEnumerable<T> seq)
 Determines whether the specified sequence is sorted.
 
 ```csharp
-public static bool IsSorted<T>(this IEnumerable<T> seq, IComparer<T> comparer)
+public static bool IsSorted<T>(this IEnumerable<T> sequence, IComparer<T> comparer)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The element type. |
-| seq | The sequence. |
+| sequence | The sequence. |
 | comparer | The comparer. |
 
 ## Return Value

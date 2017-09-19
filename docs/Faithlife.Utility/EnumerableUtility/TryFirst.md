@@ -1,7 +1,7 @@
 # EnumerableUtility.TryFirst&lt;T&gt; method (1 of 2)
 
 ```csharp
-public static bool TryFirst<T>(this IEnumerable<T> seq, out T found)
+public static bool TryFirst<T>(this IEnumerable<T> sequence, out T found)
 ```
 
 ## See Also
@@ -14,7 +14,7 @@ public static bool TryFirst<T>(this IEnumerable<T> seq, out T found)
 # EnumerableUtility.TryFirst&lt;T&gt; method (2 of 2)
 
 ```csharp
-public static bool TryFirst<T>(this IEnumerable<T> seq, Func<T, bool> fnPredicate, out T found)
+public static bool TryFirst<T>(this IEnumerable<T> sequence, Func<T, bool> predicate, out T found)
 ```
 
 ## See Also

@@ -3,7 +3,7 @@
 Performs standard validation of parameters passed to an implementation of the Int32) method.
 
 ```csharp
-public static void CheckWriteParameters(byte[] buffer, int offset, int count, bool bStreamOpen, bool bCanWrite)
+public static void CheckWriteParameters(byte[] buffer, int offset, int count, bool isStreamOpen, bool canWrite)
 ```
 
 | parameter | description |
@@ -11,8 +11,8 @@ public static void CheckWriteParameters(byte[] buffer, int offset, int count, bo
 | buffer | An array of bytes. |
 | offset | The zero-based byte offset in *buffer* at which to begin copying bytes to the current stream. |
 | count | The number of bytes to be written to the current stream. |
-| bStreamOpen | Whether the stream is currently open (`true`) or closed (`false`). |
-| bCanWrite | Whether the current stream supports writing. |
+| isStreamOpen | Whether the stream is currently open (`true`) or closed (`false`). |
+| canWrite | Whether the current stream supports writing. |
 
 ## Exceptions
 

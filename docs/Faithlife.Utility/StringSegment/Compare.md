@@ -3,14 +3,14 @@
 Compares two string segments.
 
 ```csharp
-public static int Compare(StringSegment segA, StringSegment segB, StringComparison sc)
+public static int Compare(StringSegment segmentA, StringSegment segmentB, StringComparison comparison)
 ```
 
 | parameter | description |
 | --- | --- |
-| segA | The first segment. |
-| segB | The second segment. |
-| sc | The string comparison options. |
+| segmentA | The first segment. |
+| segmentB | The second segment. |
+| comparison | The string comparison options. |
 
 ## Return Value
 

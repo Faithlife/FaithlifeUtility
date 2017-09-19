@@ -3,7 +3,7 @@
 Gets the Char with the specified index.
 
 ```csharp
-public char Chars[int nIndex] { get; }
+public char Chars[int index] { get; }
 ```
 
 ## Property Value
