@@ -16,7 +16,7 @@ namespace Faithlife.Utility
 		public GenericComparer(Func<T, T, int> comparer)
 		{
 			if (comparer == null)
-				throw new ArgumentNullException("comparer");
+				throw new ArgumentNullException(nameof(comparer));
 
 			m_comparer = comparer;
 		}

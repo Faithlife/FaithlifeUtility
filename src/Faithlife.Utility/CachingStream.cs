@@ -13,13 +13,13 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CachingStream"/> class.
 		/// </summary>
-		/// <param name="streamBase">The stream to be cached.</param>
+		/// <param name="stream">The stream to be cached.</param>
 		/// <param name="ownership">Use <see cref="Ownership.Owns"/> if the cached stream should be disposed when this stream is disposed.</param>
-		public CachingStream(Stream streamBase, Ownership ownership)
-			: base(streamBase, ownership)
+		public CachingStream(Stream stream, Ownership ownership)
+			: base(stream, ownership)
 		{
 			m_blocks = new List<byte[]>();
-			m_position = streamBase.Position;
+			m_position = stream.Position;
 		}
 
 		/// <summary>
@@ -62,7 +62,7 @@ namespace Faithlife.Utility
 			{
 				ThrowIfDisposed();
 				if (value < 0)
-					throw new ArgumentOutOfRangeException("value");
+					throw new ArgumentOutOfRangeException(nameof(value));
 				m_position = value;
 			}
 		}

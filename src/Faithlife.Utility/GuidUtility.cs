@@ -13,13 +13,13 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Tries to parse the specified string as a <see cref="Guid"/>.  A return value indicates whether the operation succeeded.
 		/// </summary>
-		/// <param name="strGuid">The GUID string to attempt to parse.</param>
+		/// <param name="value">The GUID string to attempt to parse.</param>
 		/// <param name="guid">When this method returns, contains the <see cref="Guid"/> equivalent to the GUID
-		/// contained in <paramref name="strGuid"/>, if the conversion succeeded, or Guid.Empty if the conversion failed.</param>
+		/// contained in <paramref name="value"/>, if the conversion succeeded, or Guid.Empty if the conversion failed.</param>
 		/// <returns><c>true</c> if a GUID was successfully parsed; <c>false</c> otherwise.</returns>
-		public static bool TryParse(string strGuid, out Guid guid)
+		public static bool TryParse(string value, out Guid guid)
 		{
-			return Guid.TryParse(strGuid, out guid);
+			return Guid.TryParse(value, out guid);
 		}
 
 		/// <summary>
@@ -46,7 +46,7 @@ namespace Faithlife.Utility
 		public static Guid FromShortString(string shortString)
 		{
 			if (shortString == null)
-				throw new ArgumentNullException("shortString");
+				throw new ArgumentNullException(nameof(shortString));
 
 			// short GUID strings are always 22 characters long
 			const string errorMessage = "The input is not a valid GUID short string.";
@@ -139,7 +139,7 @@ namespace Faithlife.Utility
 		public static Guid Create(Guid namespaceId, string name, int version)
 		{
 			if (name == null)
-				throw new ArgumentNullException("name");
+				throw new ArgumentNullException(nameof(name));
 
 			// convert the name to a sequence of octets (as defined by the standard or conventions of its namespace) (step 3)
 			// ASSUME: UTF-8 encoding is always appropriate
@@ -170,7 +170,7 @@ namespace Faithlife.Utility
 		public static Guid Create(Guid namespaceId, byte[] nameBytes, int version)
 		{
 			if (version != 3 && version != 5)
-				throw new ArgumentOutOfRangeException("version", "version must be either 3 or 5.");
+				throw new ArgumentOutOfRangeException(nameof(version), "version must be either 3 or 5.");
 
 			// convert the namespace UUID to network order (step 3)
 			byte[] namespaceBytes = namespaceId.ToByteArray();

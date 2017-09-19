@@ -116,12 +116,12 @@ namespace Faithlife.Utility
 		public static T[] Concatenate<T>(params T[][] arrays)
 		{
 			if (arrays == null)
-				throw new ArgumentNullException("arrays");
+				throw new ArgumentNullException(nameof(arrays));
 			int nTotalLength = 0;
 			foreach (T[] array in arrays)
 			{
 				if (array == null)
-					throw new ArgumentOutOfRangeException("arrays");
+					throw new ArgumentOutOfRangeException(nameof(arrays));
 				nTotalLength += array.Length;
 			}
 			T[] arrayResult = new T[nTotalLength];

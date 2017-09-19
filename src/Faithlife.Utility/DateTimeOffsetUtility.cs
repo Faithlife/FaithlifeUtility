@@ -11,43 +11,43 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Converts the specified ISO 8601 representation of a date and time to its DateTimeOffset equivalent.
 		/// </summary>
-		/// <param name="strValue">The ISO 8601 string representation to parse.</param>
+		/// <param name="value">The ISO 8601 string representation to parse.</param>
 		/// <returns>The DateTimeOffset equivalent.</returns>
-		public static DateTimeOffset ParseIso8601(string strValue)
+		public static DateTimeOffset ParseIso8601(string value)
 		{
-			return DateTimeOffset.ParseExact(strValue, GetParseFormat(strValue), CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal);
+			return DateTimeOffset.ParseExact(value, GetParseFormat(value), CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal);
 		}
 
 		/// <summary>
 		/// Converts the specified ISO 8601 representation of a date and time to its DateTimeOffset equivalent.
 		/// </summary>
-		/// <param name="strValue">The ISO 8601 string representation to parse.</param>
-		/// <param name="dt">The DateTimeOffset equivalent.</param>
+		/// <param name="value">The ISO 8601 string representation to parse.</param>
+		/// <param name="date">The DateTimeOffset equivalent.</param>
 		/// <returns>True if successful.</returns>
-		public static bool TryParseIso8601(string strValue, out DateTimeOffset dt)
+		public static bool TryParseIso8601(string value, out DateTimeOffset date)
 		{
-			return DateTimeOffset.TryParseExact(strValue, GetParseFormat(strValue), CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out dt);
+			return DateTimeOffset.TryParseExact(value, GetParseFormat(value), CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out date);
 		}
 
 		/// <summary>
 		/// Converts the specified ISO 8601 representation of a date and time to its DateTimeOffset equivalent.
 		/// </summary>
-		/// <param name="strValue">The ISO 8601 string representation to parse.</param>
+		/// <param name="value">The ISO 8601 string representation to parse.</param>
 		/// <returns>Non-null if successful.</returns>
-		public static DateTimeOffset? TryParseIso8601(string strValue)
+		public static DateTimeOffset? TryParseIso8601(string value)
 		{
 			DateTimeOffset dt;
-			return TryParseIso8601(strValue, out dt) ? dt : default(DateTimeOffset?);
+			return TryParseIso8601(value, out dt) ? dt : default(DateTimeOffset?);
 		}
 
 		/// <summary>
 		/// Formats the date in the standard ISO 8601 format.
 		/// </summary>
-		/// <param name="dtValue">The date to format.</param>
+		/// <param name="date">The date to format.</param>
 		/// <returns>The formatted date.</returns>
-		public static string ToIso8601(this DateTimeOffset dtValue)
+		public static string ToIso8601(this DateTimeOffset date)
 		{
-			return dtValue.ToString(Iso8601Format, CultureInfo.InvariantCulture);
+			return date.ToString(Iso8601Format, CultureInfo.InvariantCulture);
 		}
 
 		/// <summary>

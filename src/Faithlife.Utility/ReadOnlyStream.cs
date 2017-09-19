@@ -11,9 +11,9 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ReadOnlyStream"/> class.
 		/// </summary>
-		/// <param name="streamBase">The wrapped stream.</param>
-		public ReadOnlyStream(Stream streamBase)
-			: base(streamBase, Ownership.None)
+		/// <param name="stream">The wrapped stream.</param>
+		public ReadOnlyStream(Stream stream)
+			: base(stream, Ownership.None)
 		{
 		}
 

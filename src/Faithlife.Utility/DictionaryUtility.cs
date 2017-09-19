@@ -44,26 +44,26 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <typeparam name="TKey">The type of the key.</typeparam>
 		/// <typeparam name="TValue">The type of the value.</typeparam>
-		/// <param name="dict">The dictionary to wrap.</param>
+		/// <param name="dictionary">The dictionary to wrap.</param>
 		/// <returns>The read-only dictionary.</returns>
-		public static ReadOnlyDictionary<TKey, TValue> AsReadOnly<TKey, TValue>(this IDictionary<TKey, TValue> dict)
+		public static ReadOnlyDictionary<TKey, TValue> AsReadOnly<TKey, TValue>(this IDictionary<TKey, TValue> dictionary)
 		{
-			return new ReadOnlyDictionary<TKey, TValue>(dict);
+			return new ReadOnlyDictionary<TKey, TValue>(dictionary);
 		}
 
 		/// <summary>
 		/// Gets a value from the dictionary, adding and returning a new instance if it is missing.
 		/// </summary>
-		/// <param name="dict">The dictionary.</param>
+		/// <param name="dictionary">The dictionary.</param>
 		/// <param name="key">The key.</param>
 		/// <returns>The new or existing value.</returns>
-		public static TValue GetOrAddValue<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key) where TValue : new()
+		public static TValue GetOrAddValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key) where TValue : new()
 		{
 			TValue value;
-			if (dict.TryGetValue(key, out value))
+			if (dictionary.TryGetValue(key, out value))
 				return value;
 			value = new TValue();
-			dict.Add(key, value);
+			dictionary.Add(key, value);
 			return value;
 		}
 
@@ -72,17 +72,17 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <typeparam name="TKey">The type of the key.</typeparam>
 		/// <typeparam name="TValue">The type of the value.</typeparam>
-		/// <param name="dict">The dictionary.</param>
+		/// <param name="dictionary">The dictionary.</param>
 		/// <param name="key">The key.</param>
 		/// <param name="creator">Used to create a new value if necessary</param>
 		/// <returns>The new or existing value.</returns>
-		public static TValue GetOrAddValue<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, Func<TValue> creator)
+		public static TValue GetOrAddValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<TValue> creator)
 		{
 			TValue value;
-			if (dict.TryGetValue(key, out value))
+			if (dictionary.TryGetValue(key, out value))
 				return value;
 			value = creator();
-			dict.Add(key, value);
+			dictionary.Add(key, value);
 			return value;
 		}
 
@@ -91,17 +91,17 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <typeparam name="TKey">The type of the key.</typeparam>
 		/// <typeparam name="TValue">The type of the value.</typeparam>
-		/// <param name="dict">The dictionary.</param>
+		/// <param name="dictionary">The dictionary.</param>
 		/// <param name="key">The key.</param>
 		/// <param name="creator">Used to create a new value if necessary; the function is called with specified key.</param>
 		/// <returns>The new or existing value.</returns>
-		public static TValue GetOrAddValue<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, Func<TKey, TValue> creator)
+		public static TValue GetOrAddValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<TKey, TValue> creator)
 		{
 			TValue value;
-			if (dict.TryGetValue(key, out value))
+			if (dictionary.TryGetValue(key, out value))
 				return value;
 			value = creator(key);
-			dict.Add(key, value);
+			dictionary.Add(key, value);
 			return value;
 		}
 
@@ -110,14 +110,14 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <typeparam name="TKey">The type of the key.</typeparam>
 		/// <typeparam name="TValue">The type of the value.</typeparam>
-		/// <param name="dict">The dictionary.</param>
+		/// <param name="dictionary">The dictionary.</param>
 		/// <param name="key">The key.</param>
 		/// <returns>The value, or a default value.</returns>
-		public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key)
+		public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
 		{
 			// specification for IDictionary<> requires that the returned value be the default if it fails
 			TValue value;
-			dict.TryGetValue(key, out value);
+			dictionary.TryGetValue(key, out value);
 			return value;
 		}
 
@@ -126,14 +126,14 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <typeparam name="TKey">The type of the key.</typeparam>
 		/// <typeparam name="TValue">The type of the value.</typeparam>
-		/// <param name="dict">The dictionary.</param>
+		/// <param name="dictionary">The dictionary.</param>
 		/// <param name="key">The key.</param>
-		/// <param name="valueDefault">The default value.</param>
+		/// <param name="defaultValue">The default value.</param>
 		/// <returns>The value, or a default value.</returns>
-		public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, TValue valueDefault)
+		public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue)
 		{
 			TValue value;
-			return dict.TryGetValue(key, out value) ? value : valueDefault;
+			return dictionary.TryGetValue(key, out value) ? value : defaultValue;
 		}
 
 		/// <summary>
@@ -141,14 +141,14 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <typeparam name="TKey">The type of the key.</typeparam>
 		/// <typeparam name="TValue">The type of the value.</typeparam>
-		/// <param name="dict">The dictionary.</param>
+		/// <param name="dictionary">The dictionary.</param>
 		/// <param name="key">The key.</param>
-		/// <param name="fnDefault">The default value generator.</param>
+		/// <param name="getDefaultValue">The default value generator.</param>
 		/// <returns>The value, or a default value.</returns>
-		public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, Func<TValue> fnDefault)
+		public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<TValue> getDefaultValue)
 		{
 			TValue value;
-			return dict.TryGetValue(key, out value) ? value : fnDefault();
+			return dictionary.TryGetValue(key, out value) ? value : getDefaultValue();
 		}
 
 		/// <summary>
@@ -156,13 +156,13 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <typeparam name="TKey">The type of the key.</typeparam>
 		/// <typeparam name="TValue">The type of the value.</typeparam>
-		/// <param name="dict">The dictionary.</param>
+		/// <param name="dictionary">The dictionary.</param>
 		/// <param name="key">The key.</param>
 		/// <returns>The value, or null.</returns>
-		public static TValue? GetNullableValue<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key) where TValue : struct
+		public static TValue? GetNullableValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key) where TValue : struct
 		{
 			TValue value;
-			return dict.TryGetValue(key, out value) ? value : default(TValue?);
+			return dictionary.TryGetValue(key, out value) ? value : default(TValue?);
 		}
 
 		/// <summary>
@@ -183,10 +183,10 @@ namespace Faithlife.Utility
 		public static void MergeWith<TKey, TValue>(this IDictionary<TKey, TValue> thisDictionary, IDictionary<TKey, TValue> otherDictionary, MergeWithStrategy mergeWithStrategy)
 		{
 			if (otherDictionary == null)
-				throw new ArgumentNullException("otherDictionary");
+				throw new ArgumentNullException(nameof(otherDictionary));
 
 			if (thisDictionary == null)
-				throw new ArgumentNullException("thisDictionary");
+				throw new ArgumentNullException(nameof(thisDictionary));
 
 			foreach (KeyValuePair<TKey, TValue> keyValuePair in otherDictionary)
 			{
@@ -202,12 +202,12 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <typeparam name="TKey">The type of the key.</typeparam>
 		/// <typeparam name="TValue">The type of the value.</typeparam>
-		/// <param name="seq">The key value pairs.</param>
+		/// <param name="keyValuePairs">The key value pairs.</param>
 		/// <returns>The dictionary.</returns>
-		public static Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> seq)
+		public static Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> keyValuePairs)
 		{
 			var dict = new Dictionary<TKey, TValue>();
-			foreach (var pair in seq)
+			foreach (var pair in keyValuePairs)
 				dict.Add(pair.Key, pair.Value);
 			return dict;
 		}
@@ -217,12 +217,12 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <typeparam name="TKey">The type of the key.</typeparam>
 		/// <typeparam name="TValue">The type of the value.</typeparam>
-		/// <param name="seq">The key value pairs.</param>
+		/// <param name="keyValuePairs">The key value pairs.</param>
 		/// <returns>The sorted dictionary.</returns>
-		public static SortedDictionary<TKey, TValue> ToSortedDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> seq)
+		public static SortedDictionary<TKey, TValue> ToSortedDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> keyValuePairs)
 		{
 			var dict = new SortedDictionary<TKey, TValue>();
-			foreach (var pair in seq)
+			foreach (var pair in keyValuePairs)
 				dict.Add(pair.Key, pair.Value);
 			return dict;
 		}
@@ -232,12 +232,12 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <typeparam name="TKey">The type of the key.</typeparam>
 		/// <typeparam name="TValue">The type of the value.</typeparam>
-		/// <param name="seq">The key value pairs.</param>
+		/// <param name="keyValuePairs">The key value pairs.</param>
 		/// <returns>The sorted list.</returns>
-		public static SortedList<TKey, TValue> ToSortedList<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> seq)
+		public static SortedList<TKey, TValue> ToSortedList<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> keyValuePairs)
 		{
 			var dict = new SortedList<TKey, TValue>();
-			foreach (var pair in seq)
+			foreach (var pair in keyValuePairs)
 				dict.Add(pair.Key, pair.Value);
 			return dict;
 		}
@@ -284,15 +284,15 @@ namespace Faithlife.Utility
 		/// <param name="dictionary">The dictionary.</param>
 		/// <param name="key">The key.</param>
 		/// <param name="result">The converted result.</param>
-		/// <param name="fnConvert">The conversion.</param>
+		/// <param name="convert">The conversion.</param>
 		/// <returns><c>True</c> if the specified key exists in the dictionary; otherwise, <c>false</c>.</returns>
 		public static bool TryGetValueWithConversion<TKey, TValue, TOut>(this IDictionary<TKey, TValue> dictionary,
-			TKey key, out TOut result, Func<TValue, TOut> fnConvert)
+			TKey key, out TOut result, Func<TValue, TOut> convert)
 		{
 			TValue value;
 			if (dictionary.TryGetValue(key, out value))
 			{
-				result = fnConvert(value);
+				result = convert(value);
 				return true;
 			}
 
@@ -305,14 +305,14 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <typeparam name="TKey">The type of the key.</typeparam>
 		/// <typeparam name="TValue">The type of the value.</typeparam>
-		/// <param name="dict">The dictionary.</param>
+		/// <param name="dictionary">The dictionary.</param>
 		/// <param name="key">The key.</param>
-		/// <param name="fn">The action.</param>
-		public static void WithValue<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, Action<TValue> fn)
+		/// <param name="action">The action.</param>
+		public static void WithValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Action<TValue> action)
 		{
 			TValue value;
-			if (dict.TryGetValue(key, out value))
-				fn(value);
+			if (dictionary.TryGetValue(key, out value))
+				action(value);
 		}
 
 		/// <summary>
@@ -321,13 +321,13 @@ namespace Faithlife.Utility
 		/// <typeparam name="TKey">The type of the key.</typeparam>
 		/// <typeparam name="TValue">The type of the value.</typeparam>
 		/// <typeparam name="TResult">The type of the result.</typeparam>
-		/// <param name="dict">The dictionary.</param>
+		/// <param name="dictionary">The dictionary.</param>
 		/// <param name="key">The key.</param>
-		/// <param name="fn">The action.</param>
-		public static TResult WithValue<TKey, TValue, TResult>(this IDictionary<TKey, TValue> dict, TKey key, Func<TValue, TResult> fn)
+		/// <param name="convert">The action.</param>
+		public static TResult WithValue<TKey, TValue, TResult>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<TValue, TResult> convert)
 		{
 			TValue value;
-			return dict.TryGetValue(key, out value) ? fn(value) : default(TResult);
+			return dictionary.TryGetValue(key, out value) ? convert(value) : default(TResult);
 		}
 	}
 }

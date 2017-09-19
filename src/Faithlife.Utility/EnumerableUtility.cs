@@ -15,21 +15,21 @@ namespace Faithlife.Utility
 		/// Returns a new sequence that conditionally has the specified item appended to the end (appended iff it doesn't equal an existing sequence item)
 		/// </summary>
 		/// <typeparam name="T">The type of the sequence items.</typeparam>
-		/// <param name="seq">The sequence.</param>
+		/// <param name="sequence">The sequence.</param>
 		/// <param name="item">The item to conditionally append.</param>
 		/// <param name="comparer">Comparer used to check whether item is already present. If not provided, default comparer is used.</param>
 		/// <returns></returns>
-		public static IEnumerable<T> AppendIfNotAlreadyPresent<T>(this IEnumerable<T> seq, T item, IEqualityComparer<T> comparer = null)
+		public static IEnumerable<T> AppendIfNotAlreadyPresent<T>(this IEnumerable<T> sequence, T item, IEqualityComparer<T> comparer = null)
 		{
-			if (seq == null)
-				throw new ArgumentNullException("seq");
+			if (sequence == null)
+				throw new ArgumentNullException(nameof(sequence));
 
 			if (comparer == null)
 				comparer = EqualityComparer<T>.Default;
 
 			bool isAlreadyPresent = false;
 
-			foreach (T sequenceItem in seq)
+			foreach (T sequenceItem in sequence)
 			{
 				if (!isAlreadyPresent && comparer.Equals(sequenceItem, item))
 					isAlreadyPresent = true;
@@ -84,36 +84,36 @@ namespace Faithlife.Utility
 		/// Returns true if the count is as specified.
 		/// </summary>
 		/// <typeparam name="T">The type of the element.</typeparam>
-		/// <param name="seq">The sequence.</param>
-		/// <param name="nCount">The count.</param>
+		/// <param name="sequence">The sequence.</param>
+		/// <param name="count">The count.</param>
 		/// <returns>True if the count is as specified.</returns>
 		/// <remarks>This method will often be faster than calling Enumerable.Count() and testing that value
 		/// when the count may be much larger than the count being tested.</remarks>
-		public static bool CountIsExactly<T>(this IEnumerable<T> seq, int nCount)
+		public static bool CountIsExactly<T>(this IEnumerable<T> sequence, int count)
 		{
-			if (seq == null)
-				throw new ArgumentNullException("seq");
-			if (nCount < 0)
-				throw new ArgumentOutOfRangeException("nCount");
+			if (sequence == null)
+				throw new ArgumentNullException(nameof(sequence));
+			if (count < 0)
+				throw new ArgumentOutOfRangeException(nameof(count));
 
-			ICollection<T> coll = seq as ICollection<T>;
+			ICollection<T> coll = sequence as ICollection<T>;
 			if (coll != null)
 			{
 				// use ICollection<T>.Count if available
-				return coll.Count == nCount;
+				return coll.Count == count;
 			}
 			else
 			{
 				// iterate the sequence
-				using (IEnumerator<T> it = seq.GetEnumerator())
+				using (IEnumerator<T> it = sequence.GetEnumerator())
 				{
 					while (it.MoveNext())
 					{
-						if (nCount == 0)
+						if (count == 0)
 							return false;
-						nCount--;
+						count--;
 					}
-					return nCount == 0;
+					return count == 0;
 				}
 			}
 		}
@@ -122,21 +122,21 @@ namespace Faithlife.Utility
 		/// Returns true if the count is greater than or equal to the specified value.
 		/// </summary>
 		/// <typeparam name="T">The type of the element.</typeparam>
-		/// <param name="seq">The sequence.</param>
+		/// <param name="sequence">The sequence.</param>
 		/// <param name="count">The count.</param>
 		/// <returns>True if the count is greater than or equal to the specified value.</returns>
 		/// <remarks>This method will often be faster than calling Enumerable.Count() and testing that value
 		/// when the count may be much larger than the count being tested.</remarks>
-		public static bool CountIsAtLeast<T>(this IEnumerable<T> seq, int count)
+		public static bool CountIsAtLeast<T>(this IEnumerable<T> sequence, int count)
 		{
-			if (seq == null)
-				throw new ArgumentNullException("seq");
+			if (sequence == null)
+				throw new ArgumentNullException(nameof(sequence));
 			if (count < 0)
-				throw new ArgumentOutOfRangeException("count");
+				throw new ArgumentOutOfRangeException(nameof(count));
 			if (count == 0)
 				return true;
 
-			ICollection<T> coll = seq as ICollection<T>;
+			ICollection<T> coll = sequence as ICollection<T>;
 			if (coll != null)
 			{
 				// use ICollection<T>.Count if available
@@ -145,7 +145,7 @@ namespace Faithlife.Utility
 			else
 			{
 				// iterate the sequence
-				using (IEnumerator<T> it = seq.GetEnumerator())
+				using (IEnumerator<T> it = sequence.GetEnumerator())
 				{
 					while (it.MoveNext())
 					{
@@ -178,10 +178,10 @@ namespace Faithlife.Utility
 		public static IEnumerable<IEnumerable<T>> CrossProduct<T>(this IEnumerable<IEnumerable<T>> sequences)
 		{
 			if (sequences == null)
-				throw new ArgumentNullException("sequences");
+				throw new ArgumentNullException(nameof(sequences));
 			var collections = sequences.Select(x => x.AsReadOnlyList()).AsReadOnlyList();
 			if (collections.Count == 0)
-				throw new ArgumentException("There must be at least one sequence.", "sequences");
+				throw new ArgumentException("There must be at least one sequence.", nameof(sequences));
 
 			return DoCrossProduct(collections);
 		}
@@ -221,12 +221,12 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <typeparam name="TSource">The type of the object in the sequence.</typeparam>
 		/// <typeparam name="TKey">The type of the key used for equality comparison.</typeparam>
-		/// <param name="seq">The sequence to remove duplicate objects from.</param>
-		/// <param name="fnKeySelector">The function that determines the key.</param>
+		/// <param name="sequence">The sequence to remove duplicate objects from.</param>
+		/// <param name="keySelector">The function that determines the key.</param>
 		/// <returns>An <see cref="IEnumerable{T}"/> that contains distinct elements from the source sequence.</returns>
-		public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> seq, Func<TSource, TKey> fnKeySelector)
+		public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> sequence, Func<TSource, TKey> keySelector)
 		{
-			return DistinctBy(seq, fnKeySelector, null);
+			return DistinctBy(sequence, keySelector, null);
 		}
 
 		/// <summary>
@@ -234,63 +234,63 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <typeparam name="TSource">The type of the object in the sequence.</typeparam>
 		/// <typeparam name="TKey">The type of the key used for equality comparison.</typeparam>
-		/// <param name="seq">The sequence to remove duplicate objects from.</param>
-		/// <param name="fnKeySelector">The function that determines the key.</param>
+		/// <param name="sequence">The sequence to remove duplicate objects from.</param>
+		/// <param name="keySelector">The function that determines the key.</param>
 		/// <param name="equalityComparer">The <see cref="IEqualityComparer{T}"/> used to compare keys; if <c>null</c>, the default comparer will be used.</param>
 		/// <returns>An <see cref="IEnumerable{T}"/> that contains distinct elements from the source sequence.</returns>
-		public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> seq, Func<TSource, TKey> fnKeySelector, IEqualityComparer<TKey> equalityComparer)
+		public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> sequence, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> equalityComparer)
 		{
-			if (seq == null)
-				throw new ArgumentNullException("seq");
-			if (fnKeySelector == null)
-				throw new ArgumentNullException("fnKeySelector");
+			if (sequence == null)
+				throw new ArgumentNullException(nameof(sequence));
+			if (keySelector == null)
+				throw new ArgumentNullException(nameof(keySelector));
 
-			return seq.Distinct(new KeyEqualityComparer<TSource, TKey>(fnKeySelector, equalityComparer ?? EqualityComparer<TKey>.Default));
+			return sequence.Distinct(new KeyEqualityComparer<TSource, TKey>(keySelector, equalityComparer ?? EqualityComparer<TKey>.Default));
 		}
 
 		/// <summary>
 		/// Enumerates the specified collection, casting each element to a derived type.
 		/// </summary>
-		/// <param name="seq">The collection to enumerate.</param>
+		/// <param name="sequence">The collection to enumerate.</param>
 		/// <returns>The elements of the specified collection, cast to the destination type.</returns>
 		/// <remarks>This method can only be used when the destination type is derived from the source type.</remarks>
 		/// <exception cref="InvalidCastException">One of the elements could not be cast to the derived type.</exception>
 		/// <seealso cref="Upcast{TSource,TDest}" />
-		public static IEnumerable<TDest> Downcast<TSource, TDest>(this IEnumerable<TSource> seq) where TDest : TSource
+		public static IEnumerable<TDest> Downcast<TSource, TDest>(this IEnumerable<TSource> sequence) where TDest : TSource
 		{
-			if (seq == null)
-				throw new ArgumentNullException("seq");
-			return seq.Select(obj => (TDest) obj);
+			if (sequence == null)
+				throw new ArgumentNullException(nameof(sequence));
+			return sequence.Select(obj => (TDest) obj);
 		}
 
 		/// <summary>
 		/// Returns the specified sequence, or an empty sequence if it is null.
 		/// </summary>
 		/// <typeparam name="T">The type of object in the sequence.</typeparam>
-		/// <param name="seq">The sequence.</param>
+		/// <param name="sequence">The sequence.</param>
 		/// <returns>The specified sequence, or an empty sequence if it is null.</returns>
-		public static IEnumerable<T> EmptyIfNull<T>(this IEnumerable<T> seq)
+		public static IEnumerable<T> EmptyIfNull<T>(this IEnumerable<T> sequence)
 		{
-			return seq ?? Enumerable.Empty<T>();
+			return sequence ?? Enumerable.Empty<T>();
 		}
 
 		/// <summary>
 		/// Returns <c>true</c> if the sequence is null or contains no elements.
 		/// </summary>
-		/// <param name="seq">The sequence.</param>
+		/// <param name="sequence">The sequence.</param>
 		/// <returns><c>true</c> if the sequence is null or contains no elements.</returns>
-		public static bool IsNullOrEmpty<T>(this IEnumerable<T> seq)
+		public static bool IsNullOrEmpty<T>(this IEnumerable<T> sequence)
 		{
-			if (seq == null)
+			if (sequence == null)
 				return true;
 
 			// use ICollection<T>.Count if available
-			ICollection<T> coll = seq as ICollection<T>;
+			ICollection<T> coll = sequence as ICollection<T>;
 			if (coll != null)
 				return coll.Count == 0;
 
 			// iterate the sequence
-			using (IEnumerator<T> it = seq.GetEnumerator())
+			using (IEnumerator<T> it = sequence.GetEnumerator())
 			{
 				if (it.MoveNext())
 					return false;
@@ -302,20 +302,20 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Returns <c>true</c> if the sequence is null or contains no elements.
 		/// </summary>
-		/// <param name="seq">The sequence.</param>
+		/// <param name="sequence">The sequence.</param>
 		/// <returns><c>true</c> if the sequence is null or contains no elements.</returns>
-		public static bool IsNullOrEmpty(this IEnumerable seq)
+		public static bool IsNullOrEmpty(this IEnumerable sequence)
 		{
-			if (seq == null)
+			if (sequence == null)
 				return true;
 
 			// use ICollection.Count if available
-			ICollection coll = seq as ICollection;
+			ICollection coll = sequence as ICollection;
 			if (coll != null)
 				return coll.Count == 0;
 
 			// iterate the sequence
-			IEnumerator enumerator = seq.GetEnumerator();
+			IEnumerator enumerator = sequence.GetEnumerator();
 			try
 			{
 				return !enumerator.MoveNext();
@@ -329,97 +329,97 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Returns the specified sequence, or an empty sequence if it is null.
 		/// </summary>
-		/// <param name="seq">The sequence.</param>
+		/// <param name="sequence">The sequence.</param>
 		/// <returns>The specified sequence, or an empty sequence if it is null.</returns>
-		public static IEnumerable EmptyIfNull(this IEnumerable seq)
+		public static IEnumerable EmptyIfNull(this IEnumerable sequence)
 		{
-			return seq ?? Enumerable.Empty<object>();
+			return sequence ?? Enumerable.Empty<object>();
 		}
 
 		/// <summary>
 		/// Enumerates the specified argument.
 		/// </summary>
-		/// <param name="arg">The argument to enumerate.</param>
+		/// <param name="item">The argument to enumerate.</param>
 		/// <returns>The enumerated arguments.</returns>
-		public static IEnumerable<T> Enumerate<T>(T arg)
+		public static IEnumerable<T> Enumerate<T>(T item)
 		{
-			yield return arg;
+			yield return item;
 		}
 
 		/// <summary>
 		/// Enumerates the specified arguments.
 		/// </summary>
-		/// <param name="args">The arguments to enumerate.</param>
+		/// <param name="items">The arguments to enumerate.</param>
 		/// <returns>The enumerated arguments.</returns>
-		public static IEnumerable<T> Enumerate<T>(params T[] args)
+		public static IEnumerable<T> Enumerate<T>(params T[] items)
 		{
-			return args.AsReadOnly();
+			return items.AsReadOnly();
 		}
 
 		/// <summary>
 		/// Enumerates a sequence of elements in batches.
 		/// </summary>
 		/// <typeparam name="T">The type of object in the sequence.</typeparam>
-		/// <param name="seq">The sequence of elements to process in batches.</param>
-		/// <param name="nBatchSize">The batch size.</param>
+		/// <param name="sequence">The sequence of elements to process in batches.</param>
+		/// <param name="batchSize">The batch size.</param>
 		/// <returns>Batches of collections containing the elements from the source sequence.</returns>
 		/// <remarks>The contents of each batch are eagerly enumerated, to avoid potential errors caused by
 		/// not fully evaluating each batch (the inner enumerator) before advancing the outer enumerator.</remarks>
-		public static IEnumerable<ReadOnlyCollection<T>> EnumerateBatches<T>(this IEnumerable<T> seq, int nBatchSize)
+		public static IEnumerable<ReadOnlyCollection<T>> EnumerateBatches<T>(this IEnumerable<T> sequence, int batchSize)
 		{
-			if (seq == null)
-				throw new ArgumentNullException("seq");
-			if (nBatchSize < 1)
-				throw new ArgumentOutOfRangeException("nBatchSize");
+			if (sequence == null)
+				throw new ArgumentNullException(nameof(sequence));
+			if (batchSize < 1)
+				throw new ArgumentOutOfRangeException(nameof(batchSize));
 
 			// optimize for small lists
-			IList<T> seqAsList = seq as IList<T>;
+			IList<T> seqAsList = sequence as IList<T>;
 			if (seqAsList != null)
 			{
 				int count = seqAsList.Count;
-				if (count <= nBatchSize)
+				if (count <= batchSize)
 					return count != 0 ? Enumerate(seqAsList.AsReadOnly()) : Enumerable.Empty<ReadOnlyCollection<T>>();
 			}
 
 			// iterator in a separate function causes arguments to be validated immediately
-			return EnumerateBatchesIterator(seq, nBatchSize);
+			return EnumerateBatchesIterator(sequence, batchSize);
 		}
 
 		/// <summary>
 		/// Enumerates a sequence of elements in batches.
 		/// </summary>
 		/// <typeparam name="T">The type of object in the sequence.</typeparam>
-		/// <param name="seq">The sequence of elements to process in batches.</param>
+		/// <param name="sequence">The sequence of elements to process in batches.</param>
 		/// <param name="startsNewBatch">Should return true if the item should start a new batch.</param>
 		/// <returns>Batches of collections containing the elements from the source sequence.</returns>
 		/// <remarks>The contents of each batch are eagerly enumerated, to avoid potential errors caused by
 		/// not fully evaluating each batch (the inner enumerator) before advancing the outer enumerator.</remarks>
-		public static IEnumerable<ReadOnlyCollection<T>> EnumerateBatches<T>(this IEnumerable<T> seq, Func<T, bool> startsNewBatch)
+		public static IEnumerable<ReadOnlyCollection<T>> EnumerateBatches<T>(this IEnumerable<T> sequence, Func<T, bool> startsNewBatch)
 		{
-			if (seq == null)
-				throw new ArgumentNullException("seq");
+			if (sequence == null)
+				throw new ArgumentNullException(nameof(sequence));
 			if (startsNewBatch == null)
-				throw new ArgumentNullException("startsNewBatch");
+				throw new ArgumentNullException(nameof(startsNewBatch));
 
 			// iterator in a separate function causes arguments to be validated immediately
-			return EnumerateBatchesIterator(seq, startsNewBatch);
+			return EnumerateBatchesIterator(sequence, startsNewBatch);
 		}
 
 		/// <summary>
 		///	 Like SingleOrDefault, but doesn't throw an exception if there is more than one (instead returns default value).
 		/// </summary>
 		/// <typeparam name="T">The type of object in the sequence.</typeparam>
-		/// <param name="seq">The sequence of elements.</param>
+		/// <param name="sequence">The sequence of elements.</param>
 		/// <returns>The first item in the sequence if there is exactly one item in the sequence; otherwise, the default value.</returns>
-		public static T ExactlyOneOrDefault<T>(this IEnumerable<T> seq)
+		public static T ExactlyOneOrDefault<T>(this IEnumerable<T> sequence)
 		{
-			if (seq == null)
-				throw new ArgumentNullException("seq");
+			if (sequence == null)
+				throw new ArgumentNullException(nameof(sequence));
 
 			T result = default(T);
 			bool foundResult = false;
 
-			foreach (T element in seq)
+			foreach (T element in sequence)
 			{
 				if (foundResult)
 					return default(T);
@@ -435,120 +435,120 @@ namespace Faithlife.Utility
 		///	 Like SingleOrDefault, but doesn't throw an exception if there is more than one (instead returns default value).
 		/// </summary>
 		/// <typeparam name="T">The type of object in the sequence.</typeparam>
-		/// <param name="seq">The sequence of elements.</param>
+		/// <param name="sequence">The sequence of elements.</param>
 		/// <param name="predicate">The predicate used to determine whether there is one matching element that should be returned.</param>
 		/// <returns>The first item in the sequence if there is exactly one item in the sequence; otherwise, the default value.</returns>
-		public static T ExactlyOneOrDefault<T>(this IEnumerable<T> seq, Func<T, bool> predicate)
+		public static T ExactlyOneOrDefault<T>(this IEnumerable<T> sequence, Func<T, bool> predicate)
 		{
-			if (seq == null)
-				throw new ArgumentNullException("seq");
+			if (sequence == null)
+				throw new ArgumentNullException(nameof(sequence));
 			if (predicate == null)
-				throw new ArgumentNullException("predicate");
+				throw new ArgumentNullException(nameof(predicate));
 
-			return seq.Where(predicate).ExactlyOneOrDefault();
+			return sequence.Where(predicate).ExactlyOneOrDefault();
 		}
 
 		/// <summary>
 		/// Returns the first element of a sequence or a default value if no such element is found.
 		/// </summary>
-		/// <typeparam name="T">The type of the elements of <paramref name="seq"/>.</typeparam>
-		/// <param name="seq">An IEnumerable&lt;TSource&gt; to return an element from.</param>
+		/// <typeparam name="T">The type of the elements of <paramref name="sequence"/>.</typeparam>
+		/// <param name="sequence">An IEnumerable&lt;TSource&gt; to return an element from.</param>
 		/// <param name="defaultValue">The value to return if no element is found.</param>
 		/// <returns>
-		/// <paramref name="defaultValue"/> if <paramref name="seq"/> is empty; otherwise, the first element in <paramref name="seq"/>.
+		/// <paramref name="defaultValue"/> if <paramref name="sequence"/> is empty; otherwise, the first element in <paramref name="sequence"/>.
 		/// </returns>
-		public static T FirstOrDefault<T>(this IEnumerable<T> seq, T defaultValue)
+		public static T FirstOrDefault<T>(this IEnumerable<T> sequence, T defaultValue)
 		{
 			T found;
-			return seq.TryFirst(out found) ? found : defaultValue;
+			return sequence.TryFirst(out found) ? found : defaultValue;
 		}
 
 		/// <summary>
 		/// Returns the first element of a sequence that satisfies a condition or a default value if no such element is found.
 		/// </summary>
-		/// <typeparam name="T">The type of the elements of <paramref name="seq"/>.</typeparam>
-		/// <param name="seq">An IEnumerable&lt;TSource&gt; to return an element from.</param>
-		/// <param name="fnPredicate">A function to test each element for a condition.</param>
+		/// <typeparam name="T">The type of the elements of <paramref name="sequence"/>.</typeparam>
+		/// <param name="sequence">An IEnumerable&lt;TSource&gt; to return an element from.</param>
+		/// <param name="predicate">A function to test each element for a condition.</param>
 		/// <param name="defaultValue">The value to return if no element satisfies the condition.</param>
 		/// <returns>
-		/// <paramref name="defaultValue"/> if <paramref name="seq"/> is empty or if no element passes the test
-		/// specified by <paramref name="fnPredicate"/>; otherwise, the first element in <paramref name="seq"/> that
-		/// passes the test specified by <paramref name="fnPredicate"/>.
+		/// <paramref name="defaultValue"/> if <paramref name="sequence"/> is empty or if no element passes the test
+		/// specified by <paramref name="predicate"/>; otherwise, the first element in <paramref name="sequence"/> that
+		/// passes the test specified by <paramref name="predicate"/>.
 		/// </returns>
-		public static T FirstOrDefault<T>(this IEnumerable<T> seq, Func<T, bool> fnPredicate, T defaultValue)
+		public static T FirstOrDefault<T>(this IEnumerable<T> sequence, Func<T, bool> predicate, T defaultValue)
 		{
 			T found;
-			return seq.TryFirst(fnPredicate, out found) ? found : defaultValue;
+			return sequence.TryFirst(predicate, out found) ? found : defaultValue;
 		}
 
 		/// <summary>
 		/// Executes the specified action for each item in the sequence.
 		/// </summary>
 		/// <typeparam name="T">The type of object in the sequence.</typeparam>
-		/// <param name="seq">The sequence.</param>
-		/// <param name="fn">The action.</param>
-		public static void ForEach<T>(this IEnumerable<T> seq, Action<T> fn)
+		/// <param name="sequence">The sequence.</param>
+		/// <param name="action">The action.</param>
+		public static void ForEach<T>(this IEnumerable<T> sequence, Action<T> action)
 		{
-			foreach (T item in seq)
-				fn(item);
+			foreach (T item in sequence)
+				action(item);
 		}
 
 		/// <summary>
 		/// Executes the specified action for each item in the sequence, including a zero-based index.
 		/// </summary>
 		/// <typeparam name="T">The type of object in the sequence.</typeparam>
-		/// <param name="seq">The sequence.</param>
-		/// <param name="fn">The action (including the zero-based index).</param>
-		public static void ForEach<T>(this IEnumerable<T> seq, Action<T, int> fn)
+		/// <param name="sequence">The sequence.</param>
+		/// <param name="action">The action (including the zero-based index).</param>
+		public static void ForEach<T>(this IEnumerable<T> sequence, Action<T, int> action)
 		{
 			int nIndex = 0;
-			foreach (T item in seq)
-				fn(item, nIndex++);
+			foreach (T item in sequence)
+				action(item, nIndex++);
 		}
 
 		/// <summary>
 		/// Intersperses the specified value between the elements of the source collection.
 		/// </summary>
 		/// <typeparam name="T">The element type of the source sequence.</typeparam>
-		/// <param name="seq">The source sequence.</param>
+		/// <param name="sequence">The source sequence.</param>
 		/// <param name="value">The value to intersperse.</param>
 		/// <returns>A sequence of elements from the source collection, with value interspersed.</returns>
-		public static IEnumerable<T> Intersperse<T>(this IEnumerable<T> seq, T value)
+		public static IEnumerable<T> Intersperse<T>(this IEnumerable<T> sequence, T value)
 		{
-			if (seq == null)
-				throw new ArgumentNullException("seq");
+			if (sequence == null)
+				throw new ArgumentNullException(nameof(sequence));
 
 			// iterator in a separate function causes arguments to be validated immediately
-			return IntersperseIterator(seq, value);
+			return IntersperseIterator(sequence, value);
 		}
 
 		/// <summary>
 		/// Determines whether the specified sequence is sorted.
 		/// </summary>
 		/// <typeparam name="T">The element type.</typeparam>
-		/// <param name="seq">The sequence.</param>
+		/// <param name="sequence">The sequence.</param>
 		/// <returns><c>true</c> if the specified sequence is sorted; otherwise, <c>false</c>.</returns>
-		public static bool IsSorted<T>(this IEnumerable<T> seq)
+		public static bool IsSorted<T>(this IEnumerable<T> sequence)
 		{
-			return seq.IsSorted(null);
+			return sequence.IsSorted(null);
 		}
 
 		/// <summary>
 		/// Determines whether the specified sequence is sorted.
 		/// </summary>
 		/// <typeparam name="T">The element type.</typeparam>
-		/// <param name="seq">The sequence.</param>
+		/// <param name="sequence">The sequence.</param>
 		/// <param name="comparer">The comparer.</param>
 		/// <returns><c>true</c> if the specified sequence is sorted; otherwise, <c>false</c>.</returns>
-		public static bool IsSorted<T>(this IEnumerable<T> seq, IComparer<T> comparer)
+		public static bool IsSorted<T>(this IEnumerable<T> sequence, IComparer<T> comparer)
 		{
-			if (seq == null)
-				throw new ArgumentNullException("seq");
+			if (sequence == null)
+				throw new ArgumentNullException(nameof(sequence));
 
 			if (comparer == null)
 				comparer = Comparer<T>.Default;
 
-			using (IEnumerator<T> it = seq.GetEnumerator())
+			using (IEnumerator<T> it = sequence.GetEnumerator())
 			{
 				if (it.MoveNext())
 				{
@@ -570,27 +570,27 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Given two sequences, finds the longest common slice (i.e., contiguous sub-sequence) contained in both of them, and returns its length.
 		/// </summary>
-		/// <param name="seqFirst">The first sequence.</param>
-		/// <param name="seqSecond">The second sequence.</param>
-		/// <param name="nFirstIndex">The position within the first sequence at which the longest common slice starts, or -1 if none is found.</param>
-		/// <param name="nSecondIndex">The position within the second sequence at which the longest common slice starts, or -1 if none is found.</param>
+		/// <param name="first">The first sequence.</param>
+		/// <param name="second">The second sequence.</param>
+		/// <param name="firstIndex">The position within the first sequence at which the longest common slice starts, or -1 if none is found.</param>
+		/// <param name="secondIndex">The position within the second sequence at which the longest common slice starts, or -1 if none is found.</param>
 		/// <returns>The length of the longest common slice.</returns>
-		public static int LongestCommonSlice<T>(IEnumerable<T> seqFirst, IEnumerable<T> seqSecond, out int nFirstIndex, out int nSecondIndex)
+		public static int LongestCommonSlice<T>(IEnumerable<T> first, IEnumerable<T> second, out int firstIndex, out int secondIndex)
 		{
 			// check arguments
-			if (seqFirst == null)
-				throw new ArgumentNullException("seqFirst");
-			if (seqSecond == null)
-				throw new ArgumentNullException("seqSecond");
+			if (first == null)
+				throw new ArgumentNullException(nameof(first));
+			if (second == null)
+				throw new ArgumentNullException(nameof(second));
 
 			// convert to lists (for easy random access)
-			List<T> listFirst = seqFirst.ToList();
-			List<T> listSecond = seqSecond.ToList();
+			List<T> listFirst = first.ToList();
+			List<T> listSecond = second.ToList();
 			EqualityComparer<T> comparer = EqualityComparer<T>.Default;
 
 			// no common slice found yet
-			nFirstIndex = -1;
-			nSecondIndex = -1;
+			firstIndex = -1;
+			secondIndex = -1;
 
 			// build table of maximum slice lengths found at each starting position
 			int[,] lengths = new int[listFirst.Count, listSecond.Count];
@@ -613,8 +613,8 @@ namespace Faithlife.Utility
 						if (lengths[nFirst, nSecond] > nMaxLength)
 						{
 							nMaxLength = lengths[nFirst, nSecond];
-							nFirstIndex = nFirst - nMaxLength + 1;
-							nSecondIndex = nSecond - nMaxLength + 1;
+							firstIndex = nFirst - nMaxLength + 1;
+							secondIndex = nSecond - nMaxLength + 1;
 						}
 					}
 				}
@@ -627,27 +627,27 @@ namespace Faithlife.Utility
 		/// Finds the maximum element in the specified collection, using the specified comparison.
 		/// </summary>
 		/// <typeparam name="T">The type of element in the collection.</typeparam>
-		/// <param name="seq">The sequence to search.</param>
-		/// <param name="fnComparison">The comparison function.</param>
+		/// <param name="sequence">The sequence to search.</param>
+		/// <param name="comparison">The comparison function.</param>
 		/// <returns>The maximum element, as evaluated by the specified comparision.</returns>
-		public static T Max<T>(this IEnumerable<T> seq, Func<T, T, int> fnComparison)
+		public static T Max<T>(this IEnumerable<T> sequence, Func<T, T, int> comparison)
 		{
-			if (seq == null)
-				throw new ArgumentNullException("seq");
-			if (fnComparison == null)
-				throw new ArgumentNullException("fnComparison");
+			if (sequence == null)
+				throw new ArgumentNullException(nameof(sequence));
+			if (comparison == null)
+				throw new ArgumentNullException(nameof(comparison));
 
-			using (IEnumerator<T> it = seq.GetEnumerator())
+			using (IEnumerator<T> it = sequence.GetEnumerator())
 			{
 				if (!it.MoveNext())
-					throw new ArgumentException("Specified collection has no elements.", "seq");
+					throw new ArgumentException("Specified collection has no elements.", nameof(sequence));
 
 				T max = it.Current;
 
 				while (it.MoveNext())
 				{
 					T current = it.Current;
-					if (fnComparison(current, max) > 0)
+					if (comparison(current, max) > 0)
 						max = current;
 				}
 
@@ -679,11 +679,11 @@ namespace Faithlife.Utility
 		/// Returns the specified sequence, or null if it is empty.
 		/// </summary>
 		/// <typeparam name="T">The type of object in the sequence.</typeparam>
-		/// <param name="seq">The sequence.</param>
+		/// <param name="sequence">The sequence.</param>
 		/// <returns>The specified sequence, or null if it is empty.</returns>
-		public static T NullIfEmpty<T>(this T seq) where T : class, IEnumerable
+		public static T NullIfEmpty<T>(this T sequence) where T : class, IEnumerable
 		{
-			return IsNullOrEmpty(seq) ? null : seq;
+			return IsNullOrEmpty(sequence) ? null : sequence;
 		}
 
 		/// <summary>
@@ -697,7 +697,7 @@ namespace Faithlife.Utility
 		public static IEnumerable<T> Range<T>(T start, int count, Func<T, T> increment)
 		{
 			if (count < 0)
-				throw new ArgumentException("Count must not be negative.", "count");
+				throw new ArgumentException("Count must not be negative.", nameof(count));
 
 			return DoRange(start, count, increment);
 		}
@@ -767,34 +767,34 @@ namespace Faithlife.Utility
 		/// Compares two sequences.
 		/// </summary>
 		/// <typeparam name="T">The type of the elements.</typeparam>
-		/// <param name="seqFirst">The first sequence.</param>
-		/// <param name="seqSecond">The second sequence.</param>
+		/// <param name="first">The first sequence.</param>
+		/// <param name="second">The second sequence.</param>
 		/// <returns>0 if they are equal; less than zero if the first is less than the second; greater than zero if the first is greater than the second.</returns>
-		public static int SequenceCompare<T>(this IEnumerable<T> seqFirst, IEnumerable<T> seqSecond)
+		public static int SequenceCompare<T>(this IEnumerable<T> first, IEnumerable<T> second)
 		{
-			return seqFirst.SequenceCompare(seqSecond, null);
+			return first.SequenceCompare(second, null);
 		}
 
 		/// <summary>
 		/// Compares two sequences.
 		/// </summary>
 		/// <typeparam name="T">The type of the elements.</typeparam>
-		/// <param name="seqFirst">The first sequence.</param>
-		/// <param name="seqSecond">The second sequence.</param>
+		/// <param name="first">The first sequence.</param>
+		/// <param name="second">The second sequence.</param>
 		/// <param name="comparer">The comparer.</param>
 		/// <returns>0 if they are equal; less than zero if the first is less than the second; greater than zero if the first is greater than the second.</returns>
-		public static int SequenceCompare<T>(this IEnumerable<T> seqFirst, IEnumerable<T> seqSecond, IComparer<T> comparer)
+		public static int SequenceCompare<T>(this IEnumerable<T> first, IEnumerable<T> second, IComparer<T> comparer)
 		{
-			if (seqFirst == null)
-				throw new ArgumentNullException("seqFirst");
-			if (seqSecond == null)
-				throw new ArgumentNullException("seqSecond");
+			if (first == null)
+				throw new ArgumentNullException(nameof(first));
+			if (second == null)
+				throw new ArgumentNullException(nameof(second));
 
 			if (comparer == null)
 				comparer = Comparer<T>.Default;
 
-			using (IEnumerator<T> itFirst = seqFirst.GetEnumerator())
-			using (IEnumerator<T> itSecond = seqSecond.GetEnumerator())
+			using (IEnumerator<T> itFirst = first.GetEnumerator())
+			using (IEnumerator<T> itSecond = second.GetEnumerator())
 			{
 				while (itFirst.MoveNext())
 				{
@@ -817,40 +817,40 @@ namespace Faithlife.Utility
 		/// Gets the hash code for a sequence.
 		/// </summary>
 		/// <typeparam name="T">The type of the elements.</typeparam>
-		/// <param name="seq">The sequence.</param>
+		/// <param name="sequence">The sequence.</param>
 		/// <returns>A valid hash code for the sequence, assuming Enumerable.SequenceEqual is used to compare them.</returns>
 		/// <remarks>If the sequence is null, zero is returned.</remarks>
-		public static int SequenceHashCode<T>(this IEnumerable<T> seq)
+		public static int SequenceHashCode<T>(this IEnumerable<T> sequence)
 		{
-			return seq.SequenceHashCode(null);
+			return sequence.SequenceHashCode(null);
 		}
 
 		/// <summary>
 		/// Gets the hash code for a sequence.
 		/// </summary>
 		/// <typeparam name="T">The type of the elements.</typeparam>
-		/// <param name="seq">The sequence.</param>
+		/// <param name="sequence">The sequence.</param>
 		/// <param name="comparer">The comparer.</param>
 		/// <returns>A valid hash code for the sequence, assuming Enumerable.SequenceEqual is used to compare them.</returns>
 		/// <remarks>If the sequence is null, zero is returned.</remarks>
-		public static int SequenceHashCode<T>(this IEnumerable<T> seq, IEqualityComparer<T> comparer)
+		public static int SequenceHashCode<T>(this IEnumerable<T> sequence, IEqualityComparer<T> comparer)
 		{
-			if (seq == null)
+			if (sequence == null)
 				return 0;
 
 			if (comparer == null)
 				comparer = EqualityComparer<T>.Default;
 
-			return HashCodeUtility.CombineHashCodes(seq.Select(x => comparer.GetHashCode(x)).ToArray());
+			return HashCodeUtility.CombineHashCodes(sequence.Select(x => comparer.GetHashCode(x)).ToArray());
 		}
 
 		/// <summary>
-		/// Splits the <paramref name="seq"/> sequence into <paramref name="nBinCount"/> equal-sized bins.
-		/// If <paramref name="nBinCount"/> does not evenly divide the total element count, then the first
-		/// (total count % <paramref name="nBinCount"/>) bins will have one more element than the following bins.
+		/// Splits the <paramref name="sequence"/> sequence into <paramref name="binCount"/> equal-sized bins.
+		/// If <paramref name="binCount"/> does not evenly divide the total element count, then the first
+		/// (total count % <paramref name="binCount"/>) bins will have one more element than the following bins.
 		/// </summary>
-		/// <param name="seq">The sequence to split.</param>
-		/// <param name="nBinCount">The desired number of bins.</param>
+		/// <param name="sequence">The sequence to split.</param>
+		/// <param name="binCount">The desired number of bins.</param>
 		/// <returns>A sequence of sub-sequences of the original sequence.</returns>
 		/// <remarks>
 		/// WARNING: Calls Enumerable.Count(), which may enumerate the underlying sequence (if it is not an <see cref="ICollection"/> or array type).
@@ -859,21 +859,21 @@ namespace Faithlife.Utility
 		/// For example, a 12-item sequence split into 5 bins will yield batches of (3, 3, 2, 2, 2);
 		/// EnumerateBatches can give us (3, 3, 3, 3) or (2, 2, 2, 2, 2, 2), but cannot give us exactly 5 batches.
 		/// </remarks>
-		public static IEnumerable<ReadOnlyCollection<T>> SplitIntoBins<T>(this IEnumerable<T> seq, int nBinCount)
+		public static IEnumerable<ReadOnlyCollection<T>> SplitIntoBins<T>(this IEnumerable<T> sequence, int binCount)
 		{
-			if (seq == null)
-				throw new ArgumentNullException("seq");
-			if (nBinCount < 1)
-				throw new ArgumentOutOfRangeException("nBinCount");
+			if (sequence == null)
+				throw new ArgumentNullException(nameof(sequence));
+			if (binCount < 1)
+				throw new ArgumentOutOfRangeException(nameof(binCount));
 
-			int nSeqCount = seq.Count();
+			int nSeqCount = sequence.Count();
 
 			// iterator in a separate function causes arguments to be validated immediately
-			return SplitIntoBinsIterator(seq, nBinCount, nSeqCount);
+			return SplitIntoBinsIterator(sequence, binCount, nSeqCount);
 		}
 
 		// Iterator block for SplitIntoBins method above
-		private static IEnumerable<ReadOnlyCollection<T>> SplitIntoBinsIterator<T>(IEnumerable<T> seq, int nBinCount, int nSeqCount)
+		private static IEnumerable<ReadOnlyCollection<T>> SplitIntoBinsIterator<T>(IEnumerable<T> sequence, int nBinCount, int nSeqCount)
 		{
 			// initial bin size is the sequence count divided by the number of bins, rounded up
 			int binSize = nSeqCount / nBinCount;
@@ -883,7 +883,7 @@ namespace Faithlife.Utility
 
 			List<T> batch = new List<T>(binSize);
 
-			foreach (T item in seq)
+			foreach (T item in sequence)
 			{
 				// add to current batch
 				batch.Add(item);
@@ -908,62 +908,62 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Sorts the sequence. A shortcut for OrderBy(x => x).
 		/// </summary>
-		/// <param name="seq">The sequence.</param>
+		/// <param name="sequence">The sequence.</param>
 		/// <returns>The sorted sequence.</returns>
-		public static IEnumerable<T> Order<T>(this IEnumerable<T> seq)
+		public static IEnumerable<T> Order<T>(this IEnumerable<T> sequence)
 		{
-			return seq.OrderBy(x => x);
+			return sequence.OrderBy(x => x);
 		}
 
 		/// <summary>
 		/// Sorts the sequence. A shortcut for OrderBy(x => x, comparer).
 		/// </summary>
-		/// <param name="seq">The sequence.</param>
+		/// <param name="sequence">The sequence.</param>
 		/// <param name="comparer">The comparer.</param>
 		/// <returns>The sorted sequence.</returns>
-		public static IEnumerable<T> Order<T>(this IEnumerable<T> seq, IComparer<T> comparer)
+		public static IEnumerable<T> Order<T>(this IEnumerable<T> sequence, IComparer<T> comparer)
 		{
-			return seq.OrderBy(x => x, comparer);
+			return sequence.OrderBy(x => x, comparer);
 		}
 
 		/// <summary>
 		/// Lazily merges two sorted sequences, maintaining sort order.  Does not remove duplicates.
 		/// </summary>
-		/// <param name="seq1">a sorted sequence</param>
-		/// <param name="seq2">a sorted sequence</param>
+		/// <param name="sequence1">a sorted sequence</param>
+		/// <param name="sequence2">a sorted sequence</param>
 		/// <param name="comparer">a comparer by which both input sequences must already be sorted, and by which the result will be sorted</param>
 		/// <returns>a sorted sequence</returns>
-		public static IEnumerable<T> Merge<T>(IEnumerable<T> seq1, IEnumerable<T> seq2, IComparer<T> comparer)
+		public static IEnumerable<T> Merge<T>(IEnumerable<T> sequence1, IEnumerable<T> sequence2, IComparer<T> comparer)
 		{
-			if (seq1 == null)
-				throw new ArgumentNullException("seq1");
-			if (seq2 == null)
-				throw new ArgumentNullException("seq2");
+			if (sequence1 == null)
+				throw new ArgumentNullException(nameof(sequence1));
+			if (sequence2 == null)
+				throw new ArgumentNullException(nameof(sequence2));
 			if (comparer == null)
-				throw new ArgumentNullException("comparer");
+				throw new ArgumentNullException(nameof(comparer));
 
-			return DoMerge(seq1, seq2, comparer);
+			return DoMerge(sequence1, sequence2, comparer);
 		}
 
 		/// <summary>
 		/// Returns the specified number of items from the end of the sequence.
 		/// </summary>
 		/// <typeparam name="T">The type of the sequence.</typeparam>
-		/// <param name="seq">The source sequence.</param>
+		/// <param name="sequence">The source sequence.</param>
 		/// <param name="count">The number of items to take from the end of the sequence.</param>
 		/// <returns>A collection with at most <paramref name="count"/> items, taken from the end of the sequence.</returns>
 		/// <remarks>The source sequence is only evaluated once.</remarks>
-		public static ReadOnlyCollection<T> TakeLast<T>(this IEnumerable<T> seq, int count)
+		public static ReadOnlyCollection<T> TakeLast<T>(this IEnumerable<T> sequence, int count)
 		{
-			if (seq == null)
-				throw new ArgumentNullException("seq");
+			if (sequence == null)
+				throw new ArgumentNullException(nameof(sequence));
 			if (count < 0)
-				throw new ArgumentOutOfRangeException("count");
+				throw new ArgumentOutOfRangeException(nameof(count));
 			else if (count == 0)
 				return ListUtility.CreateReadOnlyCollection<T>();
 
 			Queue<T> queue = new Queue<T>(count);
-			foreach (T item in seq)
+			foreach (T item in sequence)
 			{
 				if (queue.Count >= count)
 					queue.Dequeue();
@@ -994,72 +994,72 @@ namespace Faithlife.Utility
 		/// Returns a new set of the elements in the specified sequence.
 		/// </summary>
 		/// <typeparam name="T">The type of element in the source sequence.</typeparam>
-		/// <param name="seq">The sequence.</param>
+		/// <param name="sequence">The sequence.</param>
 		/// <returns>A set of elements.</returns>
 		/// <remarks>
 		/// Note that the <code>AsSet{T}</code> method may be more performant because it will not copy the input to a new HashSet unless it has to.
 		/// </remarks>
-		public static HashSet<T> ToSet<T>(this IEnumerable<T> seq)
+		public static HashSet<T> ToSet<T>(this IEnumerable<T> sequence)
 		{
-			if (seq == null)
-				throw new ArgumentNullException("seq");
+			if (sequence == null)
+				throw new ArgumentNullException(nameof(sequence));
 
-			return new HashSet<T>(seq);
+			return new HashSet<T>(sequence);
 		}
 
 		/// <summary>
 		/// Returns a set of the elements in the specified sequence.
 		/// </summary>
 		/// <typeparam name="T">The type of element in the source sequence.</typeparam>
-		/// <param name="seq">The sequence.</param>
+		/// <param name="sequence">The sequence.</param>
 		/// <returns>A set of elements.</returns>
 		/// <remarks>
 		/// Unlike the <see cref="ToSet{T}(System.Collections.Generic.IEnumerable{T})"/> method, if the original IEnumerable is a HashSet it will be returned as such (rather than copying to a new HashSet).
 		/// </remarks>
-		public static ISet<T> AsSet<T>(this IEnumerable<T> seq)
+		public static ISet<T> AsSet<T>(this IEnumerable<T> sequence)
 		{
-			if (seq == null)
-				throw new ArgumentNullException("seq");
+			if (sequence == null)
+				throw new ArgumentNullException(nameof(sequence));
 
-			return seq as ISet<T> ?? new HashSet<T>(seq);
+			return sequence as ISet<T> ?? new HashSet<T>(sequence);
 		}
 
 		/// <summary>
 		/// Returns a set of the elements in the specified sequence, using the specified equality comparer.
 		/// </summary>
 		/// <typeparam name="T">The type of element in the source sequence.</typeparam>
-		/// <param name="seq">The sequence.</param>
+		/// <param name="sequence">The sequence.</param>
 		/// <param name="comparer">The equality comparer.</param>
 		/// <returns>A set of elements.</returns>
-		public static HashSet<T> ToSet<T>(this IEnumerable<T> seq, IEqualityComparer<T> comparer)
+		public static HashSet<T> ToSet<T>(this IEnumerable<T> sequence, IEqualityComparer<T> comparer)
 		{
-			if (seq == null)
-				throw new ArgumentNullException("seq");
+			if (sequence == null)
+				throw new ArgumentNullException(nameof(sequence));
 			if (comparer == null)
-				throw new ArgumentNullException("comparer");
+				throw new ArgumentNullException(nameof(comparer));
 
-			return new HashSet<T>(seq, comparer);
+			return new HashSet<T>(sequence, comparer);
 		}
 
 		/// <summary>
 		/// Converts the sequence to a sequence of strings by calling ToString on each item.
 		/// </summary>
-		/// <param name="seq">The sequence.</param>
+		/// <param name="sequence">The sequence.</param>
 		/// <returns>A sequence of strings.</returns>
-		public static IEnumerable<string> ToStrings(this IEnumerable seq)
+		public static IEnumerable<string> ToStrings(this IEnumerable sequence)
 		{
-			foreach (object item in seq)
+			foreach (object item in sequence)
 				yield return item.ToString();
 		}
 
 		/// <summary>
 		/// Converts the sequence to a sequence of strings by calling ToString on each item.
 		/// </summary>
-		/// <param name="seq">The sequence.</param>
+		/// <param name="sequence">The sequence.</param>
 		/// <returns>A sequence of strings.</returns>
-		public static IEnumerable<string> ToStrings<T>(this IEnumerable<T> seq)
+		public static IEnumerable<string> ToStrings<T>(this IEnumerable<T> sequence)
 		{
-			foreach (T item in seq)
+			foreach (T item in sequence)
 				yield return item.ToString();
 		}
 
@@ -1067,12 +1067,12 @@ namespace Faithlife.Utility
 		/// Removes items from the end of the specified sequence that match the given predicate.
 		/// </summary>
 		/// <typeparam name="T">The type of the sequence.</typeparam>
-		/// <param name="seq">The sequence to enumerate</param>
+		/// <param name="sequence">The sequence to enumerate</param>
 		/// <param name="fnPredicate">The predicate to apply to the items in the sequence.</param>
 		/// <returns>The elements of the sequence without the matching items at the end of the sequence.</returns>
-		public static IEnumerable<T> TrimEndWhere<T>(this IEnumerable<T> seq, Func<T, bool> fnPredicate)
+		public static IEnumerable<T> TrimEndWhere<T>(this IEnumerable<T> sequence, Func<T, bool> fnPredicate)
 		{
-			using (IEnumerator<T> it = seq.GetEnumerator())
+			using (IEnumerator<T> it = sequence.GetEnumerator())
 			{
 				List<T> list = new List<T>();
 				while (it.MoveNext())
@@ -1111,16 +1111,16 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Returns true if the sequence is not empty and provides the first element.
 		/// </summary>
-		/// <typeparam name="T">The type of the elements of <paramref name="seq"/>.</typeparam>
-		/// <param name="seq">The source sequence.</param>
+		/// <typeparam name="T">The type of the elements of <paramref name="sequence"/>.</typeparam>
+		/// <param name="sequence">The source sequence.</param>
 		/// <param name="found">The first item, if any.</param>
 		/// <returns><c>True</c> if the sequence is not empty; otherwise, <c>false</c>.</returns>
-		public static bool TryFirst<T>(this IEnumerable<T> seq, out T found)
+		public static bool TryFirst<T>(this IEnumerable<T> sequence, out T found)
 		{
-			if (seq == null)
-				throw new ArgumentNullException("seq");
+			if (sequence == null)
+				throw new ArgumentNullException(nameof(sequence));
 
-			foreach (T item in seq)
+			foreach (T item in sequence)
 			{
 				found = item;
 				return true;
@@ -1133,21 +1133,21 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Determines whether any element of a sequence satisfies a condition.
 		/// </summary>
-		/// <typeparam name="T">The type of the elements of <paramref name="seq"/>.</typeparam>
-		/// <param name="seq">The source sequence.</param>
-		/// <param name="fnPredicate">The predicate.</param>
+		/// <typeparam name="T">The type of the elements of <paramref name="sequence"/>.</typeparam>
+		/// <param name="sequence">The source sequence.</param>
+		/// <param name="predicate">The predicate.</param>
 		/// <param name="found">The first item that satisfies the predicate, if any.</param>
 		/// <returns><c>True</c> if any elements in the source sequence pass the test in the specified predicate; otherwise, <c>false</c>.</returns>
-		public static bool TryFirst<T>(this IEnumerable<T> seq, Func<T, bool> fnPredicate, out T found)
+		public static bool TryFirst<T>(this IEnumerable<T> sequence, Func<T, bool> predicate, out T found)
 		{
-			if (seq == null)
-				throw new ArgumentNullException("seq");
-			if (fnPredicate == null)
-				throw new ArgumentNullException("fnPredicate");
+			if (sequence == null)
+				throw new ArgumentNullException(nameof(sequence));
+			if (predicate == null)
+				throw new ArgumentNullException(nameof(predicate));
 
-			foreach (T item in seq)
+			foreach (T item in sequence)
 			{
-				if (fnPredicate(item))
+				if (predicate(item))
 				{
 					found = item;
 					return true;
@@ -1161,48 +1161,48 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Enumerates the specified collection, casting each element to a base type.
 		/// </summary>
-		/// <param name="coll">The collection to enumerate.</param>
+		/// <param name="sequence">The collection to enumerate.</param>
 		/// <returns>The elements of the specified collection, cast to the destination type.</returns>
 		/// <remarks>This method can only be used when the source type is derived from the destination type.
 		/// Therefore this method will never throw <see cref="InvalidCastException" />.</remarks>
 		/// <seealso cref="Downcast{TSource,TDest}" />
-		public static IEnumerable<TDest> Upcast<TSource, TDest>(this IEnumerable<TSource> coll) where TSource : TDest
+		public static IEnumerable<TDest> Upcast<TSource, TDest>(this IEnumerable<TSource> sequence) where TSource : TDest
 		{
-			if (coll == null)
-				throw new ArgumentNullException("coll");
-			return coll.Select<TSource, TDest>(obj => obj);
+			if (sequence == null)
+				throw new ArgumentNullException(nameof(sequence));
+			return sequence.Select<TSource, TDest>(obj => obj);
 		}
 
 		/// <summary>
 		/// Enumerates the specified collection, returning all the elements that are not null.
 		/// </summary>
-		/// <param name="seq">The sequence to enumerate.</param>
+		/// <param name="sequence">The sequence to enumerate.</param>
 		/// <returns>The non null items.</returns>
-		public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T> seq)
+		public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T> sequence)
 			where T : class
 		{
-			if (seq == null)
-				throw new ArgumentNullException("seq");
-			return seq.Where(x => x != null);
+			if (sequence == null)
+				throw new ArgumentNullException(nameof(sequence));
+			return sequence.Where(x => x != null);
 		}
 
 		/// <summary>
 		/// Enumerates the specified collection, returning all the elements that are not null.
 		/// </summary>
-		/// <param name="seq">The sequence to enumerate.</param>
+		/// <param name="sequence">The sequence to enumerate.</param>
 		/// <returns>The non null items.</returns>
-		public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T?> seq)
+		public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T?> sequence)
 			where T : struct
 		{
-			if (seq == null)
-				throw new ArgumentNullException("seq");
-			return WhereNotNullImpl(seq);
+			if (sequence == null)
+				throw new ArgumentNullException(nameof(sequence));
+			return WhereNotNullImpl(sequence);
 		}
 
-		private static IEnumerable<T> WhereNotNullImpl<T>(this IEnumerable<T?> seq)
+		private static IEnumerable<T> WhereNotNullImpl<T>(this IEnumerable<T?> sequence)
 			where T : struct
 		{
-			foreach (T? t in seq)
+			foreach (T? t in sequence)
 			{
 				if (t.HasValue)
 					yield return t.Value;
@@ -1212,56 +1212,56 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Combines two same sized sequences.
 		/// </summary>
-		/// <param name="seqFirst">An IEnumerable whos elements will be returned as ValueTuple.First.</param>
-		/// <param name="seqSecond">An IEnumerable whos elements will be returned as ValueTuple.Second.</param>
+		/// <param name="first">An IEnumerable whos elements will be returned as ValueTuple.First.</param>
+		/// <param name="second">An IEnumerable whos elements will be returned as ValueTuple.Second.</param>
 		/// <returns>A sequence of tuples combining the input items. Throws if the sequences don't have the same number of items.</returns>
-		public static IEnumerable<ValueTuple<T1, T2>> Zip<T1, T2>(this IEnumerable<T1> seqFirst, IEnumerable<T2> seqSecond)
+		public static IEnumerable<ValueTuple<T1, T2>> Zip<T1, T2>(this IEnumerable<T1> first, IEnumerable<T2> second)
 		{
-			if (seqFirst == null)
-				throw new ArgumentNullException("seqFirst");
-			if (seqSecond == null)
-				throw new ArgumentNullException("seqSecond");
+			if (first == null)
+				throw new ArgumentNullException(nameof(first));
+			if (second == null)
+				throw new ArgumentNullException(nameof(second));
 
-			return ZipImpl(seqFirst, seqSecond, UnbalancedZipStrategy.Throw);
+			return ZipImpl(first, second, UnbalancedZipStrategy.Throw);
 		}
 
 		/// <summary>
 		/// Combines two sequences.
 		/// </summary>
-		/// <param name="seqFirst">An IEnumerable whos elements will be returned as ValueTuple.First.</param>
-		/// <param name="seqSecond">An IEnumerable whos elements will be returned as ValueTuple.Second.</param>
+		/// <param name="first">An IEnumerable whos elements will be returned as ValueTuple.First.</param>
+		/// <param name="second">An IEnumerable whos elements will be returned as ValueTuple.Second.</param>
 		/// <returns>A sequence of tuples combining the input items. If the sequences don't have the same number of items, it stops at the end of the shorter sequence.</returns>
-		public static IEnumerable<ValueTuple<T1, T2>> ZipTruncate<T1, T2>(this IEnumerable<T1> seqFirst, IEnumerable<T2> seqSecond)
+		public static IEnumerable<ValueTuple<T1, T2>> ZipTruncate<T1, T2>(this IEnumerable<T1> first, IEnumerable<T2> second)
 		{
-			if (seqFirst == null)
-				throw new ArgumentNullException("seqFirst");
-			if (seqSecond == null)
-				throw new ArgumentNullException("seqSecond");
+			if (first == null)
+				throw new ArgumentNullException(nameof(first));
+			if (second == null)
+				throw new ArgumentNullException(nameof(second));
 
-			return ZipImpl(seqFirst, seqSecond, UnbalancedZipStrategy.Truncate);
+			return ZipImpl(first, second, UnbalancedZipStrategy.Truncate);
 		}
 
 		/// <summary>
 		/// Makes distinct and then removes a single item from a sequence.
 		/// </summary>
-		/// <param name="seq">A sequence whose elements not matching the specified item will be returned.</param>
+		/// <param name="sequence">A sequence whose elements not matching the specified item will be returned.</param>
 		/// <param name="item">An item that will not occur in the resulting sequence.</param>
 		/// <returns>A sequence consisting of every distinct item in the specified sequence that does not match the specified item according to the provided (or default if not provided) equality comparer.</returns>
-		public static IEnumerable<T> Except<T>(this IEnumerable<T> seq, T item)
+		public static IEnumerable<T> Except<T>(this IEnumerable<T> sequence, T item)
 		{
-			return seq.Except(Enumerate(item));
+			return sequence.Except(Enumerate(item));
 		}
 
 		/// <summary>
 		/// Makes distinct and then removes a single item from a sequence.
 		/// </summary>
-		/// <param name="seq">A sequence whose elements not matching the specified item will be returned.</param>
+		/// <param name="sequence">A sequence whose elements not matching the specified item will be returned.</param>
 		/// <param name="item">An item that will not occur in the resulting sequence.</param>
 		/// <param name="comparer">Comparer used for exclusion. If not provided, default comparer is used.</param>
 		/// <returns>A sequence consisting of every distinct item in the specified sequence that does not match the specified item according to the provided (or default if not provided) equality comparer.</returns>
-		public static IEnumerable<T> Except<T>(this IEnumerable<T> seq, T item, IEqualityComparer<T> comparer)
+		public static IEnumerable<T> Except<T>(this IEnumerable<T> sequence, T item, IEqualityComparer<T> comparer)
 		{
-			return seq.Except(Enumerate(item), comparer);
+			return sequence.Except(Enumerate(item), comparer);
 		}
 
 		/// <summary>
@@ -1269,22 +1269,22 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <typeparam name="TSource">The type of the elements of source.</typeparam>
 		/// <typeparam name="TKey">The type of the key returned by keySelector.</typeparam>
-		/// <param name="seq">A sequence whose elements to group.</param>
+		/// <param name="sequence">A sequence whose elements to group.</param>
 		/// <param name="keySelector">A function to extract the key for each element.</param>
 		/// <returns>A sequence of IGroupings containing a sequence of objects and a key.</returns>
-		public static IEnumerable<IGrouping<TKey, TSource>> GroupConsecutiveBy<TSource, TKey>(this IEnumerable<TSource> seq, Func<TSource, TKey> keySelector)
+		public static IEnumerable<IGrouping<TKey, TSource>> GroupConsecutiveBy<TSource, TKey>(this IEnumerable<TSource> sequence, Func<TSource, TKey> keySelector)
 		{
-			if (seq == null)
-				throw new ArgumentNullException("seq");
+			if (sequence == null)
+				throw new ArgumentNullException(nameof(sequence));
 			if (keySelector == null)
-				throw new ArgumentNullException("keySelector");
+				throw new ArgumentNullException(nameof(keySelector));
 
-			return GroupConsecutiveImpl(seq, keySelector);
+			return GroupConsecutiveImpl(sequence, keySelector);
 		}
 
-		private static IEnumerable<IGrouping<TKey, TSource>> GroupConsecutiveImpl<TSource, TKey>(this IEnumerable<TSource> seq, Func<TSource, TKey> keySelector)
+		private static IEnumerable<IGrouping<TKey, TSource>> GroupConsecutiveImpl<TSource, TKey>(this IEnumerable<TSource> sequence, Func<TSource, TKey> keySelector)
 		{
-			using (IEnumerator<TSource> e = seq.GetEnumerator())
+			using (IEnumerator<TSource> e = sequence.GetEnumerator())
 			{
 				if (!e.MoveNext())
 					yield break;
@@ -1317,18 +1317,18 @@ namespace Faithlife.Utility
 		/// Groups the elements of a sequence that occur near each other in time.  Items are presumed to be in chronological order and an item is considered part of the group if the time between the previous item is within the provided time span. Thus, the total time between the first and last items in the group may be greater than the time span.
 		/// </summary>
 		/// <typeparam name="TSource">The type of the elements of source.</typeparam>
-		/// <param name="seq">A sequence whose elements to group.</param>
+		/// <param name="sequence">A sequence whose elements to group.</param>
 		/// <param name="timeSpan">The difference by which a consecutive element is considered to be in the same group.</param>
 		/// <param name="dateSelector">A function to extract the date for each element.</param>
 		/// <returns>A sequence of IGroupings containing a sequence of objects and the date of the last element.</returns>
-		public static IEnumerable<IGrouping<DateTimeOffset, TSource>> GroupConsecutiveByTimespan<TSource>(this IEnumerable<TSource> seq, TimeSpan timeSpan, Func<TSource, DateTimeOffset> dateSelector)
+		public static IEnumerable<IGrouping<DateTimeOffset, TSource>> GroupConsecutiveByTimespan<TSource>(this IEnumerable<TSource> sequence, TimeSpan timeSpan, Func<TSource, DateTimeOffset> dateSelector)
 		{
-			if (seq == null)
-				throw new ArgumentNullException("seq");
+			if (sequence == null)
+				throw new ArgumentNullException(nameof(sequence));
 			if (dateSelector == null)
-				throw new ArgumentNullException("dateSelector");
+				throw new ArgumentNullException(nameof(dateSelector));
 
-			return GroupConsecutiveByTimespanImpl(seq, timeSpan, dateSelector);
+			return GroupConsecutiveByTimespanImpl(sequence, timeSpan, dateSelector);
 		}
 
 		private static IEnumerable<IGrouping<DateTimeOffset, T>> GroupConsecutiveByTimespanImpl<T>(IEnumerable<T> items, TimeSpan timeSpan, Func<T, DateTimeOffset> dateSelector)
@@ -1364,10 +1364,10 @@ namespace Faithlife.Utility
 
 		private class Grouping<TKey, TSource> : IGrouping<TKey, TSource>
 		{
-			public Grouping(TKey key, ReadOnlyCollection<TSource> seq)
+			public Grouping(TKey key, ReadOnlyCollection<TSource> sequence)
 			{
 				m_key = key;
-				m_seq = seq;
+				m_seq = sequence;
 			}
 
 			public IEnumerator<TSource> GetEnumerator()
@@ -1406,24 +1406,24 @@ namespace Faithlife.Utility
 						yield return ValueTuple.Create(e1.Current, e2.Current);
 					else
 						if (strategy == UnbalancedZipStrategy.Truncate)
-							yield break;
-						else
-							throw new ArgumentException("Both sequences must be of the same size, seqFirst is larger.", nameof(seqFirst));
+						yield break;
+					else
+						throw new ArgumentException("Both sequences must be of the same size, first is larger.", nameof(seqFirst));
 				}
 				if (e2.MoveNext())
 					if (strategy == UnbalancedZipStrategy.Truncate)
 						yield break;
 					else
-						throw new ArgumentException("Both sequences must be of the same size, seqSecond is larger.", nameof(seqSecond));
+						throw new ArgumentException("Both sequences must be of the same size, second is larger.", nameof(seqSecond));
 			}
 		}
 
-		private static IEnumerable<ReadOnlyCollection<T>> EnumerateBatchesIterator<T>(IEnumerable<T> seq, int batchSize)
+		private static IEnumerable<ReadOnlyCollection<T>> EnumerateBatchesIterator<T>(IEnumerable<T> sequence, int batchSize)
 		{
 			// prepare batches of the desired size
 			List<T> batch = new List<T>(batchSize);
 
-			foreach (T item in seq)
+			foreach (T item in sequence)
 			{
 				// add to current batch
 				batch.Add(item);
@@ -1441,12 +1441,12 @@ namespace Faithlife.Utility
 				yield return batch.AsReadOnly();
 		}
 
-		private static IEnumerable<ReadOnlyCollection<T>> EnumerateBatchesIterator<T>(IEnumerable<T> seq, Func<T, bool> startsNewBatch)
+		private static IEnumerable<ReadOnlyCollection<T>> EnumerateBatchesIterator<T>(IEnumerable<T> sequence, Func<T, bool> startsNewBatch)
 		{
 			// prepare batches
 			List<T> batch = new List<T>();
 
-			foreach (T item in seq)
+			foreach (T item in sequence)
 			{
 				// return current batch if this item should start a new one
 				if (startsNewBatch(item) && batch.Count != 0)
@@ -1464,9 +1464,9 @@ namespace Faithlife.Utility
 				yield return batch.AsReadOnly();
 		}
 
-		private static IEnumerable<T> IntersperseIterator<T>(IEnumerable<T> seq, T value)
+		private static IEnumerable<T> IntersperseIterator<T>(IEnumerable<T> sequence, T value)
 		{
-			using (IEnumerator<T> it = seq.GetEnumerator())
+			using (IEnumerator<T> it = sequence.GetEnumerator())
 			{
 				if (it.MoveNext())
 					yield return it.Current;

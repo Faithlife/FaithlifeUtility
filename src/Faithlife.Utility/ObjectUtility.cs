@@ -22,25 +22,25 @@ namespace Faithlife.Utility
 		/// Creates an equality comparer from delegates.
 		/// </summary>
 		/// <typeparam name="T">The type to compare.</typeparam>
-		/// <param name="fnEquals">The equals delegate.</param>
+		/// <param name="equals">The equals delegate.</param>
 		/// <returns>The equality comparer.</returns>
 		/// <remarks>If GetHashCode is called, it will throw a NotImplementedException.</remarks>
-		public static EqualityComparer<T> CreateEqualityComparer<T>(Func<T, T, bool> fnEquals)
+		public static EqualityComparer<T> CreateEqualityComparer<T>(Func<T, T, bool> equals)
 		{
-			return new GenericEqualityComparer<T>(fnEquals);
+			return new GenericEqualityComparer<T>(equals);
 		}
 
 		/// <summary>
 		/// Creates an equality comparer from delegates.
 		/// </summary>
 		/// <typeparam name="T">The type to compare.</typeparam>
-		/// <param name="fnEquals">The equals delegate.</param>
-		/// <param name="fnGetHashCode">The hash code delegate.</param>
+		/// <param name="equals">The equals delegate.</param>
+		/// <param name="getHashCode">The hash code delegate.</param>
 		/// <returns>The equality comparer.</returns>
-		/// <remarks>If fnGetHashCode is null and GetHashCode is called, it will throw a NotImplementedException.</remarks>
-		public static EqualityComparer<T> CreateEqualityComparer<T>(Func<T, T, bool> fnEquals, Func<T, int> fnGetHashCode)
+		/// <remarks>If getHashCode is null and GetHashCode is called, it will throw a NotImplementedException.</remarks>
+		public static EqualityComparer<T> CreateEqualityComparer<T>(Func<T, T, bool> equals, Func<T, int> getHashCode)
 		{
-			return new GenericEqualityComparer<T>(fnEquals, fnGetHashCode);
+			return new GenericEqualityComparer<T>(equals, getHashCode);
 		}
 	}
 }

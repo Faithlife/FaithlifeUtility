@@ -24,8 +24,8 @@ namespace Faithlife.Utility
 		/// Initializes a new instance of the <see cref="PriorityQueue{T}"/> class that is empty, has the specified initial capacity,
 		/// and is sorted according to the default <see cref="Comparer{T}"/> for the type of the data.
 		/// </summary>
-		/// <param name="nCapacity">The initial capacity.</param>
-		public PriorityQueue(int nCapacity) : this(nCapacity, null)
+		/// <param name="capacity">The initial capacity.</param>
+		public PriorityQueue(int capacity) : this(capacity, null)
 		{
 		}
 
@@ -44,19 +44,19 @@ namespace Faithlife.Utility
 		/// Initializes a new instance of the <see cref="PriorityQueue{T}"/> class that is empty, has the specified initial capacity,
 		/// and is sorted according to the specified <see cref="IComparer{T}"/>.
 		/// </summary>
-		/// <param name="nCapacity">The initial capacity.</param>
+		/// <param name="capacity">The initial capacity.</param>
 		/// <param name="comparer">The <see cref="IComparer{T}"/> implementation to use when comparing items.<br/>
 		/// -or-<br/>
 		/// a null reference to use the default <see cref="Comparer{T}"/> for the type of the data.</param>
-		public PriorityQueue(int nCapacity, IComparer<T> comparer)
+		public PriorityQueue(int capacity, IComparer<T> comparer)
 		{
-			if (nCapacity < 0)
-				throw new ArgumentOutOfRangeException("nCapacity", OurMessages.ArgumentOutOfRange_MustBeNonNegative);
+			if (capacity < 0)
+				throw new ArgumentOutOfRangeException(nameof(capacity), OurMessages.ArgumentOutOfRange_MustBeNonNegative);
 
 			m_comparer = comparer ?? Comparer<T>.Default;
 			m_aData = s_aEmpty;
-			if (nCapacity > 0)
-				SetCapacity(nCapacity);
+			if (capacity > 0)
+				SetCapacity(capacity);
 		}
 
 		/// <summary>
@@ -74,7 +74,7 @@ namespace Faithlife.Utility
 			{
 				// check argument
 				if (value < m_nSize)
-					throw new ArgumentOutOfRangeException("value", OurMessages.ArgumentOutOfRange_SmallCapacity);
+					throw new ArgumentOutOfRangeException(nameof(value), OurMessages.ArgumentOutOfRange_SmallCapacity);
 
 				// set the capacity
 				SetCapacity(value);
@@ -211,7 +211,7 @@ namespace Faithlife.Utility
 			catch (InvalidCastException)
 			{
 				// convert exception thrown by Array.SetValue to the type that ICollection.CopyTo is expected to throw.
-				throw new ArgumentException(OurMessages.Argument_CannotCastToArray, "array");
+				throw new ArgumentException(OurMessages.Argument_CannotCastToArray, nameof(array));
 			}
 		}
 

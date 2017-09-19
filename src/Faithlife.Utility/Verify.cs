@@ -12,26 +12,26 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Throws <see cref="InvalidOperationException" /> if the parameter is not true.
 		/// </summary>
-		/// <param name="bValue">The parameter to check.</param>
-		/// <exception cref="InvalidOperationException"><paramref name="bValue"/> is false.</exception>
+		/// <param name="value">The parameter to check.</param>
+		/// <exception cref="InvalidOperationException"><paramref name="value"/> is false.</exception>
 		[DebuggerNonUserCode]
 		[AssertionMethod]
-		public static void IsTrue([AssertionCondition(AssertionConditionType.IS_TRUE)] bool bValue)
+		public static void IsTrue([AssertionCondition(AssertionConditionType.IS_TRUE)] bool value)
 		{
-			if (!bValue)
+			if (!value)
 				throw new InvalidOperationException();
 		}
 
 		/// <summary>
 		/// Throws <see cref="InvalidOperationException" /> if the parameter is not false.
 		/// </summary>
-		/// <param name="bValue">The parameter to check.</param>
-		/// <exception cref="InvalidOperationException"><paramref name="bValue"/> is true.</exception>
+		/// <param name="value">The parameter to check.</param>
+		/// <exception cref="InvalidOperationException"><paramref name="value"/> is true.</exception>
 		[DebuggerNonUserCode]
 		[AssertionMethod]
-		public static void IsFalse([AssertionCondition(AssertionConditionType.IS_FALSE)] bool bValue)
+		public static void IsFalse([AssertionCondition(AssertionConditionType.IS_FALSE)] bool value)
 		{
-			if (bValue)
+			if (value)
 				throw new InvalidOperationException();
 		}
 

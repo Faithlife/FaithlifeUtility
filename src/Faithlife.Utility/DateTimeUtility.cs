@@ -11,11 +11,11 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Converts the specified ISO 8601 representation of a date and time to its DateTime equivalent.
 		/// </summary>
-		/// <param name="strValue">The ISO 8601 string representation to parse.</param>
+		/// <param name="value">The ISO 8601 string representation to parse.</param>
 		/// <returns>The DateTime equivalent.</returns>
-		public static DateTime ParseIso8601(string strValue)
+		public static DateTime ParseIso8601(string value)
 		{
-			return DateTime.ParseExact(strValue,
+			return DateTime.ParseExact(value,
 				Iso8601Format, CultureInfo.InvariantCulture,
 				DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal);
 		}
@@ -23,45 +23,45 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Converts the specified ISO 8601 representation of a date and time to its DateTime equivalent.
 		/// </summary>
-		/// <param name="strValue">The ISO 8601 string representation to parse.</param>
-		/// <param name="dt">The DateTime equivalent.</param>
+		/// <param name="value">The ISO 8601 string representation to parse.</param>
+		/// <param name="date">The DateTime equivalent.</param>
 		/// <returns>True if successful.</returns>
-		public static bool TryParseIso8601(string strValue, out DateTime dt)
+		public static bool TryParseIso8601(string value, out DateTime date)
 		{
-			return DateTime.TryParseExact(strValue,
+			return DateTime.TryParseExact(value,
 				Iso8601Format, CultureInfo.InvariantCulture,
-				DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal, out dt);
+				DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal, out date);
 		}
 
 		/// <summary>
 		/// Converts the specified ISO 8601 representation of a date and time to its DateTime equivalent.
 		/// </summary>
-		/// <param name="strValue">The ISO 8601 string representation to parse.</param>
+		/// <param name="value">The ISO 8601 string representation to parse.</param>
 		/// <returns>Non-null if successful.</returns>
-		public static DateTime? TryParseIso8601(string strValue)
+		public static DateTime? TryParseIso8601(string value)
 		{
 			DateTime dt;
-			return TryParseIso8601(strValue, out dt) ? dt : default(DateTime?);
+			return TryParseIso8601(value, out dt) ? dt : default(DateTime?);
 		}
 
 		/// <summary>
 		/// Formats the date in the standard ISO 8601 format.
 		/// </summary>
-		/// <param name="dtValue">The date to format.</param>
+		/// <param name="date">The date to format.</param>
 		/// <returns>The formatted date.</returns>
-		public static string RenderIso8601(DateTime dtValue)
+		public static string RenderIso8601(DateTime date)
 		{
-			return dtValue.ToUniversalTime().ToString(Iso8601Format, CultureInfo.InvariantCulture);
+			return date.ToUniversalTime().ToString(Iso8601Format, CultureInfo.InvariantCulture);
 		}
 
 		/// <summary>
 		/// Formats the date in the standard ISO 8601 format.
 		/// </summary>
-		/// <param name="dtValue">The date to format.</param>
+		/// <param name="date">The date to format.</param>
 		/// <returns>The formatted date.</returns>
-		public static string ToIso8601(this DateTime dtValue)
+		public static string ToIso8601(this DateTime date)
 		{
-			return dtValue.ToUniversalTime().ToString(Iso8601Format, CultureInfo.InvariantCulture);
+			return date.ToUniversalTime().ToString(Iso8601Format, CultureInfo.InvariantCulture);
 		}
 
 		/// <summary>
@@ -93,14 +93,14 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Returns the converted DateTime, in seconds since Unix epoch.
 		/// </summary>
-		/// <param name="dtValue">The UTC DateTime requiring conversion.</param>
+		/// <param name="date">The UTC DateTime requiring conversion.</param>
 		/// <returns>Returns the number of seconds the provided UTC DateTime is greater than the Unix epoch (1/1/1970).</returns>
-		public static long ToUnixTimestamp(DateTime dtValue)
+		public static long ToUnixTimestamp(DateTime date)
 		{
-			if (dtValue.Kind != DateTimeKind.Utc)
-				throw new ArgumentException("Specified DateTime value must be UTC.");
+			if (date.Kind != DateTimeKind.Utc)
+				throw new ArgumentException("Specified DateTime value must be UTC.", nameof(date));
 
-			return (long)(dtValue - s_epoch).TotalSeconds;
+			return (long) (date - s_epoch).TotalSeconds;
 		}
 
 		/// <summary>

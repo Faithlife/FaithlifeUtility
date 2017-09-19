@@ -13,25 +13,25 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Initializes a new instance of the KeyEqualityComparer class.
 		/// </summary>
-		/// <param name="fnKeySelector">The key selector delegate</param>
-		public KeyEqualityComparer(Func<TSource, TKey> fnKeySelector) :
-			this(fnKeySelector, EqualityComparer<TKey>.Default)
+		/// <param name="keySelector">The key selector delegate</param>
+		public KeyEqualityComparer(Func<TSource, TKey> keySelector) :
+			this(keySelector, EqualityComparer<TKey>.Default)
 		{
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the KeyEqualityComparer class.
 		/// </summary>
-		/// <param name="fnKeySelector">The key selector delegate</param>
+		/// <param name="keySelector">The key selector delegate</param>
 		/// <param name="keyComparer">The IEqualityComparer used for comparison of keys</param>
-		public KeyEqualityComparer(Func<TSource, TKey> fnKeySelector, IEqualityComparer<TKey> keyComparer)
+		public KeyEqualityComparer(Func<TSource, TKey> keySelector, IEqualityComparer<TKey> keyComparer)
 		{
-			if (fnKeySelector == null)
-				throw new ArgumentNullException("fnKeySelector");
+			if (keySelector == null)
+				throw new ArgumentNullException(nameof(keySelector));
 			if (keyComparer == null)
-				throw new ArgumentNullException("keyComparer");
+				throw new ArgumentNullException(nameof(keyComparer));
 
-			m_fnKeySelector = fnKeySelector;
+			m_keySelector = keySelector;
 			m_keyComparer = keyComparer;
 		}
 
@@ -45,8 +45,8 @@ namespace Faithlife.Utility
 		/// </returns>
 		public override bool Equals(TSource x, TSource y)
 		{
-			TKey k1 = m_fnKeySelector(x);
-			TKey k2 = m_fnKeySelector(y);
+			TKey k1 = m_keySelector(x);
+			TKey k2 = m_keySelector(y);
 			return m_keyComparer.Equals(k1, k2);
 		}
 
@@ -58,10 +58,10 @@ namespace Faithlife.Utility
 		/// <exception cref="T:System.ArgumentNullException">The type of <paramref name="obj"/> is a reference type and <paramref name="obj"/> is null.</exception>
 		public override int GetHashCode(TSource obj)
 		{
-			return obj == null ? 0 : m_keyComparer.GetHashCode(m_fnKeySelector(obj));
+			return obj == null ? 0 : m_keyComparer.GetHashCode(m_keySelector(obj));
 		}
 
-		readonly Func<TSource, TKey> m_fnKeySelector;
+		readonly Func<TSource, TKey> m_keySelector;
 		readonly IEqualityComparer<TKey> m_keyComparer;
 	}
 }

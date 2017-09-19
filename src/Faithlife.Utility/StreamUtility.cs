@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Faithlife.Utility.Threading;
 
@@ -13,101 +12,101 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Copies all the data after the current position in the source stream to the destination stream.
 		/// </summary>
-		/// <param name="streamFrom">The source stream.</param>
-		/// <param name="streamTo">The destination stream.</param>
+		/// <param name="fromStream">The source stream.</param>
+		/// <param name="toStream">The destination stream.</param>
 		/// <returns>The number of bytes actually copied.</returns>
-		public static long CopyStream(Stream streamFrom, Stream streamTo)
+		public static long CopyStream(Stream fromStream, Stream toStream)
 		{
-			return CopyStream(streamFrom, streamTo, long.MaxValue, c_nStandardBufferSize);
+			return CopyStream(fromStream, toStream, long.MaxValue, c_nStandardBufferSize);
 		}
 
 		/// <summary>
 		/// Copies up to the specified number of bytes from the source stream to the destination stream.
 		/// </summary>
-		/// <param name="streamFrom">The source stream.</param>
-		/// <param name="streamTo">The destination stream.</param>
-		/// <param name="nBytesToCopy">The maximum number of bytes to copy.</param>
+		/// <param name="fromStream">The source stream.</param>
+		/// <param name="toStream">The destination stream.</param>
+		/// <param name="bytesToCopy">The maximum number of bytes to copy.</param>
 		/// <returns>The number of bytes actually copied.</returns>
-		public static long CopyStream(Stream streamFrom, Stream streamTo, long nBytesToCopy)
+		public static long CopyStream(Stream fromStream, Stream toStream, long bytesToCopy)
 		{
-			return CopyStream(streamFrom, streamTo, nBytesToCopy, c_nStandardBufferSize);
+			return CopyStream(fromStream, toStream, bytesToCopy, c_nStandardBufferSize);
 		}
 
 		/// <summary>
 		/// Copies up to the specified number of bytes from the source stream to the destination stream.
 		/// </summary>
-		/// <param name="streamFrom">The source stream.</param>
-		/// <param name="streamTo">The destination stream.</param>
-		/// <param name="nBytesToCopy">The maximum number of bytes to copy.</param>
-		/// <param name="nBufferSize">The internal buffer size to use when copying.</param>
+		/// <param name="fromStream">The source stream.</param>
+		/// <param name="toStream">The destination stream.</param>
+		/// <param name="bytesToCopy">The maximum number of bytes to copy.</param>
+		/// <param name="bufferSize">The internal buffer size to use when copying.</param>
 		/// <returns>The number of bytes actually copied.</returns>
-		public static long CopyStream(Stream streamFrom, Stream streamTo, long nBytesToCopy, int nBufferSize)
+		public static long CopyStream(Stream fromStream, Stream toStream, long bytesToCopy, int bufferSize)
 		{
-			return CopyStream(streamFrom, streamTo, nBytesToCopy, nBufferSize, WorkState.None);
+			return CopyStream(fromStream, toStream, bytesToCopy, bufferSize, WorkState.None);
 		}
 
 		/// <summary>
 		/// Copies up to the specified number of bytes from the source stream to the destination stream.
 		/// </summary>
-		/// <param name="streamFrom">The source stream.</param>
-		/// <param name="streamTo">The destination stream.</param>
-		/// <param name="nBytesToCopy">The maximum number of bytes to copy.</param>
-		/// <param name="nBufferSize">The internal buffer size to use when copying.</param>
+		/// <param name="fromStream">The source stream.</param>
+		/// <param name="toStream">The destination stream.</param>
+		/// <param name="bytesToCopy">The maximum number of bytes to copy.</param>
+		/// <param name="bufferSize">The internal buffer size to use when copying.</param>
 		/// <param name="workState">The work state.</param>
 		/// <returns>The number of bytes actually copied.</returns>
-		public static long CopyStream(Stream streamFrom, Stream streamTo, long nBytesToCopy, int nBufferSize, IWorkState workState)
+		public static long CopyStream(Stream fromStream, Stream toStream, long bytesToCopy, int bufferSize, IWorkState workState)
 		{
-			return CopyStream(streamFrom, streamTo, nBytesToCopy, nBufferSize, workState, null);
+			return CopyStream(fromStream, toStream, bytesToCopy, bufferSize, workState, null);
 		}
 
 		/// <summary>
 		/// Copies up to the specified number of bytes from the source stream to the destination stream.
 		/// </summary>
-		/// <param name="streamFrom">The source stream.</param>
-		/// <param name="streamTo">The destination stream.</param>
-		/// <param name="nBytesToCopy">The maximum number of bytes to copy.</param>
-		/// <param name="nBufferSize">The internal buffer size to use when copying.</param>
+		/// <param name="fromStream">The source stream.</param>
+		/// <param name="toStream">The destination stream.</param>
+		/// <param name="bytesToCopy">The maximum number of bytes to copy.</param>
+		/// <param name="bufferSize">The internal buffer size to use when copying.</param>
 		/// <param name="workState">The work state.</param>
 		/// <param name="notifier">
 		///	 Pass in an Action to be called as the stream is copied (gives a chance to update progress). 
 		///	 The long passed to the action represents the current total of bytes copied.</param>
 		/// <returns>The number of bytes actually copied.</returns>
-		public static long CopyStream(Stream streamFrom, Stream streamTo, long nBytesToCopy, int nBufferSize, IWorkState workState, Action<long> notifier)
+		public static long CopyStream(Stream fromStream, Stream toStream, long bytesToCopy, int bufferSize, IWorkState workState, Action<long> notifier)
 		{
-			if (streamFrom == null)
-				throw new ArgumentNullException("streamFrom");
-			if (streamTo == null)
-				throw new ArgumentNullException("streamTo");
+			if (fromStream == null)
+				throw new ArgumentNullException(nameof(fromStream));
+			if (toStream == null)
+				throw new ArgumentNullException(nameof(toStream));
 
 			long nTotalBytesCopied = 0;
 
 			// do nothing if no bytes to copy
-			if (nBytesToCopy > 0)
+			if (bytesToCopy > 0)
 			{
 				// allocate temporary buffer
-				if (nBufferSize > nBytesToCopy)
-					nBufferSize = (int) nBytesToCopy;
-				byte[] abyBuffer = new byte[nBufferSize];
+				if (bufferSize > bytesToCopy)
+					bufferSize = (int) bytesToCopy;
+				byte[] abyBuffer = new byte[bufferSize];
 
 				// transfer data from input stream to output stream
-				while (nBytesToCopy > 0 && !workState.Canceled)
+				while (bytesToCopy > 0 && !workState.Canceled)
 				{
 					// determine bytes to read
-					int nBytesToRead = nBytesToCopy < nBufferSize ? (int) nBytesToCopy : nBufferSize;
+					int nBytesToRead = bytesToCopy < bufferSize ? (int) bytesToCopy : bufferSize;
 
 					// read from input stream
-					int nBytesRead = streamFrom.Read(abyBuffer, 0, nBytesToRead);
+					int nBytesRead = fromStream.Read(abyBuffer, 0, nBytesToRead);
 
 					// stop loop if done
 					if (nBytesRead == 0)
 						break;
 
 					// write bytes to output stream
-					streamTo.Write(abyBuffer, 0, nBytesRead);
+					toStream.Write(abyBuffer, 0, nBytesRead);
 
 					// update number of bytes to copy
 					nTotalBytesCopied += nBytesRead;
-					nBytesToCopy -= nBytesRead;
+					bytesToCopy -= nBytesRead;
 
 					if (notifier != null)
 						notifier(nTotalBytesCopied);
@@ -129,7 +128,7 @@ namespace Faithlife.Utility
 		public static void WriteBatched(this Stream stream, byte[] bytes, int byteIndex, int byteCount, int batchByteCount, IWorkState workState)
 		{
 			if (stream == null)
-				throw new ArgumentNullException("stream");
+				throw new ArgumentNullException(nameof(stream));
 
 			while (byteCount > 0 && !workState.Canceled)
 			{
@@ -185,13 +184,13 @@ namespace Faithlife.Utility
 		{
 			// check arguments
 			if (stream == null)
-				throw new ArgumentNullException("stream");
+				throw new ArgumentNullException(nameof(stream));
 			if (buffer == null)
-				throw new ArgumentNullException("buffer");
+				throw new ArgumentNullException(nameof(buffer));
 			if (offset < 0 || offset > buffer.Length)
-				throw new ArgumentOutOfRangeException("offset");
+				throw new ArgumentOutOfRangeException(nameof(offset));
 			if (count < 0 || buffer.Length - offset < count)
-				throw new ArgumentOutOfRangeException("count");
+				throw new ArgumentOutOfRangeException(nameof(count));
 
 			// track total bytes read
 			int totalBytesRead = 0;
@@ -221,7 +220,7 @@ namespace Faithlife.Utility
 		public static byte[] ReadExactly(this Stream stream, int count)
 		{
 			if (count < 0)
-				throw new ArgumentOutOfRangeException("count");
+				throw new ArgumentOutOfRangeException(nameof(count));
 			byte[] buffer = new byte[count];
 			ReadExactly(stream, buffer, 0, count);
 			return buffer;

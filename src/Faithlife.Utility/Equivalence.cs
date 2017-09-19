@@ -86,13 +86,13 @@ namespace Faithlife.Utility
 		/// True if the sequences are equivalent.
 		/// </summary>
 		/// <typeparam name="T">The object type.</typeparam>
-		/// <param name="seq">The sequence.</param>
+		/// <param name="sequence">The sequence.</param>
 		/// <param name="other">The other sequence.</param>
 		/// <returns>True if the sequences are equivalent.</returns>
-		public static bool SequenceEquivalent<T>(this IEnumerable<T> seq, IEnumerable<T> other)
+		public static bool SequenceEquivalent<T>(this IEnumerable<T> sequence, IEnumerable<T> other)
 			where T : IHasEquivalence<T>
 		{
-			return seq.SequenceEqual(other, GetEqualityComparer<T>());
+			return sequence.SequenceEqual(other, GetEqualityComparer<T>());
 		}
 
 		private static class EquivalenceComparerCache<T>

@@ -84,9 +84,9 @@ namespace Faithlife.Utility
 		private static void VerifyComparers<T>(Func<T, T, int>[] comparers)
 		{
 			if (comparers == null)
-				throw new ArgumentNullException("comparers");
+				throw new ArgumentNullException(nameof(comparers));
 			if (comparers.Length == 0)
-				throw new ArgumentException("Must supply at least one comparer; use Comparer<T>.Default for a default comparer.", "comparers");
+				throw new ArgumentException("Must supply at least one comparer; use Comparer<T>.Default for a default comparer.", nameof(comparers));
 		}
 
 		private static int DoChainedCompare<T>(T left, T right, Func<T, T, int>[] comparers)

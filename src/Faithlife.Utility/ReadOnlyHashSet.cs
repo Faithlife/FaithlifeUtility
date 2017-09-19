@@ -17,7 +17,7 @@ namespace Faithlife.Utility
 		public ReadOnlyHashSet(HashSet<T> baseSet)
 		{
 			if (baseSet == null)
-				throw new ArgumentNullException("baseSet");
+				throw new ArgumentNullException(nameof(baseSet));
 
 			m_base = baseSet;
 		}

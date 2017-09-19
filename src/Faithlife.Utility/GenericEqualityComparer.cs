@@ -12,26 +12,27 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Initializes a new instance of the <see cref="GenericEqualityComparer&lt;T&gt;"/> class.
 		/// </summary>
-		/// <param name="fnEquals">The equals delegate.</param>
+		/// <param name="equals">The equals delegate.</param>
 		/// <remarks>If GetHashCode is called, it will throw a NotImplementedException.</remarks>
-		public GenericEqualityComparer(Func<T, T, bool> fnEquals)
-			: this(fnEquals, null)
+		public GenericEqualityComparer(Func<T, T, bool> equals)
+			: this(equals, null)
 		{
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="GenericEqualityComparer&lt;T&gt;"/> class.
 		/// </summary>
-		/// <param name="fnEquals">The equals delegate.</param>
-		/// <param name="fnGetHashCode">The hash code delegate.</param>
-		/// <remarks>If fnGetHashCode is null and GetHashCode is called, it will throw a NotImplementedException.</remarks>
-		public GenericEqualityComparer(Func<T, T, bool> fnEquals, Func<T, int> fnGetHashCode)
+		/// <param name="equals">The equals delegate.</param>
+		/// <param name="getHashCode">The hash code delegate.</param>
+		/// <remarks>If getHashCode is null and GetHashCode is called, it will throw a NotImplementedException.</remarks>
+		public GenericEqualityComparer(Func<T, T, bool> equals, Func<T, int> getHashCode)
 		{
-			if (fnEquals == null)
-				throw new ArgumentNullException("fnEquals");
+			if (equals == null)
+				throw new ArgumentNullException(nameof(equals));
 
-			m_fnEquals = fnEquals;
-			m_fnGetHashCode = fnGetHashCode ?? delegate { throw new NotImplementedException(); };
+			m_equals = equals;
+			m_getHashCode = getHashCode ?? delegate
+			{ throw new NotImplementedException(); };
 		}
 
 		/// <summary>
@@ -44,7 +45,7 @@ namespace Faithlife.Utility
 		/// </returns>
 		public override bool Equals(T x, T y)
 		{
-			return m_fnEquals(x, y);
+			return m_equals(x, y);
 		}
 
 		/// <summary>
@@ -57,10 +58,10 @@ namespace Faithlife.Utility
 		/// </exception>
 		public override int GetHashCode(T obj)
 		{
-			return m_fnGetHashCode(obj);
+			return m_getHashCode(obj);
 		}
 
-		readonly Func<T, T, bool> m_fnEquals;
-		readonly Func<T, int> m_fnGetHashCode;
+		readonly Func<T, T, bool> m_equals;
+		readonly Func<T, int> m_getHashCode;
 	}
 }

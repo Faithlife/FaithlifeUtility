@@ -19,66 +19,66 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Returns true if the string is null or empty.
 		/// </summary>
-		/// <param name="str">The string.</param>
+		/// <param name="value">The string.</param>
 		/// <returns>True if the string is null or empty.</returns>
-		public static bool IsNullOrEmpty(this string str)
+		public static bool IsNullOrEmpty(this string value)
 		{
-			return string.IsNullOrEmpty(str);
+			return string.IsNullOrEmpty(value);
 		}
 
 		/// <summary>
 		/// Returns true if the string is <c>null</c>, empty, or consists only of white-space characters.
 		/// </summary>
-		/// <param name="str"></param>
+		/// <param name="value"></param>
 		/// <returns></returns>
-		public static bool IsNullOrWhiteSpace(this string str)
+		public static bool IsNullOrWhiteSpace(this string value)
 		{
-			return string.IsNullOrWhiteSpace(str);
+			return string.IsNullOrWhiteSpace(value);
 		}
 
 		/// <summary>
 		/// Compare the two strings for similarity
 		/// </summary>
-		/// <param name="strLeft">The left string.</param>
-		/// <param name="strRight">The right string.</param>
+		/// <param name="left">The left string.</param>
+		/// <param name="right">The right string.</param>
 		/// <returns>The percentage that they are similar.</returns>
-		public static int CalculateSimilarity(string strLeft, string strRight)
+		public static int CalculateSimilarity(string left, string right)
 		{
-			if (strLeft == null)
-				throw new ArgumentNullException("strLeft");
-			if (strRight == null)
-				throw new ArgumentNullException("strRight");
-			return CalculateSimilarity(strLeft, 0, strLeft.Length, strRight, 0, strRight.Length);
+			if (left == null)
+				throw new ArgumentNullException("left");
+			if (right == null)
+				throw new ArgumentNullException("right");
+			return CalculateSimilarity(left, 0, left.Length, right, 0, right.Length);
 		}
 
 		/// <summary>
 		/// Compare the two strings for similarity
 		/// </summary>
-		/// <param name="strLeft">The left string.</param>
-		/// <param name="nStartLeft">The start index of the left.</param>
-		/// <param name="nLengthLeft">The length of the left.</param>
-		/// <param name="strRight">The right string.</param>
-		/// <param name="nStartRight">The start index of the right.</param>
-		/// <param name="nLengthRight">The length of the right.</param>
+		/// <param name="left">The left string.</param>
+		/// <param name="startLeft">The start index of the left.</param>
+		/// <param name="lengthLeft">The length of the left.</param>
+		/// <param name="right">The right string.</param>
+		/// <param name="startRight">The start index of the right.</param>
+		/// <param name="lengthRight">The length of the right.</param>
 		/// <returns>The percentage that they are similar.</returns>
-		public static int CalculateSimilarity(string strLeft, int nStartLeft, int nLengthLeft, string strRight, int nStartRight, int nLengthRight)
+		public static int CalculateSimilarity(string left, int startLeft, int lengthLeft, string right, int startRight, int lengthRight)
 		{
-			if (strLeft == null)
-				throw new ArgumentNullException("strLeft");
-			if (strRight == null)
-				throw new ArgumentNullException("strRight");
-			if (nStartLeft < 0)
-				throw new ArgumentOutOfRangeException("nStartLeft");
-			if (nStartRight < 0)
-				throw new ArgumentOutOfRangeException("nStartRight");
-			if (nStartLeft + nLengthLeft > strLeft.Length)
-				throw new ArgumentOutOfRangeException("nLengthLeft");
-			if (nStartRight + nLengthRight > strRight.Length)
-				throw new ArgumentOutOfRangeException("nLengthRight");
+			if (left == null)
+				throw new ArgumentNullException("left");
+			if (right == null)
+				throw new ArgumentNullException("right");
+			if (startLeft < 0)
+				throw new ArgumentOutOfRangeException("startLeft");
+			if (startRight < 0)
+				throw new ArgumentOutOfRangeException("startRight");
+			if (startLeft + lengthLeft > left.Length)
+				throw new ArgumentOutOfRangeException("lengthLeft");
+			if (startRight + lengthRight > right.Length)
+				throw new ArgumentOutOfRangeException("lengthRight");
 
 			{
-				StringSegment s1 = new StringSegment(strLeft, nStartLeft, nLengthLeft);
-				StringSegment s2 = new StringSegment(strRight, nStartRight, nLengthRight);
+				StringSegment s1 = new StringSegment(left, startLeft, lengthLeft);
+				StringSegment s2 = new StringSegment(right, startRight, lengthRight);
 
 				List<int> st_left1 = new List<int>();
 				List<int> st_right1 = new List<int>();
@@ -93,8 +93,8 @@ namespace Faithlife.Utility
 				int nScore = 0;
 
 				// max index to examine in first string
-				int iEnd1 = nLengthLeft - 1;
-				int iEnd2 = nLengthRight - 1;
+				int iEnd1 = lengthLeft - 1;
+				int iEnd2 = lengthRight - 1;
 
 				st_left1.Add(0);
 				st_right1.Add(iEnd1);
@@ -244,7 +244,7 @@ namespace Faithlife.Utility
 				}
 				while (iTop != 0);
 
-				int nTotalLen = nLengthLeft + nLengthRight;
+				int nTotalLen = lengthLeft + lengthRight;
 
 				// prevent division by zero -- two empty strings are identical
 				return nTotalLen > 0 ? (100 * nScore + ((nTotalLen + 1) / 2)) / nTotalLen : 100;
@@ -254,13 +254,13 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Determines whether a string ends with the specified character.
 		/// </summary>
-		/// <param name="str">The string.</param>
+		/// <param name="source">The string.</param>
 		/// <param name="value">The character.</param>
 		/// <returns><c>true</c> if the last character in the string is <paramref name="value"/>; <c>false</c> otherwise.</returns>
-		public static bool EndsWith(this string str, char value)
+		public static bool EndsWith(this string source, char value)
 		{
-			int length = str.Length;
-			return length != 0 && str[length - 1] == value;
+			int length = source.Length;
+			return length != 0 && source[length - 1] == value;
 		}
 
 		/// <summary>
@@ -347,28 +347,28 @@ namespace Faithlife.Utility
 		/// Unicode code points). This method sorts strings in code point order, which is the same as a byte-wise comparison of UTF-8 or
 		/// UTF-32 encoded strings.
 		/// </summary>
-		/// <param name="strLeft">The first string.</param>
-		/// <param name="strRight">The second string.</param>
-		/// <returns>Less than zero if <paramref name="strLeft"/> is less than <paramref name="strRight"/>; zero if the strings are equal;
-		/// greater than zero if <paramref name="strLeft"/> is greater than <paramref name="strRight"/>.</returns>
-		public static int CompareByCodePoint(string strLeft, string strRight)
+		/// <param name="left">The first string.</param>
+		/// <param name="right">The second string.</param>
+		/// <returns>Less than zero if <paramref name="left"/> is less than <paramref name="right"/>; zero if the strings are equal;
+		/// greater than zero if <paramref name="left"/> is greater than <paramref name="right"/>.</returns>
+		public static int CompareByCodePoint(string left, string right)
 		{
 			// null sorts less than anything else (same as String.CompareOrdinal)
-			if (strLeft == null)
-				return strRight == null ? 0 : -1;
-			else if (strRight == null)
+			if (left == null)
+				return right == null ? 0 : -1;
+			else if (right == null)
 				return 1;
 
 			// get the length of both strings
-			int nLeftLength = strLeft.Length;
-			int nRightLength = strRight.Length;
+			int nLeftLength = left.Length;
+			int nRightLength = right.Length;
 
 			// compare at most the number of characters the strings have in common
 			int nMaxIndex = Math.Min(nLeftLength, nRightLength);
 			for (int nIndex = 0; nIndex < nMaxIndex; nIndex++)
 			{
-				char chLeft = strLeft[nIndex];
-				char chRight = strRight[nIndex];
+				char chLeft = left[nIndex];
+				char chRight = right[nIndex];
 
 				// algorithm from the Unicode Standard 5.0, Section 5.17 (Binary Order), page 183
 				if (chLeft != chRight)
@@ -383,35 +383,35 @@ namespace Faithlife.Utility
 		/// Compares two specified <see cref="String"/> objects, ignoring or honoring their case, and using culture-specific information
 		/// to influence the comparison, and returns an integer that indicates their relative position in the sort order.
 		/// </summary>
-		/// <param name="strLeft">The first string to compare.</param>
-		/// <param name="strRight">The second string to compare.</param>
+		/// <param name="left">The first string to compare.</param>
+		/// <param name="right">The second string to compare.</param>
 		/// <param name="ignoreCase"><c>true</c> to ignore case during the comparison; otherwise, <c>false</c>.</param>
 		/// <param name="cultureInfo">An object that supplies culture-specific comparison information.</param>
 		/// <returns>A 32-bit signed integer that indicates the lexical relationship between the two comparands.</returns>
-		public static int Compare(string strLeft, string strRight, bool ignoreCase, CultureInfo cultureInfo)
+		public static int Compare(string left, string right, bool ignoreCase, CultureInfo cultureInfo)
 		{
 			if (cultureInfo == null)
 				throw new ArgumentNullException("cultureInfo");
-			return cultureInfo.CompareInfo.Compare(strLeft, strRight, ignoreCase ? CompareOptions.IgnoreCase : CompareOptions.None);
+			return cultureInfo.CompareInfo.Compare(left, right, ignoreCase ? CompareOptions.IgnoreCase : CompareOptions.None);
 		}
 
 		/// <summary>
 		/// Compares two specified <see cref="String"/> objects, ignoring or honoring their case, and using culture-specific information
 		/// to influence the comparison, and returns an integer that indicates their relative position in the sort order.
 		/// </summary>
-		/// <param name="strLeft">The first string to compare.</param>
-		/// <param name="offsetLeft">The position of the substring within <paramref name="strLeft"/>.</param>
-		/// <param name="strRight">The second string to compare.</param>
-		/// <param name="offsetRight">The position of the substring within <paramref name="strRight"/>.</param>
+		/// <param name="left">The first string to compare.</param>
+		/// <param name="offsetLeft">The position of the substring within <paramref name="left"/>.</param>
+		/// <param name="right">The second string to compare.</param>
+		/// <param name="offsetRight">The position of the substring within <paramref name="right"/>.</param>
 		/// <param name="length">The maximum number of characters in the substrings to compare.</param>
 		/// <param name="ignoreCase"><c>true</c> to ignore case during the comparison; otherwise, <c>false</c>.</param>
 		/// <param name="cultureInfo">An object that supplies culture-specific comparison information.</param>
 		/// <returns>A 32-bit signed integer that indicates the lexical relationship between the two comparands.</returns>
-		public static int Compare(string strLeft, int offsetLeft, string strRight, int offsetRight, int length, bool ignoreCase, CultureInfo cultureInfo)
+		public static int Compare(string left, int offsetLeft, string right, int offsetRight, int length, bool ignoreCase, CultureInfo cultureInfo)
 		{
 			if (cultureInfo == null)
 				throw new ArgumentNullException("cultureInfo");
-			return cultureInfo.CompareInfo.Compare(strLeft, offsetLeft, length, strRight, offsetRight, length, ignoreCase ? CompareOptions.IgnoreCase : CompareOptions.None);
+			return cultureInfo.CompareInfo.Compare(left, offsetLeft, length, right, offsetRight, length, ignoreCase ? CompareOptions.IgnoreCase : CompareOptions.None);
 		}
 
 		/// <summary>
@@ -442,22 +442,22 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Performs a full case folding as defined by Section 5.18 of the Unicode Standard 5.0.
 		/// </summary>
-		/// <param name="str">The string to be case-folded.</param>
+		/// <param name="value">The string to be case-folded.</param>
 		/// <returns>A case-folded version of the input string. This value may be longer than the input.</returns>
 		/// <remarks><para>This function is generated from the Unicode case folding data by Tools/src/GenerateCaseFolding.</para>
 		/// <para>From http://unicode.org/reports/tr21/tr21-5.html#Caseless_Matching: Case-folding is the process of mapping
 		/// strings to a canonical form where case differences are erased. Case-folding allows for fast caseless matches in lookups,
 		/// since only binary comparison is required. Case-folding is more than just conversion to lowercase.</para>
 		/// <para>Case folding is not culture aware. String comparisons that should be culture aware should not use this method.</para></remarks>
-		public static string FoldCase(this string str)
+		public static string FoldCase(this string value)
 		{
 			// check parameters
-			if (str == null)
-				throw new ArgumentNullException("str");
+			if (value == null)
+				throw new ArgumentNullException("value");
 
 			// process each character in the input string
 			StringBuilder sb = new StringBuilder();
-			foreach (char nCodeUnit in str)
+			foreach (char nCodeUnit in value)
 			{
 				if (nCodeUnit < 0x100)
 				{
@@ -953,47 +953,47 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Formats the string using the invariant culture.
 		/// </summary>
-		/// <param name="strFormat">The format string.</param>
-		/// <param name="aobjArgs">The format arguments.</param>
+		/// <param name="format">The format string.</param>
+		/// <param name="args">The format arguments.</param>
 		/// <returns>The formatted string.</returns>
-		[StringFormatMethod("strFormat")]
-		public static string FormatInvariant(this string strFormat, params object[] aobjArgs)
+		[StringFormatMethod("format")]
+		public static string FormatInvariant(this string format, params object[] args)
 		{
-			return string.Format(CultureInfo.InvariantCulture, strFormat, aobjArgs);
+			return string.Format(CultureInfo.InvariantCulture, format, args);
 		}
 
 		/// <summary>
 		/// Replaces all of the {0}, {1} etc. formatting elements with the empty string.
 		/// </summary>
-		/// <param name="strFormat">The format string.</param>
+		/// <param name="format">The format string.</param>
 		/// <returns>The formatted string.</returns>
-		public static string EmptyFormat(this string strFormat)
+		public static string EmptyFormat(this string format)
 		{
-			return s_regexFormatReplace.Value.Replace(strFormat, string.Empty);
+			return s_regexFormatReplace.Value.Replace(format, string.Empty);
 		}
 
 		/// <summary>
 		/// Joins the specified strings into one string.
 		/// </summary>
-		/// <param name="seq">The strings.</param>
+		/// <param name="strings">The strings.</param>
 		/// <returns>All of the strings concatenated with no separator.</returns>
-		public static string Join(this IEnumerable<string> seq)
+		public static string Join(this IEnumerable<string> strings)
 		{
-			return Join(seq, default(string));
+			return Join(strings, default(string));
 		}
 
 		/// <summary>
 		/// Joins the specified strings using the specified separator.
 		/// </summary>
-		/// <param name="seq">The strings.</param>
+		/// <param name="strings">The strings.</param>
 		/// <param name="separator">The separator. (The empty string is used if null.)</param>
 		/// <returns>All of the strings concatenated with the specified separator.</returns>
-		public static string Join(this IEnumerable<string> seq, string separator)
+		public static string Join(this IEnumerable<string> strings, string separator)
 		{
-			if (seq == null)
-				throw new ArgumentNullException("seq");
+			if (strings == null)
+				throw new ArgumentNullException("strings");
 
-			using (var enumerator = seq.GetEnumerator())
+			using (var enumerator = strings.GetEnumerator())
 			{
 				if (enumerator.MoveNext())
 				{
@@ -1013,12 +1013,12 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Joins the specified strings using the specified separator.
 		/// </summary>
-		/// <param name="seq">The strings.</param>
+		/// <param name="strings">The strings.</param>
 		/// <param name="separator">The separator.</param>
 		/// <returns>All of the strings concatenated with the specified separator.</returns>
-		public static string Join(this IEnumerable<string> seq, char separator)
+		public static string Join(this IEnumerable<string> strings, char separator)
 		{
-			return Join(seq, new string(separator, 1));
+			return Join(strings, new string(separator, 1));
 		}
 
 		/// <summary>
@@ -1045,51 +1045,51 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Joins the specified strings using the specified separator format.
 		/// </summary>
-		/// <param name="seq">The strings.</param>
+		/// <param name="strings">The strings.</param>
 		/// <param name="separatorFormat">The separator format, e.g. "{0}, {1}".</param>
 		/// <returns>All of the strings concatenated with the specified separator format.</returns>
-		public static string JoinFormat(this IEnumerable<string> seq, string separatorFormat)
+		public static string JoinFormat(this IEnumerable<string> strings, string separatorFormat)
 		{
 			if (separatorFormat == null)
 				throw new ArgumentNullException("separatorFormat");
 
-			return seq.Aggregate(string.Empty, (acc, src) => acc.Length == 0 ? src : separatorFormat.FormatInvariant(acc, src));
+			return strings.Aggregate(string.Empty, (acc, src) => acc.Length == 0 ? src : separatorFormat.FormatInvariant(acc, src));
 		}
 
 		/// <summary>
 		/// Enumerates the indices of all instances of the specified character in a string.
 		/// </summary>
-		/// <param name="str">The string to search.</param>
-		/// /// <param name="ch">The character to find.</param>
+		/// <param name="source">The string to search.</param>
+		/// /// <param name="character">The character to find.</param>
 		/// <returns>The positions of all instances of the specified character in the string.</returns>
-		public static IEnumerable<int> GetIndexesOf(this string str, char ch)
+		public static IEnumerable<int> GetIndexesOf(this string source, char character)
 		{
-			if (str == null)
-				throw new ArgumentNullException("str");
+			if (source == null)
+				throw new ArgumentNullException("source");
 
-			int nIndex = str.IndexOf(ch);
+			int nIndex = source.IndexOf(character);
 			while (nIndex != -1)
 			{
 				yield return nIndex;
-				nIndex = str.IndexOf(ch, nIndex + 1);
+				nIndex = source.IndexOf(character, nIndex + 1);
 			}
 		}
 
 		/// <summary>
 		/// Gets a hash code for the specified string; this hash code is guaranteed not to change in future.
 		/// </summary>
-		/// <param name="str">The string to hash.</param>
+		/// <param name="value">The string to hash.</param>
 		/// <returns>A hash code for the specified string</returns>
 		/// <remarks>Based on SuperFastHash: http://www.azillionmonkeys.com/qed/hash.html</remarks>
-		public static int GetPersistentHashCode(this string str)
+		public static int GetPersistentHashCode(this string value)
 		{
 			unchecked
 			{
 				// check for degenerate input
-				if (string.IsNullOrEmpty(str))
+				if (string.IsNullOrEmpty(value))
 					return 0;
 
-				int nLength = str.Length;
+				int nLength = value.Length;
 				uint nHash = (uint) nLength;
 				uint nTemp;
 
@@ -1100,8 +1100,8 @@ namespace Faithlife.Utility
 				int nIndex = 0;
 				for (; nLength > 0; nLength--)
 				{
-					nHash += str[nIndex];
-					nTemp = (uint) (str[nIndex + 1] << 11) ^ nHash;
+					nHash += value[nIndex];
+					nTemp = (uint) (value[nIndex + 1] << 11) ^ nHash;
 					nHash = (nHash << 16) ^ nTemp;
 					nIndex += 2;
 					nHash += nHash >> 11;
@@ -1110,7 +1110,7 @@ namespace Faithlife.Utility
 				// handle odd string length
 				if (nRemainder == 1)
 				{
-					nHash += str[nIndex];
+					nHash += value[nIndex];
 					nHash ^= nHash << 11;
 					nHash += nHash >> 17;
 				}
@@ -1130,31 +1130,31 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Reverses the specified string.
 		/// </summary>
-		/// <param name="strInput">The string to reverse.</param>
+		/// <param name="value">The string to reverse.</param>
 		/// <returns>The input string, reversed.</returns>
 		/// <remarks>This method correctly reverses strings containing supplementary characters (which are encoded with two surrogate code units).</remarks>
-		public static string Reverse(this string strInput)
+		public static string Reverse(this string value)
 		{
-			if (strInput == null)
-				throw new ArgumentNullException("strInput");
+			if (value == null)
+				throw new ArgumentNullException("value");
 
 			// allocate a buffer to hold the output
-			char[] achOutput = new char[strInput.Length];
-			for (int nOutputIndex = 0, nInputIndex = strInput.Length - 1; nOutputIndex < strInput.Length; nOutputIndex++, nInputIndex--)
+			char[] achOutput = new char[value.Length];
+			for (int nOutputIndex = 0, nInputIndex = value.Length - 1; nOutputIndex < value.Length; nOutputIndex++, nInputIndex--)
 			{
 				// check for surrogate pair
-				if (strInput[nInputIndex] >= 0xDC00 && strInput[nInputIndex] <= 0xDFFF &&
-					nInputIndex > 0 && strInput[nInputIndex - 1] >= 0xD800 && strInput[nInputIndex - 1] <= 0xDBFF)
+				if (value[nInputIndex] >= 0xDC00 && value[nInputIndex] <= 0xDFFF &&
+					nInputIndex > 0 && value[nInputIndex - 1] >= 0xD800 && value[nInputIndex - 1] <= 0xDBFF)
 				{
 					// preserve the order of the surrogate pair code units
-					achOutput[nOutputIndex + 1] = strInput[nInputIndex];
-					achOutput[nOutputIndex] = strInput[nInputIndex - 1];
+					achOutput[nOutputIndex + 1] = value[nInputIndex];
+					achOutput[nOutputIndex] = value[nInputIndex - 1];
 					nOutputIndex++;
 					nInputIndex--;
 				}
 				else
 				{
-					achOutput[nOutputIndex] = strInput[nInputIndex];
+					achOutput[nOutputIndex] = value[nInputIndex];
 				}
 			}
 
@@ -1164,35 +1164,35 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Splits the string on whitespace.
 		/// </summary>
-		/// <param name="str">The string.</param>
+		/// <param name="value">The string.</param>
 		/// <returns>The array of substrings.</returns>
 		/// <remarks>See the documentation for string.Split for the white-space characters recognized by this method.</remarks>
-		public static string[] SplitOnWhitespace(this string str)
+		public static string[] SplitOnWhitespace(this string value)
 		{
-			return str.Split((char[]) null);
+			return value.Split((char[]) null);
 		}
 
 		/// <summary>
 		/// Splits the string on whitespace.
 		/// </summary>
-		/// <param name="str">The string.</param>
+		/// <param name="value">The string.</param>
 		/// <param name="options">The options.</param>
 		/// <returns>The array of substrings.</returns>
 		/// <remarks>See the documentation for string.Split for the white-space characters recognized by this method.</remarks>
-		public static string[] SplitOnWhitespace(this string str, StringSplitOptions options)
+		public static string[] SplitOnWhitespace(this string value, StringSplitOptions options)
 		{
-			return str.Split((char[]) null, options);
+			return value.Split((char[]) null, options);
 		}
 
 		/// <summary>
 		/// Replaces a string with a default value, if the string is null or empty.
 		/// </summary>
-		/// <param name="str">The string to test for contents.</param>
-		/// <param name="strDefaultValue">The default string to replace with.</param>
+		/// <param name="value">The string to test for contents.</param>
+		/// <param name="defaultValue">The default string to replace with.</param>
 		/// <returns>Either the tested string, or the default value, depending on the contents of the initial string.</returns>
-		public static string DefaultIfEmpty(this string str, string strDefaultValue)
+		public static string DefaultIfEmpty(this string value, string defaultValue)
 		{
-			return str.IsNullOrEmpty() ? strDefaultValue : str;
+			return value.IsNullOrEmpty() ? defaultValue : value;
 		}
 
 		/// <summary>

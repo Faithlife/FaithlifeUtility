@@ -13,36 +13,36 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Encodes a string with the default settings.
 		/// </summary>
-		/// <param name="str">The string to encode.</param>
+		/// <param name="value">The string to encode.</param>
 		/// <returns>The encoded string.</returns>
-		public static string Encode(string str)
+		public static string Encode(string value)
 		{
 			// use default settings
-			return Encode(str, s_settingsDefault);
+			return Encode(value, s_settingsDefault);
 		}
 
 		/// <summary>
 		/// Encodes a string with the specified settings.
 		/// </summary>
-		/// <param name="str">The string to encode.</param>
+		/// <param name="value">The string to encode.</param>
 		/// <param name="settings">The settings to use when encoding.</param>
 		/// <returns>The encoded string.</returns>
-		public static string Encode(string str, UrlEncodingSettings settings)
+		public static string Encode(string value, UrlEncodingSettings settings)
 		{
 			// check arguments
 			if (settings == null)
 				throw new ArgumentNullException("settings");
 
 			// null encodes to null
-			if (str == null)
+			if (value == null)
 				return null;
 
 			// empty string encodes to empty string
-			if (str.Length == 0)
-				return str;
+			if (value.Length == 0)
+				return value;
 
 			// convert string to array of characters
-			char[] achChars = str.ToCharArray();
+			char[] achChars = value.ToCharArray();
 			int nChars = achChars.Length;
 
 			// count characters that should be encoded and spaces
@@ -55,7 +55,7 @@ namespace Faithlife.Utility
 
 			// we're done if there are no characters to encode
 			if (nCharsToEncode == 0)
-				return str;
+				return value;
 
 			// each byte becomes 3 characters
 			Encoding encoding = settings.TextEncoding;
@@ -127,39 +127,39 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Decodes a string with the default settings.
 		/// </summary>
-		/// <param name="str">The string to be decoded.</param>
+		/// <param name="value">The string to be decoded.</param>
 		/// <returns>The decoded string.</returns>
-		public static string Decode(string str)
+		public static string Decode(string value)
 		{
-			return Decode(str, s_settingsDefault);
+			return Decode(value, s_settingsDefault);
 		}
 
 		/// <summary>
 		/// Decodes a string with the specified settings.
 		/// </summary>
-		/// <param name="str">The string to be decoded.</param>
+		/// <param name="value">The string to be decoded.</param>
 		/// <param name="settings">The settings to use when decoding.</param>
 		/// <returns>The decoded string.</returns>
-		public static string Decode(string str, UrlEncodingSettings settings)
+		public static string Decode(string value, UrlEncodingSettings settings)
 		{
 			// check arguments
 			if (settings == null)
 				throw new ArgumentNullException("settings");
 
 			// null decodes to null
-			if (str == null)
+			if (value == null)
 				return null;
 
 			// empty string decodes to empty string
-			if (str.Length == 0)
-				return str;
+			if (value.Length == 0)
+				return value;
 
 			// replace encoded spaces if necessary
 			if (settings.EncodedSpaceChar.HasValue)
-				str = str.Replace(settings.EncodedSpaceChar.Value, ' ');
+				value = value.Replace(settings.EncodedSpaceChar.Value, ' ');
 
 			// decode hex-encoded characters
-			return str.IndexOf(settings.EncodedBytePrefixChar) == -1 ? str : DecodeHex(str, settings);
+			return value.IndexOf(settings.EncodedBytePrefixChar) == -1 ? value : DecodeHex(value, settings);
 		}
 
 		private static string DecodeHex(string str, UrlEncodingSettings settings)

@@ -26,19 +26,19 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="list">The sorted list to search.</param>
 		/// <param name="key">The key to search for.</param>
-		/// <param name="fnCompare">The comparison.</param>
-		/// <param name="nIndex">Returns the first index at which the key can be found. If the return
+		/// <param name="compare">The comparison.</param>
+		/// <param name="index">Returns the first index at which the key can be found. If the return
 		/// value is zero, indicating that <paramref name="key"/> was not present in the list, then this
 		/// returns the index at which <paramref name="key"/> could be inserted to maintain the sorted
 		/// order of the list.</param>
 		/// <returns>The number of keys equal to <paramref name="key"/> that appear in the list.</returns>
 		/// <remarks>Modified from similar function in PowerCollections, copyright (c) 2004-2005, Wintellect.</remarks>
-		public static int BinarySearchForKey<TItem, TKey>(IList<TItem> list, TKey key, Func<TItem, TKey, int> fnCompare, out int nIndex)
+		public static int BinarySearchForKey<TItem, TKey>(IList<TItem> list, TKey key, Func<TItem, TKey, int> compare, out int index)
 		{
 			if (list == null)
-				throw new ArgumentNullException("list");
-			if (fnCompare == null)
-				throw new ArgumentNullException("fnCompare");
+				throw new ArgumentNullException(nameof(list));
+			if (compare == null)
+				throw new ArgumentNullException(nameof(compare));
 
 			int l = 0;
 			int r = list.Count;
@@ -47,7 +47,7 @@ namespace Faithlife.Utility
 			{
 				int m = l + (r - l) / 2;
 				TItem middleItem = list[m];
-				int comp = fnCompare(middleItem, key);
+				int comp = compare(middleItem, key);
 				if (comp < 0)
 				{
 					// middleItem < key
@@ -69,7 +69,7 @@ namespace Faithlife.Utility
 					{
 						m = l + (r - l) / 2;
 						middleItem = list[m];
-						comp = fnCompare(middleItem, key);
+						comp = compare(middleItem, key);
 						if (comp < 0)
 						{
 							// middleItem < key
@@ -81,7 +81,7 @@ namespace Faithlife.Utility
 						}
 					}
 					System.Diagnostics.Debug.Assert(l == r, "l == r");
-					nIndex = l;
+					index = l;
 
 					// Find the end of the run.
 					l = found;
@@ -90,7 +90,7 @@ namespace Faithlife.Utility
 					{
 						m = l + (r - l) / 2;
 						middleItem = list[m];
-						comp = fnCompare(middleItem, key);
+						comp = compare(middleItem, key);
 						if (comp <= 0)
 						{
 							// middleItem <= key
@@ -102,13 +102,13 @@ namespace Faithlife.Utility
 						}
 					}
 					System.Diagnostics.Debug.Assert(l == r, "l == r");
-					return l - nIndex;
+					return l - index;
 				}
 			}
 
 			// We did not find the key. l and r must be equal. 
 			System.Diagnostics.Debug.Assert(l == r, "l == r");
-			nIndex = l;
+			index = l;
 			return 0;
 		}
 
@@ -142,9 +142,9 @@ namespace Faithlife.Utility
 			// fall back to a manual implementation
 			CollectionImpl.CheckCopyToParameters(array, arrayIndex, count);
 			if (index < 0)
-				throw new ArgumentOutOfRangeException("index");
+				throw new ArgumentOutOfRangeException(nameof(index));
 			if (count < 0)
-				throw new ArgumentOutOfRangeException("count");
+				throw new ArgumentOutOfRangeException(nameof(count));
 			if (list.Count - index < count)
 				throw new ArgumentException(OurMessages.Argument_InvalidIndexCount);
 
@@ -205,11 +205,11 @@ namespace Faithlife.Utility
 		{
 			// check arguments
 			if (list == null)
-				throw new ArgumentNullException("list");
+				throw new ArgumentNullException(nameof(list));
 			if (match == null)
-				throw new ArgumentNullException("match");
+				throw new ArgumentNullException(nameof(match));
 			if (startIndex < 0 || startIndex > list.Count)
-				throw new ArgumentOutOfRangeException("startIndex");
+				throw new ArgumentOutOfRangeException(nameof(startIndex));
 
 			int nCount = list.Count;
 			for (int nIndex = startIndex; nIndex < nCount; nIndex++)
@@ -236,25 +236,25 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="list">The sorted list to search.</param>
 		/// <param name="key">The key to search for.</param>
-		/// <param name="fnCompare">The comparison.</param>
-		/// <param name="nIndex">Returns the first index at which the key can be found. If the return
+		/// <param name="compare">The comparison.</param>
+		/// <param name="index">Returns the first index at which the key can be found. If the return
 		/// value is zero, indicating that <paramref name="key"/> was not present in the list, then this
 		/// returns the index at which <paramref name="key"/> could be inserted to maintain the sorted
 		/// order of the list.</param>
 		/// <returns>The number of keys equal to <paramref name="key"/> that appear in the list.</returns>
-		public static int LinearSearchForKey<TItem, TKey>(IList<TItem> list, TKey key, Func<TItem, TKey, int> fnCompare, out int nIndex)
+		public static int LinearSearchForKey<TItem, TKey>(IList<TItem> list, TKey key, Func<TItem, TKey, int> compare, out int index)
 		{
 			if (list == null)
-				throw new ArgumentNullException("list");
-			if (fnCompare == null)
-				throw new ArgumentNullException("fnCompare");
+				throw new ArgumentNullException(nameof(list));
+			if (compare == null)
+				throw new ArgumentNullException(nameof(compare));
 
 			// walk list, looking for items
 			int nFound = 0;
 			for (int nItem = 0; nItem < list.Count; nItem++)
 			{
 				// compare current item to key
-				int nCompare = fnCompare(list[nItem], key);
+				int nCompare = compare(list[nItem], key);
 
 				// found an item equal to the key
 				if (nCompare == 0)
@@ -263,13 +263,13 @@ namespace Faithlife.Utility
 				// found an item greater than the key; assume no more items can be found
 				if (nCompare > 0)
 				{
-					nIndex = nItem - nFound;
+					index = nItem - nFound;
 					return nFound;
 				}
 			}
 
 			// item was not found
-			nIndex = list.Count - nFound;
+			index = list.Count - nFound;
 			return nFound;
 		}
 
@@ -306,15 +306,15 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <typeparam name="T">The type.</typeparam>
 		/// <param name="list">The list.</param>
-		/// <param name="fn">The predicate that determines the items to remove.</param>
+		/// <param name="predicate">The predicate that determines the items to remove.</param>
 		/// <returns>The number of items removed from the collection.</returns>
-		public static int RemoveWhere<T>(this IList<T> list, Func<T, bool> fn)
+		public static int RemoveWhere<T>(this IList<T> list, Func<T, bool> predicate)
 		{
 			// check arguments
 			if (list == null)
-				throw new ArgumentNullException("list");
-			if (fn == null)
-				throw new ArgumentNullException("fn");
+				throw new ArgumentNullException(nameof(list));
+			if (predicate == null)
+				throw new ArgumentNullException(nameof(predicate));
 
 			// remove items that match
 			int nOriginalCount = list.Count;
@@ -322,7 +322,7 @@ namespace Faithlife.Utility
 			int nIndex = 0;
 			while (nIndex < nCount)
 			{
-				if (fn(list[nIndex]))
+				if (predicate(list[nIndex]))
 				{
 					list.RemoveAt(nIndex);
 					nCount--;
@@ -340,18 +340,18 @@ namespace Faithlife.Utility
 		/// Transforms the elements of a list in place.
 		/// </summary>
 		/// <param name="list">The list.</param>
-		/// <param name="fn">The converter.</param>
-		public static IList<T> TransformInPlace<T>(this IList<T> list, Func<T, T> fn)
+		/// <param name="predicate">The converter.</param>
+		public static IList<T> TransformInPlace<T>(this IList<T> list, Func<T, T> predicate)
 		{
 			// check arguments
 			if (list == null)
-				throw new ArgumentNullException("list");
-			if (fn == null)
-				throw new ArgumentNullException("fn");
+				throw new ArgumentNullException(nameof(list));
+			if (predicate == null)
+				throw new ArgumentNullException(nameof(predicate));
 
 			int nCount = list.Count;
 			for (int nIndex = 0; nIndex < nCount; nIndex++)
-				list[nIndex] = fn(list[nIndex]);
+				list[nIndex] = predicate(list[nIndex]);
 
 			return list;
 		}

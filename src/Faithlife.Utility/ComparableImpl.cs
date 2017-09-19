@@ -22,7 +22,7 @@ namespace Faithlife.Utility
 			if (object.ReferenceEquals(obj, null))
 				return 1;
 			if (!(obj is T))
-				throw new ArgumentException(OurMessages.Argument_CompareToInvalidObject.FormatInvariant(typeof(T).Name), "obj");
+				throw new ArgumentException(OurMessages.Argument_CompareToInvalidObject.FormatInvariant(typeof(T).Name), nameof(obj));
 			return that.CompareTo((T) obj);
 		}
 

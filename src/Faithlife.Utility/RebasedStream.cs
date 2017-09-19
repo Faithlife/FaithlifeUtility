@@ -8,25 +8,25 @@ namespace Faithlife.Utility
 	public sealed class RebasedStream : WrappingStream
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="RebasedStream"/> class; the current position in <paramref name="streamBase"/>
+		/// Initializes a new instance of the <see cref="RebasedStream"/> class; the current position in <paramref name="stream"/>
 		/// will be the origin of the <see cref="RebasedStream"/>.
 		/// </summary>
-		/// <param name="streamBase">The base stream.</param>
-		public RebasedStream(Stream streamBase)
-			: this(streamBase, Ownership.None)
+		/// <param name="stream">The base stream.</param>
+		public RebasedStream(Stream stream)
+			: this(stream, Ownership.None)
 		{
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="RebasedStream"/> class; the current position in <paramref name="streamBase"/>
+		/// Initializes a new instance of the <see cref="RebasedStream"/> class; the current position in <paramref name="stream"/>
 		/// will be the origin of the <see cref="RebasedStream"/>.
 		/// </summary>
-		/// <param name="streamBase">The base stream.</param>
+		/// <param name="stream">The base stream.</param>
 		/// <param name="ownership">The ownership of the base stream.</param>
-		public RebasedStream(Stream streamBase, Ownership ownership)
-			: base(streamBase, ownership)
+		public RebasedStream(Stream stream, Ownership ownership)
+			: base(stream, ownership)
 		{
-			m_baseOffset = streamBase.Position;
+			m_baseOffset = stream.Position;
 		}
 
 		/// <summary>

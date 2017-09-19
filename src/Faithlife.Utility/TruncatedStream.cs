@@ -14,10 +14,10 @@ namespace Faithlife.Utility
 		/// Creates a new truncated stream.
 		/// </summary>
 		/// <param name="length">The length of the truncated stream.</param>
-		/// <param name="streamBase">The base stream.</param>
+		/// <param name="stream">The base stream.</param>
 		/// <param name="ownership">The ownership of the base stream.</param>
-		public TruncatedStream(Stream streamBase, long length, Ownership ownership)
-			: base(streamBase, ownership)
+		public TruncatedStream(Stream stream, long length, Ownership ownership)
+			: base(stream, ownership)
 		{
 			m_length = length;
 		}
