@@ -14,7 +14,6 @@ namespace Faithlife.Utility.Tests
 		[TestCase("http://www.example.com", "http://www.example.com/")]
 		[TestCase("http://www.example.com/", "http://www.example.com/")]
 		[TestCase("https://secure.example.com", "https://secure.example.com/")]
-		[TestCase("https://secure.example.com", "https://secure.example.com/")]
 		[TestCase("user@example.com", "http://user@example.com/")]
 		[TestCase("mailto:user@example.com", null)]
 		[TestCase("file:///c:/Windows/System32/notepad.exe", null)]
@@ -57,8 +56,8 @@ namespace Faithlife.Utility.Tests
 				"http://example.com/?date=02%2F03%2F2001%2004%3A05%3A06");
 		}
 
-		[TestCase(null, null)] 
-		[TestCase(null,"somewhere.com")]
+		[TestCase(null, null)]
+		[TestCase(null, "somewhere.com")]
 		[TestCase("http://maps.google.com", null)]
 		public void MatchesDomainArgumentNullException(string uristring, string domain)
 		{

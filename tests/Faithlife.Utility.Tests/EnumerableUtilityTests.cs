@@ -155,15 +155,16 @@ namespace Faithlife.Utility.Tests
 			Assert.Throws<ArgumentOutOfRangeException>(() => EnumerableUtility.CountIsExactly(new int[0], -1));
 		}
 
-		[TestCase(new int[0], 0, true)]
-		[TestCase(new int[0], 1, false)]
-		[TestCase(new[] { 1, 2 }, 0, false)]
-		[TestCase(new[] { 1, 2 }, 1, false)]
-		[TestCase(new[] { 1, 2 }, 2, true)]
-		[TestCase(new[] { 1, 2 }, 3, false)]
-		[TestCase(new[] { 1, 2 }, 4, false)]
-		public void CountIsExactly(int[] input, int count, bool expected)
+		[TestCase(0, 0, true)]
+		[TestCase(0, 1, false)]
+		[TestCase(2, 0, false)]
+		[TestCase(2, 1, false)]
+		[TestCase(2, 2, true)]
+		[TestCase(2, 3, false)]
+		[TestCase(2, 4, false)]
+		public void CountIsExactly(int length, int count, bool expected)
 		{
+			int[] input = Enumerable.Range(1, length).ToArray();
 			Assert.AreEqual(expected, input.CountIsExactly(count));
 			Assert.AreEqual(expected, ToEnumerable(input).CountIsExactly(count));
 		}
@@ -175,15 +176,16 @@ namespace Faithlife.Utility.Tests
 			Assert.Throws<ArgumentOutOfRangeException>(() => EnumerableUtility.CountIsAtLeast(new int[0], -1));
 		}
 
-		[TestCase(new int[0], 0, true)]
-		[TestCase(new int[0], 1, false)]
-		[TestCase(new[] { 1, 2 }, 0, true)]
-		[TestCase(new[] { 1, 2 }, 1, true)]
-		[TestCase(new[] { 1, 2 }, 2, true)]
-		[TestCase(new[] { 1, 2 }, 3, false)]
-		[TestCase(new[] { 1, 2 }, 4, false)]
-		public void CountIsAtLeast(int[] input, int count, bool expected)
+		[TestCase(0, 0, true)]
+		[TestCase(0, 1, false)]
+		[TestCase(2, 0, true)]
+		[TestCase(2, 1, true)]
+		[TestCase(2, 2, true)]
+		[TestCase(2, 3, false)]
+		[TestCase(2, 4, false)]
+		public void CountIsAtLeast(int length, int count, bool expected)
 		{
+			int[] input = Enumerable.Range(1, length).ToArray();
 			Assert.AreEqual(expected, input.CountIsAtLeast(count));
 			Assert.AreEqual(expected, ToEnumerable(input).CountIsAtLeast(count));
 		}

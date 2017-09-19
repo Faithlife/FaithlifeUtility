@@ -103,10 +103,10 @@ namespace Faithlife.Utility.Tests
 		}
 
 		[TestCase(0, new string[0])]
-		[TestCase(0, new string[] { null })]
-		[TestCase(0, new[] { null, "one", null, "", "three" })]
-		[TestCase(0, new[] { "one" })]
-		[TestCase(0, new[] { "one", "two", "three" })]
+		[TestCase(1, new string[] { null })]
+		[TestCase(2, new[] { null, "one", null, "", "three" })]
+		[TestCase(3, new[] { "one" })]
+		[TestCase(4, new[] { "one", "two", "three" })]
 		public void JoinStringsInEnumerable(int nIgnored, string[] astrStrings)
 		{
 			const string strSeparator = ", ";
@@ -198,20 +198,20 @@ namespace Faithlife.Utility.Tests
 		}
 
 		// TODO: is this a valid test?
-//#if !__MOBILE__
-//		// The Mono C# compiler has a fit with these strings for reasons
-//		// that have yet to be investigated.
-//		[TestCase("\uD800", "\uD800")]
-//		[TestCase("Z\uD800", "\uD800Z")]
-//		[TestCase("Z\uD800\uD801", "\uD801\uD800Z")]
-//		[TestCase("Z\uD800\uDC00\uDC01", "\uDC01\uD800\uDC00Z")]
-//		public void ReverseMalformed(string strInput, string strReversed)
-//		{
-//			Assert.AreEqual(strReversed, StringUtility.Reverse(strInput));
-//			Assert.AreEqual(strInput, StringUtility.Reverse(strReversed));
-//			Assert.AreEqual(strInput, StringUtility.Reverse(StringUtility.Reverse(strInput)));
-//		}
-//#endif
+		//#if !__MOBILE__
+		//		// The Mono C# compiler has a fit with these strings for reasons
+		//		// that have yet to be investigated.
+		//		[TestCase("\uD800", "\uD800")]
+		//		[TestCase("Z\uD800", "\uD800Z")]
+		//		[TestCase("Z\uD800\uD801", "\uD801\uD800Z")]
+		//		[TestCase("Z\uD800\uDC00\uDC01", "\uDC01\uD800\uDC00Z")]
+		//		public void ReverseMalformed(string strInput, string strReversed)
+		//		{
+		//			Assert.AreEqual(strReversed, StringUtility.Reverse(strInput));
+		//			Assert.AreEqual(strInput, StringUtility.Reverse(strReversed));
+		//			Assert.AreEqual(strInput, StringUtility.Reverse(StringUtility.Reverse(strInput)));
+		//		}
+		//#endif
 
 		[TestCase(null, "", -1)]
 		[TestCase(null, null, 0)]
