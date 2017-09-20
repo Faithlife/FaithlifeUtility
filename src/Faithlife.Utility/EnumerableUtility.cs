@@ -1068,9 +1068,9 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <typeparam name="T">The type of the sequence.</typeparam>
 		/// <param name="sequence">The sequence to enumerate</param>
-		/// <param name="fnPredicate">The predicate to apply to the items in the sequence.</param>
+		/// <param name="predicate">The predicate to apply to the items in the sequence.</param>
 		/// <returns>The elements of the sequence without the matching items at the end of the sequence.</returns>
-		public static IEnumerable<T> TrimEndWhere<T>(this IEnumerable<T> sequence, Func<T, bool> fnPredicate)
+		public static IEnumerable<T> TrimEndWhere<T>(this IEnumerable<T> sequence, Func<T, bool> predicate)
 		{
 			using (IEnumerator<T> it = sequence.GetEnumerator())
 			{
@@ -1078,14 +1078,14 @@ namespace Faithlife.Utility
 				while (it.MoveNext())
 				{
 					T item = it.Current;
-					if (fnPredicate(item))
+					if (predicate(item))
 					{
 						list.Add(item);
 						bool bMatch = true;
 						while (bMatch && it.MoveNext())
 						{
 							item = it.Current;
-							bMatch = fnPredicate(item);
+							bMatch = predicate(item);
 							list.Add(item);
 						}
 
