@@ -1480,25 +1480,6 @@ namespace Faithlife.Utility
 		}
 
 		/// <summary>
-		/// A helper function for Segment. Collects all of the values that belong in a single segment.
-		/// </summary>
-		/// <typeparam name="T">The type of the iterator.</typeparam>
-		/// <param name="it">An iterator into the source list.</param>
-		/// <param name="fnSplitCondition">The condition upon which the list should terminate</param>
-		/// <returns>A list of values contained in a single segment.</returns>
-		private static IEnumerable<T> SingleSegment<T>(IEnumerator<T> it, Func<T, bool> fnSplitCondition)
-		{
-			do
-			{
-				var item = it.Current;
-				if (fnSplitCondition(item))
-					break;
-				yield return item;
-			}
-			while (it.MoveNext());
-		}
-
-		/// <summary>
 		/// A helper function for Merge, which lazily merges two sorted sequences, maintaining sort order.  Does not remove duplicates.
 		/// </summary>
 		/// <param name="seq1">a sorted sequence</param>
