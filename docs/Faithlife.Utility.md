@@ -1,12 +1,13 @@
 # Faithlife.Utility assembly
 
-The assembly `Faithlife.Utility.dll` has 60 public types in 3 namespaces.
+The assembly `Faithlife.Utility.dll` has 61 public types in 3 namespaces.
 
 ## Faithlife.Utility namespace
 
 | public type | description |
 | --- | --- |
 | static class [ArrayUtility](Faithlife.Utility/ArrayUtility.md) | Provides methods for manipulating arrays. |
+| static class [ByteUtility](Faithlife.Utility/ByteUtility.md) | Provides helper methods for working with Byte. |
 | class [CachingStream](Faithlife.Utility/CachingStream.md) | A [`WrappingStream`](Faithlife.Utility/WrappingStream.md) that caches all data read from the underlying Stream. |
 | enum [CaseSensitivity](Faithlife.Utility/CaseSensitivity.md) | Indicates whether an operation should be sensitive to case. |
 | static class [CollectionImpl](Faithlife.Utility/CollectionImpl.md) | Provides implementations of common methods needed by an implementer of ICollection. |
