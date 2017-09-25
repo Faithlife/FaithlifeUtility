@@ -19,7 +19,7 @@ namespace Faithlife.Utility.Tests
 		{
 			Assert.Throws<ArgumentNullException>(() => DateTimeOffsetUtility.ParseIso8601(null));
 			Assert.Throws<FormatException>(() => DateTimeOffsetUtility.ParseIso8601(""));
-			
+
 			DateTimeOffset dt;
 			Assert.IsFalse(DateTimeOffsetUtility.TryParseIso8601(null, out dt));
 			Assert.IsFalse(DateTimeOffsetUtility.TryParseIso8601("", out dt));
@@ -86,23 +86,6 @@ namespace Faithlife.Utility.Tests
 		{
 			DateTimeOffset dt = new DateTimeOffset(2006, 1, 2, 3, 4, 5, 0, TimeSpan.FromHours(-8));
 			Assert.AreEqual("2006-01-02T03:04:05-08:00", dt.ToIso8601());
-		}
-
-		[Test]
-		public void MinAndMax()
-		{
-			DateTimeOffset dt1 = new DateTimeOffset(1981, 8, 11, 0, 0, 0, TimeSpan.Zero);
-			DateTimeOffset dt2 = new DateTimeOffset(1979, 9, 5, 0, 0, 0, TimeSpan.Zero);
-
-			DateTimeOffset maxDate = DateTimeOffsetUtility.Max(dt1, dt2);
-			Assert.AreEqual(dt1, maxDate);
-			maxDate = DateTimeOffsetUtility.Max(dt2, dt1);
-			Assert.AreEqual(dt1, maxDate);
-
-			DateTimeOffset minDate = DateTimeOffsetUtility.Min(dt1, dt2);
-			Assert.AreEqual(dt2, minDate);
-			minDate = DateTimeOffsetUtility.Min(dt2, dt1);
-			Assert.AreEqual(dt2, minDate);
 		}
 
 		[Test]
