@@ -28,8 +28,7 @@ namespace Faithlife.Utility
 		/// checked at runtime.</remarks>
 		public static void DisposeObject<T>(ref T obj)
 		{
-			IDisposable disposable = obj as IDisposable;
-			if (disposable != null)
+			if (obj is IDisposable disposable)
 				disposable.Dispose();
 			obj = default(T);
 		}
