@@ -14,7 +14,7 @@ public static class ArrayUtility
 | static [Clone&lt;T&gt;](ArrayUtility/Clone.md)(…) |  |
 | static [Compare&lt;T&gt;](ArrayUtility/Compare.md)(…) |  (2 methods) |
 | static [Concatenate&lt;T&gt;](ArrayUtility/Concatenate.md)(…) |  |
-| static [CreateComparer&lt;T&gt;](ArrayUtility/CreateComparer.md)() | Creates a GenericComparer that uses ArrayUtility.Compare. |
+| static [CreateComparer&lt;T&gt;](ArrayUtility/CreateComparer.md)() | Creates a comparer that uses ArrayUtility.Compare. |
 
 ## See Also
 
