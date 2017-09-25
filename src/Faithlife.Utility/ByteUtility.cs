@@ -20,8 +20,8 @@ namespace Faithlife.Utility
 				throw new ArgumentException("There must be an even number of characters in the string.", nameof(value));
 
 			byte[] bytes = new byte[value.Length / 2];
-			for (int nByte = 0; nByte < bytes.Length; nByte++)
-				bytes[nByte] = (byte) (ConvertToNibble(value[nByte * 2]) * 16 + ConvertToNibble(value[nByte * 2 + 1]));
+			for (int index = 0; index < bytes.Length; index++)
+				bytes[index] = (byte) (ConvertToNibble(value[index * 2]) * 16 + ConvertToNibble(value[index * 2 + 1]));
 
 			return bytes;
 		}
@@ -36,15 +36,15 @@ namespace Faithlife.Utility
 			if (bytes == null)
 				throw new ArgumentNullException(nameof(bytes));
 
-			const string c_strHexDigits = "0123456789ABCDEF";
+			const string hexDigits = "0123456789ABCDEF";
 
 			// allocate char array and fill it with high and low nibbles of each byte
 			char[] chars = new char[bytes.Length * 2];
-			for (int nIndex = 0; nIndex < chars.Length; nIndex += 2)
+			for (int index = 0; index < chars.Length; index += 2)
 			{
-				byte by = bytes[nIndex / 2];
-				chars[nIndex] = c_strHexDigits[by / 16];
-				chars[nIndex + 1] = c_strHexDigits[by % 16];
+				byte by = bytes[index / 2];
+				chars[index] = hexDigits[by / 16];
+				chars[index + 1] = hexDigits[by % 16];
 			}
 
 			return new string(chars);
