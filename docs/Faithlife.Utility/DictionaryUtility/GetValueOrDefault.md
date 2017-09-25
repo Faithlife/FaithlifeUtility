@@ -3,7 +3,7 @@
 Gets a value from the dictionary, returning a default value if it is missing.
 
 ```csharp
-public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
+public static TValue GetValueOrDefault<TKey, TValue>(this IReadOnlyDictionary<TKey, TValue> dictionary, TKey key)
 ```
 
 | parameter | description |
@@ -29,7 +29,8 @@ The value, or a default value.
 Gets a value from the dictionary, returning the generated default value if it is missing.
 
 ```csharp
-public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<TValue> getDefaultValue)
+public static TValue GetValueOrDefault<TKey, TValue>(this IReadOnlyDictionary<TKey, TValue> dictionary, 
+    TKey key, Func<TValue> getDefaultValue)
 ```
 
 | parameter | description |
@@ -56,7 +57,8 @@ The value, or a default value.
 Gets a value from the dictionary, returning the specified default value if it is missing.
 
 ```csharp
-public static TValue GetValueOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue)
+public static TValue GetValueOrDefault<TKey, TValue>(this IReadOnlyDictionary<TKey, TValue> dictionary, 
+    TKey key, TValue defaultValue)
 ```
 
 | parameter | description |

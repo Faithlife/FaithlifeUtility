@@ -1,4 +1,4 @@
-# DictionaryUtility.GetOrAddValue&lt;TKey,TValue&gt; method (1 of 3)
+# DictionaryUtility.GetOrAddValue&lt;TKey,TValue&gt; method (1 of 2)
 
 Gets a value from the dictionary, adding and returning a new instance if it is missing.
 
@@ -23,34 +23,7 @@ The new or existing value.
 
 ---
 
-# DictionaryUtility.GetOrAddValue&lt;TKey,TValue&gt; method (2 of 3)
-
-Gets a value from the dictionary, adding and returning a new instance if it is missing.
-
-```csharp
-public static TValue GetOrAddValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<TKey, TValue> creator)
-```
-
-| parameter | description |
-| --- | --- |
-| TKey | The type of the key. |
-| TValue | The type of the value. |
-| dictionary | The dictionary. |
-| key | The key. |
-| creator | Used to create a new value if necessary; the function is called with specified key. |
-
-## Return Value
-
-The new or existing value.
-
-## See Also
-
-* class [DictionaryUtility](../DictionaryUtility.md)
-* namespace [Faithlife.Utility](../../Faithlife.Utility.md)
-
----
-
-# DictionaryUtility.GetOrAddValue&lt;TKey,TValue&gt; method (3 of 3)
+# DictionaryUtility.GetOrAddValue&lt;TKey,TValue&gt; method (2 of 2)
 
 Gets a value from the dictionary, adding and returning a new instance if it is missing.
 

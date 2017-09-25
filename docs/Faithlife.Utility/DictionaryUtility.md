@@ -10,20 +10,13 @@ public static class DictionaryUtility
 
 | name | description |
 | --- | --- |
-| static [AreEqual&lt;TKey,TValue&gt;](DictionaryUtility/AreEqual.md)(…) | Returns true if there is a one-to-one relationship between every KeyValue pair. |
+| static [AreEqual&lt;TKey,TValue&gt;](DictionaryUtility/AreEqual.md)(…) | Returns true if there is a one-to-one relationship between every key-value pair. |
 | static [AsReadOnly&lt;TKey,TValue&gt;](DictionaryUtility/AsReadOnly.md)(…) | Wraps the dictionary in a read-only dictionary. |
+| static [AsReadOnlyDictionary&lt;TKey,TValue&gt;](DictionaryUtility/AsReadOnlyDictionary.md)(…) | Represents the sequence of key-value pairs as a IReadOnlyDictionary. |
 | static [CreateKeyValuePair&lt;TKey,TValue&gt;](DictionaryUtility/CreateKeyValuePair.md)(…) | Creates a key value pair. |
-| static [GetNullableValue&lt;TKey,TValue&gt;](DictionaryUtility/GetNullableValue.md)(…) | Gets a value from the dictionary, returning null if it is missing. |
-| static [GetOrAddValue&lt;TKey,TValue&gt;](DictionaryUtility/GetOrAddValue.md)(…) | Gets a value from the dictionary, adding and returning a new instance if it is missing. (3 methods) |
+| static [GetOrAddValue&lt;TKey,TValue&gt;](DictionaryUtility/GetOrAddValue.md)(…) | Gets a value from the dictionary, adding and returning a new instance if it is missing. (2 methods) |
 | static [GetValueOrDefault&lt;TKey,TValue&gt;](DictionaryUtility/GetValueOrDefault.md)(…) | Gets a value from the dictionary, returning a default value if it is missing. (3 methods) |
-| static [MergeWith&lt;TKey,TValue&gt;](DictionaryUtility/MergeWith.md)(…) | Merges *otherDictionary* into *thisDictionary*. The *mergeWithStrategy* specifies how to resolve any key conflicts, either taking the new value, retaining the original value, or throwing an exception. |
-| static [ToDictionary&lt;TKey,TValue&gt;](DictionaryUtility/ToDictionary.md)(…) | Creates a dictionary from key value pairs. |
-| static [ToSortedDictionary&lt;TKey,TValue&gt;](DictionaryUtility/ToSortedDictionary.md)(…) | Creates a sorted dictionary from key value pairs. |
-| static [ToSortedList&lt;TKey,TValue&gt;](DictionaryUtility/ToSortedList.md)(…) | Creates a sorted list from key value pairs. |
 | static [TryAdd&lt;TKey,TValue&gt;](DictionaryUtility/TryAdd.md)(…) | Tries to add a value to the dictionary. |
-| static [TryGetValueWithConversion&lt;TKey,TValue,TOut&gt;](DictionaryUtility/TryGetValueWithConversion.md)(…) |  |
-| static [WithValue&lt;TKey,TValue&gt;](DictionaryUtility/WithValue.md)(…) | Tries to get a value from the dictionary, executing the specified action if it exists. |
-| static [WithValue&lt;TKey,TValue,TResult&gt;](DictionaryUtility/WithValue.md)(…) | Tries to get a value from the dictionary, executing the specified action if it exists. |
 
 ## See Also
 

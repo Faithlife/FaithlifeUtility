@@ -1,6 +1,6 @@
 # Faithlife.Utility assembly
 
-The assembly `Faithlife.Utility.dll` has 61 public types in 3 namespaces.
+The assembly `Faithlife.Utility.dll` has 60 public types in 3 namespaces.
 
 ## Faithlife.Utility namespace
 
@@ -31,7 +31,6 @@ The assembly `Faithlife.Utility.dll` has 61 public types in 3 namespaces.
 | static class [HashSetUtility](Faithlife.Utility/HashSetUtility.md) | Provides methods for working with HashSet. |
 | interface [IHasEquivalence&lt;T&gt;](Faithlife.Utility/IHasEquivalence-1.md) | Implemented by reference classes that do not want to implement IEquatable{T}, but do want to support some form of equivalence. |
 | static class [ListUtility](Faithlife.Utility/ListUtility.md) | Methods for manipulating lists. |
-| enum [MergeWithStrategy](Faithlife.Utility/MergeWithStrategy.md) | Specifies how to handle key collisions in DictionaryUtility.MergeWith. |
 | static class [ObjectImpl](Faithlife.Utility/ObjectImpl.md) | Provides methods for manipulating objects. |
 | static class [ObjectUtility](Faithlife.Utility/ObjectUtility.md) | Provides methods for manipulating objects. |
 | enum [Ownership](Faithlife.Utility/Ownership.md) | Indicates whether an object takes ownership of an item. |
