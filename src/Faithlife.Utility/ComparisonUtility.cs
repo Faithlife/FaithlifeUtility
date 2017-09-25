@@ -14,10 +14,7 @@ namespace Faithlife.Utility
 		/// <param name="first">The first instance to compare.</param>
 		/// <param name="second">The second instance to compare.</param>
 		/// <returns>The instance representing the greater value.</returns>
-		public static T Max<T>(T first, T second)
-		{
-			return Comparer<T>.Default.Compare(first, second) < 0 ? second : first;
-		}
+		public static T Max<T>(T first, T second) => Comparer<T>.Default.Compare(first, second) < 0 ? second : first;
 
 		/// <summary>
 		/// Compares the two instances and returns the lesser of the two.
@@ -25,10 +22,7 @@ namespace Faithlife.Utility
 		/// <param name="first">The first instance to compare.</param>
 		/// <param name="second">The second instance to compare.</param>
 		/// <returns>The instance representing the lesser value.</returns>
-		public static T Min<T>(T first, T second)
-		{
-			return Comparer<T>.Default.Compare(first, second) <= 0 ? first : second;
-		}
+		public static T Min<T>(T first, T second) => Comparer<T>.Default.Compare(first, second) <= 0 ? first : second;
 
 		/// <summary>
 		/// Creates a comparer from a delegate.
@@ -36,10 +30,7 @@ namespace Faithlife.Utility
 		/// <typeparam name="T">The type to compare.</typeparam>
 		/// <param name="comparer">The compare delegate.</param>
 		/// <returns>The comparer.</returns>
-		public static Comparer<T> CreateComparer<T>(Func<T, T, int> comparer)
-		{
-			return new GenericComparer<T>(comparer);
-		}
+		public static Comparer<T> CreateComparer<T>(Func<T, T, int> comparer) => new GenericComparer<T>(comparer);
 
 		/// <summary>
 		/// Creates a comparer from a delegate.
@@ -47,10 +38,7 @@ namespace Faithlife.Utility
 		/// <typeparam name="T">The type to compare.</typeparam>
 		/// <param name="comparers">The compare delegates.</param>
 		/// <returns>The comparer.</returns>
-		public static Comparer<T> CreateComparer<T>(params Func<T, T, int>[] comparers)
-		{
-			return new GenericComparer<T>(CreateChainedComparison(comparers));
-		}
+		public static Comparer<T> CreateComparer<T>(params Func<T, T, int>[] comparers) => new GenericComparer<T>(CreateChainedComparison(comparers));
 
 		/// <summary>
 		/// Executes a chained comparison between two objects.
