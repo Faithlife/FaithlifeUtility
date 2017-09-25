@@ -14,11 +14,7 @@ namespace Faithlife.Utility
 		/// <param name="value">The ISO 8601 string representation to parse.</param>
 		/// <returns>The DateTime equivalent.</returns>
 		public static DateTime ParseIso8601(string value)
-		{
-			return DateTime.ParseExact(value,
-				Iso8601Format, CultureInfo.InvariantCulture,
-				DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal);
-		}
+			=> DateTime.ParseExact(value, Iso8601Format, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal);
 
 		/// <summary>
 		/// Converts the specified ISO 8601 representation of a date and time to its DateTime equivalent.
@@ -27,53 +23,21 @@ namespace Faithlife.Utility
 		/// <param name="date">The DateTime equivalent.</param>
 		/// <returns>True if successful.</returns>
 		public static bool TryParseIso8601(string value, out DateTime date)
-		{
-			return DateTime.TryParseExact(value,
-				Iso8601Format, CultureInfo.InvariantCulture,
-				DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal, out date);
-		}
+			=> DateTime.TryParseExact(value, Iso8601Format, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal, out date);
 
 		/// <summary>
 		/// Converts the specified ISO 8601 representation of a date and time to its DateTime equivalent.
 		/// </summary>
 		/// <param name="value">The ISO 8601 string representation to parse.</param>
 		/// <returns>Non-null if successful.</returns>
-		public static DateTime? TryParseIso8601(string value)
-		{
-			DateTime dt;
-			return TryParseIso8601(value, out dt) ? dt : default(DateTime?);
-		}
+		public static DateTime? TryParseIso8601(string value) => TryParseIso8601(value, out var dt) ? dt : default(DateTime?);
 
 		/// <summary>
 		/// Formats the date in the standard ISO 8601 format.
 		/// </summary>
 		/// <param name="date">The date to format.</param>
 		/// <returns>The formatted date.</returns>
-		public static string RenderIso8601(DateTime date)
-		{
-			return date.ToUniversalTime().ToString(Iso8601Format, CultureInfo.InvariantCulture);
-		}
-
-		/// <summary>
-		/// Formats the date in the standard ISO 8601 format.
-		/// </summary>
-		/// <param name="date">The date to format.</param>
-		/// <returns>The formatted date.</returns>
-		public static string ToIso8601(this DateTime date)
-		{
-			return date.ToUniversalTime().ToString(Iso8601Format, CultureInfo.InvariantCulture);
-		}
-
-		/// <summary>
-		/// Returns the maximum of the two provided date times.
-		/// </summary>
-		/// <param name="date1">The first date.</param>
-		/// <param name="date2">The second date.</param>
-		/// <returns>The first date time if it is greater; otherwise, the second.</returns>
-		public static DateTime Max(DateTime date1, DateTime date2)
-		{
-			return date1 > date2 ? date1 : date2;
-		}
+		public static string ToIso8601(this DateTime date) => date.ToUniversalTime().ToString(Iso8601Format, CultureInfo.InvariantCulture);
 
 		/// <summary>
 		/// The ISO 8601 format string.
@@ -108,20 +72,14 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="unixTimestamp">The UnixTimestamp, in seconds from epoch.</param>
 		/// <returns>Returns the DateTime representation of the UnixTimestamp.</returns>
-		public static DateTime FromUnixTimestamp(long unixTimestamp)
-		{
-			return s_epoch.AddSeconds(unixTimestamp);
-		}
+		public static DateTime FromUnixTimestamp(long unixTimestamp) => s_epoch.AddSeconds(unixTimestamp);
 
 		/// <summary>
 		/// Returns true if the two date times are equal when rounded down to the second.
 		/// </summary>
 		/// <remarks>Use this method to compare date times that are serialized with a format
 		/// that doesn't preserve sub-seconds.</remarks>
-		public static bool AreSameSecond(DateTime left, DateTime right)
-		{
-			return left.Ticks / TicksPerSecond == right.Ticks / TicksPerSecond;
-		}
+		public static bool AreSameSecond(DateTime left, DateTime right) => left.Ticks / TicksPerSecond == right.Ticks / TicksPerSecond;
 
 		/// <summary>
 		/// Returns true if the two date times are equal when rounded down to the second.
@@ -129,25 +87,17 @@ namespace Faithlife.Utility
 		/// <remarks>Use this method to compare date times that are serialized with a format
 		/// that doesn't preserve sub-seconds.</remarks>
 		public static bool AreSameSecond(DateTime? left, DateTime? right)
-		{
-			return (left.HasValue && right.HasValue) ? AreSameSecond(left.Value, right.Value) : (left.HasValue == right.HasValue);
-		}
+			=> left.HasValue && right.HasValue ? AreSameSecond(left.Value, right.Value) : left.HasValue == right.HasValue;
 
 		/// <summary>
 		/// Specifies DateTimeKind.Utc.
 		/// </summary>
-		public static DateTime SpecifyUtc(this DateTime dateTime)
-		{
-			return DateTime.SpecifyKind(dateTime, DateTimeKind.Utc);
-		}
+		public static DateTime SpecifyUtc(this DateTime dateTime) => DateTime.SpecifyKind(dateTime, DateTimeKind.Utc);
 
 		/// <summary>
 		/// Specifies DateTimeKind.Utc if not null.
 		/// </summary>
-		public static DateTime? SpecifyUtc(this DateTime? dateTime)
-		{
-			return dateTime != null ? dateTime.Value.SpecifyUtc() : default(DateTime?);
-		}
+		public static DateTime? SpecifyUtc(this DateTime? dateTime) => dateTime?.SpecifyUtc();
 
 		private static readonly DateTime s_epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 	}
