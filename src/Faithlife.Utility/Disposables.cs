@@ -75,21 +75,14 @@ namespace Faithlife.Utility
 			{
 				int count = list.Count;
 				for (int index = count - 1; index >= 0; index--)
-				{
-					IDisposable disposable = list[index];
-					if (disposable != null)
-						disposable.Dispose();
-				}
+					list[index]?.Dispose();
 			}
 		}
 
 		/// <summary>
 		/// Implemented only for collection initialization syntax; throws if called.
 		/// </summary>
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			throw new NotSupportedException("IEnumerable.GetEnumerator implemented only for collection initialization syntax.");
-		}
+		IEnumerator IEnumerable.GetEnumerator() => throw new NotSupportedException("IEnumerable.GetEnumerator implemented only for collection initialization syntax.");
 
 		readonly object m_lock;
 		List<IDisposable> m_list;
