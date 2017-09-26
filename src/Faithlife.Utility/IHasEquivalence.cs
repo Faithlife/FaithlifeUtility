@@ -7,7 +7,7 @@ namespace Faithlife.Utility
 	/// <typeparam name="T">The class type.</typeparam>
 	/// <remarks>This interface is similar to IEquatable{T}, but avoids the baggage of
 	/// hash codes, overloaded equality operators, immutability requirements, etc.</remarks>
-	public interface IHasEquivalence<T>
+	public interface IHasEquivalence<in T>
 	{
 		/// <summary>
 		/// Determines whether the object is equivalent to the specified object.
