@@ -50,17 +50,5 @@ namespace Faithlife.Utility.Tests
 				EnumUtility.GetValues<DayOfWeek>());
 			CollectionAssert.AreEqual(new[] { StringSplitOptions.None, StringSplitOptions.RemoveEmptyEntries }, EnumUtility.GetValues<StringSplitOptions>());
 		}
-
-		[Test]
-		public void HasFlag()
-		{
-			Assert.IsFalse(EnumUtility.HasFlag(RegexOptions.None, RegexOptions.Compiled));
-			Assert.IsTrue(EnumUtility.HasFlag(RegexOptions.Compiled, RegexOptions.Compiled));
-			Assert.IsTrue(EnumUtility.HasFlag(RegexOptions.Compiled, RegexOptions.None));
-			Assert.IsTrue(EnumUtility.HasFlag(RegexOptions.Compiled | RegexOptions.CultureInvariant, RegexOptions.Compiled));
-			Assert.IsFalse(EnumUtility.HasFlag(RegexOptions.Compiled, RegexOptions.Compiled | RegexOptions.CultureInvariant));
-			Assert.IsFalse(EnumUtility.HasFlag(RegexOptions.Compiled | RegexOptions.ExplicitCapture, RegexOptions.Compiled | RegexOptions.CultureInvariant));
-			Assert.IsTrue(EnumUtility.HasFlag(RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture, RegexOptions.Compiled | RegexOptions.CultureInvariant));
-		}
 	}
 }
