@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace Faithlife.Utility.Tests
 {
 	[TestFixture]
-	public class ReadOnlyHashSetTests
+	public class ReadOnlySetTests
 	{
 		[SetUp]
 		public void SetUp()
@@ -16,7 +16,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void InvalidConstructorArgument()
 		{
-			Assert.Throws<ArgumentNullException>(() => new ReadOnlyHashSet<int>(null));
+			Assert.Throws<ArgumentNullException>(() => new ReadOnlySet<int>(null));
 		}
 
 		[Test]
@@ -103,6 +103,6 @@ namespace Faithlife.Utility.Tests
 			Assert.IsTrue(m_set.SetEquals(new[] { 1, 2, 3 }));
 		}
 
-		ReadOnlyHashSet<int> m_set;
+		ReadOnlySet<int> m_set;
 	}
 }
