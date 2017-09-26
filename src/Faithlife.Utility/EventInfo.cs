@@ -28,20 +28,14 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="source">The source.</param>
 		/// <param name="handler">The event handler.</param>
-		public void AddHandler(TSource source, TEventHandler handler)
-		{
-			m_addHandler(source, handler);
-		}
+		public void AddHandler(TSource source, TEventHandler handler) => m_addHandler(source, handler);
 
 		/// <summary>
 		/// Removes an event handler from the event of the specified source.
 		/// </summary>
 		/// <param name="source">The source.</param>
 		/// <param name="handler">The event handler.</param>
-		public void RemoveHandler(TSource source, TEventHandler handler)
-		{
-			m_removeHandler(source, handler);
-		}
+		public void RemoveHandler(TSource source, TEventHandler handler) => m_removeHandler(source, handler);
 
 		/// <summary>
 		/// Subscribes to the event of the specified source.
