@@ -46,87 +46,22 @@ namespace Faithlife.Utility.Tests
 		}
 
 		[Test]
-		public void GivenBadArgumentsWhenCallingAppendIfNotAlreadyPresentShouldThrow()
+		public void ToHashSetGivenBadArgumentShouldThrow()
 		{
-			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.AppendIfNotAlreadyPresent(default(IEnumerable<int>), 1).ToList());
+			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.ToHashSet(default(IEnumerable<int>)));
 		}
 
 		[Test]
-		public void GivenUniqueItemWhenCallingAppendIfNotAlreadyPresentShouldAppend()
+		public void ToHashSetGivenListShouldGenerateSet()
 		{
-			CollectionAssert.AreEqual(new[] { 1, 2, 3, 4 }, new[] { 1, 2, 3 }.AppendIfNotAlreadyPresent(4));
-			CollectionAssert.AreEqual(new[] { "test", "hello", null }, new[] { "test", "hello" }.AppendIfNotAlreadyPresent(null));
+			CollectionAssert.AreEqual(new[] { 1, 2, 3, 4 }, new[] { 1, 2, 3, 4, 4, 4, 4 }.ToHashSet().Order());
 		}
 
 		[Test]
-		public void GivenNonUniqueItemWhenCallingAppendIfNotAlreadyPresentShouldNotAppend()
-		{
-			CollectionAssert.AreEqual(new[] { 1, 2, 3 }, new[] { 1, 2, 3 }.AppendIfNotAlreadyPresent(2));
-			CollectionAssert.AreEqual(new[] { "test", "hello" }, new[] { "test", "hello" }.AppendIfNotAlreadyPresent("hello"));
-		}
-
-		[Test]
-		public void GivenNonDefaultComparerWhenCallingAppendIfNotAlreadyPresentShouldUseNonDefaultComparer()
-		{
-			CollectionAssert.AreEqual(new[] { 1, 2 }, new[] { 1, 2 }.AppendIfNotAlreadyPresent(3, new OddEvenEqualityComparer()));
-			CollectionAssert.AreEqual(new[] { 1, 2 }, new[] { 1 }.AppendIfNotAlreadyPresent(2, new OddEvenEqualityComparer()));
-		}
-
-		[Test]
-		public void GivenBadArgumentsWhenCallingExactlyOneOrDefaultShouldThrow()
-		{
-			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.ExactlyOneOrDefault(default(IEnumerable<int>)));
-			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.ExactlyOneOrDefault(default(IEnumerable<int>), i => i == 1));
-			Assert.Throws<ArgumentNullException>(() => new[] { 1, 2 }.ExactlyOneOrDefault(null));
-		}
-
-		[Test]
-		public void GivenNoItemsExactlyOneOrDefaultShouldReturnDefault()
-		{
-			Assert.AreEqual(default(string), new string[0].ExactlyOneOrDefault());
-		}
-
-		[Test]
-		public void GivenOneItemExactlyOneOrDefaultShouldReturnItem()
-		{
-			Assert.AreEqual("hi", new[] { "hi" }.ExactlyOneOrDefault());
-		}
-
-		[Test]
-		public void GivenTwoItemsExactlyOneOrDefaultShouldReturnDefault()
-		{
-			Assert.AreEqual(default(string), new[] { "hi", "hello" }.ExactlyOneOrDefault());
-		}
-
-		[Test]
-		public void GivenPredicateUniqueToOneItemWhenCallingExactlyOneOrDefaultShouldReturnItem()
-		{
-			Assert.AreEqual("hi", new[] { "hi", "hello" }.ExactlyOneOrDefault(s => s.Length == 2));
-		}
-
-		[Test]
-		public void GivenPredicateDescribingMultipleItemsWhenCallingExactlyOneOrDefaultShouldReturnDefault()
-		{
-			Assert.AreEqual(default(string), new[] { "hi", "hello" }.ExactlyOneOrDefault(s => s.Length < 100));
-		}
-
-		[Test]
-		public void ToSetGivenBadArgumentShouldThrow()
-		{
-			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.ToSet(default(IEnumerable<int>)));
-		}
-
-		[Test]
-		public void ToSetGivenListShouldGenerateSet()
-		{
-			CollectionAssert.AreEqual(new[] { 1, 2, 3, 4 }, new[] { 1, 2, 3, 4, 4, 4, 4 }.ToSet().Order());
-		}
-
-		[Test]
-		public void ToSetGivenHashSetShouldGenerateNewHashSet()
+		public void ToHashSetGivenHashSetShouldGenerateNewHashSet()
 		{
 			IEnumerable<int> hashSet = new HashSet<int>(new[] { 1, 2, 3, 4 });
-			Assert.AreNotSame(hashSet, hashSet.ToSet());
+			Assert.AreNotSame(hashSet, hashSet.ToHashSet());
 		}
 
 		[Test]
@@ -322,105 +257,6 @@ namespace Faithlife.Utility.Tests
 		}
 
 		[Test]
-		public void DowncastTest()
-		{
-			Base[] coll = new Base[] { new Derived(1), new Derived(2) };
-			List<Derived> list = new List<Derived>(coll.Downcast<Base, Derived>());
-			Assert.AreEqual(1, list[0].Value);
-			Assert.AreEqual(2, list[1].Value);
-		}
-
-		[Test]
-		public void DowncastValueToValueTest()
-		{
-			int[] coll = new[] { 1, 2 };
-			List<int> list = new List<int>(coll.Downcast<int, int>());
-			Assert.AreEqual(1, list[0]);
-			Assert.AreEqual(2, list[1]);
-		}
-
-		[Test]
-		public void DowncastObjectToValueTest()
-		{
-			object[] coll = new object[] { 1, 2 };
-			List<int> list = new List<int>(coll.Downcast<object, int>());
-			Assert.AreEqual(1, list[0]);
-			Assert.AreEqual(2, list[1]);
-		}
-
-		[Test]
-		public void FailedDowncastTest()
-		{
-			Base[] coll = new[] { new Derived(1), new Base(2) };
-			Assert.Throws<InvalidCastException>(() => coll.Downcast<Base, Derived>().ToList());
-		}
-
-		[Test]
-		public void DowncastNull()
-		{
-			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.Downcast<object, object>(null));
-		}
-
-		[Test]
-		public void IsNullOrEmptyEnumerable()
-		{
-			Assert.IsTrue(EnumerableUtility.IsNullOrEmpty(default(IEnumerable)));
-			Assert.IsTrue(EnumerateInts(0).IsNullOrEmpty());
-			Assert.IsFalse(EnumerateInts(100).IsNullOrEmpty());
-		}
-
-		[Test]
-		public void IsNullOrEmptyEnumerableT()
-		{
-			Assert.IsTrue(EnumerableUtility.IsNullOrEmpty(default(IEnumerable<int>)));
-			Assert.AreEqual(true, EnumerateEmpty<int>().IsNullOrEmpty());
-			Assert.AreEqual(false, InfiniteInts().IsNullOrEmpty());
-		}
-
-		[Test]
-		public void IsNullOrEmptyCollectionT()
-		{
-			Assert.IsTrue(EnumerableUtility.IsNullOrEmpty(default(int[])));
-			Assert.IsTrue(new int[0].IsNullOrEmpty());
-			Assert.IsFalse(new[] { 1 }.IsNullOrEmpty());
-		}
-
-		[Test]
-		public void EmptyIfNull()
-		{
-			CollectionAssert.AreEqual(new int[0], ((int[]) null).EmptyIfNull());
-			CollectionAssert.AreEqual(new int[0], new int[0].EmptyIfNull());
-			CollectionAssert.AreEqual(new[] { 1 }, new[] { 1 }.EmptyIfNull());
-		}
-
-		[Test]
-		public void EmptyIfNullEnumerable()
-		{
-			IEnumerable seq = ((IEnumerable) null).EmptyIfNull();
-			IEnumerator it = seq.GetEnumerator();
-			Assert.IsFalse(it.MoveNext());
-		}
-
-		[Test]
-		public void Enumerate()
-		{
-			CollectionAssert.AreEqual(new[] { 1 }, EnumerableUtility.Enumerate(1));
-			CollectionAssert.AreEqual(new string[] { null }, EnumerableUtility.Enumerate(default(string)));
-
-			CollectionAssert.AreEqual(new[] { 1, 2, 3 }, EnumerableUtility.Enumerate(1, 2, 3));
-			CollectionAssert.AreEqual(new[] { "hello", null, "world" }, EnumerableUtility.Enumerate("hello", null, "world"));
-		}
-
-		[Test]
-		public void EnumerateTest()
-		{
-			int nTotal = 0;
-			foreach (int n in EnumerableUtility.Enumerate(1, 2, 4, 8))
-				nTotal += n;
-			Assert.AreEqual(15, nTotal);
-		}
-
-		[Test]
 		public void EnumerateBatchesNull()
 		{
 			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.EnumerateBatches<int>(null, 1));
@@ -471,13 +307,13 @@ namespace Faithlife.Utility.Tests
 			string[] testStrings = { "a", "b", "c", "d", "e", "f", "g", "h" };
 
 			// "should" yield 3 batches with counts (3, 3, 2)
-			IEnumerable<ReadOnlyCollection<string>> batches = testStrings.EnumerateBatches(3);
+			IEnumerable<IReadOnlyList<string>> batches = testStrings.EnumerateBatches(3);
 
 			// how many batches were returned? Count() should give us a definite answer
 			Assert.AreEqual(3, batches.Count());
 
 			// enumerating the outer sequence first shouldn't mess up the batches
-			List<ReadOnlyCollection<string>> outerToList = batches.ToList();
+			List<IReadOnlyList<string>> outerToList = batches.ToList();
 			Assert.AreEqual(3, outerToList.Count());
 
 			// enumerating the inner sequence first should behave as expected (just like enumerating the nested sequence "in order")
@@ -517,7 +353,7 @@ namespace Faithlife.Utility.Tests
 		{
 			// test single batch with or without optimization
 			string[] testStrings = { "a", "b", "c", "d", "e", "f", "g", "h" };
-			IEnumerable<ReadOnlyCollection<string>> batches = testStrings.EnumerateBatches(testStrings.Length);
+			IEnumerable<IReadOnlyList<string>> batches = testStrings.EnumerateBatches(testStrings.Length);
 			CollectionAssert.AreEqual(testStrings, batches.Single());
 			batches = testStrings.Select(x => x).EnumerateBatches(testStrings.Length);
 			CollectionAssert.AreEqual(testStrings, batches.Single());
@@ -528,51 +364,10 @@ namespace Faithlife.Utility.Tests
 		{
 			// test empty batch with or without optimization
 			string[] testStrings = new string[0];
-			IEnumerable<ReadOnlyCollection<string>> batches = testStrings.EnumerateBatches(1);
+			IEnumerable<IReadOnlyList<string>> batches = testStrings.EnumerateBatches(1);
 			Assert.IsFalse(batches.Any());
 			batches = testStrings.Select(x => x).EnumerateBatches(1);
 			Assert.IsFalse(batches.Any());
-		}
-
-		[Test]
-		public void EnumerateBatchesWithPrimeFunc()
-		{
-			int[] coll = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-			List<ReadOnlyCollection<int>> batches =
-				coll.EnumerateBatches(n => n == 1 || n == 2 || n == 3 || n == 5 || n == 7).ToList();
-			Assert.AreEqual(5, batches.Count);
-			CollectionAssert.AreEqual(new[] { 1 }, batches[0]);
-			CollectionAssert.AreEqual(new[] { 2 }, batches[1]);
-			CollectionAssert.AreEqual(new[] { 3, 4 }, batches[2]);
-			CollectionAssert.AreEqual(new[] { 5, 6 }, batches[3]);
-			CollectionAssert.AreEqual(new[] { 7, 8, 9, 10 }, batches[4]);
-		}
-
-		[Test]
-		public void EnumerateBatchesWithFalseFunc()
-		{
-			int[] coll = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-			List<ReadOnlyCollection<int>> batches = coll.EnumerateBatches(n => false).ToList();
-			Assert.AreEqual(1, batches.Count);
-			CollectionAssert.AreEqual(coll, batches[0]);
-		}
-
-		[Test]
-		public void EnumerateBatchesWithTrueFunc()
-		{
-			int[] coll = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-			List<ReadOnlyCollection<int>> batches = coll.EnumerateBatches(n => true).ToList();
-			Assert.AreEqual(10, batches.Count);
-			for (int n = 0; n < 10; n++)
-				CollectionAssert.AreEqual(new[] { n + 1 }, batches[n]);
-		}
-
-		[Test]
-		public void EnumerateBatchesWithFuncEmpty()
-		{
-			int[] coll = new int[0];
-			List<ReadOnlyCollection<int>> batches = coll.EnumerateBatches(n => true).ToList();
-			Assert.AreEqual(0, batches.Count);
 		}
 
 		[Test]
@@ -742,176 +537,6 @@ namespace Faithlife.Utility.Tests
 		}
 
 		[Test]
-		public void ForEach()
-		{
-			IEnumerable<int> seq1 = new[] { 1, 2, 3, 4, 5, 6 };
-			List<int> list = new List<int>();
-			IEnumerable<int> seqExpected = new[] { 1, 4, 9, 16, 25, 36 };
-
-			seq1.ForEach(n => list.Add(n * n));
-
-			CollectionAssert.AreEqual(seqExpected, list);
-		}
-
-		[Test]
-		public void ForEachWithIndex()
-		{
-			IEnumerable<int> seq1 = new[] { 1, 2, 3, 4, 5, 6 };
-			List<int> list = new List<int>();
-			IEnumerable<int> seqExpected = new[] { 0, 1, 4, 9, 16, 25 };
-
-			seq1.ForEach((_, n) => list.Add(n * n));
-
-			CollectionAssert.AreEqual(seqExpected, list);
-		}
-
-		[Test]
-		public void LongestCommonSliceBadArguments()
-		{
-			int nFirstIndex;
-			int nSecondIndex;
-			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.LongestCommonSlice(null, new[] { 1 }, out nFirstIndex, out nSecondIndex));
-			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.LongestCommonSlice(new[] { 1 }, null, out nFirstIndex, out nSecondIndex));
-		}
-
-		[TestCase(new[] { 1, 2, 3 }, new[] { 1, 2, 3 }, 0, 0, 3)]
-		[TestCase(new[] { 1, 2, 3 }, new[] { 4, 5, 6 }, -1, -1, 0)]
-		[TestCase(new[] { 1, 2, 3, 4 }, new[] { 3, 4, 5, 6 }, 2, 0, 2)]
-		[TestCase(new[] { 1, 2, 3, 4 }, new[] { 5, 6, 1 }, 0, 2, 1)]
-		public void LongestCommonSlice(int[] first, int[] second, int posFirstExpected, int posSecondExpected, int nLengthExpected)
-		{
-			int posFirst;
-			int posSecond;
-			int nLength = EnumerableUtility.LongestCommonSlice(first, second, out posFirst, out posSecond);
-			Assert.AreEqual(posFirstExpected, posFirst);
-			Assert.AreEqual(posSecondExpected, posSecond);
-			Assert.AreEqual(nLengthExpected, nLength);
-		}
-
-		[Test]
-		public void MaxNullCollection()
-		{
-			Assert.Throws<ArgumentNullException>(() => ((int[]) null).Max((first, second) => first.CompareTo(second)));
-		}
-
-		[Test]
-		public void MaxNullComparison()
-		{
-			Assert.Throws<ArgumentNullException>(() => new int[0].Max(null));
-		}
-
-		[TestCase(1, new[] { 1 })]
-		[TestCase(5, new[] { 5 })]
-		[TestCase(9, new[] { 1, 2, 1, 9, 2 })]
-		public void Max(int nExpectedMax, int[] anNumbers)
-		{
-			Assert.AreEqual(nExpectedMax, anNumbers.Max((left, right) => left.CompareTo(right)));
-		}
-
-		[Test]
-		public void MaxEmpty()
-		{
-			Assert.Throws<ArgumentException>(() => (new int[0]).Max((left, right) => left.CompareTo(right)));
-		}
-
-		[Test]
-		public void ToStrings()
-		{
-			CollectionAssert.AreEqual(new[] { "1", "2" }, new[] { 1, 2 }.ToStrings());
-			CollectionAssert.AreEqual(new[] { "1", "2" }, (new[] { 1, 2 } as IEnumerable).ToStrings());
-		}
-
-		[Test]
-		public void NullIfEmptyNull()
-		{
-			IEnumerable nullSequence = null;
-			Assert.IsNull(nullSequence.NullIfEmpty());
-		}
-
-		[Test]
-		public void NullIfEmptyArray()
-		{
-			Assert.IsNull(new int[0].NullIfEmpty());
-			CollectionAssert.AreEqual(EnumerableUtility.Enumerate(1), new[] { 1 }.NullIfEmpty());
-		}
-
-		[Test]
-		public void NullIfEmptySequence()
-		{
-			SequenceEnumerable sequenceEnumerable = new SequenceEnumerable(0);
-			Assert.IsNull(sequenceEnumerable.NullIfEmpty());
-			Assert.AreEqual(1, sequenceEnumerable.DisposeCount);
-
-			sequenceEnumerable = new SequenceEnumerable(2);
-			IEnumerable nullIfEmpty = sequenceEnumerable.NullIfEmpty();
-			Assert.AreEqual(1, sequenceEnumerable.DisposeCount);
-			CollectionAssert.AreEqual(EnumerableUtility.Enumerate(1, 2), nullIfEmpty.Cast<int>());
-		}
-
-		private class SequenceEnumerable : IEnumerable
-		{
-			public SequenceEnumerable(int size)
-			{
-				m_size = size;
-			}
-
-			public IEnumerator GetEnumerator()
-			{
-				return new SequenceEnumerator(this);
-			}
-
-			public int DisposeCount { get; private set; }
-
-			private class SequenceEnumerator : IEnumerator, IDisposable
-			{
-				public SequenceEnumerator(SequenceEnumerable enumerable)
-				{
-					m_enumerable = enumerable;
-					m_index = 0;
-				}
-
-				public bool MoveNext()
-				{
-					if (m_index < m_enumerable.m_size)
-					{
-						m_index++;
-						return true;
-					}
-					else
-					{
-						return false;
-					}
-				}
-
-				public void Reset()
-				{
-					throw new NotImplementedException();
-				}
-
-				public object Current
-				{
-					get
-					{
-						if (m_index < 0 || m_index > m_enumerable.m_size)
-							throw new InvalidOperationException();
-						return m_index;
-					}
-				}
-
-				public void Dispose()
-				{
-					m_enumerable.DisposeCount++;
-					m_index = -1;
-				}
-
-				readonly SequenceEnumerable m_enumerable;
-				int m_index;
-			}
-
-			readonly int m_size;
-		}
-
-		[Test]
 		public void SequenceCompare()
 		{
 			var ascending = new[] { 1, 2, 3, 4, 5, 6 };
@@ -1013,70 +638,6 @@ namespace Faithlife.Utility.Tests
 		}
 
 		[Test]
-		public void TrimEndWhere()
-		{
-			var anItems = new[] { 1, 2, 3, 4, 5 };
-			var listResults = anItems.TrimEndWhere(n => n > 3).ToList();
-
-			Assert.AreEqual(3, listResults.Count);
-			Assert.AreEqual(1, listResults[0]);
-			Assert.AreEqual(2, listResults[1]);
-			Assert.AreEqual(3, listResults[2]);
-
-			anItems = new[] { 1, 2, 4, 3, 4, 5 };
-			listResults = anItems.TrimEndWhere(n => n > 3).ToList();
-
-			Assert.AreEqual(4, listResults.Count);
-			Assert.AreEqual(1, listResults[0]);
-			Assert.AreEqual(2, listResults[1]);
-			Assert.AreEqual(4, listResults[2]);
-			Assert.AreEqual(3, listResults[3]);
-
-			anItems = new[] { 1, 4, 5, 2, 3, 4, 5 };
-			listResults = anItems.TrimEndWhere(n => n > 3).ToList();
-
-			Assert.AreEqual(5, listResults.Count);
-			Assert.AreEqual(1, listResults[0]);
-			Assert.AreEqual(4, listResults[1]);
-			Assert.AreEqual(5, listResults[2]);
-			Assert.AreEqual(2, listResults[3]);
-			Assert.AreEqual(3, listResults[4]);
-		}
-
-		[Test]
-		public void UpcastTest()
-		{
-			Derived[] coll = new[] { new Derived(1), new Derived(2) };
-			List<Base> list = new List<Base>(coll.Upcast<Derived, Base>());
-			Assert.AreEqual(1, list[0].Value);
-			Assert.AreEqual(2, list[1].Value);
-		}
-
-		[Test]
-		public void UpcastValueToValueTest()
-		{
-			int[] coll = new[] { 1, 2 };
-			List<int> list = new List<int>(coll.Upcast<int, int>());
-			Assert.AreEqual(1, list[0]);
-			Assert.AreEqual(2, list[1]);
-		}
-
-		[Test]
-		public void UpcastValueToObjectTest()
-		{
-			int[] coll = new[] { 1, 2 };
-			List<object> list = new List<object>(coll.Upcast<int, object>());
-			Assert.AreEqual(1, list[0]);
-			Assert.AreEqual(2, list[1]);
-		}
-
-		[Test]
-		public void UpcastNull()
-		{
-			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.Upcast<object, object>(null));
-		}
-
-		[Test]
 		public void WhereNotNullClass()
 		{
 			IEnumerable<string> input = new[] { "this", null, "is", "a", null, "test", null };
@@ -1123,53 +684,6 @@ namespace Faithlife.Utility.Tests
 		}
 
 		[Test]
-		public void GroupConsecutiveByTimespan()
-		{
-			DateTimeOffset baseDate = new DateTimeOffset(2010, 3, 14, 1, 0, 0, 0, TimeSpan.FromHours(-8));
-
-			IEnumerable<IGrouping<DateTimeOffset, int>> groups = new List<int> { 1, 5, 7, 10, 15, 25, 35, 40, 45, 50 }.GroupConsecutiveByTimespan(TimeSpan.FromSeconds(5), x => baseDate + TimeSpan.FromSeconds(x));
-
-			Assert.AreEqual(3, groups.Count());
-
-			using (IEnumerator<IGrouping<DateTimeOffset, int>> group = groups.GetEnumerator())
-			{
-				Assert.IsTrue(group.MoveNext());
-				Assert.AreEqual(baseDate + TimeSpan.FromSeconds(15), group.Current.Key);
-				CollectionAssert.AreEqual(new List<int> { 1, 5, 7, 10, 15 }, group.Current);
-
-				Assert.IsTrue(group.MoveNext());
-				Assert.AreEqual(baseDate + TimeSpan.FromSeconds(25), group.Current.Key);
-				CollectionAssert.AreEqual(new List<int> { 25 }, group.Current);
-
-				Assert.IsTrue(group.MoveNext());
-				Assert.AreEqual(baseDate + TimeSpan.FromSeconds(50), group.Current.Key);
-				CollectionAssert.AreEqual(new List<int> { 35, 40, 45, 50 }, group.Current);
-
-				Assert.IsFalse(group.MoveNext());
-			}
-		}
-
-		[Test]
-		public void GroupConsecutiveByTimespanThrowsOnBadArguments()
-		{
-			IEnumerable<int> nullEnumerable = null;
-			Assert.Throws<ArgumentNullException>(() => nullEnumerable.GroupConsecutiveByTimespan(TimeSpan.FromMinutes(10), x => DateTimeOffset.Now));
-			Assert.Throws<ArgumentNullException>(() => new List<int>().GroupConsecutiveByTimespan(TimeSpan.FromMinutes(10), null));
-
-			// Empty enumerables are fine
-			Assert.AreEqual(0, new List<int>().GroupConsecutiveByTimespan(TimeSpan.FromMinutes(10), x => DateTimeOffset.Now).Count());
-		}
-
-		[Test]
-		public void Range()
-		{
-			CollectionAssert.AreEqual(new[] { 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024 }, EnumerableUtility.Range(2, 10, x => x * 2));
-			CollectionAssert.AreEqual(new[] { 2 }, EnumerableUtility.Range(2, 1, x => x * 2));
-			CollectionAssert.AreEqual(new int[0], EnumerableUtility.Range(2, 0, x => x * 2));
-			Assert.Throws<ArgumentException>(() => EnumerableUtility.Range(2, -1, x => x * 2));
-		}
-
-		[Test]
 		public void AreEqualTests()
 		{
 			DoAreEqualTest(true, null, null);
@@ -1202,7 +716,7 @@ namespace Faithlife.Utility.Tests
 		private static IEnumerable<int> InfiniteInts()
 		{
 			int n = 0;
-			for (;;)
+			for (; ; )
 				yield return n++;
 		}
 

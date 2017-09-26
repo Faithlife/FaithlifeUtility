@@ -143,7 +143,7 @@ namespace Faithlife.Utility.Tests
 			linked.AddLast(1);
 			linked.AddLast(2);
 			linked.AddLast(3);
-			Assert.AreEqual("1, 2, 3", linked.ToStrings().Join(", "));
+			Assert.AreEqual("1, 2, 3", linked.Select(x => x.ToString()).Join(", "));
 		}
 
 		[Test]
@@ -153,7 +153,7 @@ namespace Faithlife.Utility.Tests
 			linked.AddLast(1);
 			linked.AddLast(2);
 			linked.AddLast(3);
-			Assert.AreEqual("1, 4, 9", linked.Select(x => x * x).ToStrings().Join(", "));
+			Assert.AreEqual("1, 4, 9", linked.Select(x => x * x).Select(x => x.ToString()).Join(", "));
 		}
 
 		[Test]
