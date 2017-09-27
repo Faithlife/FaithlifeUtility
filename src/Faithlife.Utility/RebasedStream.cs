@@ -32,18 +32,15 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Gets the length in bytes of the stream.
 		/// </summary>
-		public override long Length
-		{
-			get { return base.Length - m_baseOffset; }
-		}
+		public override long Length => base.Length - m_baseOffset;
 
 		/// <summary>
 		/// Gets or sets the position within the current stream.
 		/// </summary>
 		public override long Position
 		{
-			get { return base.Position - m_baseOffset; }
-			set { base.Position = value + m_baseOffset; }
+			get => base.Position - m_baseOffset;
+			set => base.Position = value + m_baseOffset;
 		}
 
 		/// <summary>
@@ -64,10 +61,7 @@ namespace Faithlife.Utility
 		/// Sets the length of the current stream.
 		/// </summary>
 		/// <param name="value">The desired length of the current stream in bytes.</param>
-		public override void SetLength(long value)
-		{
-			base.SetLength(value + m_baseOffset);
-		}
+		public override void SetLength(long value) => base.SetLength(value + m_baseOffset);
 
 		// the offset within the base stream where this stream begins
 		readonly long m_baseOffset;
