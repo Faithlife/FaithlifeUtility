@@ -6,33 +6,6 @@ namespace Faithlife.Utility.Tests
 	[TestFixture]
 	public class UriUtilityTests
 	{
-		[TestCase(null, null)]
-		[TestCase("", null)]
-		[TestCase("www.example.com", "http://www.example.com/")]
-		[TestCase("www.example.com/path/", "http://www.example.com/path/")]
-		[TestCase("www.example.com/path/file", "http://www.example.com/path/file")]
-		[TestCase("http://www.example.com", "http://www.example.com/")]
-		[TestCase("http://www.example.com/", "http://www.example.com/")]
-		[TestCase("https://secure.example.com", "https://secure.example.com/")]
-		[TestCase("user@example.com", "http://user@example.com/")]
-		[TestCase("mailto:user@example.com", null)]
-		[TestCase("file:///c:/Windows/System32/notepad.exe", null)]
-		[TestCase(@"C:\Windows\System32\notepad.exe", null)]
-		[TestCase("http://www.example.com/un escaped spaces/path.txt", null)]
-		public void ParseWebUrl(string uriText, string outputUri)
-		{
-			Uri uri = UriUtility.ParseWebUrl(uriText);
-			if (outputUri == null)
-			{
-				Assert.IsNull(uri);
-			}
-			else
-			{
-				Assert.IsNotNull(uri);
-				Assert.AreEqual(outputUri, uri.AbsoluteUri);
-			}
-		}
-
 		[Test]
 		public void FromPattern()
 		{
@@ -47,13 +20,6 @@ namespace Faithlife.Utility.Tests
 			Assert.AreEqual(UriUtility.FromPattern("http://example.com/{x}?a={y}", "x", "r&d", "y", "pb&j").AbsoluteUri, "http://example.com/r%26d?a=pb%26j");
 			Assert.AreEqual(UriUtility.FromPattern("http://example.com/{x}?a={y}", "y", "pb&j", "x", "r&d").AbsoluteUri, "http://example.com/r%26d?a=pb%26j");
 			Assert.AreEqual(UriUtility.FromPattern("http://example.com/{x}?a={y}", "y", "pb&j", "z", "zed", "x", "r&d").AbsoluteUri, "http://example.com/r%26d?a=pb%26j&z=zed");
-		}
-
-		[Test]
-		public void FromObjectPattern()
-		{
-			Assert.AreEqual(UriUtility.FromPattern("http://example.com/?date={date}", new { date = new DateTime(2001, 2, 3, 4, 5, 6) }).AbsoluteUri,
-				"http://example.com/?date=02%2F03%2F2001%2004%3A05%3A06");
 		}
 
 		[TestCase(null, null)]
