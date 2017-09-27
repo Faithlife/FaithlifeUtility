@@ -49,26 +49,10 @@ namespace Faithlife.Utility.Tests
 		}
 
 		[Test]
-		public void LinearSearchBadArguments()
-		{
-			int nIndex;
-			List<SearchData> list = new List<SearchData>();
-			Assert.Throws<ArgumentNullException>(() => ListUtility.LinearSearchForKey<SearchData, int>(null, 1, CompareItemToKey, out nIndex));
-			Assert.Throws<ArgumentNullException>(() => ListUtility.LinearSearchForKey(list, 1, null, out nIndex));
-		}
-
-		[Test]
 		public void BinarySearchEmptyList()
 		{
 			// Can't use ListUtility.BinarySearchKey as the first parameter because of Mono bug #523683. Must use lambda expression.
-			DoSearchEmptyList((IList<SearchData> list, int key, Func<SearchData, int, int> fnCompare, out int nIndex) => ListUtility.BinarySearchForKey(list, key, fnCompare, out nIndex));
-		}
-
-		[Test]
-		public void LinearSearchEmptyList()
-		{
-			// Can't use ListUtility.LinearSearchKey as the first parameter because of Mono bug #523683. Must use lambda expression.
-			DoSearchEmptyList((IList<SearchData> list, int key, Func<SearchData, int, int> fnCompare, out int nIndex) => ListUtility.LinearSearchForKey(list, key, fnCompare, out nIndex));
+			DoSearchEmptyList((IList<SearchData> list, int key, Func<SearchData, int, int> fnCompare, out int nIndex) => ListUtility.BinarySearchForKey(list.AsReadOnlyList(), key, fnCompare, out nIndex));
 		}
 
 		private static void DoSearchEmptyList(SearchFunction fnSearch)
@@ -86,16 +70,7 @@ namespace Faithlife.Utility.Tests
 		public void BinarySearchOneItemList(int nKey, int nExpectedCount, int nExpectedIndex)
 		{
 			// Can't use ListUtility.BinarySearchKey as the first parameter because of Mono bug #523683. Must use lambda expression.
-			DoSearchOneItemList((IList<SearchData> list, int key, Func<SearchData, int, int> fnCompare, out int nIndex) => ListUtility.BinarySearchForKey(list, key, fnCompare, out nIndex), nKey, nExpectedCount, nExpectedIndex);
-		}
-
-		[TestCase(10, 1, 0)]
-		[TestCase(13, 0, 1)]
-		[TestCase(3, 0, 0)]
-		public void LinearSearchOneItemList(int nKey, int nExpectedCount, int nExpectedIndex)
-		{
-			// Can't use ListUtility.LinearSearchKey as the first parameter because of Mono bug #523683. Must use lambda expression.
-			DoSearchOneItemList((IList<SearchData> list, int key, Func<SearchData, int, int> fnCompare, out int nIndex) => ListUtility.LinearSearchForKey(list, key, fnCompare, out nIndex), nKey, nExpectedCount, nExpectedIndex);
+			DoSearchOneItemList((IList<SearchData> list, int key, Func<SearchData, int, int> fnCompare, out int nIndex) => ListUtility.BinarySearchForKey(list.AsReadOnlyList(), key, fnCompare, out nIndex), nKey, nExpectedCount, nExpectedIndex);
 		}
 
 		private static void DoSearchOneItemList(SearchFunction fnSearch, int nKey, int nExpectedCount, int nExpectedIndex)
@@ -112,14 +87,7 @@ namespace Faithlife.Utility.Tests
 		public void BinarySearchLargeListWithMultiple()
 		{
 			// Can't use ListUtility.BinarySearchKey as the first parameter because of Mono bug #523683. Must use lambda expression.
-			DoSearchLargeListWithMultiple((IList<SearchData> list, int key, Func<SearchData, int, int> fnCompare, out int nIndex) => ListUtility.BinarySearchForKey(list, key, fnCompare, out nIndex));
-		}
-
-		[Test]
-		public void LinearSearchLargeListWithMultiple()
-		{
-			// Can't use ListUtility.LinearSearchKey as the first parameter because of Mono bug #523683. Must use lambda expression.
-			DoSearchLargeListWithMultiple((IList<SearchData> list, int key, Func<SearchData, int, int> fnCompare, out int nIndex) => ListUtility.LinearSearchForKey(list, key, fnCompare, out nIndex));
+			DoSearchLargeListWithMultiple((IList<SearchData> list, int key, Func<SearchData, int, int> fnCompare, out int nIndex) => ListUtility.BinarySearchForKey(list.AsReadOnlyList(), key, fnCompare, out nIndex));
 		}
 
 		private static void DoSearchLargeListWithMultiple(SearchFunction fnSearch)
@@ -160,22 +128,7 @@ namespace Faithlife.Utility.Tests
 		public void BinarySearchLargeList(int nItems)
 		{
 			// Can't use ListUtility.BinarySearchKey as the first parameter because of Mono bug #523683. Must use lambda expression.
-			DoSearchLargeList((IList<SearchData> list, int key, Func<SearchData, int, int> fnCompare, out int nIndex) => ListUtility.BinarySearchForKey(list, key, fnCompare, out nIndex), nItems);
-		}
-
-		[TestCase(0)]
-		[TestCase(1)]
-		[TestCase(2)]
-		[TestCase(3)]
-		[TestCase(4)]
-		[TestCase(10)]
-		[TestCase(100)]
-		[TestCase(255)]
-		[TestCase(256)]
-		public void LinearSearchLargeList(int nItems)
-		{
-			// Can't use ListUtility.LinearSearchKey as the first parameter because of Mono bug #523683. Must use lambda expression.
-			DoSearchLargeList((IList<SearchData> list, int key, Func<SearchData, int, int> fnCompare, out int nIndex) => ListUtility.LinearSearchForKey(list, key, fnCompare, out nIndex), nItems);
+			DoSearchLargeList((IList<SearchData> list, int key, Func<SearchData, int, int> fnCompare, out int nIndex) => ListUtility.BinarySearchForKey(list.AsReadOnlyList(), key, fnCompare, out nIndex), nItems);
 		}
 
 		private static void DoSearchLargeList(SearchFunction fnSearch, int nItems)
@@ -205,151 +158,6 @@ namespace Faithlife.Utility.Tests
 		}
 
 		[Test]
-		public void ListCopyTo()
-		{
-			DoTestCopyTo(new List<int> { 1, 2, 3, 4 });
-		}
-
-		[Test]
-		public void ArrayCopyTo()
-		{
-			DoTestCopyTo(new[] { 1, 2, 3, 4 });
-		}
-
-		[Test]
-		public void CollectionCopyTo()
-		{
-			DoTestCopyTo(new ReadOnlyCollection<int>(new[] { 1, 2, 3, 4 }));
-		}
-
-		[Test]
-		public void ListCopyToBadArguments()
-		{
-			DoTestCopyToBadArguments(new List<int> { 1, 2, 3, 4 });
-		}
-
-		[Test]
-		public void ArrayCopyToBadArguments()
-		{
-			DoTestCopyToBadArguments(new[] { 1, 2, 3, 4 });
-		}
-
-		[Test]
-		public void CollectionCopyToBadArguments()
-		{
-			DoTestCopyToBadArguments(new ReadOnlyCollection<int>(new[] { 1, 2, 3, 4 }));
-		}
-
-		private static void DoTestCopyTo(IList<int> list)
-		{
-			Assert.AreEqual(4, list.Count);
-
-			int[] array = new int[4];
-			list.CopyTo(0, array, 0, 4);
-			CollectionAssert.AreEqual(new[] { 1, 2, 3, 4 }, array);
-
-			array = new int[4];
-			list.CopyTo(1, array, 0, 2);
-			CollectionAssert.AreEqual(new[] { 2, 3, 0, 0 }, array);
-
-			array = new int[4];
-			list.CopyTo(0, array, 1, 2);
-			CollectionAssert.AreEqual(new[] { 0, 1, 2, 0 }, array);
-		}
-
-		private static void DoTestCopyToBadArguments(IList<int> list)
-		{
-			Assert.AreEqual(4, list.Count);
-
-			Assert.Throws<ArgumentNullException>(() => list.CopyTo(0, null, 0, 4));
-
-			int[] array = new int[4];
-			Assert.Throws<ArgumentOutOfRangeException>(() => list.CopyTo(-1, array, 0, 4));
-			Assert.Throws<ArgumentOutOfRangeException>(() => list.CopyTo(0, array, -1, 4));
-			Assert.Throws<ArgumentOutOfRangeException>(() => list.CopyTo(0, array, 0, -1));
-			Assert.Throws<ArgumentException>(() => list.CopyTo(0, array, 0, 5));
-			Assert.Throws<ArgumentException>(() => list.CopyTo(1, array, 0, 4));
-			Assert.Throws<ArgumentException>(() => list.CopyTo(0, array, 4, 4));
-		}
-
-		[Test]
-		public void TransformInPlaceArray()
-		{
-			int[] an = new int[] { 1, 2, 3, 4 };
-			ListUtility.TransformInPlace(an, delegate(int n) { return n * n; });
-			CollectionAssert.AreEqual(new int[] { 1, 4, 9, 16 }, an);
-		}
-
-		[Test]
-		public void TransformInPlaceList()
-		{
-			List<int> list = new List<int>(new int[] { 1, 2, 3, 4 });
-			ListUtility.TransformInPlace(list, delegate(int n) { return n * n; });
-			CollectionAssert.AreEqual(new int[] { 1, 4, 9, 16 }, list);
-		}
-
-		[Test]
-		public void TransformInPlaceNullList()
-		{
-			Assert.Throws<ArgumentNullException>(() => ListUtility.TransformInPlace<int>(null, delegate(int n) { return n * n; }));
-		}
-
-		[Test]
-		public void TransformInPlaceNullFunction()
-		{
-			Assert.Throws<ArgumentNullException>(() => ListUtility.TransformInPlace<int>(new int[] { 1, 2, 3, 4 }, null));
-		}
-
-		[Test]
-		public void PeekAtOnlyItem()
-		{
-			Assert.AreEqual(1, ListUtility.Peek(new int[] { 1 }));
-		}
-
-		[Test]
-		public void PeekAtOneItemOfThree()
-		{
-			Assert.AreEqual(3, ListUtility.Peek(new int[] { 1, 2, 3 }));
-		}
-
-		[Test]
-		public void PeekAtEmptyList()
-		{
-			Assert.Throws<InvalidOperationException>(() => Assert.AreEqual(3, ListUtility.Peek(new int[] { })));
-		}
-
-		[Test]
-		public void PopOnlyItem()
-		{
-			List<int> list = new List<int> { 1 };
-			Assert.AreEqual(1, ListUtility.Pop(list));
-			Assert.AreEqual(0, list.Count);
-		}
-
-		[Test]
-		public void PopThreeItems()
-		{
-			List<int> list = new List<int> { 1, 2, 3 };
-			Assert.AreEqual(3, ListUtility.Pop(list));
-			Assert.AreEqual(2, ListUtility.Pop(list));
-			Assert.AreEqual(1, ListUtility.Pop(list));
-			Assert.AreEqual(0, list.Count);
-		}
-
-		[Test]
-		public void PopEmptyList()
-		{
-			List<int> list = new List<int>();
-			Assert.Throws<InvalidOperationException>(() => ListUtility.Peek(list));
-		}
-
-		[Test]
-		public void PopFromArray()
-		{
-			Assert.Throws<NotSupportedException>(() => ListUtility.Pop(new int[] { 1 }));
-		}
-
-		[Test]
 		public void RemoveWhere()
 		{
 			List<int> list = new List<int> { -2, 3, -5, 1, 5, -10 };
@@ -360,8 +168,10 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void FindIndexBadArguments()
 		{
-			Assert.Throws<ArgumentNullException>(delegate { ListUtility.FindIndex<object>(null, n => true); });
-			Assert.Throws<ArgumentNullException>(delegate { ListUtility.FindIndex(new object[] { }, null); });
+			Assert.Throws<ArgumentNullException>(delegate
+			{ ListUtility.FindIndex<object>(null, n => true); });
+			Assert.Throws<ArgumentNullException>(delegate
+			{ ListUtility.FindIndex(new object[] { }, null); });
 		}
 
 		[Test]

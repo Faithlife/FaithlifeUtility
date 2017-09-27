@@ -587,7 +587,7 @@ namespace Faithlife.Utility
 			if (count < 0)
 				throw new ArgumentOutOfRangeException(nameof(count));
 			else if (count == 0)
-				return ListUtility.CreateReadOnlyCollection<T>();
+				return new T[0];
 
 			Queue<T> queue = new Queue<T>(count);
 			foreach (T item in source)
