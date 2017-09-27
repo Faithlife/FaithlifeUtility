@@ -1,7 +1,8 @@
 # ListUtility.BinarySearchForKey&lt;TItem,TKey&gt; method
 
 ```csharp
-public static int BinarySearchForKey<TItem, TKey>(IList<TItem> list, TKey key, Func<TItem, TKey, int> compare, out int index)
+public static int BinarySearchForKey<TItem, TKey>(IReadOnlyList<TItem> list, TKey key, 
+    Func<TItem, TKey, int> compare, out int index)
 ```
 
 ## See Also

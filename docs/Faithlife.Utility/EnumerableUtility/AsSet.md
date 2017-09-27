@@ -3,13 +3,13 @@
 Returns a set of the elements in the specified sequence.
 
 ```csharp
-public static ISet<T> AsSet<T>(this IEnumerable<T> sequence)
+public static ISet<T> AsSet<T>(this IEnumerable<T> source)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type of element in the source sequence. |
-| sequence | The sequence. |
+| source | The sequence. |
 
 ## Return Value
 
@@ -17,7 +17,7 @@ A set of elements.
 
 ## Remarks
 
-Unlike the [`ToSet`](ToSet.md) method, if the original IEnumerable is a HashSet it will be returned as such (rather than copying to a new HashSet).
+Unlike the ToHashSet method, if the original IEnumerable is an ISet{T} it will be returned as such (rather than copying to a new HashSet).
 
 ## See Also
 

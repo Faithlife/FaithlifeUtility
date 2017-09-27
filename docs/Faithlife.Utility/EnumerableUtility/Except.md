@@ -3,12 +3,12 @@
 Makes distinct and then removes a single item from a sequence.
 
 ```csharp
-public static IEnumerable<T> Except<T>(this IEnumerable<T> sequence, T item)
+public static IEnumerable<T> Except<T>(this IEnumerable<T> source, T item)
 ```
 
 | parameter | description |
 | --- | --- |
-| sequence | A sequence whose elements not matching the specified item will be returned. |
+| source | A sequence whose elements not matching the specified item will be returned. |
 | item | An item that will not occur in the resulting sequence. |
 
 ## Return Value
@@ -27,12 +27,12 @@ A sequence consisting of every distinct item in the specified sequence that does
 Makes distinct and then removes a single item from a sequence.
 
 ```csharp
-public static IEnumerable<T> Except<T>(this IEnumerable<T> sequence, T item, IEqualityComparer<T> comparer)
+public static IEnumerable<T> Except<T>(this IEnumerable<T> source, T item, IEqualityComparer<T> comparer)
 ```
 
 | parameter | description |
 | --- | --- |
-| sequence | A sequence whose elements not matching the specified item will be returned. |
+| source | A sequence whose elements not matching the specified item will be returned. |
 | item | An item that will not occur in the resulting sequence. |
 | comparer | Comparer used for exclusion. If not provided, default comparer is used. |
 

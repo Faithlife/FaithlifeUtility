@@ -12,17 +12,8 @@ public static class ListUtility
 | --- | --- |
 | static [AsReadOnly&lt;T&gt;](ListUtility/AsReadOnly.md)(…) | Wraps a ReadOnlyCollection around the specified list. |
 | static [BinarySearchForKey&lt;TItem,TKey&gt;](ListUtility/BinarySearchForKey.md)(…) |  |
-| static [CopyTo&lt;T&gt;](ListUtility/CopyTo.md)(…) |  |
-| static [CreateReadOnlyCollection&lt;T&gt;](ListUtility/CreateReadOnlyCollection.md)() | Creates an empty read only collection. |
-| static [CreateReadOnlyCollection&lt;T&gt;](ListUtility/CreateReadOnlyCollection.md)(…) |  |
-| static [EmptyIfNull&lt;T&gt;](ListUtility/EmptyIfNull.md)(…) | Returns the specified read-only collection, or an empty read-only collection if it is null. |
 | static [FindIndex&lt;T&gt;](ListUtility/FindIndex.md)(…) | Returns the index of the first item that matches the predicate. (2 methods) |
-| static [InReverse&lt;T&gt;](ListUtility/InReverse.md)(…) | Yields the items of the list in reverse order. |
-| static [LinearSearchForKey&lt;TItem,TKey&gt;](ListUtility/LinearSearchForKey.md)(…) |  |
-| static [Peek&lt;T&gt;](ListUtility/Peek.md)(…) | Returns the item at the end of the specified list. |
-| static [Pop&lt;T&gt;](ListUtility/Pop.md)(…) | Pops an item from the end of the specified list. |
 | static [RemoveWhere&lt;T&gt;](ListUtility/RemoveWhere.md)(…) | Removes items from the list that match the specified predicate. |
-| static [TransformInPlace&lt;T&gt;](ListUtility/TransformInPlace.md)(…) | Transforms the elements of a list in place. |
 
 ## See Also
 

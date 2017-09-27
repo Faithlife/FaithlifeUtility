@@ -3,14 +3,14 @@
 True if the sequences are equivalent.
 
 ```csharp
-public static bool SequenceEquivalent<T>(this IEnumerable<T> sequence, IEnumerable<T> other)
+public static bool SequenceEquivalent<T>(this IEnumerable<T> source, IEnumerable<T> other)
     where T : IHasEquivalence<T>
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The object type. |
-| sequence | The sequence. |
+| source | The sequence. |
 | other | The other sequence. |
 
 ## Return Value

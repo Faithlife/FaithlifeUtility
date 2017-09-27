@@ -1,44 +1,15 @@
-# EnumerableUtility.EnumerateBatches&lt;T&gt; method (1 of 2)
+# EnumerableUtility.EnumerateBatches&lt;T&gt; method
 
 Enumerates a sequence of elements in batches.
 
 ```csharp
-public static IEnumerable<ReadOnlyCollection<T>> EnumerateBatches<T>(this IEnumerable<T> sequence, Func<T, bool> startsNewBatch)
+public static IEnumerable<IReadOnlyList<T>> EnumerateBatches<T>(this IEnumerable<T> source, int batchSize)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type of object in the sequence. |
-| sequence | The sequence of elements to process in batches. |
-| startsNewBatch | Should return true if the item should start a new batch. |
-
-## Return Value
-
-Batches of collections containing the elements from the source sequence.
-
-## Remarks
-
-The contents of each batch are eagerly enumerated, to avoid potential errors caused by not fully evaluating each batch (the inner enumerator) before advancing the outer enumerator.
-
-## See Also
-
-* class [EnumerableUtility](../EnumerableUtility.md)
-* namespace [Faithlife.Utility](../../Faithlife.Utility.md)
-
----
-
-# EnumerableUtility.EnumerateBatches&lt;T&gt; method (2 of 2)
-
-Enumerates a sequence of elements in batches.
-
-```csharp
-public static IEnumerable<ReadOnlyCollection<T>> EnumerateBatches<T>(this IEnumerable<T> sequence, int batchSize)
-```
-
-| parameter | description |
-| --- | --- |
-| T | The type of object in the sequence. |
-| sequence | The sequence of elements to process in batches. |
+| source | The sequence of elements to process in batches. |
 | batchSize | The batch size. |
 
 ## Return Value

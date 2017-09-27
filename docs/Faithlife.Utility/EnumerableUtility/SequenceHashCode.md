@@ -3,13 +3,13 @@
 Gets the hash code for a sequence.
 
 ```csharp
-public static int SequenceHashCode<T>(this IEnumerable<T> sequence)
+public static int SequenceHashCode<T>(this IEnumerable<T> source)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type of the elements. |
-| sequence | The sequence. |
+| source | The sequence. |
 
 ## Return Value
 
@@ -31,13 +31,13 @@ If the sequence is null, zero is returned.
 Gets the hash code for a sequence.
 
 ```csharp
-public static int SequenceHashCode<T>(this IEnumerable<T> sequence, IEqualityComparer<T> comparer)
+public static int SequenceHashCode<T>(this IEnumerable<T> source, IEqualityComparer<T> comparer)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type of the elements. |
-| sequence | The sequence. |
+| source | The sequence. |
 | comparer | The comparer. |
 
 ## Return Value

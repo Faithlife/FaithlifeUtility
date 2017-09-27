@@ -3,7 +3,7 @@
 Returns the index of the first item that matches the predicate.
 
 ```csharp
-public static int FindIndex<T>(this IList<T> list, Func<T, bool> match)
+public static int FindIndex<T>(this IReadOnlyList<T> list, Func<T, bool> match)
 ```
 
 | parameter | description |
@@ -23,7 +23,7 @@ public static int FindIndex<T>(this IList<T> list, Func<T, bool> match)
 Returns the index of the first item that matches the predicate.
 
 ```csharp
-public static int FindIndex<T>(this IList<T> list, int startIndex, Func<T, bool> match)
+public static int FindIndex<T>(this IReadOnlyList<T> list, int startIndex, Func<T, bool> match)
 ```
 
 | parameter | description |

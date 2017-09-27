@@ -3,18 +3,18 @@
 Returns the first element of a sequence or a default value if no such element is found.
 
 ```csharp
-public static T FirstOrDefault<T>(this IEnumerable<T> sequence, T defaultValue)
+public static T FirstOrDefault<T>(this IEnumerable<T> source, T defaultValue)
 ```
 
 | parameter | description |
 | --- | --- |
-| T | The type of the elements of *sequence*. |
-| sequence | An IEnumerable&lt;TSource&gt; to return an element from. |
+| T | The type of the elements of *source*. |
+| source | An IEnumerable&lt;TSource&gt; to return an element from. |
 | defaultValue | The value to return if no element is found. |
 
 ## Return Value
 
-*defaultValue* if *sequence* is empty; otherwise, the first element in *sequence*.
+*defaultValue* if *source* is empty; otherwise, the first element in *source*.
 
 ## See Also
 
@@ -28,19 +28,19 @@ public static T FirstOrDefault<T>(this IEnumerable<T> sequence, T defaultValue)
 Returns the first element of a sequence that satisfies a condition or a default value if no such element is found.
 
 ```csharp
-public static T FirstOrDefault<T>(this IEnumerable<T> sequence, Func<T, bool> predicate, T defaultValue)
+public static T FirstOrDefault<T>(this IEnumerable<T> source, Func<T, bool> predicate, T defaultValue)
 ```
 
 | parameter | description |
 | --- | --- |
-| T | The type of the elements of *sequence*. |
-| sequence | An IEnumerable&lt;TSource&gt; to return an element from. |
+| T | The type of the elements of *source*. |
+| source | An IEnumerable&lt;TSource&gt; to return an element from. |
 | predicate | A function to test each element for a condition. |
 | defaultValue | The value to return if no element satisfies the condition. |
 
 ## Return Value
 
-*defaultValue* if *sequence* is empty or if no element passes the test specified by *predicate*; otherwise, the first element in *sequence* that passes the test specified by *predicate*.
+*defaultValue* if *source* is empty or if no element passes the test specified by *predicate*; otherwise, the first element in *source* that passes the test specified by *predicate*.
 
 ## See Also
 

@@ -1,6 +1,6 @@
 # Faithlife.Utility assembly
 
-The assembly `Faithlife.Utility.dll` has 60 public types in 3 namespaces.
+The assembly `Faithlife.Utility.dll` has 57 public types in 3 namespaces.
 
 ## Faithlife.Utility namespace
 
@@ -28,22 +28,19 @@ The assembly `Faithlife.Utility.dll` has 60 public types in 3 namespaces.
 | static class [GuidUtility](Faithlife.Utility/GuidUtility.md) | Helper methods for working with Guid. |
 | static class [GzipUtility](Faithlife.Utility/GzipUtility.md) | Methods for working with gzip. |
 | static class [HashCodeUtility](Faithlife.Utility/HashCodeUtility.md) | Provides methods for manipulating integers. |
-| static class [HashSetUtility](Faithlife.Utility/HashSetUtility.md) | Provides methods for working with HashSet. |
 | interface [IHasEquivalence&lt;T&gt;](Faithlife.Utility/IHasEquivalence-1.md) | Implemented by reference classes that do not want to implement IEquatable{T}, but do want to support some form of equivalence. |
 | static class [ListUtility](Faithlife.Utility/ListUtility.md) | Methods for manipulating lists. |
 | static class [ObjectImpl](Faithlife.Utility/ObjectImpl.md) | Provides methods for manipulating objects. |
 | static class [ObjectUtility](Faithlife.Utility/ObjectUtility.md) | Provides methods for manipulating objects. |
 | enum [Ownership](Faithlife.Utility/Ownership.md) | Indicates whether an object takes ownership of an item. |
-| class [PeekEnumerator&lt;T&gt;](Faithlife.Utility/PeekEnumerator-1.md) | An enumerator that can peek ahead. |
 | class [PriorityQueue&lt;T&gt;](Faithlife.Utility/PriorityQueue-1.md) | Implements a priority queue using a binary heap. The priority queue is sorted so that the smallest item is removed from the queue first. |
 | static class [ReaderWriterLockSlimUtility](Faithlife.Utility/ReaderWriterLockSlimUtility.md) | Extension methods for ReaderWriterLockSlim |
-| class [ReadOnlyHashSet&lt;T&gt;](Faithlife.Utility/ReadOnlyHashSet-1.md) | Implements a read-only wrapper around a HashSet. |
+| class [ReadOnlySet&lt;T&gt;](Faithlife.Utility/ReadOnlySet-1.md) | Implements a read-only wrapper around a HashSet. |
 | class [ReadOnlyStream](Faithlife.Utility/ReadOnlyStream.md) | A read-only stream wrapper. |
 | class [RebasedStream](Faithlife.Utility/RebasedStream.md) | [`RebasedStream`](Faithlife.Utility/RebasedStream.md) is a [`WrappingStream`](Faithlife.Utility/WrappingStream.md) that changes the effective origin of the wrapped stream. |
 | class [Scope](Faithlife.Utility/Scope.md) | Executes the specified delegate when disposed. |
-| class [Scoped&lt;T&gt;](Faithlife.Utility/Scoped-1.md) | A value that can easily be restored to its current value after it has been set. |
+| static class [SetUtility](Faithlife.Utility/SetUtility.md) | Provides methods for working with ISet. |
 | static class [StackUtility](Faithlife.Utility/StackUtility.md) | Provides methods for manipulating stacks. |
-| static class [StreamImpl](Faithlife.Utility/StreamImpl.md) | Provides implementations of common methods needed by an implementer of Stream. |
 | static class [StreamUtility](Faithlife.Utility/StreamUtility.md) | Copies data from one stream to another. |
 | static class [StringBuilderUtility](Faithlife.Utility/StringBuilderUtility.md) | Provides methods for manipulating StringBuilder objects. |
 | class [StringCache](Faithlife.Utility/StringCache.md) | [`StringCache`](Faithlife.Utility/StringCache.md) provides an append-only cache of strings that can be used to reuse the same string object instance when a string is being dynamically created at runtime (e.g., loaded from an XML file or database). |

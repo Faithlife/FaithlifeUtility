@@ -1,14 +1,14 @@
 # EnumerableUtility.SplitIntoBins&lt;T&gt; method
 
-Splits the *sequence* sequence into *binCount* equal-sized bins. If *binCount* does not evenly divide the total element count, then the first (total count % *binCount*) bins will have one more element than the following bins.
+Splits the *source* sequence into *binCount* equal-sized bins. If *binCount* does not evenly divide the total element count, then the first (total count % *binCount*) bins will have one more element than the following bins.
 
 ```csharp
-public static IEnumerable<ReadOnlyCollection<T>> SplitIntoBins<T>(this IEnumerable<T> sequence, int binCount)
+public static IEnumerable<ReadOnlyCollection<T>> SplitIntoBins<T>(this IEnumerable<T> source, int binCount)
 ```
 
 | parameter | description |
 | --- | --- |
-| sequence | The sequence to split. |
+| source | The sequence to split. |
 | binCount | The desired number of bins. |
 
 ## Return Value
