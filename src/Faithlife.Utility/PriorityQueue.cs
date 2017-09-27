@@ -54,7 +54,7 @@ namespace Faithlife.Utility
 				throw new ArgumentOutOfRangeException(nameof(capacity), OurMessages.ArgumentOutOfRange_MustBeNonNegative);
 
 			m_comparer = comparer ?? Comparer<T>.Default;
-			m_aData = s_aEmpty;
+			m_array = s_emptyArray;
 			if (capacity > 0)
 				SetCapacity(capacity);
 		}
@@ -68,12 +68,12 @@ namespace Faithlife.Utility
 			get
 			{
 				// return size of the backing array
-				return m_aData.Length;
+				return m_array.Length;
 			}
 			set
 			{
 				// check argument
-				if (value < m_nSize)
+				if (value < m_size)
 					throw new ArgumentOutOfRangeException(nameof(value), OurMessages.ArgumentOutOfRange_SmallCapacity);
 
 				// set the capacity
@@ -89,11 +89,11 @@ namespace Faithlife.Utility
 		public T Dequeue()
 		{
 			// check for empty queue
-			if (m_nSize == 0)
+			if (m_size == 0)
 				throw new InvalidOperationException(OurMessages.InvalidOperation_EmptyQueue);
 
 			// remove the first item and return it
-			T item = m_aData[0];
+			T item = m_array[0];
 			RemoveAt(0);
 			return item;
 		}
@@ -106,11 +106,11 @@ namespace Faithlife.Utility
 		public T Peek()
 		{
 			// check for empty queue
-			if (m_nSize == 0)
+			if (m_size == 0)
 				throw new InvalidOperationException(OurMessages.InvalidOperation_EmptyQueue);
 
 			// return the item at the top of the heap
-			return m_aData[0];
+			return m_array[0];
 		}
 
 		/// <summary>
@@ -119,12 +119,12 @@ namespace Faithlife.Utility
 		public void Enqueue(T item)
 		{
 			// make sure the array is big enough
-			EnsureCapacity(m_nSize + 1);
+			EnsureCapacity(m_size + 1);
 
 			// add the new item to the bottom of the heap, then move it up to the correct location
-			m_aData[m_nSize] = item;
-			SiftUpHeap(m_nSize);
-			++m_nSize;
+			m_array[m_size] = item;
+			SiftUpHeap(m_size);
+			++m_size;
 		}
 
 		/// <summary>
@@ -133,11 +133,11 @@ namespace Faithlife.Utility
 		/// <param name="item">The item to remove.</param>
 		public void Remove(T item)
 		{
-			for (int nIndex = 0; nIndex < m_nSize; nIndex++)
+			for (int index = 0; index < m_size; index++)
 			{
-				if (m_comparer.Compare(m_aData[nIndex], item) == 0)
+				if (m_comparer.Compare(m_array[index], item) == 0)
 				{
-					RemoveAt(nIndex);
+					RemoveAt(index);
 					break;
 				}
 			}
@@ -152,7 +152,7 @@ namespace Faithlife.Utility
 		public void CopyTo(T[] array, int index)
 		{
 			// check parameters
-			CollectionImpl.CheckCopyToParameters(array, index, m_nSize);
+			CollectionImpl.CheckCopyToParameters(array, index, m_size);
 
 			// copy each item to the destination array
 			foreach (T item in this)
@@ -166,7 +166,7 @@ namespace Faithlife.Utility
 		public void RepositionHead()
 		{
 			// check for empty queue
-			if (m_nSize == 0)
+			if (m_size == 0)
 				throw new InvalidOperationException(OurMessages.InvalidOperation_EmptyQueue);
 
 			// restore the heap order
@@ -181,11 +181,11 @@ namespace Faithlife.Utility
 		public void SwapHead(T item)
 		{
 			// check for empty queue
-			if (m_nSize == 0)
+			if (m_size == 0)
 				throw new InvalidOperationException(OurMessages.InvalidOperation_EmptyQueue);
 
 			// replace the head of the queue with the new item
-			m_aData[0] = item;
+			m_array[0] = item;
 
 			// restore the heap order
 			SiftDownHeap(0);
@@ -200,7 +200,7 @@ namespace Faithlife.Utility
 		void ICollection.CopyTo(Array array, int index)
 		{
 			// check parameters
-			CollectionImpl.CheckCopyToParameters(array, index, m_nSize);
+			CollectionImpl.CheckCopyToParameters(array, index, m_size);
 
 			try
 			{
@@ -219,10 +219,7 @@ namespace Faithlife.Utility
 		/// Gets the number of elements contained in the <see cref="PriorityQueue{T}"/>.
 		/// </summary>
 		/// <returns>The number of elements contained in the <see cref="PriorityQueue{T}"/>.</returns>
-		public int Count
-		{
-			get { return m_nSize; }
-		}
+		public int Count => m_size;
 
 		/// <summary>
 		/// Gets an object that can be used to synchronize access to the <see cref="PriorityQueue{T}"/>.
@@ -243,20 +240,14 @@ namespace Faithlife.Utility
 		/// Gets a value indicating whether access to the <see cref="PriorityQueue{T}"/> is synchronized (thread safe).
 		/// </summary>
 		/// <returns><c>true</c> if access to the <see cref="PriorityQueue{T}"/> is synchronized (thread safe); otherwise, false.</returns>
-		bool ICollection.IsSynchronized
-		{
-			get { return false; }
-		}
+		bool ICollection.IsSynchronized => false;
 
 		/// <summary>
 		/// Returns an enumerator that iterates through the items in the <see cref="PriorityQueue{T}"/>, in order. This operation
 		/// is potentially very expensive; clients should prefer to repeatedly call <see cref="Dequeue"/>.
 		/// </summary>
 		/// <returns>An <see cref="IEnumerator"/> object that can be used to iterate through the collection.</returns>
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			return ((IEnumerable<T>) this).GetEnumerator();
-		}
+		IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable<T>) this).GetEnumerator();
 
 		/// <summary>
 		/// Returns an enumerator that iterates through the items in the <see cref="PriorityQueue{T}"/>, in order. This operation
@@ -266,124 +257,124 @@ namespace Faithlife.Utility
 		IEnumerator<T> IEnumerable<T>.GetEnumerator()
 		{
 			// make a copy of the current data
-			PriorityQueue<T> pqCopy = new PriorityQueue<T>(this);
+			PriorityQueue<T> copy = new PriorityQueue<T>(this);
 
 			// return each item, in order
-			while (pqCopy.Count > 0)
-				yield return pqCopy.Dequeue();
+			while (copy.Count > 0)
+				yield return copy.Dequeue();
 		}
 
 		private PriorityQueue(PriorityQueue<T> pq)
 		{
 			// make a copy of the other PriorityQueue
 			m_comparer = pq.m_comparer;
-			m_nSize = pq.m_nSize;
-			m_aData = new T[m_nSize];
-			if (m_nSize > 0)
-				Array.Copy(pq.m_aData, m_aData, m_nSize);
+			m_size = pq.m_size;
+			m_array = new T[m_size];
+			if (m_size > 0)
+				Array.Copy(pq.m_array, m_array, m_size);
 		}
 
-		private void EnsureCapacity(int nDesiredSize)
+		private void EnsureCapacity(int desiredSize)
 		{
 			// check if the array is big enough
-			if (nDesiredSize > m_aData.Length)
+			if (desiredSize > m_array.Length)
 			{
 				// not big enough; resize (to either two times the current size or the current size plus four, whichever is larger)
-				int nNewCapacity = Math.Max(m_aData.Length * 2, m_aData.Length + 4);
-				SetCapacity(nNewCapacity);
+				int newCapacity = Math.Max(m_array.Length * 2, m_array.Length + 4);
+				SetCapacity(newCapacity);
 			}
 		}
 
 		// Sets the capacity of the priority queue to the specified amount.
-		private void SetCapacity(int nCapacity)
+		private void SetCapacity(int capacity)
 		{
-			if (nCapacity > 0)
+			if (capacity > 0)
 			{
 				// allocate new array and copy any values across to it
-				T[] aNewData = new T[nCapacity];
-				if (m_nSize > 0)
-					Array.Copy(m_aData, aNewData, m_nSize);
-				m_aData = aNewData;
+				T[] newData = new T[capacity];
+				if (m_size > 0)
+					Array.Copy(m_array, newData, m_size);
+				m_array = newData;
 			}
 			else
 			{
 				// use empty array
-				m_aData = s_aEmpty;
+				m_array = s_emptyArray;
 			}
 		}
 
-		// Removes the item at index 'nIndex' from the queue.
-		private void RemoveAt(int nIndex)
+		// Removes the item at index 'index' from the queue.
+		private void RemoveAt(int index)
 		{
 			// replace the item with the last item
-			m_nSize--;
-			m_aData[nIndex] = m_aData[m_nSize];
-			m_aData[m_nSize] = default(T);
+			m_size--;
+			m_array[index] = m_array[m_size];
+			m_array[m_size] = default(T);
 
 			// restore the heap order
-			SiftDownHeap(nIndex);
+			SiftDownHeap(index);
 		}
 
-		// Moves the item at index nIndex up the heap to the correct position.
-		private void SiftUpHeap(int nIndex)
+		// Moves the item at index index up the heap to the correct position.
+		private void SiftUpHeap(int index)
 		{
 			// we can't move the item at the top of the heap up any further
-			if (nIndex > 0)
+			if (index > 0)
 			{
 				// get the item to be moved
-				T item = m_aData[nIndex];
+				T item = m_array[index];
 
 				// keep replacing the item's parent with it (while it is less than the parent)
-				int nParentIndex = (nIndex - 1) / 2;
-				while (nIndex > 0 && m_comparer.Compare(m_aData[nParentIndex], item) > 0)
+				int parentIndex = (index - 1) / 2;
+				while (index > 0 && m_comparer.Compare(m_array[parentIndex], item) > 0)
 				{
-					m_aData[nIndex] = m_aData[nParentIndex];
-					nIndex = nParentIndex;
-					nParentIndex = (nIndex - 1) / 2;
+					m_array[index] = m_array[parentIndex];
+					index = parentIndex;
+					parentIndex = (index - 1) / 2;
 				}
 
 				// move the item into the correct position
-				m_aData[nIndex] = item;
+				m_array[index] = item;
 			}
 		}
 
-		// Moves the item at index nIndex down the heap to the correct position.
-		private void SiftDownHeap(int nIndex)
+		// Moves the item at index index down the heap to the correct position.
+		private void SiftDownHeap(int index)
 		{
 			// we can't move items at the bottom of the heap down any further
-			int nMaxIndex = m_nSize / 2 - 1;
-			if (nIndex <= nMaxIndex)
+			int maxIndex = m_size / 2 - 1;
+			if (index <= maxIndex)
 			{
 				// get the item to be moved
-				T item = m_aData[nIndex];
+				T item = m_array[index];
 
 				// walk down the heap until we get to the bottom level
-				while (nIndex <= nMaxIndex)
+				while (index <= maxIndex)
 				{
 					// find the smaller child
-					int nChildIndex = nIndex * 2 + 1;
-					if (nChildIndex < m_nSize - 1 && m_comparer.Compare(m_aData[nChildIndex], m_aData[nChildIndex + 1]) > 0)
-						nChildIndex++;
+					int childIndex = index * 2 + 1;
+					if (childIndex < m_size - 1 && m_comparer.Compare(m_array[childIndex], m_array[childIndex + 1]) > 0)
+						childIndex++;
 
 					// is this item smaller than the child?
-					if (m_comparer.Compare(item, m_aData[nChildIndex]) <= 0)
+					if (m_comparer.Compare(item, m_array[childIndex]) <= 0)
 						break;
 
 					// this item is not smaller, so move the child up
-					m_aData[nIndex] = m_aData[nChildIndex];
-					nIndex = nChildIndex;
+					m_array[index] = m_array[childIndex];
+					index = childIndex;
 				}
 
 				// move the item into the correct position
-				m_aData[nIndex] = item;
+				m_array[index] = item;
 			}
 		}
 
 		readonly IComparer<T> m_comparer;
-		T[] m_aData;
-		int m_nSize;
+		T[] m_array;
+		int m_size;
 		object m_syncRoot;
 
-		static readonly T[] s_aEmpty = new T[0];
+		static readonly T[] s_emptyArray = new T[0];
 	}
 }
