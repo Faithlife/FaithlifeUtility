@@ -20,23 +20,23 @@ namespace Faithlife.Utility
 		{
 			// check for null array
 			if (array == null)
-				throw new ArgumentNullException(nameof(array), OurMessages.ArgumentNull_Array);
+				throw new ArgumentNullException(nameof(array), "Array cannot be null.");
 
 			// check for multi-dimensional array
 			if (array.Rank != 1)
-				throw new ArgumentException(OurMessages.Argument_ArrayMultiDimensional, nameof(array));
+				throw new ArgumentException("Array must not be multi-dimensional.", nameof(array));
 
 			// check for array that isn't zero-based
 			if (array.GetLowerBound(0) != 0)
-				throw new ArgumentException(OurMessages.Argument_NonZeroLowerBound, nameof(array));
+				throw new ArgumentException("The lower bound of the target array must be zero.", nameof(array));
 
 			// check for negative index
 			if (index < 0)
-				throw new ArgumentOutOfRangeException(nameof(index), OurMessages.ArgumentOutOfRange_MustBeNonNegative);
+				throw new ArgumentOutOfRangeException(nameof(index), "The parameter must be a non-negative number.");
 
 			// check for more source elements than available destination space
 			if (array.Length - index < count)
-				throw new ArgumentException(OurMessages.Argument_ArrayIndexTooBig);
+				throw new ArgumentException("The number of elements in the source collection is greater than the available space in the destination array.");
 		}
 
 		/// <summary>

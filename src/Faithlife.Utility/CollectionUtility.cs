@@ -19,7 +19,7 @@ namespace Faithlife.Utility
 			if (collection == null)
 				throw new ArgumentNullException(nameof(collection));
 			if (collection.IsReadOnly)
-				throw new ArgumentException(OurMessages.Argument_CollectionReadOnly, nameof(collection));
+				throw new ArgumentException("The collection must not be read-only.", nameof(collection));
 			if (items == null)
 				throw new ArgumentNullException(nameof(items));
 

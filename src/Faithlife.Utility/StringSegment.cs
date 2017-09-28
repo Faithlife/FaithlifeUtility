@@ -284,7 +284,7 @@ namespace Faithlife.Utility
 		public StringSegment Intersect(StringSegment segment)
 		{
 			if (m_source != segment.m_source)
-				throw new ArgumentException(OurMessages.Argument_SegmentFromDifferentString, nameof(segment));
+				throw new ArgumentException("The specified segment is from a different string.", nameof(segment));
 			if (segment.m_offset >= m_offset + m_length)
 				return Redirect(segment.m_offset, 0);
 			if (segment.m_offset >= m_offset)
@@ -540,7 +540,7 @@ namespace Faithlife.Utility
 		public StringSegment Union(StringSegment segment)
 		{
 			if (m_source != segment.m_source)
-				throw new ArgumentException(OurMessages.Argument_SegmentFromDifferentString, nameof(segment));
+				throw new ArgumentException("The specified segment is from a different string.", nameof(segment));
 			int start = Math.Min(m_offset, segment.m_offset);
 			int end = Math.Max(m_offset + m_length, segment.m_offset + segment.m_length);
 			return Redirect(start, end - start);

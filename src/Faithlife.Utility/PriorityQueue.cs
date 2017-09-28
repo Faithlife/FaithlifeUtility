@@ -51,7 +51,7 @@ namespace Faithlife.Utility
 		public PriorityQueue(int capacity, IComparer<T> comparer)
 		{
 			if (capacity < 0)
-				throw new ArgumentOutOfRangeException(nameof(capacity), OurMessages.ArgumentOutOfRange_MustBeNonNegative);
+				throw new ArgumentOutOfRangeException(nameof(capacity), "The parameter must be a non-negative number.");
 
 			m_comparer = comparer ?? Comparer<T>.Default;
 			m_array = s_emptyArray;
@@ -74,7 +74,7 @@ namespace Faithlife.Utility
 			{
 				// check argument
 				if (value < m_size)
-					throw new ArgumentOutOfRangeException(nameof(value), OurMessages.ArgumentOutOfRange_SmallCapacity);
+					throw new ArgumentOutOfRangeException(nameof(value), "Capacity cannot be less than the current size.");
 
 				// set the capacity
 				SetCapacity(value);
@@ -90,7 +90,7 @@ namespace Faithlife.Utility
 		{
 			// check for empty queue
 			if (m_size == 0)
-				throw new InvalidOperationException(OurMessages.InvalidOperation_EmptyQueue);
+				throw new InvalidOperationException("The queue is empty.");
 
 			// remove the first item and return it
 			T item = m_array[0];
@@ -107,7 +107,7 @@ namespace Faithlife.Utility
 		{
 			// check for empty queue
 			if (m_size == 0)
-				throw new InvalidOperationException(OurMessages.InvalidOperation_EmptyQueue);
+				throw new InvalidOperationException("The queue is empty.");
 
 			// return the item at the top of the heap
 			return m_array[0];
@@ -167,7 +167,7 @@ namespace Faithlife.Utility
 		{
 			// check for empty queue
 			if (m_size == 0)
-				throw new InvalidOperationException(OurMessages.InvalidOperation_EmptyQueue);
+				throw new InvalidOperationException("The queue is empty.");
 
 			// restore the heap order
 			SiftDownHeap(0);
@@ -182,7 +182,7 @@ namespace Faithlife.Utility
 		{
 			// check for empty queue
 			if (m_size == 0)
-				throw new InvalidOperationException(OurMessages.InvalidOperation_EmptyQueue);
+				throw new InvalidOperationException("The queue is empty.");
 
 			// replace the head of the queue with the new item
 			m_array[0] = item;
@@ -211,7 +211,7 @@ namespace Faithlife.Utility
 			catch (InvalidCastException)
 			{
 				// convert exception thrown by Array.SetValue to the type that ICollection.CopyTo is expected to throw.
-				throw new ArgumentException(OurMessages.Argument_CannotCastToArray, nameof(array));
+				throw new ArgumentException("The type of the source collection cannot be cast automatically to the type of the destination array.", nameof(array));
 			}
 		}
 
