@@ -8,18 +8,6 @@ namespace Faithlife.Utility
 	public static class TimeSpanUtility
 	{
 		/// <summary>
-		/// Formats <paramref name="timeSpan"/> as a "friendly" string; the precision of the returned string (which is not culture-sensitive)
-		/// depends on the duration of the <see cref="TimeSpan"/>.
-		/// </summary>
-		/// <param name="timeSpan">The TimeSpan to render.</param>
-		/// <returns>A culture-invariant string with a "friendly" rendering of the TimeSpan.</returns>
-		[Obsolete("Use FormatForLogging instead.")]
-		public static string ToFriendlyString(TimeSpan timeSpan)
-		{
-			return TimeSpanUtility.FormatForLogging(timeSpan);
-		}
-
-		/// <summary>
 		/// Formats <paramref name="timeSpan"/> as a concise string suitable for logging; the precision of the returned
 		/// string (which is not culture-sensitive) depends on the duration of the <see cref="TimeSpan"/>.
 		/// </summary>
