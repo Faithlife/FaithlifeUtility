@@ -15,7 +15,7 @@ namespace Faithlife.Utility
 		public static UriBuilder AppendQuery(this UriBuilder builder, string query)
 		{
 			if (query == null)
-				throw new ArgumentNullException("query");
+				throw new ArgumentNullException(nameof(query));
 
 			if (query.Length > 0)
 			{
