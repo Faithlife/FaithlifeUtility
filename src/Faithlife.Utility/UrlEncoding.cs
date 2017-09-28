@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 
@@ -15,11 +14,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="value">The string to encode.</param>
 		/// <returns>The encoded string.</returns>
-		public static string Encode(string value)
-		{
-			// use default settings
-			return Encode(value, s_settingsDefault);
-		}
+		public static string Encode(string value) => Encode(value, s_settingsDefault);
 
 		/// <summary>
 		/// Encodes a string with the specified settings.
@@ -31,7 +26,7 @@ namespace Faithlife.Utility
 		{
 			// check arguments
 			if (settings == null)
-				throw new ArgumentNullException("settings");
+				throw new ArgumentNullException(nameof(settings));
 
 			// null encodes to null
 			if (value == null)
@@ -42,86 +37,86 @@ namespace Faithlife.Utility
 				return value;
 
 			// convert string to array of characters
-			char[] achChars = value.ToCharArray();
-			int nChars = achChars.Length;
+			char[] chars = value.ToCharArray();
+			int length = chars.Length;
 
 			// count characters that should be encoded and spaces
-			int nCharsToEncode = 0;
-			for (int nChar = 0; nChar < nChars; nChar++)
+			int charsToEncode = 0;
+			for (int index = 0; index < length; index++)
 			{
-				if (ShouldEncodeChar(settings, achChars, nChar))
-					nCharsToEncode++;
+				if (ShouldEncodeChar(settings, chars, index))
+					charsToEncode++;
 			}
 
 			// we're done if there are no characters to encode
-			if (nCharsToEncode == 0)
+			if (charsToEncode == 0)
 				return value;
 
 			// each byte becomes 3 characters
 			Encoding encoding = settings.TextEncoding;
-			char[] achOutput = new char[nChars + 3 * settings.TextEncoding.GetMaxByteCount(nCharsToEncode)];
-			int nOutputChar = 0;
+			char[] output = new char[length + 3 * settings.TextEncoding.GetMaxByteCount(charsToEncode)];
+			int outputChar = 0;
 
 			// walk characters
-			char? chEncodedSpaceChar = settings.EncodedSpaceChar;
-			char chEncodedBytePrefixChar = settings.EncodedBytePrefixChar;
-			int nEncodeStart = 0;
-			int nEncodeLength = 0;
-			for (int nChar = 0; nChar < nChars; nChar++)
+			char? encodedSpaceChar = settings.EncodedSpaceChar;
+			char encodedBytePrefixChar = settings.EncodedBytePrefixChar;
+			int encodeStart = 0;
+			int encodeLength = 0;
+			for (int index = 0; index < length; index++)
 			{
 				// determine if character needs to be encoded
-				bool bShouldEncode = ShouldEncodeChar(settings, achChars, nChar);
-				bool bEncodedSpaceChar = bShouldEncode && achChars[nChar] == ' ' && chEncodedSpaceChar.HasValue;
+				bool shouldEncode = ShouldEncodeChar(settings, chars, index);
+				bool encodingSpaceChar = shouldEncode && chars[index] == ' ' && encodedSpaceChar.HasValue;
 
 				// determine if the next character doesn't need text encoding
-				if (!bShouldEncode || bEncodedSpaceChar)
+				if (!shouldEncode || encodingSpaceChar)
 				{
 					// encode any characters that needed text encoding
-					if (nEncodeLength != 0)
+					if (encodeLength != 0)
 					{
-						foreach (byte by in encoding.GetBytes(achChars, nEncodeStart, nEncodeLength))
+						foreach (byte by in encoding.GetBytes(chars, encodeStart, encodeLength))
 						{
-							achOutput[nOutputChar++] = chEncodedBytePrefixChar;
-							achOutput[nOutputChar++] = HexChar((by >> 4) & 0xf, settings);
-							achOutput[nOutputChar++] = HexChar(by & 0xf, settings);
+							output[outputChar++] = encodedBytePrefixChar;
+							output[outputChar++] = HexChar((by >> 4) & 0xf, settings);
+							output[outputChar++] = HexChar(by & 0xf, settings);
 						}
 
-						nEncodeLength = 0;
+						encodeLength = 0;
 					}
 				}
 
-				if (bEncodedSpaceChar)
+				if (encodingSpaceChar)
 				{
 					// encode space character directly
-					achOutput[nOutputChar++] = chEncodedSpaceChar.Value;
+					output[outputChar++] = encodedSpaceChar.Value;
 				}
-				else if (bShouldEncode)
+				else if (shouldEncode)
 				{
 					// start run of characters that need to be encoded
-					if (nEncodeLength == 0)
-						nEncodeStart = nChar;
-					nEncodeLength++;
+					if (encodeLength == 0)
+						encodeStart = index;
+					encodeLength++;
 				}
 				else
 				{
 					// copy character to destination
-					achOutput[nOutputChar++] = achChars[nChar];
+					output[outputChar++] = chars[index];
 				}
 			}
 
 			// encode any characters that needed text encoding
-			if (nEncodeLength != 0)
+			if (encodeLength != 0)
 			{
-				foreach (byte by in encoding.GetBytes(achChars, nEncodeStart, nEncodeLength))
+				foreach (byte by in encoding.GetBytes(chars, encodeStart, encodeLength))
 				{
-					achOutput[nOutputChar++] = chEncodedBytePrefixChar;
-					achOutput[nOutputChar++] = HexChar((by >> 4) & 0xf, settings);
-					achOutput[nOutputChar++] = HexChar(by & 0xf, settings);
+					output[outputChar++] = encodedBytePrefixChar;
+					output[outputChar++] = HexChar((by >> 4) & 0xf, settings);
+					output[outputChar++] = HexChar(by & 0xf, settings);
 				}
 			}
 
 			// create new string from array of characters
-			return new string(achOutput, 0, nOutputChar);
+			return new string(output, 0, outputChar);
 		}
 
 		/// <summary>
@@ -129,10 +124,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="value">The string to be decoded.</param>
 		/// <returns>The decoded string.</returns>
-		public static string Decode(string value)
-		{
-			return Decode(value, s_settingsDefault);
-		}
+		public static string Decode(string value) => Decode(value, s_settingsDefault);
 
 		/// <summary>
 		/// Decodes a string with the specified settings.
@@ -144,7 +136,7 @@ namespace Faithlife.Utility
 		{
 			// check arguments
 			if (settings == null)
-				throw new ArgumentNullException("settings");
+				throw new ArgumentNullException(nameof(settings));
 
 			// null decodes to null
 			if (value == null)
@@ -239,9 +231,9 @@ namespace Faithlife.Utility
 			return (char) (n < 10 ? n + '0' : n - 10 + (settings.UppercaseHexDigits ? 'A' : 'a'));
 		}
 
-		private static bool ShouldEncodeChar(UrlEncodingSettings settings, char[] achChars, int nChar)
+		private static bool ShouldEncodeChar(UrlEncodingSettings settings, char[] chars, int index)
 		{
-			char ch = achChars[nChar];
+			char ch = chars[index];
 
 			// the char should be encoded if the user-supplied function indicates it should
 			if (settings.ShouldEncodeChar(ch))
@@ -257,7 +249,7 @@ namespace Faithlife.Utility
 
 			// the char should be encoded if it's the char used to encode other characters
 			return ch == settings.EncodedBytePrefixChar &&
-				!(settings.PreventDoubleEncoding && nChar + 2 < achChars.Length && IsCharHex(achChars[nChar + 1]) && IsCharHex(achChars[nChar + 2]));
+				!(settings.PreventDoubleEncoding && index + 2 < chars.Length && IsCharHex(chars[index + 1]) && IsCharHex(chars[index + 2]));
 		}
 
 		static readonly UrlEncodingSettings s_settingsDefault = new UrlEncodingSettings();
