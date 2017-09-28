@@ -5,7 +5,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Reflection;
 using JetBrains.Annotations;
 
@@ -17,328 +16,44 @@ namespace Faithlife.Utility
 	public static class StringUtility
 	{
 		/// <summary>
-		/// Returns true if the string is null or empty.
-		/// </summary>
-		/// <param name="value">The string.</param>
-		/// <returns>True if the string is null or empty.</returns>
-		public static bool IsNullOrEmpty(this string value)
-		{
-			return string.IsNullOrEmpty(value);
-		}
-
-		/// <summary>
-		/// Returns true if the string is <c>null</c>, empty, or consists only of white-space characters.
-		/// </summary>
-		/// <param name="value"></param>
-		/// <returns></returns>
-		public static bool IsNullOrWhiteSpace(this string value)
-		{
-			return string.IsNullOrWhiteSpace(value);
-		}
-
-		/// <summary>
-		/// Compare the two strings for similarity
-		/// </summary>
-		/// <param name="left">The left string.</param>
-		/// <param name="right">The right string.</param>
-		/// <returns>The percentage that they are similar.</returns>
-		public static int CalculateSimilarity(string left, string right)
-		{
-			if (left == null)
-				throw new ArgumentNullException("left");
-			if (right == null)
-				throw new ArgumentNullException("right");
-			return CalculateSimilarity(left, 0, left.Length, right, 0, right.Length);
-		}
-
-		/// <summary>
-		/// Compare the two strings for similarity
-		/// </summary>
-		/// <param name="left">The left string.</param>
-		/// <param name="startLeft">The start index of the left.</param>
-		/// <param name="lengthLeft">The length of the left.</param>
-		/// <param name="right">The right string.</param>
-		/// <param name="startRight">The start index of the right.</param>
-		/// <param name="lengthRight">The length of the right.</param>
-		/// <returns>The percentage that they are similar.</returns>
-		public static int CalculateSimilarity(string left, int startLeft, int lengthLeft, string right, int startRight, int lengthRight)
-		{
-			if (left == null)
-				throw new ArgumentNullException("left");
-			if (right == null)
-				throw new ArgumentNullException("right");
-			if (startLeft < 0)
-				throw new ArgumentOutOfRangeException("startLeft");
-			if (startRight < 0)
-				throw new ArgumentOutOfRangeException("startRight");
-			if (startLeft + lengthLeft > left.Length)
-				throw new ArgumentOutOfRangeException("lengthLeft");
-			if (startRight + lengthRight > right.Length)
-				throw new ArgumentOutOfRangeException("lengthRight");
-
-			{
-				StringSegment s1 = new StringSegment(left, startLeft, lengthLeft);
-				StringSegment s2 = new StringSegment(right, startRight, lengthRight);
-
-				List<int> st_left1 = new List<int>();
-				List<int> st_right1 = new List<int>();
-				List<int> st_left2 = new List<int>();
-				List<int> st_right2 = new List<int>();
-
-				int iTop = 0;
-				int i = 0;
-				int j = 0;
-
-				// count of equal chars
-				int nScore = 0;
-
-				// max index to examine in first string
-				int iEnd1 = lengthLeft - 1;
-				int iEnd2 = lengthRight - 1;
-
-				st_left1.Add(0);
-				st_right1.Add(iEnd1);
-				st_left2.Add(0);
-				st_right2.Add(iEnd2);
-
-				// first free element location
-				iTop = 1;
-
-				do
-				{
-					iTop--;
-					int iL1 = st_left1[iTop];
-					int iR1 = st_right1[iTop];
-					int iL2 = st_left2[iTop];
-					int iR2 = st_right2[iTop];
-
-					int nCount = 0;
-
-					int nMaxCount = 0;
-
-					int iStart1 = 0;
-					int iStart2 = 0;
-
-					int iMaxStart1 = -1;
-					int iMaxStart2 = -1;
-
-					for (i = iL1; i <= iR1; i++)
-					{
-						j = iL2;
-						while (j <= iR2)
-						{
-							if (s1[i] == s2[j])
-							{
-								iStart1 = i;
-								iStart2 = j;
-
-								int tmpi = i;
-								while (s1[tmpi] == s2[j])
-								{
-									tmpi++;
-									j++;
-									if (tmpi > iR1)
-										break;
-									if (j > iR2)
-										break;
-								}
-
-								nCount = tmpi - iStart1; /* at least 1 */
-
-								if (nCount > nMaxCount)
-								{
-									iMaxStart1 = iStart1;
-									iMaxStart2 = iStart2;
-									nMaxCount = nCount;
-								}
-
-								j--;  /* so the j++ below doesn't go past the first char
-				   						after the match we've just looked at. */
-							}
-
-							j++;
-						}
-					}
-
-					// found a substring, so we recurse
-					if (nMaxCount > 0)
-					{
-						nScore += nMaxCount << 1;
-
-						if (iMaxStart1 != iL1 && iMaxStart2 != iL2)
-						{
-							// add stack entry for left substring
-							// add a new element, if necessary
-							if (iTop >= st_left1.Count)
-							{
-								st_left1.Add(0);
-								st_right1.Add(0);
-								st_left2.Add(0);
-								st_right2.Add(0);
-							}
-
-							st_left1[iTop] = iL1;
-							st_right1[iTop] = iMaxStart1 - 1;
-							st_left2[iTop] = iL2;
-							st_right2[iTop] = iMaxStart2 - 1;
-							iTop++;
-#if false
-							printf("on `");
-							print_range(s1, iL1, iR1);
-							printf("' and `");
-							print_range(s2, iL2, iR2);
-
-							printf("'\n adding substrings on left:\n");
-							printf("  1: [%d -> %d]: ", iL1, iMaxStart1-1);
-							print_range(s1, iL1, iMaxStart1-1);
-							printf("\n  2: [%d -> %d]: ", iL2, iMaxStart2-1);
-							print_range(s2, iL2, iMaxStart2-1);
-							printf("\n");
-#endif
-						}
-
-						int iNewR1 = iMaxStart1 + nMaxCount - 1;
-						int iNewR2 = iMaxStart2 + nMaxCount - 1;
-
-						if (iNewR1 < iR1 && iNewR2 < iR2)
-						{
-							/* add stack entry for right substring */
-							if (iTop >= st_left1.Count)
-							{
-								st_left1.Add(0);
-								st_right1.Add(0);
-								st_left2.Add(0);
-								st_right2.Add(0);
-							}
-							st_left1[iTop] = iNewR1 + 1;
-							st_right1[iTop] = iR1;
-							st_left2[iTop] = iNewR2 + 1;
-							st_right2[iTop] = iR2;
-							iTop++;
-
-#if false
-							printf("on `");
-							print_range(s1, iL1, iR1);
-							printf("' and `");
-							print_range(s2, iL2, iR2);
-
-							printf("'\n adding substrings on right:\n");
-							printf("  1: [%d -> %d]: ", iNewR1+1, iR1);
-							print_range(s1, iNewR1+1, iR1);
-							printf("\n  2: [%d -> %d]: ", iNewR2+1, iR2);
-							print_range(s2, iNewR2+1, iR2);
-							printf("\n");
-#endif
-						}
-					}
-					else
-					{
-#if false
-						printf("found no substrings in `");
-						print_range(s1, iL1, iR1);
-						printf("' or in `");
-						print_range(s2, iL2, iR2);
-						printf("'\n");
-#endif
-					}
-				}
-				while (iTop != 0);
-
-				int nTotalLen = lengthLeft + lengthRight;
-
-				// prevent division by zero -- two empty strings are identical
-				return nTotalLen > 0 ? (100 * nScore + ((nTotalLen + 1) / 2)) / nTotalLen : 100;
-			}
-		}
-
-		/// <summary>
-		/// Determines whether a string ends with the specified character.
-		/// </summary>
-		/// <param name="source">The string.</param>
-		/// <param name="value">The character.</param>
-		/// <returns><c>true</c> if the last character in the string is <paramref name="value"/>; <c>false</c> otherwise.</returns>
-		public static bool EndsWith(this string source, char value)
-		{
-			int length = source.Length;
-			return length != 0 && source[length - 1] == value;
-		}
-
-		/// <summary>
 		/// Calls string.StartsWith with StringComparison.Ordinal.
 		/// </summary>
-		public static bool StartsWithOrdinal(this string source, string value)
-		{
-			return source.StartsWith(value, StringComparison.Ordinal);
-		}
+		public static bool StartsWithOrdinal(this string source, string value) => source.StartsWith(value, StringComparison.Ordinal);
 
 		/// <summary>
 		/// Calls string.EndsWith with StringComparison.Ordinal.
 		/// </summary>
-		public static bool EndsWithOrdinal(this string source, string value)
-		{
-			return source.EndsWith(value, StringComparison.Ordinal);
-		}
-
-		/// <summary>
-		/// Determines whether the beginning of this string instance matches the specified string when compared using the specified culture.
-		/// </summary>
-		/// <param name="source">The string.</param>
-		/// <param name="prefix">The string to compare.</param>
-		/// <param name="ignoreCase"><c>true</c> to ignore case during the comparison; otherwise, <c>false</c>.</param>
-		/// <param name="cultureInfo">Cultural information that determines how this string and value are compared. If culture is <c>null</c>, the current culture is used.</param>
-		/// <returns><c>true</c>, if the value parameter matches the beginning of this string; otherwise, <c>false</c>.</returns>
-		public static bool StartsWith(this string source, string prefix, bool ignoreCase, CultureInfo cultureInfo)
-		{
-			return source.StartsWith(prefix, ignoreCase, cultureInfo);
-		}
+		public static bool EndsWithOrdinal(this string source, string value) => source.EndsWith(value, StringComparison.Ordinal);
 
 		/// <summary>
 		/// Calls string.IndexOf with StringComparison.Ordinal.
 		/// </summary>
-		public static int IndexOfOrdinal(this string source, string value)
-		{
-			return source.IndexOf(value, StringComparison.Ordinal);
-		}
+		public static int IndexOfOrdinal(this string source, string value) => source.IndexOf(value, StringComparison.Ordinal);
 
 		/// <summary>
 		/// Calls string.IndexOf with StringComparison.Ordinal.
 		/// </summary>
-		public static int IndexOfOrdinal(this string source, string value, int startIndex)
-		{
-			return source.IndexOf(value, startIndex, StringComparison.Ordinal);
-		}
+		public static int IndexOfOrdinal(this string source, string value, int startIndex) => source.IndexOf(value, startIndex, StringComparison.Ordinal);
 
 		/// <summary>
 		/// Calls string.IndexOf with StringComparison.Ordinal.
 		/// </summary>
-		public static int IndexOfOrdinal(this string source, string value, int startIndex, int count)
-		{
-			return source.IndexOf(value, startIndex, count, StringComparison.Ordinal);
-		}
+		public static int IndexOfOrdinal(this string source, string value, int startIndex, int count) => source.IndexOf(value, startIndex, count, StringComparison.Ordinal);
 
 		/// <summary>
 		/// Calls string.LastIndexOf with StringComparison.Ordinal.
 		/// </summary>
-		public static int LastIndexOfOrdinal(this string source, string value)
-		{
-			return source.LastIndexOf(value, StringComparison.Ordinal);
-		}
+		public static int LastIndexOfOrdinal(this string source, string value) => source.LastIndexOf(value, StringComparison.Ordinal);
 
 		/// <summary>
 		/// Calls string.LastIndexOf with StringComparison.Ordinal.
 		/// </summary>
-		public static int LastIndexOfOrdinal(this string source, string value, int startIndex)
-		{
-			return source.LastIndexOf(value, startIndex, StringComparison.Ordinal);
-		}
+		public static int LastIndexOfOrdinal(this string source, string value, int startIndex) => source.LastIndexOf(value, startIndex, StringComparison.Ordinal);
 
 		/// <summary>
 		/// Calls string.LastIndexOf with StringComparison.Ordinal.
 		/// </summary>
-		public static int LastIndexOfOrdinal(this string source, string value, int startIndex, int count)
-		{
-			return source.LastIndexOf(value, startIndex, count, StringComparison.Ordinal);
-		}
+		public static int LastIndexOfOrdinal(this string source, string value, int startIndex, int count) => source.LastIndexOf(value, startIndex, count, StringComparison.Ordinal);
 
 		/// <summary>
 		/// Compares two specified <see cref="String"/> objects by comparing successive Unicode code points. This method differs from
@@ -360,58 +75,23 @@ namespace Faithlife.Utility
 				return 1;
 
 			// get the length of both strings
-			int nLeftLength = left.Length;
-			int nRightLength = right.Length;
+			int leftLength = left.Length;
+			int rightLength = right.Length;
 
 			// compare at most the number of characters the strings have in common
-			int nMaxIndex = Math.Min(nLeftLength, nRightLength);
-			for (int nIndex = 0; nIndex < nMaxIndex; nIndex++)
+			int maxIndex = Math.Min(leftLength, rightLength);
+			for (int index = 0; index < maxIndex; index++)
 			{
-				char chLeft = left[nIndex];
-				char chRight = right[nIndex];
+				char leftChar = left[index];
+				char rightChar = right[index];
 
 				// algorithm from the Unicode Standard 5.0, Section 5.17 (Binary Order), page 183
-				if (chLeft != chRight)
-					return unchecked((char) (chLeft + s_mapUtf16FixUp[chLeft >> 11]) - (char) (chRight + s_mapUtf16FixUp[chRight >> 11]));
+				if (leftChar != rightChar)
+					return unchecked((char) (leftChar + s_mapUtf16FixUp[leftChar >> 11]) - (char) (rightChar + s_mapUtf16FixUp[rightChar >> 11]));
 			}
 
 			// the shorter string (if any) is less than the other
-			return nLeftLength - nRightLength;
-		}
-
-		/// <summary>
-		/// Compares two specified <see cref="String"/> objects, ignoring or honoring their case, and using culture-specific information
-		/// to influence the comparison, and returns an integer that indicates their relative position in the sort order.
-		/// </summary>
-		/// <param name="left">The first string to compare.</param>
-		/// <param name="right">The second string to compare.</param>
-		/// <param name="ignoreCase"><c>true</c> to ignore case during the comparison; otherwise, <c>false</c>.</param>
-		/// <param name="cultureInfo">An object that supplies culture-specific comparison information.</param>
-		/// <returns>A 32-bit signed integer that indicates the lexical relationship between the two comparands.</returns>
-		public static int Compare(string left, string right, bool ignoreCase, CultureInfo cultureInfo)
-		{
-			if (cultureInfo == null)
-				throw new ArgumentNullException("cultureInfo");
-			return cultureInfo.CompareInfo.Compare(left, right, ignoreCase ? CompareOptions.IgnoreCase : CompareOptions.None);
-		}
-
-		/// <summary>
-		/// Compares two specified <see cref="String"/> objects, ignoring or honoring their case, and using culture-specific information
-		/// to influence the comparison, and returns an integer that indicates their relative position in the sort order.
-		/// </summary>
-		/// <param name="left">The first string to compare.</param>
-		/// <param name="offsetLeft">The position of the substring within <paramref name="left"/>.</param>
-		/// <param name="right">The second string to compare.</param>
-		/// <param name="offsetRight">The position of the substring within <paramref name="right"/>.</param>
-		/// <param name="length">The maximum number of characters in the substrings to compare.</param>
-		/// <param name="ignoreCase"><c>true</c> to ignore case during the comparison; otherwise, <c>false</c>.</param>
-		/// <param name="cultureInfo">An object that supplies culture-specific comparison information.</param>
-		/// <returns>A 32-bit signed integer that indicates the lexical relationship between the two comparands.</returns>
-		public static int Compare(string left, int offsetLeft, string right, int offsetRight, int length, bool ignoreCase, CultureInfo cultureInfo)
-		{
-			if (cultureInfo == null)
-				throw new ArgumentNullException("cultureInfo");
-			return cultureInfo.CompareInfo.Compare(left, offsetLeft, length, right, offsetRight, length, ignoreCase ? CompareOptions.IgnoreCase : CompareOptions.None);
+			return leftLength - rightLength;
 		}
 
 		/// <summary>
@@ -453,498 +133,498 @@ namespace Faithlife.Utility
 		{
 			// check parameters
 			if (value == null)
-				throw new ArgumentNullException("value");
+				throw new ArgumentNullException(nameof(value));
 
 			// process each character in the input string
 			StringBuilder sb = new StringBuilder();
-			foreach (char nCodeUnit in value)
+			foreach (char codeUnit in value)
 			{
-				if (nCodeUnit < 0x100)
+				if (codeUnit < 0x100)
 				{
-					if (nCodeUnit >= 0x0041 && nCodeUnit <= 0x005a)
-						sb.Append((char) (nCodeUnit + 32));
-					else if (nCodeUnit == 0x00b5)
+					if (codeUnit >= 0x0041 && codeUnit <= 0x005a)
+						sb.Append((char) (codeUnit + 32));
+					else if (codeUnit == 0x00b5)
 						sb.Append('\u03bc');
-					else if (nCodeUnit >= 0x00c0 && nCodeUnit <= 0x00d6)
-						sb.Append((char) (nCodeUnit + 32));
-					else if (nCodeUnit >= 0x00d8 && nCodeUnit <= 0x00de)
-						sb.Append((char) (nCodeUnit + 32));
-					else if (nCodeUnit == 0x00df)
+					else if (codeUnit >= 0x00c0 && codeUnit <= 0x00d6)
+						sb.Append((char) (codeUnit + 32));
+					else if (codeUnit >= 0x00d8 && codeUnit <= 0x00de)
+						sb.Append((char) (codeUnit + 32));
+					else if (codeUnit == 0x00df)
 						sb.Append("\u0073\u0073");
 					else
-						sb.Append(nCodeUnit);
+						sb.Append(codeUnit);
 				}
-				else if (nCodeUnit < 0x590)
+				else if (codeUnit < 0x590)
 				{
-					if (nCodeUnit >= 0x0100 && nCodeUnit <= 0x012e && nCodeUnit % 2 == 0)
-						sb.Append((char) (nCodeUnit + 1));
-					else if (nCodeUnit == 0x0130)
+					if (codeUnit >= 0x0100 && codeUnit <= 0x012e && codeUnit % 2 == 0)
+						sb.Append((char) (codeUnit + 1));
+					else if (codeUnit == 0x0130)
 						sb.Append("\u0069\u0307");
-					else if (nCodeUnit >= 0x0132 && nCodeUnit <= 0x0136 && nCodeUnit % 2 == 0)
-						sb.Append((char) (nCodeUnit + 1));
-					else if (nCodeUnit >= 0x0139 && nCodeUnit <= 0x0147 && nCodeUnit % 2 == 1)
-						sb.Append((char) (nCodeUnit + 1));
-					else if (nCodeUnit == 0x0149)
+					else if (codeUnit >= 0x0132 && codeUnit <= 0x0136 && codeUnit % 2 == 0)
+						sb.Append((char) (codeUnit + 1));
+					else if (codeUnit >= 0x0139 && codeUnit <= 0x0147 && codeUnit % 2 == 1)
+						sb.Append((char) (codeUnit + 1));
+					else if (codeUnit == 0x0149)
 						sb.Append("\u02bc\u006e");
-					else if (nCodeUnit >= 0x014a && nCodeUnit <= 0x0176 && nCodeUnit % 2 == 0)
-						sb.Append((char) (nCodeUnit + 1));
-					else if (nCodeUnit == 0x0178)
+					else if (codeUnit >= 0x014a && codeUnit <= 0x0176 && codeUnit % 2 == 0)
+						sb.Append((char) (codeUnit + 1));
+					else if (codeUnit == 0x0178)
 						sb.Append('\u00ff');
-					else if (nCodeUnit >= 0x0179 && nCodeUnit <= 0x017d && nCodeUnit % 2 == 1)
-						sb.Append((char) (nCodeUnit + 1));
-					else if (nCodeUnit == 0x017f)
+					else if (codeUnit >= 0x0179 && codeUnit <= 0x017d && codeUnit % 2 == 1)
+						sb.Append((char) (codeUnit + 1));
+					else if (codeUnit == 0x017f)
 						sb.Append('\u0073');
-					else if (nCodeUnit == 0x0181)
+					else if (codeUnit == 0x0181)
 						sb.Append('\u0253');
-					else if (nCodeUnit >= 0x0182 && nCodeUnit <= 0x0184 && nCodeUnit % 2 == 0)
-						sb.Append((char) (nCodeUnit + 1));
-					else if (nCodeUnit == 0x0186)
+					else if (codeUnit >= 0x0182 && codeUnit <= 0x0184 && codeUnit % 2 == 0)
+						sb.Append((char) (codeUnit + 1));
+					else if (codeUnit == 0x0186)
 						sb.Append('\u0254');
-					else if (nCodeUnit == 0x0187)
+					else if (codeUnit == 0x0187)
 						sb.Append('\u0188');
-					else if (nCodeUnit >= 0x0189 && nCodeUnit <= 0x018a)
-						sb.Append((char) (nCodeUnit + 205));
-					else if (nCodeUnit == 0x018b)
+					else if (codeUnit >= 0x0189 && codeUnit <= 0x018a)
+						sb.Append((char) (codeUnit + 205));
+					else if (codeUnit == 0x018b)
 						sb.Append('\u018c');
-					else if (nCodeUnit == 0x018e)
+					else if (codeUnit == 0x018e)
 						sb.Append('\u01dd');
-					else if (nCodeUnit == 0x018f)
+					else if (codeUnit == 0x018f)
 						sb.Append('\u0259');
-					else if (nCodeUnit == 0x0190)
+					else if (codeUnit == 0x0190)
 						sb.Append('\u025b');
-					else if (nCodeUnit == 0x0191)
+					else if (codeUnit == 0x0191)
 						sb.Append('\u0192');
-					else if (nCodeUnit == 0x0193)
+					else if (codeUnit == 0x0193)
 						sb.Append('\u0260');
-					else if (nCodeUnit == 0x0194)
+					else if (codeUnit == 0x0194)
 						sb.Append('\u0263');
-					else if (nCodeUnit == 0x0196)
+					else if (codeUnit == 0x0196)
 						sb.Append('\u0269');
-					else if (nCodeUnit == 0x0197)
+					else if (codeUnit == 0x0197)
 						sb.Append('\u0268');
-					else if (nCodeUnit == 0x0198)
+					else if (codeUnit == 0x0198)
 						sb.Append('\u0199');
-					else if (nCodeUnit == 0x019c)
+					else if (codeUnit == 0x019c)
 						sb.Append('\u026f');
-					else if (nCodeUnit == 0x019d)
+					else if (codeUnit == 0x019d)
 						sb.Append('\u0272');
-					else if (nCodeUnit == 0x019f)
+					else if (codeUnit == 0x019f)
 						sb.Append('\u0275');
-					else if (nCodeUnit >= 0x01a0 && nCodeUnit <= 0x01a4 && nCodeUnit % 2 == 0)
-						sb.Append((char) (nCodeUnit + 1));
-					else if (nCodeUnit == 0x01a6)
+					else if (codeUnit >= 0x01a0 && codeUnit <= 0x01a4 && codeUnit % 2 == 0)
+						sb.Append((char) (codeUnit + 1));
+					else if (codeUnit == 0x01a6)
 						sb.Append('\u0280');
-					else if (nCodeUnit == 0x01a7)
+					else if (codeUnit == 0x01a7)
 						sb.Append('\u01a8');
-					else if (nCodeUnit == 0x01a9)
+					else if (codeUnit == 0x01a9)
 						sb.Append('\u0283');
-					else if (nCodeUnit == 0x01ac)
+					else if (codeUnit == 0x01ac)
 						sb.Append('\u01ad');
-					else if (nCodeUnit == 0x01ae)
+					else if (codeUnit == 0x01ae)
 						sb.Append('\u0288');
-					else if (nCodeUnit == 0x01af)
+					else if (codeUnit == 0x01af)
 						sb.Append('\u01b0');
-					else if (nCodeUnit >= 0x01b1 && nCodeUnit <= 0x01b2)
-						sb.Append((char) (nCodeUnit + 217));
-					else if (nCodeUnit >= 0x01b3 && nCodeUnit <= 0x01b5 && nCodeUnit % 2 == 1)
-						sb.Append((char) (nCodeUnit + 1));
-					else if (nCodeUnit == 0x01b7)
+					else if (codeUnit >= 0x01b1 && codeUnit <= 0x01b2)
+						sb.Append((char) (codeUnit + 217));
+					else if (codeUnit >= 0x01b3 && codeUnit <= 0x01b5 && codeUnit % 2 == 1)
+						sb.Append((char) (codeUnit + 1));
+					else if (codeUnit == 0x01b7)
 						sb.Append('\u0292');
-					else if (nCodeUnit >= 0x01b8 && nCodeUnit <= 0x01bc && nCodeUnit % 4 == 0)
-						sb.Append((char) (nCodeUnit + 1));
-					else if (nCodeUnit == 0x01c4)
+					else if (codeUnit >= 0x01b8 && codeUnit <= 0x01bc && codeUnit % 4 == 0)
+						sb.Append((char) (codeUnit + 1));
+					else if (codeUnit == 0x01c4)
 						sb.Append('\u01c6');
-					else if (nCodeUnit == 0x01c5)
+					else if (codeUnit == 0x01c5)
 						sb.Append('\u01c6');
-					else if (nCodeUnit == 0x01c7)
+					else if (codeUnit == 0x01c7)
 						sb.Append('\u01c9');
-					else if (nCodeUnit == 0x01c8)
+					else if (codeUnit == 0x01c8)
 						sb.Append('\u01c9');
-					else if (nCodeUnit == 0x01ca)
+					else if (codeUnit == 0x01ca)
 						sb.Append('\u01cc');
-					else if (nCodeUnit >= 0x01cb && nCodeUnit <= 0x01db && nCodeUnit % 2 == 1)
-						sb.Append((char) (nCodeUnit + 1));
-					else if (nCodeUnit >= 0x01de && nCodeUnit <= 0x01ee && nCodeUnit % 2 == 0)
-						sb.Append((char) (nCodeUnit + 1));
-					else if (nCodeUnit == 0x01f0)
+					else if (codeUnit >= 0x01cb && codeUnit <= 0x01db && codeUnit % 2 == 1)
+						sb.Append((char) (codeUnit + 1));
+					else if (codeUnit >= 0x01de && codeUnit <= 0x01ee && codeUnit % 2 == 0)
+						sb.Append((char) (codeUnit + 1));
+					else if (codeUnit == 0x01f0)
 						sb.Append("\u006a\u030c");
-					else if (nCodeUnit == 0x01f1)
+					else if (codeUnit == 0x01f1)
 						sb.Append('\u01f3');
-					else if (nCodeUnit >= 0x01f2 && nCodeUnit <= 0x01f4 && nCodeUnit % 2 == 0)
-						sb.Append((char) (nCodeUnit + 1));
-					else if (nCodeUnit == 0x01f6)
+					else if (codeUnit >= 0x01f2 && codeUnit <= 0x01f4 && codeUnit % 2 == 0)
+						sb.Append((char) (codeUnit + 1));
+					else if (codeUnit == 0x01f6)
 						sb.Append('\u0195');
-					else if (nCodeUnit == 0x01f7)
+					else if (codeUnit == 0x01f7)
 						sb.Append('\u01bf');
-					else if (nCodeUnit >= 0x01f8 && nCodeUnit <= 0x021e && nCodeUnit % 2 == 0)
-						sb.Append((char) (nCodeUnit + 1));
-					else if (nCodeUnit == 0x0220)
+					else if (codeUnit >= 0x01f8 && codeUnit <= 0x021e && codeUnit % 2 == 0)
+						sb.Append((char) (codeUnit + 1));
+					else if (codeUnit == 0x0220)
 						sb.Append('\u019e');
-					else if (nCodeUnit >= 0x0222 && nCodeUnit <= 0x0232 && nCodeUnit % 2 == 0)
-						sb.Append((char) (nCodeUnit + 1));
-					else if (nCodeUnit == 0x023a)
+					else if (codeUnit >= 0x0222 && codeUnit <= 0x0232 && codeUnit % 2 == 0)
+						sb.Append((char) (codeUnit + 1));
+					else if (codeUnit == 0x023a)
 						sb.Append('\u2c65');
-					else if (nCodeUnit == 0x023b)
+					else if (codeUnit == 0x023b)
 						sb.Append('\u023c');
-					else if (nCodeUnit == 0x023d)
+					else if (codeUnit == 0x023d)
 						sb.Append('\u019a');
-					else if (nCodeUnit == 0x023e)
+					else if (codeUnit == 0x023e)
 						sb.Append('\u2c66');
-					else if (nCodeUnit == 0x0241)
+					else if (codeUnit == 0x0241)
 						sb.Append('\u0242');
-					else if (nCodeUnit == 0x0243)
+					else if (codeUnit == 0x0243)
 						sb.Append('\u0180');
-					else if (nCodeUnit == 0x0244)
+					else if (codeUnit == 0x0244)
 						sb.Append('\u0289');
-					else if (nCodeUnit == 0x0245)
+					else if (codeUnit == 0x0245)
 						sb.Append('\u028c');
-					else if (nCodeUnit >= 0x0246 && nCodeUnit <= 0x024e && nCodeUnit % 2 == 0)
-						sb.Append((char) (nCodeUnit + 1));
-					else if (nCodeUnit == 0x0345)
+					else if (codeUnit >= 0x0246 && codeUnit <= 0x024e && codeUnit % 2 == 0)
+						sb.Append((char) (codeUnit + 1));
+					else if (codeUnit == 0x0345)
 						sb.Append('\u03b9');
-					else if (nCodeUnit == 0x0386)
+					else if (codeUnit == 0x0386)
 						sb.Append('\u03ac');
-					else if (nCodeUnit >= 0x0388 && nCodeUnit <= 0x038a)
-						sb.Append((char) (nCodeUnit + 37));
-					else if (nCodeUnit == 0x038c)
+					else if (codeUnit >= 0x0388 && codeUnit <= 0x038a)
+						sb.Append((char) (codeUnit + 37));
+					else if (codeUnit == 0x038c)
 						sb.Append('\u03cc');
-					else if (nCodeUnit >= 0x038e && nCodeUnit <= 0x038f)
-						sb.Append((char) (nCodeUnit + 63));
-					else if (nCodeUnit == 0x0390)
+					else if (codeUnit >= 0x038e && codeUnit <= 0x038f)
+						sb.Append((char) (codeUnit + 63));
+					else if (codeUnit == 0x0390)
 						sb.Append("\u03b9\u0308\u0301");
-					else if (nCodeUnit >= 0x0391 && nCodeUnit <= 0x03a1)
-						sb.Append((char) (nCodeUnit + 32));
-					else if (nCodeUnit >= 0x03a3 && nCodeUnit <= 0x03ab)
-						sb.Append((char) (nCodeUnit + 32));
-					else if (nCodeUnit == 0x03b0)
+					else if (codeUnit >= 0x0391 && codeUnit <= 0x03a1)
+						sb.Append((char) (codeUnit + 32));
+					else if (codeUnit >= 0x03a3 && codeUnit <= 0x03ab)
+						sb.Append((char) (codeUnit + 32));
+					else if (codeUnit == 0x03b0)
 						sb.Append("\u03c5\u0308\u0301");
-					else if (nCodeUnit == 0x03c2)
+					else if (codeUnit == 0x03c2)
 						sb.Append('\u03c3');
-					else if (nCodeUnit == 0x03d0)
+					else if (codeUnit == 0x03d0)
 						sb.Append('\u03b2');
-					else if (nCodeUnit == 0x03d1)
+					else if (codeUnit == 0x03d1)
 						sb.Append('\u03b8');
-					else if (nCodeUnit == 0x03d5)
+					else if (codeUnit == 0x03d5)
 						sb.Append('\u03c6');
-					else if (nCodeUnit == 0x03d6)
+					else if (codeUnit == 0x03d6)
 						sb.Append('\u03c0');
-					else if (nCodeUnit >= 0x03d8 && nCodeUnit <= 0x03ee && nCodeUnit % 2 == 0)
-						sb.Append((char) (nCodeUnit + 1));
-					else if (nCodeUnit == 0x03f0)
+					else if (codeUnit >= 0x03d8 && codeUnit <= 0x03ee && codeUnit % 2 == 0)
+						sb.Append((char) (codeUnit + 1));
+					else if (codeUnit == 0x03f0)
 						sb.Append('\u03ba');
-					else if (nCodeUnit == 0x03f1)
+					else if (codeUnit == 0x03f1)
 						sb.Append('\u03c1');
-					else if (nCodeUnit == 0x03f4)
+					else if (codeUnit == 0x03f4)
 						sb.Append('\u03b8');
-					else if (nCodeUnit == 0x03f5)
+					else if (codeUnit == 0x03f5)
 						sb.Append('\u03b5');
-					else if (nCodeUnit == 0x03f7)
+					else if (codeUnit == 0x03f7)
 						sb.Append('\u03f8');
-					else if (nCodeUnit == 0x03f9)
+					else if (codeUnit == 0x03f9)
 						sb.Append('\u03f2');
-					else if (nCodeUnit == 0x03fa)
+					else if (codeUnit == 0x03fa)
 						sb.Append('\u03fb');
-					else if (nCodeUnit >= 0x03fd && nCodeUnit <= 0x03ff)
-						sb.Append((char) (nCodeUnit - 130));
-					else if (nCodeUnit >= 0x0400 && nCodeUnit <= 0x040f)
-						sb.Append((char) (nCodeUnit + 80));
-					else if (nCodeUnit >= 0x0410 && nCodeUnit <= 0x042f)
-						sb.Append((char) (nCodeUnit + 32));
-					else if (nCodeUnit >= 0x0460 && nCodeUnit <= 0x0480 && nCodeUnit % 2 == 0)
-						sb.Append((char) (nCodeUnit + 1));
-					else if (nCodeUnit >= 0x048a && nCodeUnit <= 0x04be && nCodeUnit % 2 == 0)
-						sb.Append((char) (nCodeUnit + 1));
-					else if (nCodeUnit == 0x04c0)
+					else if (codeUnit >= 0x03fd && codeUnit <= 0x03ff)
+						sb.Append((char) (codeUnit - 130));
+					else if (codeUnit >= 0x0400 && codeUnit <= 0x040f)
+						sb.Append((char) (codeUnit + 80));
+					else if (codeUnit >= 0x0410 && codeUnit <= 0x042f)
+						sb.Append((char) (codeUnit + 32));
+					else if (codeUnit >= 0x0460 && codeUnit <= 0x0480 && codeUnit % 2 == 0)
+						sb.Append((char) (codeUnit + 1));
+					else if (codeUnit >= 0x048a && codeUnit <= 0x04be && codeUnit % 2 == 0)
+						sb.Append((char) (codeUnit + 1));
+					else if (codeUnit == 0x04c0)
 						sb.Append('\u04cf');
-					else if (nCodeUnit >= 0x04c1 && nCodeUnit <= 0x04cd && nCodeUnit % 2 == 1)
-						sb.Append((char) (nCodeUnit + 1));
-					else if (nCodeUnit >= 0x04d0 && nCodeUnit <= 0x0512 && nCodeUnit % 2 == 0)
-						sb.Append((char) (nCodeUnit + 1));
-					else if (nCodeUnit >= 0x0531 && nCodeUnit <= 0x0556)
-						sb.Append((char) (nCodeUnit + 48));
-					else if (nCodeUnit == 0x0587)
+					else if (codeUnit >= 0x04c1 && codeUnit <= 0x04cd && codeUnit % 2 == 1)
+						sb.Append((char) (codeUnit + 1));
+					else if (codeUnit >= 0x04d0 && codeUnit <= 0x0512 && codeUnit % 2 == 0)
+						sb.Append((char) (codeUnit + 1));
+					else if (codeUnit >= 0x0531 && codeUnit <= 0x0556)
+						sb.Append((char) (codeUnit + 48));
+					else if (codeUnit == 0x0587)
 						sb.Append("\u0565\u0582");
 					else
-						sb.Append(nCodeUnit);
+						sb.Append(codeUnit);
 				}
-				else if (nCodeUnit >= 0x10a0 && nCodeUnit <= 0x10c5)
+				else if (codeUnit >= 0x10a0 && codeUnit <= 0x10c5)
 				{
-					sb.Append((char) (nCodeUnit + 7264));
+					sb.Append((char) (codeUnit + 7264));
 				}
-				else if (nCodeUnit >= 0x1e00)
+				else if (codeUnit >= 0x1e00)
 				{
-					if (nCodeUnit >= 0x1e00 && nCodeUnit <= 0x1e94 && nCodeUnit % 2 == 0)
-						sb.Append((char) (nCodeUnit + 1));
-					else if (nCodeUnit == 0x1e96)
+					if (codeUnit >= 0x1e00 && codeUnit <= 0x1e94 && codeUnit % 2 == 0)
+						sb.Append((char) (codeUnit + 1));
+					else if (codeUnit == 0x1e96)
 						sb.Append("\u0068\u0331");
-					else if (nCodeUnit == 0x1e97)
+					else if (codeUnit == 0x1e97)
 						sb.Append("\u0074\u0308");
-					else if (nCodeUnit == 0x1e98)
+					else if (codeUnit == 0x1e98)
 						sb.Append("\u0077\u030a");
-					else if (nCodeUnit == 0x1e99)
+					else if (codeUnit == 0x1e99)
 						sb.Append("\u0079\u030a");
-					else if (nCodeUnit == 0x1e9a)
+					else if (codeUnit == 0x1e9a)
 						sb.Append("\u0061\u02be");
-					else if (nCodeUnit == 0x1e9b)
+					else if (codeUnit == 0x1e9b)
 						sb.Append('\u1e61');
-					else if (nCodeUnit >= 0x1ea0 && nCodeUnit <= 0x1ef8 && nCodeUnit % 2 == 0)
-						sb.Append((char) (nCodeUnit + 1));
-					else if (nCodeUnit >= 0x1f08 && nCodeUnit <= 0x1f0f)
-						sb.Append((char) (nCodeUnit - 8));
-					else if (nCodeUnit >= 0x1f18 && nCodeUnit <= 0x1f1d)
-						sb.Append((char) (nCodeUnit - 8));
-					else if (nCodeUnit >= 0x1f28 && nCodeUnit <= 0x1f2f)
-						sb.Append((char) (nCodeUnit - 8));
-					else if (nCodeUnit >= 0x1f38 && nCodeUnit <= 0x1f3f)
-						sb.Append((char) (nCodeUnit - 8));
-					else if (nCodeUnit >= 0x1f48 && nCodeUnit <= 0x1f4d)
-						sb.Append((char) (nCodeUnit - 8));
-					else if (nCodeUnit == 0x1f50)
+					else if (codeUnit >= 0x1ea0 && codeUnit <= 0x1ef8 && codeUnit % 2 == 0)
+						sb.Append((char) (codeUnit + 1));
+					else if (codeUnit >= 0x1f08 && codeUnit <= 0x1f0f)
+						sb.Append((char) (codeUnit - 8));
+					else if (codeUnit >= 0x1f18 && codeUnit <= 0x1f1d)
+						sb.Append((char) (codeUnit - 8));
+					else if (codeUnit >= 0x1f28 && codeUnit <= 0x1f2f)
+						sb.Append((char) (codeUnit - 8));
+					else if (codeUnit >= 0x1f38 && codeUnit <= 0x1f3f)
+						sb.Append((char) (codeUnit - 8));
+					else if (codeUnit >= 0x1f48 && codeUnit <= 0x1f4d)
+						sb.Append((char) (codeUnit - 8));
+					else if (codeUnit == 0x1f50)
 						sb.Append("\u03c5\u0313");
-					else if (nCodeUnit == 0x1f52)
+					else if (codeUnit == 0x1f52)
 						sb.Append("\u03c5\u0313\u0300");
-					else if (nCodeUnit == 0x1f54)
+					else if (codeUnit == 0x1f54)
 						sb.Append("\u03c5\u0313\u0301");
-					else if (nCodeUnit == 0x1f56)
+					else if (codeUnit == 0x1f56)
 						sb.Append("\u03c5\u0313\u0342");
-					else if (nCodeUnit >= 0x1f59 && nCodeUnit <= 0x1f5f && nCodeUnit % 2 == 1)
-						sb.Append((char) (nCodeUnit - 8));
-					else if (nCodeUnit >= 0x1f68 && nCodeUnit <= 0x1f6f)
-						sb.Append((char) (nCodeUnit - 8));
-					else if (nCodeUnit == 0x1f80)
+					else if (codeUnit >= 0x1f59 && codeUnit <= 0x1f5f && codeUnit % 2 == 1)
+						sb.Append((char) (codeUnit - 8));
+					else if (codeUnit >= 0x1f68 && codeUnit <= 0x1f6f)
+						sb.Append((char) (codeUnit - 8));
+					else if (codeUnit == 0x1f80)
 						sb.Append("\u1f00\u03b9");
-					else if (nCodeUnit == 0x1f81)
+					else if (codeUnit == 0x1f81)
 						sb.Append("\u1f01\u03b9");
-					else if (nCodeUnit == 0x1f82)
+					else if (codeUnit == 0x1f82)
 						sb.Append("\u1f02\u03b9");
-					else if (nCodeUnit == 0x1f83)
+					else if (codeUnit == 0x1f83)
 						sb.Append("\u1f03\u03b9");
-					else if (nCodeUnit == 0x1f84)
+					else if (codeUnit == 0x1f84)
 						sb.Append("\u1f04\u03b9");
-					else if (nCodeUnit == 0x1f85)
+					else if (codeUnit == 0x1f85)
 						sb.Append("\u1f05\u03b9");
-					else if (nCodeUnit == 0x1f86)
+					else if (codeUnit == 0x1f86)
 						sb.Append("\u1f06\u03b9");
-					else if (nCodeUnit == 0x1f87)
+					else if (codeUnit == 0x1f87)
 						sb.Append("\u1f07\u03b9");
-					else if (nCodeUnit == 0x1f88)
+					else if (codeUnit == 0x1f88)
 						sb.Append("\u1f00\u03b9");
-					else if (nCodeUnit == 0x1f89)
+					else if (codeUnit == 0x1f89)
 						sb.Append("\u1f01\u03b9");
-					else if (nCodeUnit == 0x1f8a)
+					else if (codeUnit == 0x1f8a)
 						sb.Append("\u1f02\u03b9");
-					else if (nCodeUnit == 0x1f8b)
+					else if (codeUnit == 0x1f8b)
 						sb.Append("\u1f03\u03b9");
-					else if (nCodeUnit == 0x1f8c)
+					else if (codeUnit == 0x1f8c)
 						sb.Append("\u1f04\u03b9");
-					else if (nCodeUnit == 0x1f8d)
+					else if (codeUnit == 0x1f8d)
 						sb.Append("\u1f05\u03b9");
-					else if (nCodeUnit == 0x1f8e)
+					else if (codeUnit == 0x1f8e)
 						sb.Append("\u1f06\u03b9");
-					else if (nCodeUnit == 0x1f8f)
+					else if (codeUnit == 0x1f8f)
 						sb.Append("\u1f07\u03b9");
-					else if (nCodeUnit == 0x1f90)
+					else if (codeUnit == 0x1f90)
 						sb.Append("\u1f20\u03b9");
-					else if (nCodeUnit == 0x1f91)
+					else if (codeUnit == 0x1f91)
 						sb.Append("\u1f21\u03b9");
-					else if (nCodeUnit == 0x1f92)
+					else if (codeUnit == 0x1f92)
 						sb.Append("\u1f22\u03b9");
-					else if (nCodeUnit == 0x1f93)
+					else if (codeUnit == 0x1f93)
 						sb.Append("\u1f23\u03b9");
-					else if (nCodeUnit == 0x1f94)
+					else if (codeUnit == 0x1f94)
 						sb.Append("\u1f24\u03b9");
-					else if (nCodeUnit == 0x1f95)
+					else if (codeUnit == 0x1f95)
 						sb.Append("\u1f25\u03b9");
-					else if (nCodeUnit == 0x1f96)
+					else if (codeUnit == 0x1f96)
 						sb.Append("\u1f26\u03b9");
-					else if (nCodeUnit == 0x1f97)
+					else if (codeUnit == 0x1f97)
 						sb.Append("\u1f27\u03b9");
-					else if (nCodeUnit == 0x1f98)
+					else if (codeUnit == 0x1f98)
 						sb.Append("\u1f20\u03b9");
-					else if (nCodeUnit == 0x1f99)
+					else if (codeUnit == 0x1f99)
 						sb.Append("\u1f21\u03b9");
-					else if (nCodeUnit == 0x1f9a)
+					else if (codeUnit == 0x1f9a)
 						sb.Append("\u1f22\u03b9");
-					else if (nCodeUnit == 0x1f9b)
+					else if (codeUnit == 0x1f9b)
 						sb.Append("\u1f23\u03b9");
-					else if (nCodeUnit == 0x1f9c)
+					else if (codeUnit == 0x1f9c)
 						sb.Append("\u1f24\u03b9");
-					else if (nCodeUnit == 0x1f9d)
+					else if (codeUnit == 0x1f9d)
 						sb.Append("\u1f25\u03b9");
-					else if (nCodeUnit == 0x1f9e)
+					else if (codeUnit == 0x1f9e)
 						sb.Append("\u1f26\u03b9");
-					else if (nCodeUnit == 0x1f9f)
+					else if (codeUnit == 0x1f9f)
 						sb.Append("\u1f27\u03b9");
-					else if (nCodeUnit == 0x1fa0)
+					else if (codeUnit == 0x1fa0)
 						sb.Append("\u1f60\u03b9");
-					else if (nCodeUnit == 0x1fa1)
+					else if (codeUnit == 0x1fa1)
 						sb.Append("\u1f61\u03b9");
-					else if (nCodeUnit == 0x1fa2)
+					else if (codeUnit == 0x1fa2)
 						sb.Append("\u1f62\u03b9");
-					else if (nCodeUnit == 0x1fa3)
+					else if (codeUnit == 0x1fa3)
 						sb.Append("\u1f63\u03b9");
-					else if (nCodeUnit == 0x1fa4)
+					else if (codeUnit == 0x1fa4)
 						sb.Append("\u1f64\u03b9");
-					else if (nCodeUnit == 0x1fa5)
+					else if (codeUnit == 0x1fa5)
 						sb.Append("\u1f65\u03b9");
-					else if (nCodeUnit == 0x1fa6)
+					else if (codeUnit == 0x1fa6)
 						sb.Append("\u1f66\u03b9");
-					else if (nCodeUnit == 0x1fa7)
+					else if (codeUnit == 0x1fa7)
 						sb.Append("\u1f67\u03b9");
-					else if (nCodeUnit == 0x1fa8)
+					else if (codeUnit == 0x1fa8)
 						sb.Append("\u1f60\u03b9");
-					else if (nCodeUnit == 0x1fa9)
+					else if (codeUnit == 0x1fa9)
 						sb.Append("\u1f61\u03b9");
-					else if (nCodeUnit == 0x1faa)
+					else if (codeUnit == 0x1faa)
 						sb.Append("\u1f62\u03b9");
-					else if (nCodeUnit == 0x1fab)
+					else if (codeUnit == 0x1fab)
 						sb.Append("\u1f63\u03b9");
-					else if (nCodeUnit == 0x1fac)
+					else if (codeUnit == 0x1fac)
 						sb.Append("\u1f64\u03b9");
-					else if (nCodeUnit == 0x1fad)
+					else if (codeUnit == 0x1fad)
 						sb.Append("\u1f65\u03b9");
-					else if (nCodeUnit == 0x1fae)
+					else if (codeUnit == 0x1fae)
 						sb.Append("\u1f66\u03b9");
-					else if (nCodeUnit == 0x1faf)
+					else if (codeUnit == 0x1faf)
 						sb.Append("\u1f67\u03b9");
-					else if (nCodeUnit == 0x1fb2)
+					else if (codeUnit == 0x1fb2)
 						sb.Append("\u1f70\u03b9");
-					else if (nCodeUnit == 0x1fb3)
+					else if (codeUnit == 0x1fb3)
 						sb.Append("\u03b1\u03b9");
-					else if (nCodeUnit == 0x1fb4)
+					else if (codeUnit == 0x1fb4)
 						sb.Append("\u03ac\u03b9");
-					else if (nCodeUnit == 0x1fb6)
+					else if (codeUnit == 0x1fb6)
 						sb.Append("\u03b1\u0342");
-					else if (nCodeUnit == 0x1fb7)
+					else if (codeUnit == 0x1fb7)
 						sb.Append("\u03b1\u0342\u03b9");
-					else if (nCodeUnit >= 0x1fb8 && nCodeUnit <= 0x1fb9)
-						sb.Append((char) (nCodeUnit - 8));
-					else if (nCodeUnit >= 0x1fba && nCodeUnit <= 0x1fbb)
-						sb.Append((char) (nCodeUnit - 74));
-					else if (nCodeUnit == 0x1fbc)
+					else if (codeUnit >= 0x1fb8 && codeUnit <= 0x1fb9)
+						sb.Append((char) (codeUnit - 8));
+					else if (codeUnit >= 0x1fba && codeUnit <= 0x1fbb)
+						sb.Append((char) (codeUnit - 74));
+					else if (codeUnit == 0x1fbc)
 						sb.Append("\u03b1\u03b9");
-					else if (nCodeUnit == 0x1fbe)
+					else if (codeUnit == 0x1fbe)
 						sb.Append('\u03b9');
-					else if (nCodeUnit == 0x1fc2)
+					else if (codeUnit == 0x1fc2)
 						sb.Append("\u1f74\u03b9");
-					else if (nCodeUnit == 0x1fc3)
+					else if (codeUnit == 0x1fc3)
 						sb.Append("\u03b7\u03b9");
-					else if (nCodeUnit == 0x1fc4)
+					else if (codeUnit == 0x1fc4)
 						sb.Append("\u03ae\u03b9");
-					else if (nCodeUnit == 0x1fc6)
+					else if (codeUnit == 0x1fc6)
 						sb.Append("\u03b7\u0342");
-					else if (nCodeUnit == 0x1fc7)
+					else if (codeUnit == 0x1fc7)
 						sb.Append("\u03b7\u0342\u03b9");
-					else if (nCodeUnit >= 0x1fc8 && nCodeUnit <= 0x1fcb)
-						sb.Append((char) (nCodeUnit - 86));
-					else if (nCodeUnit == 0x1fcc)
+					else if (codeUnit >= 0x1fc8 && codeUnit <= 0x1fcb)
+						sb.Append((char) (codeUnit - 86));
+					else if (codeUnit == 0x1fcc)
 						sb.Append("\u03b7\u03b9");
-					else if (nCodeUnit == 0x1fd2)
+					else if (codeUnit == 0x1fd2)
 						sb.Append("\u03b9\u0308\u0300");
-					else if (nCodeUnit == 0x1fd3)
+					else if (codeUnit == 0x1fd3)
 						sb.Append("\u03b9\u0308\u0301");
-					else if (nCodeUnit == 0x1fd6)
+					else if (codeUnit == 0x1fd6)
 						sb.Append("\u03b9\u0342");
-					else if (nCodeUnit == 0x1fd7)
+					else if (codeUnit == 0x1fd7)
 						sb.Append("\u03b9\u0308\u0342");
-					else if (nCodeUnit >= 0x1fd8 && nCodeUnit <= 0x1fd9)
-						sb.Append((char) (nCodeUnit - 8));
-					else if (nCodeUnit >= 0x1fda && nCodeUnit <= 0x1fdb)
-						sb.Append((char) (nCodeUnit - 100));
-					else if (nCodeUnit == 0x1fe2)
+					else if (codeUnit >= 0x1fd8 && codeUnit <= 0x1fd9)
+						sb.Append((char) (codeUnit - 8));
+					else if (codeUnit >= 0x1fda && codeUnit <= 0x1fdb)
+						sb.Append((char) (codeUnit - 100));
+					else if (codeUnit == 0x1fe2)
 						sb.Append("\u03c5\u0308\u0300");
-					else if (nCodeUnit == 0x1fe3)
+					else if (codeUnit == 0x1fe3)
 						sb.Append("\u03c5\u0308\u0301");
-					else if (nCodeUnit == 0x1fe4)
+					else if (codeUnit == 0x1fe4)
 						sb.Append("\u03c1\u0313");
-					else if (nCodeUnit == 0x1fe6)
+					else if (codeUnit == 0x1fe6)
 						sb.Append("\u03c5\u0342");
-					else if (nCodeUnit == 0x1fe7)
+					else if (codeUnit == 0x1fe7)
 						sb.Append("\u03c5\u0308\u0342");
-					else if (nCodeUnit >= 0x1fe8 && nCodeUnit <= 0x1fe9)
-						sb.Append((char) (nCodeUnit - 8));
-					else if (nCodeUnit >= 0x1fea && nCodeUnit <= 0x1feb)
-						sb.Append((char) (nCodeUnit - 112));
-					else if (nCodeUnit == 0x1fec)
+					else if (codeUnit >= 0x1fe8 && codeUnit <= 0x1fe9)
+						sb.Append((char) (codeUnit - 8));
+					else if (codeUnit >= 0x1fea && codeUnit <= 0x1feb)
+						sb.Append((char) (codeUnit - 112));
+					else if (codeUnit == 0x1fec)
 						sb.Append('\u1fe5');
-					else if (nCodeUnit == 0x1ff2)
+					else if (codeUnit == 0x1ff2)
 						sb.Append("\u1f7c\u03b9");
-					else if (nCodeUnit == 0x1ff3)
+					else if (codeUnit == 0x1ff3)
 						sb.Append("\u03c9\u03b9");
-					else if (nCodeUnit == 0x1ff4)
+					else if (codeUnit == 0x1ff4)
 						sb.Append("\u03ce\u03b9");
-					else if (nCodeUnit == 0x1ff6)
+					else if (codeUnit == 0x1ff6)
 						sb.Append("\u03c9\u0342");
-					else if (nCodeUnit == 0x1ff7)
+					else if (codeUnit == 0x1ff7)
 						sb.Append("\u03c9\u0342\u03b9");
-					else if (nCodeUnit >= 0x1ff8 && nCodeUnit <= 0x1ff9)
-						sb.Append((char) (nCodeUnit - 128));
-					else if (nCodeUnit >= 0x1ffa && nCodeUnit <= 0x1ffb)
-						sb.Append((char) (nCodeUnit - 126));
-					else if (nCodeUnit == 0x1ffc)
+					else if (codeUnit >= 0x1ff8 && codeUnit <= 0x1ff9)
+						sb.Append((char) (codeUnit - 128));
+					else if (codeUnit >= 0x1ffa && codeUnit <= 0x1ffb)
+						sb.Append((char) (codeUnit - 126));
+					else if (codeUnit == 0x1ffc)
 						sb.Append("\u03c9\u03b9");
-					else if (nCodeUnit == 0x2126)
+					else if (codeUnit == 0x2126)
 						sb.Append('\u03c9');
-					else if (nCodeUnit == 0x212a)
+					else if (codeUnit == 0x212a)
 						sb.Append('\u006b');
-					else if (nCodeUnit == 0x212b)
+					else if (codeUnit == 0x212b)
 						sb.Append('\u00e5');
-					else if (nCodeUnit == 0x2132)
+					else if (codeUnit == 0x2132)
 						sb.Append('\u214e');
-					else if (nCodeUnit >= 0x2160 && nCodeUnit <= 0x216f)
-						sb.Append((char) (nCodeUnit + 16));
-					else if (nCodeUnit == 0x2183)
+					else if (codeUnit >= 0x2160 && codeUnit <= 0x216f)
+						sb.Append((char) (codeUnit + 16));
+					else if (codeUnit == 0x2183)
 						sb.Append('\u2184');
-					else if (nCodeUnit >= 0x24b6 && nCodeUnit <= 0x24cf)
-						sb.Append((char) (nCodeUnit + 26));
-					else if (nCodeUnit >= 0x2c00 && nCodeUnit <= 0x2c2e)
-						sb.Append((char) (nCodeUnit + 48));
-					else if (nCodeUnit == 0x2c60)
+					else if (codeUnit >= 0x24b6 && codeUnit <= 0x24cf)
+						sb.Append((char) (codeUnit + 26));
+					else if (codeUnit >= 0x2c00 && codeUnit <= 0x2c2e)
+						sb.Append((char) (codeUnit + 48));
+					else if (codeUnit == 0x2c60)
 						sb.Append('\u2c61');
-					else if (nCodeUnit == 0x2c62)
+					else if (codeUnit == 0x2c62)
 						sb.Append('\u026b');
-					else if (nCodeUnit == 0x2c63)
+					else if (codeUnit == 0x2c63)
 						sb.Append('\u1d7d');
-					else if (nCodeUnit == 0x2c64)
+					else if (codeUnit == 0x2c64)
 						sb.Append('\u027d');
-					else if (nCodeUnit >= 0x2c67 && nCodeUnit <= 0x2c6b && nCodeUnit % 2 == 1)
-						sb.Append((char) (nCodeUnit + 1));
-					else if (nCodeUnit >= 0x2c75 && nCodeUnit <= 0x2c80 && nCodeUnit % 11 == 7)
-						sb.Append((char) (nCodeUnit + 1));
-					else if (nCodeUnit >= 0x2c82 && nCodeUnit <= 0x2ce2 && nCodeUnit % 2 == 0)
-						sb.Append((char) (nCodeUnit + 1));
-					else if (nCodeUnit == 0xfb00)
+					else if (codeUnit >= 0x2c67 && codeUnit <= 0x2c6b && codeUnit % 2 == 1)
+						sb.Append((char) (codeUnit + 1));
+					else if (codeUnit >= 0x2c75 && codeUnit <= 0x2c80 && codeUnit % 11 == 7)
+						sb.Append((char) (codeUnit + 1));
+					else if (codeUnit >= 0x2c82 && codeUnit <= 0x2ce2 && codeUnit % 2 == 0)
+						sb.Append((char) (codeUnit + 1));
+					else if (codeUnit == 0xfb00)
 						sb.Append("\u0066\u0066");
-					else if (nCodeUnit == 0xfb01)
+					else if (codeUnit == 0xfb01)
 						sb.Append("\u0066\u0069");
-					else if (nCodeUnit == 0xfb02)
+					else if (codeUnit == 0xfb02)
 						sb.Append("\u0066\u006c");
-					else if (nCodeUnit == 0xfb03)
+					else if (codeUnit == 0xfb03)
 						sb.Append("\u0066\u0066\u0069");
-					else if (nCodeUnit == 0xfb04)
+					else if (codeUnit == 0xfb04)
 						sb.Append("\u0066\u0066\u006c");
-					else if (nCodeUnit == 0xfb05)
+					else if (codeUnit == 0xfb05)
 						sb.Append("\u0073\u0074");
-					else if (nCodeUnit == 0xfb06)
+					else if (codeUnit == 0xfb06)
 						sb.Append("\u0073\u0074");
-					else if (nCodeUnit == 0xfb13)
+					else if (codeUnit == 0xfb13)
 						sb.Append("\u0574\u0576");
-					else if (nCodeUnit == 0xfb14)
+					else if (codeUnit == 0xfb14)
 						sb.Append("\u0574\u0565");
-					else if (nCodeUnit == 0xfb15)
+					else if (codeUnit == 0xfb15)
 						sb.Append("\u0574\u056b");
-					else if (nCodeUnit == 0xfb16)
+					else if (codeUnit == 0xfb16)
 						sb.Append("\u057e\u0576");
-					else if (nCodeUnit == 0xfb17)
+					else if (codeUnit == 0xfb17)
 						sb.Append("\u0574\u056d");
-					else if (nCodeUnit >= 0xff21 && nCodeUnit <= 0xff3a)
-						sb.Append((char) (nCodeUnit + 32));
+					else if (codeUnit >= 0xff21 && codeUnit <= 0xff3a)
+						sb.Append((char) (codeUnit + 32));
 					else
-						sb.Append(nCodeUnit);
+						sb.Append(codeUnit);
 				}
 				else
 				{
-					sb.Append(nCodeUnit);
+					sb.Append(codeUnit);
 				}
 			}
 			return sb.ToString();
@@ -957,20 +637,7 @@ namespace Faithlife.Utility
 		/// <param name="args">The format arguments.</param>
 		/// <returns>The formatted string.</returns>
 		[StringFormatMethod("format")]
-		public static string FormatInvariant(this string format, params object[] args)
-		{
-			return string.Format(CultureInfo.InvariantCulture, format, args);
-		}
-
-		/// <summary>
-		/// Replaces all of the {0}, {1} etc. formatting elements with the empty string.
-		/// </summary>
-		/// <param name="format">The format string.</param>
-		/// <returns>The formatted string.</returns>
-		public static string EmptyFormat(this string format)
-		{
-			return s_regexFormatReplace.Value.Replace(format, string.Empty);
-		}
+		public static string FormatInvariant(this string format, params object[] args) => string.Format(CultureInfo.InvariantCulture, format, args);
 
 		/// <summary>
 		/// Joins the specified strings into one string.
@@ -1011,25 +678,11 @@ namespace Faithlife.Utility
 		}
 
 		/// <summary>
-		/// Joins the specified strings using the specified separator.
-		/// </summary>
-		/// <param name="strings">The strings.</param>
-		/// <param name="separator">The separator.</param>
-		/// <returns>All of the strings concatenated with the specified separator.</returns>
-		public static string Join(this IEnumerable<string> strings, char separator)
-		{
-			return Join(strings, new string(separator, 1));
-		}
-
-		/// <summary>
 		/// Joins the specified strings into one string.
 		/// </summary>
 		/// <param name="array">The strings.</param>
 		/// <returns>All of the strings concatenated with no separator.</returns>
-		public static string Join(this string[] array)
-		{
-			return string.Join(string.Empty, array);
-		}
+		public static string Join(this string[] array) => string.Join(string.Empty, array);
 
 		/// <summary>
 		/// Joins the specified strings using the specified separator.
@@ -1037,10 +690,7 @@ namespace Faithlife.Utility
 		/// <param name="array">The strings.</param>
 		/// <param name="separator">The separator. (The empty string is used if null.)</param>
 		/// <returns>All of the strings concatenated with the specified separator.</returns>
-		public static string Join(this string[] array, string separator)
-		{
-			return string.Join(separator, array);
-		}
+		public static string Join(this string[] array, string separator) => string.Join(separator, array);
 
 		/// <summary>
 		/// Joins the specified strings using the specified separator format.
@@ -1051,28 +701,9 @@ namespace Faithlife.Utility
 		public static string JoinFormat(this IEnumerable<string> strings, string separatorFormat)
 		{
 			if (separatorFormat == null)
-				throw new ArgumentNullException("separatorFormat");
+				throw new ArgumentNullException(nameof(separatorFormat));
 
 			return strings.Aggregate(string.Empty, (acc, src) => acc.Length == 0 ? src : separatorFormat.FormatInvariant(acc, src));
-		}
-
-		/// <summary>
-		/// Enumerates the indices of all instances of the specified character in a string.
-		/// </summary>
-		/// <param name="source">The string to search.</param>
-		/// /// <param name="character">The character to find.</param>
-		/// <returns>The positions of all instances of the specified character in the string.</returns>
-		public static IEnumerable<int> GetIndexesOf(this string source, char character)
-		{
-			if (source == null)
-				throw new ArgumentNullException("source");
-
-			int nIndex = source.IndexOf(character);
-			while (nIndex != -1)
-			{
-				yield return nIndex;
-				nIndex = source.IndexOf(character, nIndex + 1);
-			}
 		}
 
 		/// <summary>
@@ -1089,41 +720,40 @@ namespace Faithlife.Utility
 				if (string.IsNullOrEmpty(value))
 					return 0;
 
-				int nLength = value.Length;
-				uint nHash = (uint) nLength;
-				uint nTemp;
+				int length = value.Length;
+				uint hash = (uint) length;
 
-				int nRemainder = nLength & 1;
-				nLength >>= 1;
+				int nRemainder = length & 1;
+				length >>= 1;
 
 				// main loop
-				int nIndex = 0;
-				for (; nLength > 0; nLength--)
+				int index = 0;
+				for (; length > 0; length--)
 				{
-					nHash += value[nIndex];
-					nTemp = (uint) (value[nIndex + 1] << 11) ^ nHash;
-					nHash = (nHash << 16) ^ nTemp;
-					nIndex += 2;
-					nHash += nHash >> 11;
+					hash += value[index];
+					uint temp = (uint) (value[index + 1] << 11) ^ hash;
+					hash = (hash << 16) ^ temp;
+					index += 2;
+					hash += hash >> 11;
 				}
 
 				// handle odd string length
 				if (nRemainder == 1)
 				{
-					nHash += value[nIndex];
-					nHash ^= nHash << 11;
-					nHash += nHash >> 17;
+					hash += value[index];
+					hash ^= hash << 11;
+					hash += hash >> 17;
 				}
 
 				// Force "avalanching" of final 127 bits
-				nHash ^= nHash << 3;
-				nHash += nHash >> 5;
-				nHash ^= nHash << 4;
-				nHash += nHash >> 17;
-				nHash ^= nHash << 25;
-				nHash += nHash >> 6;
+				hash ^= hash << 3;
+				hash += hash >> 5;
+				hash ^= hash << 4;
+				hash += hash >> 17;
+				hash ^= hash << 25;
+				hash += hash >> 6;
 
-				return (int) nHash;
+				return (int) hash;
 			}
 		}
 
@@ -1136,29 +766,29 @@ namespace Faithlife.Utility
 		public static string Reverse(this string value)
 		{
 			if (value == null)
-				throw new ArgumentNullException("value");
+				throw new ArgumentNullException(nameof(value));
 
 			// allocate a buffer to hold the output
-			char[] achOutput = new char[value.Length];
-			for (int nOutputIndex = 0, nInputIndex = value.Length - 1; nOutputIndex < value.Length; nOutputIndex++, nInputIndex--)
+			char[] output = new char[value.Length];
+			for (int outputIndex = 0, inputIndex = value.Length - 1; outputIndex < value.Length; outputIndex++, inputIndex--)
 			{
 				// check for surrogate pair
-				if (value[nInputIndex] >= 0xDC00 && value[nInputIndex] <= 0xDFFF &&
-					nInputIndex > 0 && value[nInputIndex - 1] >= 0xD800 && value[nInputIndex - 1] <= 0xDBFF)
+				if (value[inputIndex] >= 0xDC00 && value[inputIndex] <= 0xDFFF &&
+					inputIndex > 0 && value[inputIndex - 1] >= 0xD800 && value[inputIndex - 1] <= 0xDBFF)
 				{
 					// preserve the order of the surrogate pair code units
-					achOutput[nOutputIndex + 1] = value[nInputIndex];
-					achOutput[nOutputIndex] = value[nInputIndex - 1];
-					nOutputIndex++;
-					nInputIndex--;
+					output[outputIndex + 1] = value[inputIndex];
+					output[outputIndex] = value[inputIndex - 1];
+					outputIndex++;
+					inputIndex--;
 				}
 				else
 				{
-					achOutput[nOutputIndex] = value[nInputIndex];
+					output[outputIndex] = value[inputIndex];
 				}
 			}
 
-			return new string(achOutput);
+			return new string(output);
 		}
 
 		/// <summary>
@@ -1167,10 +797,7 @@ namespace Faithlife.Utility
 		/// <param name="value">The string.</param>
 		/// <returns>The array of substrings.</returns>
 		/// <remarks>See the documentation for string.Split for the white-space characters recognized by this method.</remarks>
-		public static string[] SplitOnWhitespace(this string value)
-		{
-			return value.Split((char[]) null);
-		}
+		public static string[] SplitOnWhitespace(this string value) => value.Split((char[]) null);
 
 		/// <summary>
 		/// Splits the string on whitespace.
@@ -1179,36 +806,7 @@ namespace Faithlife.Utility
 		/// <param name="options">The options.</param>
 		/// <returns>The array of substrings.</returns>
 		/// <remarks>See the documentation for string.Split for the white-space characters recognized by this method.</remarks>
-		public static string[] SplitOnWhitespace(this string value, StringSplitOptions options)
-		{
-			return value.Split((char[]) null, options);
-		}
-
-		/// <summary>
-		/// Replaces a string with a default value, if the string is null or empty.
-		/// </summary>
-		/// <param name="value">The string to test for contents.</param>
-		/// <param name="defaultValue">The default string to replace with.</param>
-		/// <returns>Either the tested string, or the default value, depending on the contents of the initial string.</returns>
-		public static string DefaultIfEmpty(this string value, string defaultValue)
-		{
-			return value.IsNullOrEmpty() ? defaultValue : value;
-		}
-
-		/// <summary>
-		/// Returns <paramref name="input"/>, truncated to <paramref name="length"/> characters if it is longer than <paramref name="length"/>.
-		/// </summary>
-		/// <param name="input">The string to truncate.</param>
-		/// <param name="length">The maximum length of the returned string.</param>
-		/// <returns>A substring of <paramref name="input"/> that is no longer than <paramref name="length"/>.</returns>
-		/// <remarks>This method is not linguistically-aware, not Unicode-aware, and not suitable for display (generally, an ellipsis should be added).
-		/// Carefully consider whether any new usages of this method should use a smarter method to shorten a string.</remarks>
-		public static string Truncate(string input, int length)
-		{
-			return input == null ? null :
-				input.Length > length ? input.Substring(0, length) :
-				input;
-		}
+		public static string[] SplitOnWhitespace(this string value, StringSplitOptions options) => value.Split((char[]) null, options);
 
 		/// <summary>
 		/// Compresses a string.
@@ -1302,9 +900,9 @@ namespace Faithlife.Utility
 				: base(CultureInfo.InvariantCulture)
 			{
 				if (stream == null)
-					throw new ArgumentNullException("stream");
+					throw new ArgumentNullException(nameof(stream));
 				if (!stream.CanWrite)
-					throw new ArgumentException("Stream must support writing.", "stream");
+					throw new ArgumentException("Stream must support writing.", nameof(stream));
 				if (!stream.CanSeek)
 					throw new ArgumentException("Stream must support seeking.", "stream");
 
@@ -1314,15 +912,9 @@ namespace Faithlife.Utility
 				m_encoder = m_encoding.GetEncoder();
 			}
 
-			public override Encoding Encoding
-			{
-				get { return m_encoding; }
-			}
+			public override Encoding Encoding => m_encoding;
 
-			public override void Write(char value)
-			{
-				Write(new[] { value }, 0, 1);
-			}
+			public override void Write(char value) => Write(new[] { value }, 0, 1);
 
 			public override void Write(char[] buffer, int index, int count)
 			{
@@ -1332,11 +924,8 @@ namespace Faithlife.Utility
 				while (count > 0)
 				{
 					// convert characters to UTF-8
-					int charsUsed;
-					int bytesUsed;
-					bool completed;
 					byte[] bytes = new byte[m_encoding.GetMaxByteCount(count)];
-					m_encoder.Convert(buffer, index, count, bytes, 0, bytes.Length, false, out charsUsed, out bytesUsed, out completed);
+					m_encoder.Convert(buffer, index, count, bytes, 0, bytes.Length, false, out var charsUsed, out var bytesUsed, out _);
 
 					// write UTF-8 to stream
 					WriteToStream(bytes, bytesUsed);
@@ -1360,10 +949,8 @@ namespace Faithlife.Utility
 						bool completed = false;
 						while (!completed)
 						{
-							int charsUsed;
-							int bytesUsed;
 							byte[] bytes = new byte[m_encoding.GetMaxByteCount(0)];
-							m_encoder.Convert(new char[0], 0, 0, bytes, 0, bytes.Length, true, out charsUsed, out bytesUsed, out completed);
+							m_encoder.Convert(new char[0], 0, 0, bytes, 0, bytes.Length, true, out _, out var bytesUsed, out completed);
 							WriteToStream(bytes, bytesUsed);
 						}
 
@@ -1463,9 +1050,9 @@ namespace Faithlife.Utility
 			public DecompressingTextReader(Stream stream, Ownership ownership)
 			{
 				if (stream == null)
-					throw new ArgumentNullException("stream");
+					throw new ArgumentNullException(nameof(stream));
 				if (!stream.CanRead)
-					throw new ArgumentException("Stream must support reading.", "stream");
+					throw new ArgumentException("Stream must support reading.", nameof(stream));
 
 				m_stream = stream;
 				m_ownership = ownership;
@@ -1599,11 +1186,8 @@ namespace Faithlife.Utility
 				while (byteCount > 0)
 				{
 					// convert UTF-8 to characters
-					int charsUsed;
-					int bytesUsed;
-					bool completed;
 					bool flush = m_uncompressedByteIndex == m_uncompressedByteCount;
-					m_decoder.Convert(bytes, byteIndex, byteCount, m_buffer, m_bufferLength, m_buffer.Length - m_bufferLength, flush, out bytesUsed, out charsUsed, out completed);
+					m_decoder.Convert(bytes, byteIndex, byteCount, m_buffer, m_bufferLength, m_buffer.Length - m_bufferLength, flush, out var bytesUsed, out var charsUsed, out _);
 					byteIndex += bytesUsed;
 					byteCount -= bytesUsed;
 					m_bufferLength += charsUsed;
@@ -1643,8 +1227,6 @@ namespace Faithlife.Utility
 			0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0x2000, 0xf800, 0xf800, 0xf800, 0xf800
 		});
-
-		static readonly Lazy<Regex> s_regexFormatReplace = new Lazy<Regex>(() => new Regex("{[^}]+}"));
 	}
 
 	/// <summary>
@@ -1680,10 +1262,7 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Check the specified strings for equality.
 		/// </summary>
-		public override bool Equals(string x, string y)
-		{
-			return Compare(x, y) == 0;
-		}
+		public override bool Equals(string x, string y) => Compare(x, y) == 0;
 
 		/// <Docs>The object for which the hash code is to be returned.</Docs>
 		/// <para>Returns a hash code for the specified object.</para>
