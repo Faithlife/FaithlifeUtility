@@ -1,6 +1,6 @@
 using System.Threading;
 
-namespace Faithlife.Utility.Threading
+namespace Faithlife.Utility
 {
 	/// <summary>
 	/// Implemented by any worker method's state to support cancellation.
