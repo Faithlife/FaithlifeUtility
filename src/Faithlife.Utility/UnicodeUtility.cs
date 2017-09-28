@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Text;
 
@@ -17,10 +15,7 @@ namespace Faithlife.Utility
 		/// <param name="value">A <see cref="string"/>.</param>
 		/// <param name="index">The character position in <paramref name="value"/>.</param>
 		/// <returns>A <see cref="UnicodeCharacterClass"/> enumerated constant that identifies the character class of the character at position <paramref name="index"/> in <paramref name="value"/>.</returns>
-		public static UnicodeCharacterClass GetCharacterClass(string value, int index)
-		{
-			return GetCharacterClassFromCategory(CharUnicodeInfo.GetUnicodeCategory(value, index));
-		}
+		public static UnicodeCharacterClass GetCharacterClass(string value, int index) => GetCharacterClassFromCategory(CharUnicodeInfo.GetUnicodeCategory(value, index));
 
 		/// <summary>
 		/// Returns the major character class for the specified Unicode general category.
@@ -55,10 +50,7 @@ namespace Faithlife.Utility
 		/// <param name="value">A <see cref="string"/>.</param>
 		/// <param name="index">The character position in <paramref name="value"/>.</param>
 		/// <returns>The number of chars (i.e., UTF-16 code units) it takes to encode the character.</returns>
-		public static int GetCharacterLength(string value, int index)
-		{
-			return char.IsSurrogatePair(value, index) ? 2 : 1;
-		}
+		public static int GetCharacterLength(string value, int index) => char.IsSurrogatePair(value, index) ? 2 : 1;
 
 		/// <summary>
 		/// Gets the length (in chars) of the Unicode character at the specified offset in the given <see cref="StringBuilder"/>.
@@ -70,9 +62,9 @@ namespace Faithlife.Utility
 		{
 			// check arguments
 			if (stringBuilder == null)
-				throw new ArgumentNullException("stringBuilder");
+				throw new ArgumentNullException(nameof(stringBuilder));
 			if (index < 0 || index >= stringBuilder.Length)
-				throw new ArgumentOutOfRangeException("index");
+				throw new ArgumentOutOfRangeException(nameof(index));
 
 			return index < stringBuilder.Length - 1 && char.IsSurrogatePair(stringBuilder[index], stringBuilder[index + 1]) ? 2 : 1;
 		}
@@ -90,9 +82,9 @@ namespace Faithlife.Utility
 		{
 			// check arguments
 			if (stringBuilder == null)
-				throw new ArgumentNullException("stringBuilder");
+				throw new ArgumentNullException(nameof(stringBuilder));
 			if (index < 0 || index >= stringBuilder.Length)
-				throw new ArgumentOutOfRangeException("index");
+				throw new ArgumentOutOfRangeException(nameof(index));
 
 			// convert surrogate pair to supplementary codepoint, or simply return BMP codepoint
 			char ch = stringBuilder[index];
