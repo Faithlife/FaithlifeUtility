@@ -1,6 +1,6 @@
 # Faithlife.Utility assembly
 
-The assembly `Faithlife.Utility.dll` has 56 public types in 1 namespace.
+The assembly `Faithlife.Utility.dll` has 53 public types in 1 namespace.
 
 ## Faithlife.Utility namespace
 
@@ -30,7 +30,6 @@ The assembly `Faithlife.Utility.dll` has 56 public types in 1 namespace.
 | static class [HashCodeUtility](Faithlife.Utility/HashCodeUtility.md) | Provides methods for manipulating integers. |
 | interface [IHasEquivalence&lt;T&gt;](Faithlife.Utility/IHasEquivalence-1.md) | Implemented by reference classes that do not want to implement IEquatable{T}, but do want to support some form of equivalence. |
 | static class [InvariantConvert](Faithlife.Utility/InvariantConvert.md) | Methods for converting to and from strings using the invariant culture. |
-| interface [IWorkState](Faithlife.Utility/IWorkState.md) | Implemented by any worker method's state to support cancellation. |
 | static class [ListUtility](Faithlife.Utility/ListUtility.md) | Methods for manipulating lists. |
 | static class [ObjectImpl](Faithlife.Utility/ObjectImpl.md) | Provides methods for manipulating objects. |
 | static class [ObjectUtility](Faithlife.Utility/ObjectUtility.md) | Provides methods for manipulating objects. |
@@ -49,7 +48,6 @@ The assembly `Faithlife.Utility.dll` has 56 public types in 1 namespace.
 | struct [StringSegment](Faithlife.Utility/StringSegment.md) | Encapsulates a length of characters from a string starting at a particular offset. |
 | static class [StringUtility](Faithlife.Utility/StringUtility.md) | Provides methods for manipulating strings. |
 | class [TimeoutTimer](Faithlife.Utility/TimeoutTimer.md) | Tracks the time left for a timeout. |
-| static class [TimeSpanUtility](Faithlife.Utility/TimeSpanUtility.md) | Helper methods for working with TimeSpan. |
 | class [TruncatedStream](Faithlife.Utility/TruncatedStream.md) | [`TruncatedStream`](Faithlife.Utility/TruncatedStream.md) is a read-only [`WrappingStream`](Faithlife.Utility/WrappingStream.md) that will not read past the specified length. |
 | static class [TypeUtility](Faithlife.Utility/TypeUtility.md) | Extension methods allowing portable and non portable libraries to call a single set of reflection based Type methods. |
 | enum [UnicodeCharacterClass](Faithlife.Utility/UnicodeCharacterClass.md) | The major class of a Unicode character's general category. |
@@ -59,7 +57,6 @@ The assembly `Faithlife.Utility.dll` has 56 public types in 1 namespace.
 | static class [UrlEncoding](Faithlife.Utility/UrlEncoding.md) | Methods for encoding and decoding URL-style strings. |
 | class [UrlEncodingSettings](Faithlife.Utility/UrlEncodingSettings.md) | Stores settings used for encoding and decoding URL-style strings. |
 | static class [Verify](Faithlife.Utility/Verify.md) | Provides methods for throwing InvalidOperationException for "impossible" conditions. |
-| static class [WorkState](Faithlife.Utility/WorkState.md) | Standard implementations of [`IWorkState`](Faithlife.Utility/IWorkState.md). |
 | class [WrappingStream](Faithlife.Utility/WrappingStream.md) | A Stream that wraps another stream. One major feature of [`WrappingStream`](Faithlife.Utility/WrappingStream.md) is that it does not dispose the underlying stream when it is disposed if Ownership.None is used; this is useful when using classes such as BinaryReaderthat take ownership of the stream passed to their constructors. |
 | class [ZeroStream](Faithlife.Utility/ZeroStream.md) | A stream of zeroes. |
 
