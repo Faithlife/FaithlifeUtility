@@ -1,8 +1,19 @@
 # ArrayUtility.Compare&lt;T&gt; method (1 of 2)
 
+Compares the two arrays.
+
 ```csharp
 public static int Compare<T>(T[] array1, T[] array2)
 ```
+
+| parameter | description |
+| --- | --- |
+| array1 | The first array. |
+| array2 | The second array. |
+
+## Return Value
+
+The result of a lexicographical comparison of the array items.
 
 ## See Also
 
@@ -13,9 +24,21 @@ public static int Compare<T>(T[] array1, T[] array2)
 
 # ArrayUtility.Compare&lt;T&gt; method (2 of 2)
 
+Compares the two arrays.
+
 ```csharp
 public static int Compare<T>(T[] array1, T[] array2, IComparer<T> comparer)
 ```
+
+| parameter | description |
+| --- | --- |
+| array1 | The first array. |
+| array2 | The second array. |
+| comparer | Used to compare the two items. |
+
+## Return Value
+
+The result of a lexicographical comparison of the array items.
 
 ## See Also
 

@@ -1,7 +1,5 @@
 # Faithlife.Utility assembly
 
-The assembly `Faithlife.Utility.dll` has 53 public types in 1 namespace.
-
 ## Faithlife.Utility namespace
 
 | public type | description |

@@ -12,7 +12,7 @@ public static class CollectionImpl
 | --- | --- |
 | static [CheckCopyToParameters](CollectionImpl/CheckCopyToParameters.md)(…) | Performs standard validation of parameters passed to an implementation of Int32). |
 | static [Contains&lt;T&gt;](CollectionImpl/Contains.md)(…) | Provides a standard implementation of Contains. |
-| static [CopyTo&lt;T&gt;](CollectionImpl/CopyTo.md)(…) |  |
+| static [CopyTo&lt;T&gt;](CollectionImpl/CopyTo.md)(…) | Provides a standard implementation of Int32). |
 
 ## See Also
 

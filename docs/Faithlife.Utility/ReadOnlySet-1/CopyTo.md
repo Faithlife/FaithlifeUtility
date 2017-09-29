@@ -1,5 +1,7 @@
 # ReadOnlySet&lt;T&gt;.CopyTo method
 
+Copies the elements of the ReadOnlySet to an Array, starting at a particular Array index.
+
 ```csharp
 public void CopyTo(T[] array, int arrayIndex)
 ```

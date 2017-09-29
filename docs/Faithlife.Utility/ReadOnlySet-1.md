@@ -18,7 +18,7 @@ public sealed class ReadOnlySet<T> : IReadOnlyCollection<T>, ISet<T>
 | [Count](ReadOnlySet-1/Count.md) { get; } | Gets the number of elements contained in the set. |
 | [IsReadOnly](ReadOnlySet-1/IsReadOnly.md) { get; } | Returns `true`; this collection is read-only. |
 | [Contains](ReadOnlySet-1/Contains.md)(…) | Determines whether the set contains a specific value. |
-| [CopyTo](ReadOnlySet-1/CopyTo.md)(…) |  |
+| [CopyTo](ReadOnlySet-1/CopyTo.md)(…) | Copies the elements of the ReadOnlySet to an Array, starting at a particular Array index. |
 | [GetEnumerator](ReadOnlySet-1/GetEnumerator.md)() | Returns an enumerator that iterates through the collection. |
 | [IsProperSubsetOf](ReadOnlySet-1/IsProperSubsetOf.md)(…) | Determines whether the current set is a proper (strict) subset of a specified collection. |
 | [IsProperSupersetOf](ReadOnlySet-1/IsProperSupersetOf.md)(…) | Determines whether the current set is a proper (strict) superset of a specified collection. |
