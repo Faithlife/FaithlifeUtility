@@ -6,6 +6,7 @@ var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
 var nugetApiKey = Argument("nugetApiKey", "");
 var trigger = Argument("trigger", "");
+var versionSuffix = Argument("versionSuffix", "");
 
 var nugetSource = "https://api.nuget.org/v3/index.json";
 var solutionFileName = "Faithlife.Utility.sln";
@@ -55,7 +56,7 @@ Task("NuGetPackage")
 	.Does(() =>
 	{
 		foreach (var projectPath in GetFiles("src/**/*.csproj").Select(x => x.FullPath))
-			DotNetCorePack(projectPath, new DotNetCorePackSettings { Configuration = configuration, OutputDirectory = "release" });
+			DotNetCorePack(projectPath, new DotNetCorePackSettings { Configuration = configuration, OutputDirectory = "release", VersionSuffix = versionSuffix });
 	});
 
 Task("NuGetPublish")
