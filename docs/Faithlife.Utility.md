@@ -1,6 +1,6 @@
 # Faithlife.Utility assembly
 
-The assembly `Faithlife.Utility.dll` has 61 public types in 3 namespaces.
+The assembly `Faithlife.Utility.dll` has 63 public types in 3 namespaces.
 
 ## Faithlife.Utility namespace
 
@@ -17,6 +17,7 @@ The assembly `Faithlife.Utility.dll` has 61 public types in 3 namespaces.
 | static class [DateTimeOffsetUtility](Faithlife.Utility/DateTimeOffsetUtility.md) | Provides methods for manipulating dates. |
 | static class [DateTimeUtility](Faithlife.Utility/DateTimeUtility.md) | Provides methods for manipulating dates. |
 | static class [DictionaryUtility](Faithlife.Utility/DictionaryUtility.md) | Provides methods for manipulating dictionaries. |
+| static class [DirectoryUtility](Faithlife.Utility/DirectoryUtility.md) | Provides utility methods for working with directories. |
 | class [Disposables](Faithlife.Utility/Disposables.md) | A collection of disposable objects, disposed in reverse order when the collection is disposed. |
 | static class [DisposableUtility](Faithlife.Utility/DisposableUtility.md) | Provides methods for manipulating disposable objects. |
 | static class [EnumerableUtility](Faithlife.Utility/EnumerableUtility.md) | Provides methods for manipulating IEnumerable collections. |
@@ -24,6 +25,7 @@ The assembly `Faithlife.Utility.dll` has 61 public types in 3 namespaces.
 | static class [Equivalence](Faithlife.Utility/Equivalence.md) | Methods for working with IHasEquivalence. |
 | class [EventInfo&lt;TSource,TEventHandler&gt;](Faithlife.Utility/EventInfo-2.md) | Provides methods for adding and removing handlers from an event. |
 | static class [EventInfoUtility](Faithlife.Utility/EventInfoUtility.md) | Helper methods for working with EventInfo. |
+| static class [FileUtility](Faithlife.Utility/FileUtility.md) | Provides helper methods for working with files. |
 | class [GenericEventArgs&lt;T&gt;](Faithlife.Utility/GenericEventArgs-1.md) | Event arguments that contain a single value. |
 | static class [GuidUtility](Faithlife.Utility/GuidUtility.md) | Helper methods for working with Guid. |
 | static class [GzipUtility](Faithlife.Utility/GzipUtility.md) | Methods for working with gzip. |
