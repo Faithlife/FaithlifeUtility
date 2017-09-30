@@ -24,9 +24,20 @@ The comparer.
 
 # ComparisonUtility.CreateComparer&lt;T&gt; method (2 of 2)
 
+Creates a comparer from a delegate.
+
 ```csharp
 public static Comparer<T> CreateComparer<T>(Func<T, T, int>[] comparers)
 ```
+
+| parameter | description |
+| --- | --- |
+| T | The type to compare. |
+| comparers | The compare delegates. |
+
+## Return Value
+
+The comparer.
 
 ## See Also
 

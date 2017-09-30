@@ -1,14 +1,14 @@
-# StringUtility.Join method (1 of 5)
+# StringUtility.Join method (1 of 4)
 
 Joins the specified strings into one string.
 
 ```csharp
-public static string Join(this IEnumerable<string> seq)
+public static string Join(this IEnumerable<string> strings)
 ```
 
 | parameter | description |
 | --- | --- |
-| seq | The strings. |
+| strings | The strings. |
 
 ## Return Value
 
@@ -21,7 +21,7 @@ All of the strings concatenated with no separator.
 
 ---
 
-# StringUtility.Join method (2 of 5)
+# StringUtility.Join method (2 of 4)
 
 Joins the specified strings into one string.
 
@@ -44,41 +44,17 @@ All of the strings concatenated with no separator.
 
 ---
 
-# StringUtility.Join method (3 of 5)
+# StringUtility.Join method (3 of 4)
 
 Joins the specified strings using the specified separator.
 
 ```csharp
-public static string Join(this IEnumerable<string> seq, char separator)
+public static string Join(this IEnumerable<string> strings, string separator)
 ```
 
 | parameter | description |
 | --- | --- |
-| seq | The strings. |
-| separator | The separator. |
-
-## Return Value
-
-All of the strings concatenated with the specified separator.
-
-## See Also
-
-* class [StringUtility](../StringUtility.md)
-* namespace [Faithlife.Utility](../../Faithlife.Utility.md)
-
----
-
-# StringUtility.Join method (4 of 5)
-
-Joins the specified strings using the specified separator.
-
-```csharp
-public static string Join(this IEnumerable<string> seq, string separator)
-```
-
-| parameter | description |
-| --- | --- |
-| seq | The strings. |
+| strings | The strings. |
 | separator | The separator. (The empty string is used if null.) |
 
 ## Return Value
@@ -92,7 +68,7 @@ All of the strings concatenated with the specified separator.
 
 ---
 
-# StringUtility.Join method (5 of 5)
+# StringUtility.Join method (4 of 4)
 
 Joins the specified strings using the specified separator.
 

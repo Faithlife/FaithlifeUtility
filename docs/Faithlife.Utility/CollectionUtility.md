@@ -12,7 +12,6 @@ public static class CollectionUtility
 | --- | --- |
 | static [AddIfNotNull&lt;T&gt;](CollectionUtility/AddIfNotNull.md)(…) | Adds the specified value to the collection if the value is not null. (2 methods) |
 | static [AddRange&lt;T&gt;](CollectionUtility/AddRange.md)(…) | Adds the sequence of items to the collection. |
-| static [ToArray&lt;TInput,TOutput&gt;](CollectionUtility/ToArray.md)(…) | Converts the specified collection to an array. |
 
 ## See Also
 

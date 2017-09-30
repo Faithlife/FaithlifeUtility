@@ -15,11 +15,11 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Initializes a new instance of the <see cref="WrappingStream"/> class.
 		/// </summary>
-		/// <param name="streamBase">The wrapped stream.</param>
+		/// <param name="stream">The wrapped stream.</param>
 		/// <param name="ownership">Use Owns if the wrapped stream should be disposed when this stream is disposed.</param>
-		public WrappingStream(Stream streamBase, Ownership ownership)
+		public WrappingStream(Stream stream, Ownership ownership)
 		{
-			m_wrappedStream = streamBase ?? throw new ArgumentNullException(nameof(streamBase));
+			m_wrappedStream = stream ?? throw new ArgumentNullException(nameof(stream));
 			m_ownership = ownership;
 		}
 

@@ -3,13 +3,13 @@
 Combines two sequences.
 
 ```csharp
-public static IEnumerable<ValueTuple<T1, T2>> ZipTruncate<T1, T2>(this IEnumerable<T1> seqFirst, IEnumerable<T2> seqSecond)
+public static IEnumerable<ValueTuple<T1, T2>> ZipTruncate<T1, T2>(this IEnumerable<T1> first, IEnumerable<T2> second)
 ```
 
 | parameter | description |
 | --- | --- |
-| seqFirst | An IEnumerable whos elements will be returned as ValueTuple.First. |
-| seqSecond | An IEnumerable whos elements will be returned as ValueTuple.Second. |
+| first | An IEnumerable whos elements will be returned as ValueTuple.First. |
+| second | An IEnumerable whos elements will be returned as ValueTuple.Second. |
 
 ## Return Value
 

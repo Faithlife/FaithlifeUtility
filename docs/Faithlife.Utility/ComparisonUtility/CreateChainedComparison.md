@@ -1,8 +1,19 @@
 # ComparisonUtility.CreateChainedComparison&lt;T&gt; method
 
+Creates a chained comparison.
+
 ```csharp
 public static Func<T, T, int> CreateChainedComparison<T>(Func<T, T, int>[] comparers)
 ```
+
+| parameter | description |
+| --- | --- |
+| T | The type of object |
+| comparers | The comparers. |
+
+## Return Value
+
+A comparer that executes each comparer until one returns non-zero; that value is returned.
 
 ## See Also
 

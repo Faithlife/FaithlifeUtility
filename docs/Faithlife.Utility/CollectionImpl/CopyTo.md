@@ -1,8 +1,17 @@
 # CollectionImpl.CopyTo&lt;T&gt; method
 
+Provides a standard implementation of Int32).
+
 ```csharp
 public static void CopyTo<T>(ICollection<T> source, T[] array, int arrayIndex)
 ```
+
+| parameter | description |
+| --- | --- |
+| T | The type of the collection. |
+| source | The source collection (i.e., the object on which CopyTo is being called). |
+| array | The destination array. |
+| arrayIndex | The zero-based index in *array* at which copying begins. |
 
 ## See Also
 

@@ -3,12 +3,12 @@
 Returns the Cartesian cross-product of a sequence of sequences.
 
 ```csharp
-public static IEnumerable<IEnumerable<T>> CrossProduct<T>(this IEnumerable<IEnumerable<T>> sequences)
+public static IEnumerable<IEnumerable<T>> CrossProduct<T>(this IEnumerable<IEnumerable<T>> sources)
 ```
 
 | parameter | description |
 | --- | --- |
-| sequences | The sequences. |
+| sources | The sources. |
 
 ## Return Value
 
@@ -26,13 +26,13 @@ A new sequence of sequences, where the first item in each sequence is from the f
 Returns the Cartesian cross-product of a sequence of sequences.
 
 ```csharp
-public static IEnumerable<IEnumerable<TItem>> CrossProduct<TSequence, TItem>(this IEnumerable<TSequence> sequences)
+public static IEnumerable<IEnumerable<TItem>> CrossProduct<TSequence, TItem>(this IEnumerable<TSequence> sources)
     where TSequence : IEnumerable<TItem>
 ```
 
 | parameter | description |
 | --- | --- |
-| sequences | The sequences. |
+| sources | The sources. |
 
 ## Return Value
 

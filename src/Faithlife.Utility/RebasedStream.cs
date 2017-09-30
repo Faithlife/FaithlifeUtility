@@ -8,42 +8,39 @@ namespace Faithlife.Utility
 	public sealed class RebasedStream : WrappingStream
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="RebasedStream"/> class; the current position in <paramref name="streamBase"/>
+		/// Initializes a new instance of the <see cref="RebasedStream"/> class; the current position in <paramref name="stream"/>
 		/// will be the origin of the <see cref="RebasedStream"/>.
 		/// </summary>
-		/// <param name="streamBase">The base stream.</param>
-		public RebasedStream(Stream streamBase)
-			: this(streamBase, Ownership.None)
+		/// <param name="stream">The base stream.</param>
+		public RebasedStream(Stream stream)
+			: this(stream, Ownership.None)
 		{
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="RebasedStream"/> class; the current position in <paramref name="streamBase"/>
+		/// Initializes a new instance of the <see cref="RebasedStream"/> class; the current position in <paramref name="stream"/>
 		/// will be the origin of the <see cref="RebasedStream"/>.
 		/// </summary>
-		/// <param name="streamBase">The base stream.</param>
+		/// <param name="stream">The base stream.</param>
 		/// <param name="ownership">The ownership of the base stream.</param>
-		public RebasedStream(Stream streamBase, Ownership ownership)
-			: base(streamBase, ownership)
+		public RebasedStream(Stream stream, Ownership ownership)
+			: base(stream, ownership)
 		{
-			m_baseOffset = streamBase.Position;
+			m_baseOffset = stream.Position;
 		}
 
 		/// <summary>
 		/// Gets the length in bytes of the stream.
 		/// </summary>
-		public override long Length
-		{
-			get { return base.Length - m_baseOffset; }
-		}
+		public override long Length => base.Length - m_baseOffset;
 
 		/// <summary>
 		/// Gets or sets the position within the current stream.
 		/// </summary>
 		public override long Position
 		{
-			get { return base.Position - m_baseOffset; }
-			set { base.Position = value + m_baseOffset; }
+			get => base.Position - m_baseOffset;
+			set => base.Position = value + m_baseOffset;
 		}
 
 		/// <summary>
@@ -64,10 +61,7 @@ namespace Faithlife.Utility
 		/// Sets the length of the current stream.
 		/// </summary>
 		/// <param name="value">The desired length of the current stream in bytes.</param>
-		public override void SetLength(long value)
-		{
-			base.SetLength(value + m_baseOffset);
-		}
+		public override void SetLength(long value) => base.SetLength(value + m_baseOffset);
 
 		// the offset within the base stream where this stream begins
 		readonly long m_baseOffset;

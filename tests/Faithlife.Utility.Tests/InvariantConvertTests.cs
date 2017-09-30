@@ -1,5 +1,4 @@
 using System;
-using Faithlife.Utility.Invariant;
 using NUnit.Framework;
 
 namespace Faithlife.Utility.Tests

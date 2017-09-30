@@ -15,9 +15,7 @@ public static class GuidUtility
 | static readonly [UrlNamespace](GuidUtility/UrlNamespace.md) | The namespace for URLs (from RFC 4122, Appendix C). |
 | static [Create](GuidUtility/Create.md)(…) | Creates a name-based UUID using the algorithm from RFC 4122 §4.3. (4 methods) |
 | static [FromLowerNoDashString](GuidUtility/FromLowerNoDashString.md)(…) | Converts a lowercase, no dashes string to a GUID. |
-| static [FromShortString](GuidUtility/FromShortString.md)(…) | Converts a short string to a GUID. |
 | static [ToLowerNoDashString](GuidUtility/ToLowerNoDashString.md)(…) | Converts a GUID to a lowercase string with no dashes. |
-| static [ToShortString](GuidUtility/ToShortString.md)(…) | Converts a GUID to a short string. |
 | static [TryFromLowerNoDashString](GuidUtility/TryFromLowerNoDashString.md)(…) | Attempts to convert a lowercase, no dashes string to a GUID. |
 | static [TryParse](GuidUtility/TryParse.md)(…) |  |
 

@@ -1,6 +1,6 @@
 # StringSegment.Offset property
 
-Gets the offset into the owner string.
+Gets the offset into the source string.
 
 ```csharp
 public int Offset { get; }
@@ -8,7 +8,7 @@ public int Offset { get; }
 
 ## Property Value
 
-The offset into the owner string of the segment.
+The offset into the source string of the segment.
 
 ## See Also
 

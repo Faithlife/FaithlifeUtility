@@ -1,6 +1,6 @@
 # StringSegment.After method
 
-Returns everything that follows this segment in the owner string.
+Returns everything that follows this segment in the source string.
 
 ```csharp
 public StringSegment After()
@@ -8,7 +8,7 @@ public StringSegment After()
 
 ## Return Value
 
-Everything that follows this segment in the owner string.
+Everything that follows this segment in the source string.
 
 ## See Also
 

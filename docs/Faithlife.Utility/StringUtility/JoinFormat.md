@@ -3,12 +3,12 @@
 Joins the specified strings using the specified separator format.
 
 ```csharp
-public static string JoinFormat(this IEnumerable<string> seq, string separatorFormat)
+public static string JoinFormat(this IEnumerable<string> strings, string separatorFormat)
 ```
 
 | parameter | description |
 | --- | --- |
-| seq | The strings. |
+| strings | The strings. |
 | separatorFormat | The separator format, e.g. "{0}, {1}". |
 
 ## Return Value

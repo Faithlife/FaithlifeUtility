@@ -3,13 +3,13 @@
 Returns true if the count is greater than or equal to the specified value.
 
 ```csharp
-public static bool CountIsAtLeast<T>(this IEnumerable<T> seq, int count)
+public static bool CountIsAtLeast<T>(this IEnumerable<T> source, int count)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type of the element. |
-| seq | The sequence. |
+| source | The sequence. |
 | count | The count. |
 
 ## Return Value

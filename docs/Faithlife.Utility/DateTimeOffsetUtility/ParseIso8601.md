@@ -3,12 +3,12 @@
 Converts the specified ISO 8601 representation of a date and time to its DateTimeOffset equivalent.
 
 ```csharp
-public static DateTimeOffset ParseIso8601(string strValue)
+public static DateTimeOffset ParseIso8601(string value)
 ```
 
 | parameter | description |
 | --- | --- |
-| strValue | The ISO 8601 string representation to parse. |
+| value | The ISO 8601 string representation to parse. |
 
 ## Return Value
 

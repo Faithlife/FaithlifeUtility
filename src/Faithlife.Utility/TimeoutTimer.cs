@@ -12,48 +12,33 @@ namespace Faithlife.Utility
 		/// Initializes a new instance of the <see cref="TimeoutTimer"/> class.
 		/// </summary>
 		/// <remarks>Creates an already timed out timer.</remarks>
-		public TimeoutTimer()
-		{
-			Reset(0);
-		}
+		public TimeoutTimer() => Reset(0);
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="TimeoutTimer"/> class.
 		/// </summary>
 		/// <param name="millisecondsUntilTimeout">The timeout in milliseconds.</param>
 		/// <remarks>Use int.MaxValue (or Timeout.Infinite) for a timer that never times out.</remarks>
-		public TimeoutTimer(int millisecondsUntilTimeout)
-		{
-			Reset(millisecondsUntilTimeout);
-		}
+		public TimeoutTimer(int millisecondsUntilTimeout) => Reset(millisecondsUntilTimeout);
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="TimeoutTimer"/> class.
 		/// </summary>
 		/// <param name="timeSpanUntilTimeout">The time span for the timeout.</param>
 		/// <remarks>Use at least int.MaxValue (or Timeout.Infinite) milliseconds for a timer that never times out.</remarks>
-		public TimeoutTimer(TimeSpan timeSpanUntilTimeout)
-		{
-			Reset(timeSpanUntilTimeout);
-		}
+		public TimeoutTimer(TimeSpan timeSpanUntilTimeout) => Reset(timeSpanUntilTimeout);
 
 		/// <summary>
 		/// True if there is no time left.
 		/// </summary>
 		/// <value><c>true</c> if there is no time left; otherwise, <c>false</c>.</value>
-		public bool TimedOut
-		{
-			get { return RemainingMilliseconds == 0; }
-		}
+		public bool TimedOut => RemainingMilliseconds == 0;
 
 		/// <summary>
 		/// Returns true for a timer that never times out.
 		/// </summary>
 		/// <value>True for a timer that never times out.</value>
-		public bool IsInfinite
-		{
-			get { return m_timeoutTicks == int.MaxValue; }
-		}
+		public bool IsInfinite => m_timeoutTicks == int.MaxValue;
 
 		/// <summary>
 		/// Gets the time left, in milliseconds.
@@ -77,28 +62,19 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <value>The time left.</value>
 		/// <remarks>Returns int.MaxValue milliseconds for a timer that never times out.</remarks>
-		public TimeSpan RemainingTimeSpan
-		{
-			get { return new TimeSpan(0, 0, 0, 0, RemainingMilliseconds); }
-		}
+		public TimeSpan RemainingTimeSpan => new TimeSpan(0, 0, 0, 0, RemainingMilliseconds);
 
 		/// <summary>
 		/// Gets the time elapsed, in milliseconds.
 		/// </summary>
 		/// <value>The time elapsed, in milliseconds.</value>
-		public int ElapsedMilliseconds
-		{
-			get { return unchecked(Environment.TickCount - m_startTickCount); }
-		}
+		public int ElapsedMilliseconds => unchecked(Environment.TickCount - m_startTickCount);
 
 		/// <summary>
 		/// Gets the time elapsed, in milliseconds.
 		/// </summary>
 		/// <value>The time elapsed, in milliseconds.</value>
-		public TimeSpan ElapsedTimeSpan
-		{
-			get { return new TimeSpan(0, 0, 0, 0, ElapsedMilliseconds); }
-		}
+		public TimeSpan ElapsedTimeSpan => new TimeSpan(0, 0, 0, 0, ElapsedMilliseconds);
 
 		/// <summary>
 		/// Resets the timer.
@@ -121,10 +97,7 @@ namespace Faithlife.Utility
 		/// Resets the timer.
 		/// </summary>
 		/// <remarks>Use at least int.MaxValue (or Timeout.Infinite) milliseconds for a timer that never times out.</remarks>
-		public void Reset(TimeSpan timeSpanUntilTimeout)
-		{
-			Reset((int) Math.Min(timeSpanUntilTimeout.TotalMilliseconds, int.MaxValue));
-		}
+		public void Reset(TimeSpan timeSpanUntilTimeout) => Reset((int) Math.Min(timeSpanUntilTimeout.TotalMilliseconds, int.MaxValue));
 
 		int m_startTickCount;
 		int m_timeoutTicks;

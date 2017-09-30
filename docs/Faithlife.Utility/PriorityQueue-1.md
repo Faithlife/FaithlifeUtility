@@ -18,7 +18,7 @@ public sealed class PriorityQueue<T> : ICollection, IEnumerable<T>
 | [PriorityQueue](PriorityQueue-1/PriorityQueue.md)(…) | Initializes a new instance of the [`PriorityQueue`](PriorityQueue-1.md) class that is empty, has the specified initial capacity, and is sorted according to the default Comparer for the type of the data. (3 constructors) |
 | [Capacity](PriorityQueue-1/Capacity.md) { get; set; } | Gets or sets the number of elements that the [`PriorityQueue`](PriorityQueue-1.md) can contain. |
 | [Count](PriorityQueue-1/Count.md) { get; } | Gets the number of elements contained in the [`PriorityQueue`](PriorityQueue-1.md). |
-| [CopyTo](PriorityQueue-1/CopyTo.md)(…) |  |
+| [CopyTo](PriorityQueue-1/CopyTo.md)(…) | Copies the elements of the [`PriorityQueue`](PriorityQueue-1.md) to an existing one-dimensional Array, starting at a particular array index. |
 | [Dequeue](PriorityQueue-1/Dequeue.md)() | Removes and returns the smallest item from the [`PriorityQueue`](PriorityQueue-1.md). This operation takes O(log n) time. |
 | [Enqueue](PriorityQueue-1/Enqueue.md)(…) | Adds an object to the [`PriorityQueue`](PriorityQueue-1.md). This operation takes O(log n) time. |
 | [Peek](PriorityQueue-1/Peek.md)() | Returns (without removing) the smallest item in the [`PriorityQueue`](PriorityQueue-1.md). This operation takes O(1) time. |

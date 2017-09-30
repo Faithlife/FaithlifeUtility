@@ -11,7 +11,6 @@ public static class EnumUtility
 | name | description |
 | --- | --- |
 | static [GetValues&lt;T&gt;](EnumUtility/GetValues.md)() | Gets the values defined by the enumerated type. |
-| static [HasFlag&lt;T&gt;](EnumUtility/HasFlag.md)(…) | Returns true if the specified enum value has the specified flag bit(s) set. |
 | static [IsDefined&lt;T&gt;](EnumUtility/IsDefined.md)(…) | Determines whether the specified value is defined. |
 | static [Parse&lt;T&gt;](EnumUtility/Parse.md)(…) | Parses the specified string. (2 methods) |
 | static [TryParse&lt;T&gt;](EnumUtility/TryParse.md)(…) | Attempts to parse the specified string. (4 methods) |

@@ -14,10 +14,10 @@ namespace Faithlife.Utility
 		/// Creates a new truncated stream.
 		/// </summary>
 		/// <param name="length">The length of the truncated stream.</param>
-		/// <param name="streamBase">The base stream.</param>
+		/// <param name="stream">The base stream.</param>
 		/// <param name="ownership">The ownership of the base stream.</param>
-		public TruncatedStream(Stream streamBase, long length, Ownership ownership)
-			: base(streamBase, ownership)
+		public TruncatedStream(Stream stream, long length, Ownership ownership)
+			: base(stream, ownership)
 		{
 			m_length = length;
 		}
@@ -25,44 +25,32 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Returns false; writes are not supported.
 		/// </summary>
-		public override bool CanWrite
-		{
-			get { return false; }
-		}
+		public override bool CanWrite => false;
 
 		/// <summary>
 		/// Returns the (truncated) length of the stream.
 		/// </summary>
-		public override long Length
-		{
-			get { return Math.Min(m_length, base.Length); }
-		}
+		public override long Length => Math.Min(m_length, base.Length);
 
 		/// <summary>
 		/// The current position in the stream.
 		/// </summary>
 		public override long Position
 		{
-			get { return base.Position; }
-			set { m_offset = base.Position = value; }
+			get => base.Position;
+			set => m_offset = base.Position = value;
 		}
 
 #if !NETSTANDARD1_4
 		/// <summary>
 		/// Starts an asynchronous read.
 		/// </summary>
-		public override IAsyncResult BeginRead(byte[] buffer, int offset, int count, AsyncCallback callback, object state)
-		{
-			return base.BeginRead(buffer, offset, TruncateCount(count), callback, state);
-		}
+		public override IAsyncResult BeginRead(byte[] buffer, int offset, int count, AsyncCallback callback, object state) => base.BeginRead(buffer, offset, TruncateCount(count), callback, state);
 
 		/// <summary>
 		/// Throws an exception; writes are not supported.
 		/// </summary>
-		public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback, object state)
-		{
-			throw CreateWriteNotSupportedException();
-		}
+		public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback, object state) => throw CreateWriteNotSupportedException();
 
 		/// <summary>
 		/// Finishes an asynchronous read.
@@ -77,10 +65,7 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Throws an exception; writes are not supported.
 		/// </summary>
-		public override void EndWrite(IAsyncResult asyncResult)
-		{
-			throw CreateWriteNotSupportedException();
-		}
+		public override void EndWrite(IAsyncResult asyncResult) => throw CreateWriteNotSupportedException();
 #endif
 
 		/// <summary>
@@ -131,34 +116,22 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Throws an exception; writes are not supported.
 		/// </summary>
-		public override void SetLength(long value)
-		{
-			throw CreateWriteNotSupportedException();
-		}
+		public override void SetLength(long value) => throw CreateWriteNotSupportedException();
 
 		/// <summary>
 		/// Throws an exception; writes are not supported.
 		/// </summary>
-		public override void Write(byte[] buffer, int offset, int count)
-		{
-			throw CreateWriteNotSupportedException();
-		}
+		public override void Write(byte[] buffer, int offset, int count) => throw CreateWriteNotSupportedException();
 
 		/// <summary>
 		/// Throws an exception; writes are not supported.
 		/// </summary>
-		public override Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
-		{
-			throw CreateWriteNotSupportedException();
-		}
+		public override Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken) => throw CreateWriteNotSupportedException();
 
 		/// <summary>
 		/// Throws an exception; writes are not supported.
 		/// </summary>
-		public override void WriteByte(byte value)
-		{
-			throw CreateWriteNotSupportedException();
-		}
+		public override void WriteByte(byte value) => throw CreateWriteNotSupportedException();
 
 		private int TruncateCount(int count)
 		{
@@ -166,10 +139,7 @@ namespace Faithlife.Utility
 			return Math.Max(Math.Min(count, maxCount), 0);
 		}
 
-		private static Exception CreateWriteNotSupportedException()
-		{
-			return new NotSupportedException("Write not supported.");
-		}
+		private static Exception CreateWriteNotSupportedException() => new NotSupportedException("Write not supported.");
 
 		readonly long m_length;
 		long m_offset;

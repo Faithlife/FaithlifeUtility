@@ -15,12 +15,12 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Initializes a new instance of the <see cref="EventInfo&lt;TSource, TEventHandler&gt;"/> class.
 		/// </summary>
-		/// <param name="fnAddHandler">A delegate that adds an event handler to the event of the specified source.</param>
-		/// <param name="fnRemoveHandler">A delegate that removes an event handler from the event of the specified source.</param>
-		public EventInfo(Action<TSource, TEventHandler> fnAddHandler, Action<TSource, TEventHandler> fnRemoveHandler)
+		/// <param name="addHandler">A delegate that adds an event handler to the event of the specified source.</param>
+		/// <param name="removeHandler">A delegate that removes an event handler from the event of the specified source.</param>
+		public EventInfo(Action<TSource, TEventHandler> addHandler, Action<TSource, TEventHandler> removeHandler)
 		{
-			m_fnAddHandler = fnAddHandler;
-			m_fnRemoveHandler = fnRemoveHandler;
+			m_addHandler = addHandler;
+			m_removeHandler = removeHandler;
 		}
 
 		/// <summary>
@@ -28,20 +28,14 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="source">The source.</param>
 		/// <param name="handler">The event handler.</param>
-		public void AddHandler(TSource source, TEventHandler handler)
-		{
-			m_fnAddHandler(source, handler);
-		}
+		public void AddHandler(TSource source, TEventHandler handler) => m_addHandler(source, handler);
 
 		/// <summary>
 		/// Removes an event handler from the event of the specified source.
 		/// </summary>
 		/// <param name="source">The source.</param>
 		/// <param name="handler">The event handler.</param>
-		public void RemoveHandler(TSource source, TEventHandler handler)
-		{
-			m_fnRemoveHandler(source, handler);
-		}
+		public void RemoveHandler(TSource source, TEventHandler handler) => m_removeHandler(source, handler);
 
 		/// <summary>
 		/// Subscribes to the event of the specified source.
@@ -58,7 +52,7 @@ namespace Faithlife.Utility
 			return Scope.Create(() => RemoveHandler(source, handler));
 		}
 
-		readonly Action<TSource, TEventHandler> m_fnAddHandler;
-		readonly Action<TSource, TEventHandler> m_fnRemoveHandler;
+		readonly Action<TSource, TEventHandler> m_addHandler;
+		readonly Action<TSource, TEventHandler> m_removeHandler;
 	}
 }

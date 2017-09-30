@@ -15,10 +15,7 @@ namespace Faithlife.Utility
 		/// <param name="comparer">The comparer delegate.</param>
 		public GenericComparer(Func<T, T, int> comparer)
 		{
-			if (comparer == null)
-				throw new ArgumentNullException("comparer");
-
-			m_comparer = comparer;
+			m_comparer = comparer ?? throw new ArgumentNullException(nameof(comparer));
 		}
 
 		/// <summary>
@@ -27,10 +24,7 @@ namespace Faithlife.Utility
 		/// <param name="x">The first object to compare.</param>
 		/// <param name="y">The second object to compare.</param>
 		/// <returns>Less than zero: x is less than y. Zero: x equals y. Greater than zero: x is greater than y.</returns>
-		public override int Compare(T x, T y)
-		{
-			return m_comparer(x, y);
-		}
+		public override int Compare(T x, T y) => m_comparer(x, y);
 
 		readonly Func<T, T, int> m_comparer;
 	}

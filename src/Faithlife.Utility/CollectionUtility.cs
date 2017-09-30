@@ -12,46 +12,27 @@ namespace Faithlife.Utility
 		/// Adds the sequence of items to the collection.
 		/// </summary>
 		/// <typeparam name="T">The type of item in the collection.</typeparam>
-		/// <param name="coll">The collection.</param>
-		/// <param name="seqItems">The sequence of items to add to the collection.</param>
-		public static void AddRange<T>(this ICollection<T> coll, IEnumerable<T> seqItems)
+		/// <param name="collection">The collection.</param>
+		/// <param name="items">The sequence of items to add to the collection.</param>
+		public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> items)
 		{
-			if (coll == null)
-				throw new ArgumentNullException("coll");
-			if (coll.IsReadOnly)
-				throw new ArgumentException(OurMessages.Argument_CollectionReadOnly, "coll");
-			if (seqItems == null)
-				throw new ArgumentNullException("seqItems");
+			if (collection == null)
+				throw new ArgumentNullException(nameof(collection));
+			if (collection.IsReadOnly)
+				throw new ArgumentException("The collection must not be read-only.", nameof(collection));
+			if (items == null)
+				throw new ArgumentNullException(nameof(items));
 
 			// check for, and invoke, the most efficient method that is available
-			List<T> list = coll as List<T>;
-			if (list != null)
+			if (collection is List<T> list)
 			{
-				list.AddRange(seqItems);
+				list.AddRange(items);
 			}
 			else
 			{
-				foreach (T item in seqItems)
-					coll.Add(item);
+				foreach (T item in items)
+					collection.Add(item);
 			}
-		}
-
-		/// <summary>
-		/// Converts the specified collection to an array.
-		/// </summary>
-		/// <param name="coll">The collection to convert.</param>
-		/// <param name="fnConvert">Converts from collection elements to array elements.</param>
-		/// <returns>An array with the elements of the collection.</returns>
-		public static TOutput[] ToArray<TInput, TOutput>(this ICollection<TInput> coll, Func<TInput, TOutput> fnConvert)
-		{
-			if (coll == null)
-				throw new ArgumentNullException("coll");
-			int nCount = coll.Count;
-			TOutput[] aResult = new TOutput[nCount];
-			int nIndex = 0;
-			foreach (TInput input in coll)
-				aResult[nIndex++] = fnConvert(input);
-			return aResult;
 		}
 
 		/// <summary>

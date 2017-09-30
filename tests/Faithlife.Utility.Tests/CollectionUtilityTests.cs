@@ -40,21 +40,6 @@ namespace Faithlife.Utility.Tests
 		}
 
 		[Test]
-		public void ToArrayConverterTest()
-		{
-			LinkedList<int> linked = new LinkedList<int>();
-			linked.AddLast(3);
-			linked.AddFirst(6);
-			CollectionAssert.AreEqual(new double[] { 7.0, 4.0 }, CollectionUtility.ToArray<int, double>(linked, delegate(int x) { return x + 1; }));
-		}
-
-		[Test]
-		public void ToArrayConverterNull()
-		{
-			Assert.Throws<ArgumentNullException>(() => CollectionUtility.ToArray<int, double>(null, delegate(int x) { return x + 1; }));
-		}
-
-		[Test]
 		public void TestAddIfNotNullToListOfStructs()
 		{
 			List<DateTime> listOfDates = new List<DateTime>();

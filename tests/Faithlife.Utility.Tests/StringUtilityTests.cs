@@ -64,28 +64,6 @@ namespace Faithlife.Utility.Tests
 				StringUtility.FormatInvariant("{0}!", dtNow));
 		}
 
-		[TestCase("", "")]
-		[TestCase("{0}", "")]
-		[TestCase("{0:N2}", "")]
-		[TestCase("abc{0}", "abc")]
-		[TestCase("{0}def", "def")]
-		[TestCase("abc{0}def", "abcdef")]
-		[TestCase("abc{0}def{1}ghi", "abcdefghi")]
-		public void EmptyFormat(string strIn, string strExpected)
-		{
-			Assert.AreEqual(strIn.EmptyFormat(), strExpected);
-		}
-
-		[TestCase(null, true)]
-		[TestCase("", true)]
-		[TestCase(" ", true)]
-		[TestCase(" a ", false)]
-		[TestCase(" \t\r\n\u00A0\u2000\u2001", true)]
-		public void IsNullOrWhiteSpace(string input, bool expected)
-		{
-			Assert.AreEqual(expected, input.IsNullOrWhiteSpace());
-		}
-
 		[Test]
 		public void JoinStrings()
 		{
@@ -96,17 +74,17 @@ namespace Faithlife.Utility.Tests
 			linked.AddLast("");
 			linked.AddLast("three");
 			Assert.AreEqual("one, , two, , three", linked.Join(", "));
-			Assert.AreEqual("one,,two,,three", linked.Join(','));
+			Assert.AreEqual("one,,two,,three", linked.Join(","));
 			Assert.AreEqual("onetwothree", linked.Join());
 			Assert.AreEqual("onetwothree", linked.Join(""));
 			Assert.AreEqual("onetwothree", linked.Join(null));
 		}
 
 		[TestCase(0, new string[0])]
-		[TestCase(0, new string[] { null })]
-		[TestCase(0, new[] { null, "one", null, "", "three" })]
-		[TestCase(0, new[] { "one" })]
-		[TestCase(0, new[] { "one", "two", "three" })]
+		[TestCase(1, new string[] { null })]
+		[TestCase(2, new[] { null, "one", null, "", "three" })]
+		[TestCase(3, new[] { "one" })]
+		[TestCase(4, new[] { "one", "two", "three" })]
 		public void JoinStringsInEnumerable(int nIgnored, string[] astrStrings)
 		{
 			const string strSeparator = ", ";
@@ -143,7 +121,7 @@ namespace Faithlife.Utility.Tests
 			linked.AddLast(1);
 			linked.AddLast(2);
 			linked.AddLast(3);
-			Assert.AreEqual("1, 2, 3", linked.ToStrings().Join(", "));
+			Assert.AreEqual("1, 2, 3", linked.Select(x => x.ToString()).Join(", "));
 		}
 
 		[Test]
@@ -153,7 +131,7 @@ namespace Faithlife.Utility.Tests
 			linked.AddLast(1);
 			linked.AddLast(2);
 			linked.AddLast(3);
-			Assert.AreEqual("1, 4, 9", linked.Select(x => x * x).ToStrings().Join(", "));
+			Assert.AreEqual("1, 4, 9", linked.Select(x => x * x).Select(x => x.ToString()).Join(", "));
 		}
 
 		[Test]
@@ -198,20 +176,20 @@ namespace Faithlife.Utility.Tests
 		}
 
 		// TODO: is this a valid test?
-//#if !__MOBILE__
-//		// The Mono C# compiler has a fit with these strings for reasons
-//		// that have yet to be investigated.
-//		[TestCase("\uD800", "\uD800")]
-//		[TestCase("Z\uD800", "\uD800Z")]
-//		[TestCase("Z\uD800\uD801", "\uD801\uD800Z")]
-//		[TestCase("Z\uD800\uDC00\uDC01", "\uDC01\uD800\uDC00Z")]
-//		public void ReverseMalformed(string strInput, string strReversed)
-//		{
-//			Assert.AreEqual(strReversed, StringUtility.Reverse(strInput));
-//			Assert.AreEqual(strInput, StringUtility.Reverse(strReversed));
-//			Assert.AreEqual(strInput, StringUtility.Reverse(StringUtility.Reverse(strInput)));
-//		}
-//#endif
+		//#if !__MOBILE__
+		//		// The Mono C# compiler has a fit with these strings for reasons
+		//		// that have yet to be investigated.
+		//		[TestCase("\uD800", "\uD800")]
+		//		[TestCase("Z\uD800", "\uD800Z")]
+		//		[TestCase("Z\uD800\uD801", "\uD801\uD800Z")]
+		//		[TestCase("Z\uD800\uDC00\uDC01", "\uDC01\uD800\uDC00Z")]
+		//		public void ReverseMalformed(string strInput, string strReversed)
+		//		{
+		//			Assert.AreEqual(strReversed, StringUtility.Reverse(strInput));
+		//			Assert.AreEqual(strInput, StringUtility.Reverse(strReversed));
+		//			Assert.AreEqual(strInput, StringUtility.Reverse(StringUtility.Reverse(strInput)));
+		//		}
+		//#endif
 
 		[TestCase(null, "", -1)]
 		[TestCase(null, null, 0)]
@@ -342,26 +320,6 @@ namespace Faithlife.Utility.Tests
 			Assert.Throws<ArgumentNullException>(() => StringUtility.FoldCase(null));
 		}
 
-		[Test]
-		public void IndicesOfFourZeroes()
-		{
-			string strZeroes = "0101201230";
-			CollectionAssert.AreEqual(new[] { 0, 2, 5, 9 }, StringUtility.GetIndexesOf(strZeroes, '0'));
-		}
-
-		[Test]
-		public void IndicesOfNoZeroes()
-		{
-			string strZeroes = "1234";
-			CollectionAssert.AreEqual(new int[0], StringUtility.GetIndexesOf(strZeroes, '0'));
-		}
-
-		[Test]
-		public void IndicesOfNullException()
-		{
-			Assert.Throws<ArgumentNullException>(() => CollectionAssert.AreEqual(new[] { 0, 2, 5, 9 }, StringUtility.GetIndexesOf(null, '0')));
-		}
-
 		[TestCase("", 0)]
 		[TestCase(null, 0)]
 		[TestCase("a", -889528276)]
@@ -375,58 +333,6 @@ namespace Faithlife.Utility.Tests
 		public void GetPersistentHash(string s, int nExpected)
 		{
 			Assert.AreEqual(nExpected, StringUtility.GetPersistentHashCode(s));
-		}
-
-		[TestCase("", "", 100)]
-		[TestCase("test", "test", 100)]
-		[TestCase("test", "tes", 86)]
-		[TestCase("Word", "Wheat", 22)]
-		[TestCase("Jeremiah, often called", "Jeremiah sees a future day", 58)]
-		public void Similarity(string strLeft, string strRight, int nScore)
-		{
-			Assert.AreEqual(nScore, StringUtility.CalculateSimilarity(strLeft, strRight));
-		}
-
-		[TestCase(null, "two")]
-		[TestCase("one", null)]
-		[TestCase(null, null)]
-		public void SimilarityNull(string strLeft, string strRight)
-		{
-			Assert.Throws<ArgumentNullException>(() => StringUtility.CalculateSimilarity(strLeft, strRight));
-		}
-
-		public void SimilarityLeftNull()
-		{
-			Assert.Throws<ArgumentNullException>(() => StringUtility.CalculateSimilarity(null, 0, 0, "two", 0, 3));
-		}
-
-		public void SimilarityRightNull()
-		{
-			Assert.Throws<ArgumentNullException>(() => StringUtility.CalculateSimilarity("one", 0, 3, null, 0, 0));
-		}
-
-		[Test]
-		public void SimilarityLeftNegativeStart()
-		{
-			Assert.Throws<ArgumentOutOfRangeException>(() => StringUtility.CalculateSimilarity("one", -1, 3, "two", 0, 3));
-		}
-
-		[Test]
-		public void SimilarityRightNegativeStart()
-		{
-			Assert.Throws<ArgumentOutOfRangeException>(() => StringUtility.CalculateSimilarity("one", 0, 3, "two", -1, 3));
-		}
-
-		[Test]
-		public void SimilarityLeftLength()
-		{
-			Assert.Throws<ArgumentOutOfRangeException>(() => StringUtility.CalculateSimilarity("one", 1, 3, "two", 0, 3));
-		}
-
-		[Test]
-		public void SimilarityRightLength()
-		{
-			Assert.Throws<ArgumentOutOfRangeException>(() => StringUtility.CalculateSimilarity("one", 0, 3, "two", 1, 3));
 		}
 
 		[TestCase(null)]
@@ -518,30 +424,6 @@ namespace Faithlife.Utility.Tests
 					Assert.AreEqual(textReader.Read(), -1);
 				}
 			}
-		}
-
-		[TestCase(null, 0, null)]
-		[TestCase(null, 100, null)]
-		[TestCase("", 0, "")]
-		[TestCase("", 100, "")]
-		[TestCase("abcdef", 0, "")]
-		[TestCase("abcdef", 1, "a")]
-		[TestCase("abcdef", 2, "ab")]
-		[TestCase("abcdef", 3, "abc")]
-		[TestCase("abcdef", 4, "abcd")]
-		[TestCase("abcdef", 5, "abcde")]
-		[TestCase("abcdef", 6, "abcdef")]
-		[TestCase("abcdef", 7, "abcdef")]
-		[TestCase("abcdef", 100, "abcdef")]
-		public void Truncate(string input, int length, string expected)
-		{
-			Assert.AreEqual(expected, StringUtility.Truncate(input, length));
-		}
-
-		[Test]
-		public void TruncateOutOfRange()
-		{
-			Assert.Throws<ArgumentOutOfRangeException>(() => StringUtility.Truncate("abcdef", -1));
 		}
 	}
 }

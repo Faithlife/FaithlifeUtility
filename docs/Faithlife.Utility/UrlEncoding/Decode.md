@@ -3,12 +3,12 @@
 Decodes a string with the default settings.
 
 ```csharp
-public static string Decode(string str)
+public static string Decode(string value)
 ```
 
 | parameter | description |
 | --- | --- |
-| str | The string to be decoded. |
+| value | The string to be decoded. |
 
 ## Return Value
 
@@ -26,12 +26,12 @@ The decoded string.
 Decodes a string with the specified settings.
 
 ```csharp
-public static string Decode(string str, UrlEncodingSettings settings)
+public static string Decode(string value, UrlEncodingSettings settings)
 ```
 
 | parameter | description |
 | --- | --- |
-| str | The string to be decoded. |
+| value | The string to be decoded. |
 | settings | The settings to use when decoding. |
 
 ## Return Value

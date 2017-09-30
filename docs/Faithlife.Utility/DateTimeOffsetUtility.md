@@ -11,8 +11,6 @@ public static class DateTimeOffsetUtility
 | name | description |
 | --- | --- |
 | const [Iso8601Format](DateTimeOffsetUtility/Iso8601Format.md) | The ISO 8601 format string. |
-| static [Max](DateTimeOffsetUtility/Max.md)(…) | Returns the larger of two DateTimeOffset instances. |
-| static [Min](DateTimeOffsetUtility/Min.md)(…) | Returns the smaller of two DateTimeOffset instances. |
 | static [ParseIso8601](DateTimeOffsetUtility/ParseIso8601.md)(…) | Converts the specified ISO 8601 representation of a date and time to its DateTimeOffset equivalent. |
 | static [ToIso8601](DateTimeOffsetUtility/ToIso8601.md)(…) | Formats the date in the standard ISO 8601 format. |
 | static [TryParseIso8601](DateTimeOffsetUtility/TryParseIso8601.md)(…) |  (2 methods) |

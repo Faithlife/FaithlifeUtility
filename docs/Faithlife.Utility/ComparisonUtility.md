@@ -10,8 +10,8 @@ public static class ComparisonUtility
 
 | name | description |
 | --- | --- |
-| static [ChainedCompare&lt;T&gt;](ComparisonUtility/ChainedCompare.md)(…) |  |
-| static [CreateChainedComparison&lt;T&gt;](ComparisonUtility/CreateChainedComparison.md)(…) |  |
+| static [ChainedCompare&lt;T&gt;](ComparisonUtility/ChainedCompare.md)(…) | Executes a chained comparison between two objects. |
+| static [CreateChainedComparison&lt;T&gt;](ComparisonUtility/CreateChainedComparison.md)(…) | Creates a chained comparison. |
 | static [CreateComparer&lt;T&gt;](ComparisonUtility/CreateComparer.md)(…) | Creates a comparer from a delegate. (2 methods) |
 | static [Max&lt;T&gt;](ComparisonUtility/Max.md)(…) | Compares the two instances and returns the greater of the two. |
 | static [Min&lt;T&gt;](ComparisonUtility/Min.md)(…) | Compares the two instances and returns the lesser of the two. |

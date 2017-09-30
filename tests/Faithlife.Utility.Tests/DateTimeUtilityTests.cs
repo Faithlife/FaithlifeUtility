@@ -72,13 +72,6 @@ namespace Faithlife.Utility.Tests
 		}
 
 		[Test]
-		public void RenderIso8601()
-		{
-			DateTime dt = new DateTime(2006, 01, 02, 03, 04, 05, 0, DateTimeKind.Utc);
-			Assert.AreEqual("2006-01-02T03:04:05Z", DateTimeUtility.RenderIso8601(dt));
-		}
-
-		[Test]
 		public void ToIso8601()
 		{
 			DateTime dt = new DateTime(2006, 01, 02, 03, 04, 05, 0, DateTimeKind.Utc);
@@ -89,7 +82,7 @@ namespace Faithlife.Utility.Tests
 		public void RoundTripLocal()
 		{
 			DateTime dtNow = ClearMilliseconds(DateTime.Now);
-			string strRendered = DateTimeUtility.RenderIso8601(dtNow);
+			string strRendered = dtNow.ToIso8601();
 			DateTime dtParsed = DateTimeUtility.ParseIso8601(strRendered);
 			Assert.AreEqual(dtNow, dtParsed.ToLocalTime());
 		}
@@ -98,7 +91,7 @@ namespace Faithlife.Utility.Tests
 		public void RoundTripUtc()
 		{
 			DateTime dtNow = ClearMilliseconds(DateTime.UtcNow);
-			string strRendered = DateTimeUtility.RenderIso8601(dtNow);
+			string strRendered = dtNow.ToIso8601();
 			DateTime dtParsed = DateTimeUtility.ParseIso8601(strRendered);
 			Assert.AreEqual(dtNow, dtParsed);
 		}

@@ -3,17 +3,17 @@
 Returns the [`UnicodeCharacterClass`](../UnicodeCharacterClass.md) of the character at the specified offset in the given string.
 
 ```csharp
-public static UnicodeCharacterClass GetCharacterClass(string s, int nIndex)
+public static UnicodeCharacterClass GetCharacterClass(string value, int index)
 ```
 
 | parameter | description |
 | --- | --- |
-| s | A String. |
-| nIndex | The character position in *s*. |
+| value | A String. |
+| index | The character position in *value*. |
 
 ## Return Value
 
-A [`UnicodeCharacterClass`](../UnicodeCharacterClass.md) enumerated constant that identifies the character class of the character at position *nIndex* in *s*.
+A [`UnicodeCharacterClass`](../UnicodeCharacterClass.md) enumerated constant that identifies the character class of the character at position *index* in *value*.
 
 ## See Also
 

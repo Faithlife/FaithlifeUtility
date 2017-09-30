@@ -9,14 +9,9 @@ namespace Faithlife.Utility
 	public static class ArrayUtility
 	{
 		/// <summary>
-		/// Creates a GenericComparer that uses ArrayUtility.Compare.
+		/// Creates a comparer that uses ArrayUtility.Compare.
 		/// </summary>
-		/// <returns>A GenericComparer that uses ArrayUtility.Compare.</returns>
-		public static IComparer<T[]> CreateComparer<T>()
-		{
-			// Mono breaks if you try to use ArrayUtility.Compare w/o explicitly constructing a delegate.- Novell/Mono Bug #523683
-			return new GenericComparer<T[]>((a, b) => ArrayUtility.Compare(a, b));
-		}
+		public static IComparer<T[]> CreateComparer<T>() => new GenericComparer<T[]>(Compare);
 
 		/// <summary>
 		/// Returns true if the arrays are equal.
@@ -25,10 +20,7 @@ namespace Faithlife.Utility
 		/// <param name="array2">The second array.</param>
 		/// <returns>true if the arrays are both null, or if they both have equal length and the first
 		/// item of the first array is equal to the first item of the second array, etc.</returns>
-		public static bool AreEqual<T>(T[] array1, T[] array2)
-		{
-			return AreEqual(array1, array2, EqualityComparer<T>.Default);
-		}
+		public static bool AreEqual<T>(T[] array1, T[] array2) => AreEqual(array1, array2, EqualityComparer<T>.Default);
 
 		/// <summary>
 		/// Returns true if the arrays are equal.
@@ -61,10 +53,7 @@ namespace Faithlife.Utility
 		/// <returns>A clone of the specified array.</returns>
 		/// <remarks>This method is merely useful in avoiding the cast that is otherwise necessary
 		/// when calling <see cref="System.Array.Clone" />.</remarks>
-		public static T[] Clone<T>(T[] array)
-		{
-			return (T[]) array.Clone();
-		}
+		public static T[] Clone<T>(T[] array) => (T[]) array.Clone();
 
 		/// <summary>
 		/// Compares the two arrays.
@@ -72,10 +61,7 @@ namespace Faithlife.Utility
 		/// <param name="array1">The first array.</param>
 		/// <param name="array2">The second array.</param>
 		/// <returns>The result of a lexicographical comparison of the array items.</returns>
-		public static int Compare<T>(T[] array1, T[] array2)
-		{
-			return Compare(array1, array2, Comparer<T>.Default);
-		}
+		public static int Compare<T>(T[] array1, T[] array2) => Compare(array1, array2, Comparer<T>.Default);
 
 		/// <summary>
 		/// Compares the two arrays.
@@ -90,21 +76,21 @@ namespace Faithlife.Utility
 				return array2 == null ? 0 : -1;
 			if (array2 == null)
 				return 1;
-			int nLength1 = array1.Length;
-			int nLength2 = array2.Length;
-			int nIndex = 0;
+			int length1 = array1.Length;
+			int length2 = array2.Length;
+			int index = 0;
 			while (true)
 			{
-				if (nLength1 == nIndex)
-					return nLength2 == nIndex ? 0 : -1;
-				if (nLength2 == nIndex)
+				if (length1 == index)
+					return length2 == index ? 0 : -1;
+				if (length2 == index)
 					return 1;
-				T item1 = array1[nIndex];
-				T item2 = array2[nIndex];
-				int nCompare = comparer.Compare(item1, item2);
-				if (nCompare != 0)
-					return nCompare;
-				nIndex++;
+				T item1 = array1[index];
+				T item2 = array2[index];
+				int compare = comparer.Compare(item1, item2);
+				if (compare != 0)
+					return compare;
+				index++;
 			}
 		}
 
@@ -116,20 +102,20 @@ namespace Faithlife.Utility
 		public static T[] Concatenate<T>(params T[][] arrays)
 		{
 			if (arrays == null)
-				throw new ArgumentNullException("arrays");
-			int nTotalLength = 0;
+				throw new ArgumentNullException(nameof(arrays));
+			int totalLength = 0;
 			foreach (T[] array in arrays)
 			{
 				if (array == null)
-					throw new ArgumentOutOfRangeException("arrays");
-				nTotalLength += array.Length;
+					throw new ArgumentOutOfRangeException(nameof(arrays));
+				totalLength += array.Length;
 			}
-			T[] arrayResult = new T[nTotalLength];
-			nTotalLength = 0;
+			T[] arrayResult = new T[totalLength];
+			totalLength = 0;
 			foreach (T[] array in arrays)
 			{
-				array.CopyTo(arrayResult, nTotalLength);
-				nTotalLength += array.Length;
+				array.CopyTo(arrayResult, totalLength);
+				totalLength += array.Length;
 			}
 			return arrayResult;
 		}

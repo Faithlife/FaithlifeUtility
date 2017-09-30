@@ -3,14 +3,14 @@
 Performs standard validation of parameters passed to an implementation of Int32).
 
 ```csharp
-public static void CheckCopyToParameters(Array array, int index, int nCollectionSize)
+public static void CheckCopyToParameters(Array array, int index, int count)
 ```
 
 | parameter | description |
 | --- | --- |
 | array | The one-dimensional Array that is the destination of the elements copied from the [`PriorityQueue`](../PriorityQueue-1.md). The Array must have zero-based indexing. |
 | index | The zero-based index in *array* at which copying begins. |
-| nCollectionSize | The size of the collection to be copied. |
+| count | The size of the collection to be copied. |
 
 ## See Also
 

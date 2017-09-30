@@ -3,12 +3,12 @@
 Reverses the specified string.
 
 ```csharp
-public static string Reverse(this string strInput)
+public static string Reverse(this string value)
 ```
 
 | parameter | description |
 | --- | --- |
-| strInput | The string to reverse. |
+| value | The string to reverse. |
 
 ## Return Value
 

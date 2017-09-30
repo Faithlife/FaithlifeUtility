@@ -26,12 +26,12 @@ A new segment with the same owner string.
 Returns a new [`StringSegment`](../StringSegment.md) with the same owner string.
 
 ```csharp
-public StringSegment Redirect(int nOffset)
+public StringSegment Redirect(int offset)
 ```
 
 | parameter | description |
 | --- | --- |
-| nOffset | Offset of the new string segment. |
+| offset | Offset of the new string segment. |
 
 ## Return Value
 
@@ -49,13 +49,13 @@ A new segment with the same owner string.
 Returns a new [`StringSegment`](../StringSegment.md) with the same owner string.
 
 ```csharp
-public StringSegment Redirect(int nOffset, int nLength)
+public StringSegment Redirect(int offset, int length)
 ```
 
 | parameter | description |
 | --- | --- |
-| nOffset | Offset of the new string segment. |
-| nLength | Length of the new string segment. |
+| offset | Offset of the new string segment. |
+| length | Length of the new string segment. |
 
 ## Return Value
 

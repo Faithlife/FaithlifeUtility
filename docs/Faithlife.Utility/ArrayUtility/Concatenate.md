@@ -1,8 +1,18 @@
 # ArrayUtility.Concatenate&lt;T&gt; method
 
+Concatenates the specified arrays.
+
 ```csharp
 public static T[] Concatenate<T>(T[][] arrays)
 ```
+
+| parameter | description |
+| --- | --- |
+| arrays | The arrays to concatenate. |
+
+## Return Value
+
+A new array with all of the elements of the specified arrays.
 
 ## See Also
 

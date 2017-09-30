@@ -3,14 +3,14 @@
 Compares two sequences.
 
 ```csharp
-public static int SequenceCompare<T>(this IEnumerable<T> seqFirst, IEnumerable<T> seqSecond)
+public static int SequenceCompare<T>(this IEnumerable<T> first, IEnumerable<T> second)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type of the elements. |
-| seqFirst | The first sequence. |
-| seqSecond | The second sequence. |
+| first | The first sequence. |
+| second | The second sequence. |
 
 ## Return Value
 
@@ -28,14 +28,14 @@ public static int SequenceCompare<T>(this IEnumerable<T> seqFirst, IEnumerable<T
 Compares two sequences.
 
 ```csharp
-public static int SequenceCompare<T>(this IEnumerable<T> seqFirst, IEnumerable<T> seqSecond, IComparer<T> comparer)
+public static int SequenceCompare<T>(this IEnumerable<T> first, IEnumerable<T> second, IComparer<T> comparer)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type of the elements. |
-| seqFirst | The first sequence. |
-| seqSecond | The second sequence. |
+| first | The first sequence. |
+| second | The second sequence. |
 | comparer | The comparer. |
 
 ## Return Value

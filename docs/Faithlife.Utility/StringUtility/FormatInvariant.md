@@ -3,13 +3,13 @@
 Formats the string using the invariant culture.
 
 ```csharp
-public static string FormatInvariant(this string strFormat, object[] aobjArgs)
+public static string FormatInvariant(this string format, object[] args)
 ```
 
 | parameter | description |
 | --- | --- |
-| strFormat | The format string. |
-| aobjArgs | The format arguments. |
+| format | The format string. |
+| args | The format arguments. |
 
 ## Return Value
 

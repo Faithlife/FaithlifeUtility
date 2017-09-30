@@ -1,15 +1,15 @@
 # StringBuilderUtility.AppendFormatInvariant method
 
-Append the invariant representation of the specfied format tot he end of *sb*.
+Append the invariant representation of the specfied format tot he end of *stringBuilder*.
 
 ```csharp
-public static StringBuilder AppendFormatInvariant(this StringBuilder sb, string strFormat, object[] args)
+public static StringBuilder AppendFormatInvariant(this StringBuilder stringBuilder, string format, object[] args)
 ```
 
 | parameter | description |
 | --- | --- |
-| sb | The StringBuilder instance to which the string representation will be appended. |
-| strFormat | A composite format string. |
+| stringBuilder | The StringBuilder instance to which the string representation will be appended. |
+| format | A composite format string. |
 | args | An array of objects to format |
 
 ## Return Value

@@ -13,82 +13,18 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Tries to parse the specified string as a <see cref="Guid"/>.  A return value indicates whether the operation succeeded.
 		/// </summary>
-		/// <param name="strGuid">The GUID string to attempt to parse.</param>
+		/// <param name="value">The GUID string to attempt to parse.</param>
 		/// <param name="guid">When this method returns, contains the <see cref="Guid"/> equivalent to the GUID
-		/// contained in <paramref name="strGuid"/>, if the conversion succeeded, or Guid.Empty if the conversion failed.</param>
+		/// contained in <paramref name="value"/>, if the conversion succeeded, or Guid.Empty if the conversion failed.</param>
 		/// <returns><c>true</c> if a GUID was successfully parsed; <c>false</c> otherwise.</returns>
-		public static bool TryParse(string strGuid, out Guid guid)
-		{
-			return Guid.TryParse(strGuid, out guid);
-		}
-
-		/// <summary>
-		/// Converts a GUID to a short string.
-		/// </summary>
-		/// <param name="guid">The GUID.</param>
-		/// <returns>The short string, which is a 22-character case-sensitive string consisting
-		/// of ASCII numbers, letters, hyphens, and/or underscores.</returns>
-		public static string ToShortString(this Guid guid)
-		{
-			// use base-64, but with URL-safe replacements for the slash and plus, and omitting the two trailing equal signs
-			return Convert.ToBase64String(guid.ToByteArray())
-				.Replace('/', c_chShortStringBase64SlashReplacement)
-				.Replace('+', c_chShortStringBase64PlusReplacement)
-				.Substring(0, 22);
-		}
-
-		/// <summary>
-		/// Converts a short string to a GUID.
-		/// </summary>
-		/// <param name="shortString">The short string.</param>
-		/// <returns>The GUID.</returns>
-		/// <exception cref="FormatException">The argument is not a valid GUID short string.</exception>
-		public static Guid FromShortString(string shortString)
-		{
-			if (shortString == null)
-				throw new ArgumentNullException("shortString");
-
-			// short GUID strings are always 22 characters long
-			const string errorMessage = "The input is not a valid GUID short string.";
-			if (shortString.Length != 22)
-				throw new FormatException(errorMessage);
-
-			// start building the base-64 string, which always ends with two equal signs
-			char[] shortChars = (shortString + "==").ToCharArray();
-
-			// convert URL-safe replacements back to slash and plus, and make sure
-			//  there is no whitespace (which Convert.FromBase64CharArray ignores)
-			for (int index = 0; index < 22; index++)
-			{
-				char ch = shortChars[index];
-				if (ch == c_chShortStringBase64PlusReplacement)
-					shortChars[index] = '+';
-				else if (ch == c_chShortStringBase64SlashReplacement)
-					shortChars[index] = '/';
-				else if (!((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9')))
-					throw new FormatException(errorMessage);
-			}
-
-			try
-			{
-				// convert base-64 to bytes, and bytes to GUID
-				return new Guid(Convert.FromBase64CharArray(shortChars, 0, 24));
-			}
-			catch (FormatException x)
-			{
-				throw new FormatException(errorMessage, x);
-			}
-		}
+		public static bool TryParse(string value, out Guid guid) => Guid.TryParse(value, out guid);
 
 		/// <summary>
 		/// Converts a GUID to a lowercase string with no dashes.
 		/// </summary>
 		/// <param name="guid">The GUID.</param>
 		/// <returns>The GUID as a lowercase string with no dashes.</returns>
-		public static string ToLowerNoDashString(this Guid guid)
-		{
-			return guid.ToString("N");
-		}
+		public static string ToLowerNoDashString(this Guid guid) => guid.ToString("N");
 
 		/// <summary>
 		/// Converts a lowercase, no dashes string to a GUID.
@@ -109,13 +45,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="value">The string.</param>
 		/// <returns>The GUID, if the string could be converted; otherwise, null.</returns>
-		public static Guid? TryFromLowerNoDashString(string value)
-		{
-			Guid guid;
-			if (!TryParse(value, out guid) || value != guid.ToLowerNoDashString())
-				return null;
-			return guid;
-		}
+		public static Guid? TryFromLowerNoDashString(string value) => !TryParse(value, out var guid) || value != guid.ToLowerNoDashString() ? default(Guid?) : guid;
 
 		/// <summary>
 		/// Creates a name-based UUID using the algorithm from RFC 4122 §4.3.
@@ -123,10 +53,7 @@ namespace Faithlife.Utility
 		/// <param name="namespaceId">The ID of the namespace.</param>
 		/// <param name="name">The name (within that namespace).</param>
 		/// <returns>A UUID derived from the namespace and name.</returns>
-		public static Guid Create(Guid namespaceId, string name)
-		{
-			return Create(namespaceId, name, 5);
-		}
+		public static Guid Create(Guid namespaceId, string name) => Create(namespaceId, name, 5);
 
 		/// <summary>
 		/// Creates a name-based UUID using the algorithm from RFC 4122 §4.3.
@@ -139,7 +66,7 @@ namespace Faithlife.Utility
 		public static Guid Create(Guid namespaceId, string name, int version)
 		{
 			if (name == null)
-				throw new ArgumentNullException("name");
+				throw new ArgumentNullException(nameof(name));
 
 			// convert the name to a sequence of octets (as defined by the standard or conventions of its namespace) (step 3)
 			// ASSUME: UTF-8 encoding is always appropriate
@@ -154,10 +81,7 @@ namespace Faithlife.Utility
 		/// <param name="namespaceId">The ID of the namespace.</param>
 		/// <param name="nameBytes">The name (within that namespace).</param>
 		/// <returns>A UUID derived from the namespace and name.</returns>
-		public static Guid Create(Guid namespaceId, byte[] nameBytes)
-		{
-			return Create(namespaceId, nameBytes, 5);
-		}
+		public static Guid Create(Guid namespaceId, byte[] nameBytes) => Create(namespaceId, nameBytes, 5);
 
 		/// <summary>
 		/// Creates a name-based UUID using the algorithm from RFC 4122 §4.3.
@@ -170,7 +94,7 @@ namespace Faithlife.Utility
 		public static Guid Create(Guid namespaceId, byte[] nameBytes, int version)
 		{
 			if (version != 3 && version != 5)
-				throw new ArgumentOutOfRangeException("version", "version must be either 3 or 5.");
+				throw new ArgumentOutOfRangeException(nameof(version), "version must be either 3 or 5.");
 
 			// convert the namespace UUID to network order (step 3)
 			byte[] namespaceBytes = namespaceId.ToByteArray();
@@ -227,8 +151,5 @@ namespace Faithlife.Utility
 			guid[left] = guid[right];
 			guid[right] = temp;
 		}
-
-		const char c_chShortStringBase64SlashReplacement = '_';
-		const char c_chShortStringBase64PlusReplacement = '-';
 	}
 }

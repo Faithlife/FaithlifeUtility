@@ -3,14 +3,14 @@
 Adds the sequence of items to the collection.
 
 ```csharp
-public static void AddRange<T>(this ICollection<T> coll, IEnumerable<T> seqItems)
+public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> items)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type of item in the collection. |
-| coll | The collection. |
-| seqItems | The sequence of items to add to the collection. |
+| collection | The collection. |
+| items | The sequence of items to add to the collection. |
 
 ## See Also
 

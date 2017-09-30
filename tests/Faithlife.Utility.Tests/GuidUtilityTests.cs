@@ -26,28 +26,6 @@ namespace Faithlife.Utility.Tests
 			Assert.AreEqual(new Guid(strExpected), guid);
 		}
 
-		[TestCase("wNDZ33v-_Uuua2BLQ_cfBg", "dfd9d0c0-fe7b-4bfd-ae6b-604b43f71f06")]
-		[TestCase("WFNsXPU6BUmorScYSguxtw", "5c6c5358-3af5-4905-a8ad-27184a0bb1b7")]
-		[TestCase("AAAAAAAAAAAAAAAAAAAAAA", "00000000-0000-0000-0000-000000000000")]
-		[TestCase("_____________________w", "FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF")]
-		public void RoundTripShortString(string shortString, string longString)
-		{
-			Guid guid = new Guid(longString);
-			Assert.AreEqual(shortString, guid.ToShortString());
-			Assert.AreEqual(guid, GuidUtility.FromShortString(shortString));
-		}
-
-		[TestCase("")]
-		[TestCase("A")]
-		[TestCase("AA==")]
-		[TestCase("AAAAAAAAAAAAAAAAAAAAAA ")]
-		[TestCase("AAAAAAAAAAAAAAAAAAAAAA==")]
-		[TestCase("wNDZ33v+/Uuua2BLQ/cfBg")]
-		public void FromShortStringFailure(string shortString)
-		{
-			Assert.Throws<FormatException>(() => GuidUtility.FromShortString(shortString));
-		}
-
 		[TestCase("dfd9d0c0fe7b4bfdae6b604b43f71f06", "dfd9d0c0-fe7b-4bfd-ae6b-604b43f71f06")]
 		[TestCase("5c6c53583af54905a8ad27184a0bb1b7", "5c6c5358-3af5-4905-a8ad-27184a0bb1b7")]
 		[TestCase("00000000000000000000000000000000", "00000000-0000-0000-0000-000000000000")]

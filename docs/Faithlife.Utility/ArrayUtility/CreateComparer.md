@@ -1,14 +1,10 @@
 # ArrayUtility.CreateComparer&lt;T&gt; method
 
-Creates a GenericComparer that uses ArrayUtility.Compare.
+Creates a comparer that uses ArrayUtility.Compare.
 
 ```csharp
 public static IComparer<T[]> CreateComparer<T>()
 ```
-
-## Return Value
-
-A GenericComparer that uses ArrayUtility.Compare.
 
 ## See Also
 

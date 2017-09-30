@@ -13,23 +13,20 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CachingStream"/> class.
 		/// </summary>
-		/// <param name="streamBase">The stream to be cached.</param>
+		/// <param name="stream">The stream to be cached.</param>
 		/// <param name="ownership">Use <see cref="Ownership.Owns"/> if the cached stream should be disposed when this stream is disposed.</param>
-		public CachingStream(Stream streamBase, Ownership ownership)
-			: base(streamBase, ownership)
+		public CachingStream(Stream stream, Ownership ownership)
+			: base(stream, ownership)
 		{
 			m_blocks = new List<byte[]>();
-			m_position = streamBase.Position;
+			m_position = stream.Position;
 		}
 
 		/// <summary>
 		/// Gets a value indicating whether the current stream supports writing.
 		/// </summary>
 		/// <returns>Always returns <c>false</c> because <see cref="CachingStream"/> doesn't support writing.</returns>
-		public override bool CanWrite
-		{
-			get { return false; }
-		}
+		public override bool CanWrite => false;
 
 		/// <summary>
 		/// Disposes or releases the cached stream, based on the value of the Ownership parameter passed to the constructor.
@@ -62,7 +59,7 @@ namespace Faithlife.Utility
 			{
 				ThrowIfDisposed();
 				if (value < 0)
-					throw new ArgumentOutOfRangeException("value");
+					throw new ArgumentOutOfRangeException(nameof(value));
 				m_position = value;
 			}
 		}
@@ -119,44 +116,29 @@ namespace Faithlife.Utility
 		/// Sets the length of the current stream.
 		/// </summary>
 		/// <param name="value">The desired length of the current stream in bytes.</param>
-		public override void SetLength(long value)
-		{
-			throw new NotSupportedException();
-		}
+		public override void SetLength(long value) => throw new NotSupportedException();
 
 		/// <summary>
 		/// Writes a sequence of bytes to the current stream and advances the current position
 		/// within this stream by the number of bytes written.
 		/// </summary>
-		public override void Write(byte[] buffer, int offset, int count)
-		{
-			throw new NotSupportedException();
-		}
+		public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
 
 		/// <summary>
 		/// Writes a byte to the current position in the stream and advances the position within the stream by one byte.
 		/// </summary>
-		public override void WriteByte(byte value)
-		{
-			throw new NotSupportedException();
-		}
+		public override void WriteByte(byte value) => throw new NotSupportedException();
 
 #if !NETSTANDARD1_4
 		/// <summary>
 		/// Begins an asynchronous write operation.
 		/// </summary>
-		public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback, object state)
-		{
-			throw new NotSupportedException();
-		}
+		public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback, object state) => throw new NotSupportedException();
 
 		/// <summary>
 		/// Waits for the pending asynchronous read to complete.
 		/// </summary>
-		public override void EndWrite(IAsyncResult asyncResult)
-		{
-			throw new NotSupportedException();
-		}
+		public override void EndWrite(IAsyncResult asyncResult) => throw new NotSupportedException();
 #endif
 
 		private byte[] LoadData(int blockIndex)

@@ -3,14 +3,14 @@
 Groups the elements of a sequence according to a specified key selector function. Each group consists of *consecutive* items having the same key. Order is preserved.
 
 ```csharp
-public static IEnumerable<IGrouping<TKey, TSource>> GroupConsecutiveBy<TSource, TKey>(this IEnumerable<TSource> seq, Func<TSource, TKey> keySelector)
+public static IEnumerable<IGrouping<TKey, TSource>> GroupConsecutiveBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
 ```
 
 | parameter | description |
 | --- | --- |
 | TSource | The type of the elements of source. |
 | TKey | The type of the key returned by keySelector. |
-| seq | A sequence whose elements to group. |
+| source | A sequence whose elements to group. |
 | keySelector | A function to extract the key for each element. |
 
 ## Return Value

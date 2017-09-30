@@ -1,9 +1,5 @@
 using System;
 
-////
-// ReSharper disable AccessToModifiedClosure
-////
-
 namespace Faithlife.Utility
 {
 	/// <summary>

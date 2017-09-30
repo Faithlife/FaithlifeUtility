@@ -132,7 +132,6 @@ namespace Faithlife.Utility.Tests
 
 		[TestCase(UInt16.MinValue, "0")]
 		[TestCase(UInt16.MaxValue, "65535")]
-		[TestCase((ushort) 0, "0")]
 		[TestCase((ushort) 1, "1")]
 		public void AppendInvariantUInt16(ushort value, string strExpected)
 		{
@@ -143,7 +142,6 @@ namespace Faithlife.Utility.Tests
 
 		[TestCase(UInt32.MinValue, "0")]
 		[TestCase(UInt32.MaxValue, "4294967295")]
-		[TestCase(0u, "0")]
 		[TestCase(1u, "1")]
 		public void AppendInvariantUInt32(uint value, string strExpected)
 		{
@@ -154,7 +152,6 @@ namespace Faithlife.Utility.Tests
 
 		[TestCase(UInt64.MinValue, "0")]
 		[TestCase(UInt64.MaxValue, "18446744073709551615")]
-		[TestCase(0ul, "0")]
 		[TestCase(1ul, "1")]
 		public void AppendInvariantUInt64(ulong value, string strExpected)
 		{

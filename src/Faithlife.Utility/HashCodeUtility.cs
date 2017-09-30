@@ -8,14 +8,14 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Gets a hash code for the specified <see cref="int"/>; this hash code is guaranteed not to change in future.
 		/// </summary>
-		/// <param name="nValue">The <see cref="int"/> to hash.</param>
+		/// <param name="value">The <see cref="int"/> to hash.</param>
 		/// <returns>A hash code for the specified <see cref="int"/>.</returns>
 		/// <remarks>Based on "Robert Jenkins' 32 bit integer hash function" at http://www.concentric.net/~Ttwang/tech/inthash.htm</remarks>
-		public static int GetPersistentHashCode(int nValue)
+		public static int GetPersistentHashCode(int value)
 		{
 			unchecked
 			{
-				uint n = (uint) nValue;
+				uint n = (uint) value;
 				n = (n + 0x7ed55d16) + (n << 12);
 				n = (n ^ 0xc761c23c) ^ (n >> 19);
 				n = (n + 0x165667b1) + (n << 5);
@@ -29,14 +29,14 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Gets a hash code for the specified <see cref="long"/>; this hash code is guaranteed not to change in future.
 		/// </summary>
-		/// <param name="nValue">The <see cref="long"/> to hash.</param>
+		/// <param name="value">The <see cref="long"/> to hash.</param>
 		/// <returns>A hash code for the specified <see cref="long"/>.</returns>
 		/// <remarks>Based on "64 bit to 32 bit Hash Functions" at http://www.concentric.net/~Ttwang/tech/inthash.htm</remarks>
-		public static int GetPersistentHashCode(long nValue)
+		public static int GetPersistentHashCode(long value)
 		{
 			unchecked
 			{
-				ulong n = (ulong) nValue;
+				ulong n = (ulong) value;
 				n = (~n) + (n << 18);
 				n = n ^ (n >> 31);
 				n = n * 21;
@@ -61,10 +61,10 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Combines the specified hash codes.
 		/// </summary>
-		/// <param name="nHashCode1">The first hash code.</param>
+		/// <param name="hashCode1">The first hash code.</param>
 		/// <returns>The combined hash code.</returns>
 		/// <remarks>This is a specialization of <see cref="CombineHashCodes(int[])"/> for efficiency.</remarks>
-		public static int CombineHashCodes(int nHashCode1)
+		public static int CombineHashCodes(int hashCode1)
 		{
 			unchecked
 			{
@@ -72,7 +72,7 @@ namespace Faithlife.Utility
 				uint b = a;
 				uint c = a;
 
-				a += (uint) nHashCode1;
+				a += (uint) hashCode1;
 				FinalizeHash(ref a, ref b, ref c);
 
 				return (int) c;
@@ -82,11 +82,11 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Combines the specified hash codes.
 		/// </summary>
-		/// <param name="nHashCode1">The first hash code.</param>
-		/// <param name="nHashCode2">The second hash code.</param>
+		/// <param name="hashCode1">The first hash code.</param>
+		/// <param name="hashCode2">The second hash code.</param>
 		/// <returns>The combined hash code.</returns>
 		/// <remarks>This is a specialization of <see cref="CombineHashCodes(int[])"/> for efficiency.</remarks>
-		public static int CombineHashCodes(int nHashCode1, int nHashCode2)
+		public static int CombineHashCodes(int hashCode1, int hashCode2)
 		{
 			unchecked
 			{
@@ -94,8 +94,8 @@ namespace Faithlife.Utility
 				uint b = a;
 				uint c = a;
 
-				a += (uint) nHashCode1;
-				b += (uint) nHashCode2;
+				a += (uint) hashCode1;
+				b += (uint) hashCode2;
 				FinalizeHash(ref a, ref b, ref c);
 
 				return (int) c;
@@ -105,12 +105,12 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Combines the specified hash codes.
 		/// </summary>
-		/// <param name="nHashCode1">The first hash code.</param>
-		/// <param name="nHashCode2">The second hash code.</param>
-		/// <param name="nHashCode3">The third hash code.</param>
+		/// <param name="hashCode1">The first hash code.</param>
+		/// <param name="hashCode2">The second hash code.</param>
+		/// <param name="hashCode3">The third hash code.</param>
 		/// <returns>The combined hash code.</returns>
 		/// <remarks>This is a specialization of <see cref="CombineHashCodes(int[])"/> for efficiency.</remarks>
-		public static int CombineHashCodes(int nHashCode1, int nHashCode2, int nHashCode3)
+		public static int CombineHashCodes(int hashCode1, int hashCode2, int hashCode3)
 		{
 			unchecked
 			{
@@ -118,9 +118,9 @@ namespace Faithlife.Utility
 				uint b = a;
 				uint c = a;
 
-				a += (uint) nHashCode1;
-				b += (uint) nHashCode2;
-				c += (uint) nHashCode3;
+				a += (uint) hashCode1;
+				b += (uint) hashCode2;
+				c += (uint) hashCode3;
 				FinalizeHash(ref a, ref b, ref c);
 
 				return (int) c;
@@ -130,13 +130,13 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Combines the specified hash codes.
 		/// </summary>
-		/// <param name="nHashCode1">The first hash code.</param>
-		/// <param name="nHashCode2">The second hash code.</param>
-		/// <param name="nHashCode3">The third hash code.</param>
-		/// <param name="nHashCode4">The fourth hash code.</param>
+		/// <param name="hashCode1">The first hash code.</param>
+		/// <param name="hashCode2">The second hash code.</param>
+		/// <param name="hashCode3">The third hash code.</param>
+		/// <param name="hashCode4">The fourth hash code.</param>
 		/// <returns>The combined hash code.</returns>
 		/// <remarks>This is a specialization of <see cref="CombineHashCodes(int[])"/> for efficiency.</remarks>
-		public static int CombineHashCodes(int nHashCode1, int nHashCode2, int nHashCode3, int nHashCode4)
+		public static int CombineHashCodes(int hashCode1, int hashCode2, int hashCode3, int hashCode4)
 		{
 			unchecked
 			{
@@ -144,12 +144,12 @@ namespace Faithlife.Utility
 				uint b = a;
 				uint c = a;
 
-				a += (uint) nHashCode1;
-				b += (uint) nHashCode2;
-				c += (uint) nHashCode3;
+				a += (uint) hashCode1;
+				b += (uint) hashCode2;
+				c += (uint) hashCode3;
 				MixHash(ref a, ref b, ref c);
 
-				a += (uint) nHashCode4;
+				a += (uint) hashCode4;
 				FinalizeHash(ref a, ref b, ref c);
 
 				return (int) c;
@@ -159,19 +159,19 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Combines the specified hash codes.
 		/// </summary>
-		/// <param name="anHashCodes">An array of hash codes.</param>
+		/// <param name="hashCodes">An array of hash codes.</param>
 		/// <returns>The combined hash code.</returns>
 		/// <remarks>This method is based on the "hashword" function at http://burtleburtle.net/bob/c/lookup3.c. It attempts to thoroughly
 		/// mix all the bits in the input hash codes.</remarks>
-		public static int CombineHashCodes(params int[] anHashCodes)
+		public static int CombineHashCodes(params int[] hashCodes)
 		{
 			unchecked
 			{
 				// check for null
-				if (anHashCodes == null)
+				if (hashCodes == null)
 					return 0x0d608219;
 
-				int nLength = anHashCodes.Length;
+				int nLength = hashCodes.Length;
 
 				uint a = 0xdeadbeef + (((uint) nLength) << 2);
 				uint b = a;
@@ -180,21 +180,21 @@ namespace Faithlife.Utility
 				int nIndex = 0;
 				while (nLength - nIndex > 3)
 				{
-					a += (uint) anHashCodes[nIndex];
-					b += (uint) anHashCodes[nIndex + 1];
-					c += (uint) anHashCodes[nIndex + 2];
+					a += (uint) hashCodes[nIndex];
+					b += (uint) hashCodes[nIndex + 1];
+					c += (uint) hashCodes[nIndex + 2];
 					MixHash(ref a, ref b, ref c);
 					nIndex += 3;
 				}
 
 				if (nLength - nIndex > 2)
-					c += (uint) anHashCodes[nIndex + 2];
+					c += (uint) hashCodes[nIndex + 2];
 				if (nLength - nIndex > 1)
-					b += (uint) anHashCodes[nIndex + 1];
+					b += (uint) hashCodes[nIndex + 1];
 
 				if (nLength - nIndex > 0)
 				{
-					a += (uint) anHashCodes[nIndex];
+					a += (uint) hashCodes[nIndex];
 					FinalizeHash(ref a, ref b, ref c);
 				}
 
@@ -213,12 +213,24 @@ namespace Faithlife.Utility
 		{
 			unchecked
 			{
-				a -= c; a ^= Rotate(c, 4); c += b;
-				b -= a; b ^= Rotate(a, 6); a += c;
-				c -= b; c ^= Rotate(b, 8); b += a;
-				a -= c; a ^= Rotate(c, 16); c += b;
-				b -= a; b ^= Rotate(a, 19); a += c;
-				c -= b; c ^= Rotate(b, 4); b += a;
+				a -= c;
+				a ^= Rotate(c, 4);
+				c += b;
+				b -= a;
+				b ^= Rotate(a, 6);
+				a += c;
+				c -= b;
+				c ^= Rotate(b, 8);
+				b += a;
+				a -= c;
+				a ^= Rotate(c, 16);
+				c += b;
+				b -= a;
+				b ^= Rotate(a, 19);
+				a += c;
+				c -= b;
+				c ^= Rotate(b, 4);
+				b += a;
 			}
 		}
 
@@ -227,13 +239,20 @@ namespace Faithlife.Utility
 		{
 			unchecked
 			{
-				c ^= b; c -= Rotate(b, 14);
-				a ^= c; a -= Rotate(c, 11);
-				b ^= a; b -= Rotate(a, 25);
-				c ^= b; c -= Rotate(b, 16);
-				a ^= c; a -= Rotate(c, 4);
-				b ^= a; b -= Rotate(a, 14);
-				c ^= b; c -= Rotate(b, 24);
+				c ^= b;
+				c -= Rotate(b, 14);
+				a ^= c;
+				a -= Rotate(c, 11);
+				b ^= a;
+				b -= Rotate(a, 25);
+				c ^= b;
+				c -= Rotate(b, 16);
+				a ^= c;
+				a -= Rotate(c, 4);
+				b ^= a;
+				b -= Rotate(a, 14);
+				c ^= b;
+				c -= Rotate(b, 24);
 			}
 		}
 	}

@@ -1,4 +1,4 @@
-# UriUtility.FromPattern method (1 of 4)
+# UriUtility.FromPattern method (1 of 3)
 
 Builds a URI from a pattern and an object containing parameters.
 
@@ -22,7 +22,7 @@ Each value is converted to a string with the invariant culture; see the other ov
 
 ---
 
-# UriUtility.FromPattern method (2 of 4)
+# UriUtility.FromPattern method (2 of 3)
 
 Builds a URI from a pattern and parameters.
 
@@ -46,31 +46,7 @@ This method looks for "{key}" in the pattern, where "key" is one of the keys in 
 
 ---
 
-# UriUtility.FromPattern method (3 of 4)
-
-Builds a URI from a pattern and an object containing parameters.
-
-```csharp
-public static Uri FromPattern(string uriPattern, object parameters)
-```
-
-| parameter | description |
-| --- | --- |
-| uriPattern | The pattern. |
-| parameters | Object containing the parameters. |
-
-## Return Value
-
-Each property name and value represents a key and a value; see the other overloads for more details. The other overloads are used if the parameters object is of the corresponding type, e.g. if the object is an ExpandoObject.
-
-## See Also
-
-* class [UriUtility](../UriUtility.md)
-* namespace [Faithlife.Utility](../../Faithlife.Utility.md)
-
----
-
-# UriUtility.FromPattern method (4 of 4)
+# UriUtility.FromPattern method (3 of 3)
 
 Builds a URI from a pattern and parameters.
 
