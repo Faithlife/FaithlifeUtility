@@ -1,6 +1,6 @@
 # RebasedStream constructor (1 of 2)
 
-Initializes a new instance of the [`RebasedStream`](../RebasedStream.md) class; the current position in *stream*will be the origin of the [`RebasedStream`](../RebasedStream.md).
+Initializes a new instance of the [`RebasedStream`](../RebasedStream.md) class; the current position in *stream* will be the origin of the [`RebasedStream`](../RebasedStream.md).
 
 ```csharp
 public RebasedStream(Stream stream)
@@ -19,7 +19,7 @@ public RebasedStream(Stream stream)
 
 # RebasedStream constructor (2 of 2)
 
-Initializes a new instance of the [`RebasedStream`](../RebasedStream.md) class; the current position in *stream*will be the origin of the [`RebasedStream`](../RebasedStream.md).
+Initializes a new instance of the [`RebasedStream`](../RebasedStream.md) class; the current position in *stream* will be the origin of the [`RebasedStream`](../RebasedStream.md).
 
 ```csharp
 public RebasedStream(Stream stream, Ownership ownership)

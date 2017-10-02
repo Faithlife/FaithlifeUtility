@@ -17,13 +17,13 @@ A set of elements.
 
 ## Remarks
 
-Note that the 
+Note that the
 
 ```csharp
 AsSet{T}
 ```
 
- method may be more performant because it will not copy the input to a new HashSet unless it has to.
+method may be more performant because it will not copy the input to a new HashSet unless it has to.
 
 ## See Also
 

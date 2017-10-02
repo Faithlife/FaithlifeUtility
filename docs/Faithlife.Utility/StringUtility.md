@@ -10,7 +10,7 @@ public static class StringUtility
 
 | name | description |
 | --- | --- |
-| static [CompareByCodePoint](StringUtility/CompareByCodePoint.md)(…) | Compares two specified String objects by comparing successive Unicode code points. This method differs fromString) in that this method considers supplementary characters (which are encoded as two surrogate code units) to be greater than characters in the base multilingual plane (because they have higher Unicode code points). This method sorts strings in code point order, which is the same as a byte-wise comparison of UTF-8 or UTF-32 encoded strings. |
+| static [CompareByCodePoint](StringUtility/CompareByCodePoint.md)(…) | Compares two specified String objects by comparing successive Unicode code points. This method differs from String) in that this method considers supplementary characters (which are encoded as two surrogate code units) to be greater than characters in the base multilingual plane (because they have higher Unicode code points). This method sorts strings in code point order, which is the same as a byte-wise comparison of UTF-8 or UTF-32 encoded strings. |
 | static [Compress](StringUtility/Compress.md)(…) | Compresses a string. |
 | static [CreateComparer](StringUtility/CreateComparer.md)(…) | Creates a StringComparer ignoring or honoring the strings' case, and using culture-specific information to influence the comparison. |
 | static [CreateCompressingTextWriter](StringUtility/CreateCompressingTextWriter.md)(…) | Creates a TextWriter that writes compressed text to a stream that matches the format used by Compress. |

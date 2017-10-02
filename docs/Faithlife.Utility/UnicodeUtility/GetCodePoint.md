@@ -13,11 +13,11 @@ public static int GetCodePoint(StringBuilder stringBuilder, int index)
 
 ## Return Value
 
-The 21-bit Unicode code point represented by the character or surrogate pair at the position in the*stringBuilder* parameter specified by the *index* parameter.
+The 21-bit Unicode code point represented by the character or surrogate pair at the position in the *stringBuilder* parameter specified by the *index* parameter.
 
 ## Remarks
 
-This method behaves the same as Int32), but operates on a StringBuilderinstead of a String.
+This method behaves the same as Int32), but operates on a StringBuilder instead of a String.
 
 ## See Also
 

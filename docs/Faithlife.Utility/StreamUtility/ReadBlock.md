@@ -1,6 +1,6 @@
 # StreamUtility.ReadBlock method
 
-Reads *count* bytes from *stream* into*buffer*, starting at the byte given by *offset*.
+Reads *count* bytes from *stream* into *buffer*, starting at the byte given by *offset*.
 
 ```csharp
 public static int ReadBlock(this Stream stream, byte[] buffer, int offset, int count)

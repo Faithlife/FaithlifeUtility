@@ -1,6 +1,6 @@
 # PriorityQueue&lt;T&gt; constructor (1 of 4)
 
-Initializes a new instance of the [`PriorityQueue`](../PriorityQueue-1.md) class that is empty, has the default initial capacity, and is sorted according to the default Comparer for the type of the data. 
+Initializes a new instance of the [`PriorityQueue`](../PriorityQueue-1.md) class that is empty, has the default initial capacity, and is sorted according to the default Comparer for the type of the data.
 
 ```csharp
 public PriorityQueue()
@@ -15,7 +15,7 @@ public PriorityQueue()
 
 # PriorityQueue&lt;T&gt; constructor (2 of 4)
 
-Initializes a new instance of the [`PriorityQueue`](../PriorityQueue-1.md) class that is empty, has the default initial capacity, and is sorted according to the specified IComparer. 
+Initializes a new instance of the [`PriorityQueue`](../PriorityQueue-1.md) class that is empty, has the default initial capacity, and is sorted according to the specified IComparer.
 
 ```csharp
 public PriorityQueue(IComparer<T> comparer)
@@ -23,7 +23,7 @@ public PriorityQueue(IComparer<T> comparer)
 
 | parameter | description |
 | --- | --- |
-| comparer | The IComparer implementation to use when comparing items.-or-a null reference to use the default Comparer for the type of the data. |
+| comparer | The IComparer implementation to use when comparing items. -or- a null reference to use the default Comparer for the type of the data. |
 
 ## See Also
 
@@ -62,7 +62,7 @@ public PriorityQueue(int capacity, IComparer<T> comparer)
 | parameter | description |
 | --- | --- |
 | capacity | The initial capacity. |
-| comparer | The IComparer implementation to use when comparing items.-or-a null reference to use the default Comparer for the type of the data. |
+| comparer | The IComparer implementation to use when comparing items. -or- a null reference to use the default Comparer for the type of the data. |
 
 ## See Also
 

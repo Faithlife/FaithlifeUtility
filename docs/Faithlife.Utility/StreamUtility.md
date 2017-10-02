@@ -12,7 +12,7 @@ public static class StreamUtility
 | --- | --- |
 | static [CreatePartialStream](StreamUtility/CreatePartialStream.md)(…) | Uses [`RebasedStream`](RebasedStream.md) and/or [`TruncatedStream`](TruncatedStream.md) to create a read-only partial stream wrapper. |
 | static [ReadAllBytes](StreamUtility/ReadAllBytes.md)(…) | Reads all bytes from the stream. |
-| static [ReadBlock](StreamUtility/ReadBlock.md)(…) | Reads *count* bytes from *stream* into*buffer*, starting at the byte given by *offset*. |
+| static [ReadBlock](StreamUtility/ReadBlock.md)(…) | Reads *count* bytes from *stream* into *buffer*, starting at the byte given by *offset*. |
 | static [ReadExactly](StreamUtility/ReadExactly.md)(…) | Reads exactly *count* bytes from *stream*. (2 methods) |
 
 ## See Also

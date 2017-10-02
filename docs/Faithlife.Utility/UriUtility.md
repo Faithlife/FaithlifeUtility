@@ -11,7 +11,7 @@ public static class UriUtility
 | name | description |
 | --- | --- |
 | static [FromPattern](UriUtility/FromPattern.md)(…) | Builds a URI from a pattern and parameters. (3 methods) |
-| static [MatchesDomain](UriUtility/MatchesDomain.md)(…) | Indicates whether a URI targets a domain.  |
+| static [MatchesDomain](UriUtility/MatchesDomain.md)(…) | Indicates whether a URI targets a domain. |
 
 ## See Also
 
