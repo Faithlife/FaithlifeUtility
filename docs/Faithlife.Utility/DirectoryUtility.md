@@ -10,8 +10,6 @@ public static class DirectoryUtility
 
 | name | description |
 | --- | --- |
-| static [FindFileInfos](DirectoryUtility/FindFileInfos.md)(…) | Recursively finds all files matching *searchPatterns* in the folders specified by *directoryPaths* and their subfolders specified by *getDirectories*. (2 methods) |
-| static [FindFiles](DirectoryUtility/FindFiles.md)(…) | Recursively finds all files matching *searchPatterns* in the folders specified by *directoryPaths* and their subfolders. |
 | static [TryDelete](DirectoryUtility/TryDelete.md)(…) | Attempts to recursively delete the directory at the specified path, returning `true` if successful. |
 
 ## See Also
