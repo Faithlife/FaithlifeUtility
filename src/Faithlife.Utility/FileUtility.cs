@@ -72,40 +72,5 @@ namespace Faithlife.Utility
 
 			return false;
 		}
-
-#if NET461
-		/// <summary>
-		/// Attempts to replace the specified file with another file, returning <c>true</c> if successful.
-		/// </summary>
-		/// <param name="sourceFileName">The name of the file that replaces the file specified by <paramref name="destinationFileName"/>.</param>
-		/// <param name="destinationFileName">The file being replaced.</param>
-		/// <param name="destinationBackupFileName">The (optional) name of the backup file.</param>
-		/// <returns><c>true</c> if the file was successfully replaced, otherwise <c>false</c>.</returns>
-		/// <remarks>Both <paramref name="sourceFileName"/> and <paramref name="destinationFileName"/> must exist.</remarks>
-		public static bool TryReplaceFile(string sourceFileName, string destinationFileName, string destinationBackupFileName)
-		{
-			if (sourceFileName == null)
-				throw new ArgumentNullException(nameof(sourceFileName));
-			if (destinationFileName == null)
-				throw new ArgumentNullException(nameof(destinationFileName));
-
-			try
-			{
-				File.Replace(sourceFileName, destinationFileName, destinationBackupFileName, true);
-				return true;
-			}
-			catch (FileNotFoundException)
-			{
-			}
-			catch (IOException)
-			{
-			}
-			catch (UnauthorizedAccessException)
-			{
-			}
-
-			return false;
-		}
-#endif
 	}
 }

@@ -13,7 +13,6 @@ public static class FileUtility
 | static [Delete](FileUtility/Delete.md)(…) | Deletes the specified file, even if it is marked read-only. |
 | static [TryDelete](FileUtility/TryDelete.md)(…) | Attempts to delete the file at the specified path, returning `true` if successful. |
 | static [TryMove](FileUtility/TryMove.md)(…) | Attempts to move the specified file to a new location, returning `true` if successful. |
-| static [TryReplaceFile](FileUtility/TryReplaceFile.md)(…) | Attempts to replace the specified file with another file, returning `true` if successful. |
 
 ## See Also
 
