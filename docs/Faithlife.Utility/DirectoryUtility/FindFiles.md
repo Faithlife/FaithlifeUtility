@@ -1,6 +1,6 @@
 # DirectoryUtility.FindFiles method
 
-Recursively finds all files matching *searchPatterns* in the folders specified by*directoryPaths* and their subfolders.
+Recursively finds all files matching *searchPatterns* in the folders specified by *directoryPaths* and their subfolders.
 
 ```csharp
 public static IEnumerable<string> FindFiles(IEnumerable<string> directoryPaths, 

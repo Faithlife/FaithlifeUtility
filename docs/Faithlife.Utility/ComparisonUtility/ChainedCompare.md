@@ -1,8 +1,25 @@
 # ComparisonUtility.ChainedCompare&lt;T&gt; method
 
+Executes a chained comparison between two objects.
+
 ```csharp
 public static int ChainedCompare<T>(T left, T right, Func<T, T, int>[] comparers)
 ```
+
+| parameter | description |
+| --- | --- |
+| T | The type of object. |
+| left | The left object. |
+| right | The right object. |
+| comparers | The comparers. |
+
+## Return Value
+
+Less than zero: x is less than y. Zero: x equals y. Greater than zero: x is greater than y.
+
+## Remarks
+
+Each comparer is executed until one returns non-zero; that value is returned.
 
 ## See Also
 

@@ -1,9 +1,10 @@
 # DictionaryUtility.AreEqual&lt;TKey,TValue&gt; method
 
-Returns true if there is a one-to-one relationship between every KeyValue pair.
+Returns true if there is a one-to-one relationship between every key-value pair.
 
 ```csharp
-public static bool AreEqual<TKey, TValue>(IDictionary<TKey, TValue> left, IDictionary<TKey, TValue> right, IEqualityComparer<TValue> comparer = null)
+public static bool AreEqual<TKey, TValue>(IReadOnlyDictionary<TKey, TValue> left, 
+    IReadOnlyDictionary<TKey, TValue> right, IEqualityComparer<TValue> comparer = null)
 ```
 
 ## Remarks

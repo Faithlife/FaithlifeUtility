@@ -3,21 +3,21 @@
 Converts the value of a UTF-16 encoded character or surrogate pair at a specified position in a StringBuilder into a Unicode code point.
 
 ```csharp
-public static int GetCodePoint(StringBuilder sb, int index)
+public static int GetCodePoint(StringBuilder stringBuilder, int index)
 ```
 
 | parameter | description |
 | --- | --- |
-| sb | A StringBuilder that contains a character or surrogate pair. |
-| index | The index position of the character or surrogate pair in *sb*. |
+| stringBuilder | A StringBuilder that contains a character or surrogate pair. |
+| index | The index position of the character or surrogate pair in *stringBuilder*. |
 
 ## Return Value
 
-The 21-bit Unicode code point represented by the character or surrogate pair at the position in the*sb* parameter specified by the *index* parameter.
+The 21-bit Unicode code point represented by the character or surrogate pair at the position in the *stringBuilder* parameter specified by the *index* parameter.
 
 ## Remarks
 
-This method behaves the same as Int32), but operates on a StringBuilderinstead of a String.
+This method behaves the same as Int32), but operates on a StringBuilder instead of a String.
 
 ## See Also
 

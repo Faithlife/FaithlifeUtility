@@ -3,12 +3,12 @@
 Returns the major character class for the specified Unicode general category.
 
 ```csharp
-public static UnicodeCharacterClass GetCharacterClassFromCategory(UnicodeCategory cat)
+public static UnicodeCharacterClass GetCharacterClassFromCategory(UnicodeCategory category)
 ```
 
 | parameter | description |
 | --- | --- |
-| cat | The UnicodeCategory of a character. |
+| category | The UnicodeCategory of a character. |
 
 ## Return Value
 

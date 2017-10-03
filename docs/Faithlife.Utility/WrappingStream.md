@@ -1,6 +1,6 @@
 # WrappingStream class
 
-A Stream that wraps another stream. One major feature of [`WrappingStream`](WrappingStream.md) is that it does not dispose the underlying stream when it is disposed if Ownership.None is used; this is useful when using classes such as BinaryReaderthat take ownership of the stream passed to their constructors.
+A Stream that wraps another stream. One major feature of [`WrappingStream`](WrappingStream.md) is that it does not dispose the underlying stream when it is disposed if Ownership.None is used; this is useful when using classes such as BinaryReader that take ownership of the stream passed to their constructors.
 
 ```csharp
 public class WrappingStream : Stream

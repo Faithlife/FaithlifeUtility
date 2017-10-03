@@ -3,12 +3,12 @@
 Gets a hash code for the specified string; this hash code is guaranteed not to change in future.
 
 ```csharp
-public static int GetPersistentHashCode(this string str)
+public static int GetPersistentHashCode(this string value)
 ```
 
 | parameter | description |
 | --- | --- |
-| str | The string to hash. |
+| value | The string to hash. |
 
 ## Return Value
 

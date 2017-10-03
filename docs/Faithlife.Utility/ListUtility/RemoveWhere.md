@@ -3,14 +3,14 @@
 Removes items from the list that match the specified predicate.
 
 ```csharp
-public static int RemoveWhere<T>(this IList<T> list, Func<T, bool> fn)
+public static int RemoveWhere<T>(this IList<T> list, Func<T, bool> predicate)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type. |
 | list | The list. |
-| fn | The predicate that determines the items to remove. |
+| predicate | The predicate that determines the items to remove. |
 
 ## Return Value
 

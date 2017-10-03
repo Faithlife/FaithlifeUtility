@@ -24,7 +24,7 @@ A new byte array containing the data read from the stream.
 
 # StreamUtility.ReadExactly method (2 of 2)
 
-Reads exactly *count* bytes from *stream* into*buffer*, starting at the byte given by *offset*.
+Reads exactly *count* bytes from *stream* into *buffer*, starting at the byte given by *offset*.
 
 ```csharp
 public static void ReadExactly(this Stream stream, byte[] buffer, int offset, int count)

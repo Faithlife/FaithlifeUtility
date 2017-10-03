@@ -3,12 +3,12 @@
 Initializes a new instance of the [`ReadOnlyStream`](../ReadOnlyStream.md) class.
 
 ```csharp
-public ReadOnlyStream(Stream streamBase)
+public ReadOnlyStream(Stream stream)
 ```
 
 | parameter | description |
 | --- | --- |
-| streamBase | The wrapped stream. |
+| stream | The wrapped stream. |
 
 ## See Also
 

@@ -1,6 +1,6 @@
 # DirectoryUtility.FindFileInfos method (1 of 2)
 
-Recursively finds all files matching *searchPatterns* in the folders specified by*directoryPaths* and their subfolders.
+Recursively finds all files matching *searchPatterns* in the folders specified by *directoryPaths* and their subfolders.
 
 ```csharp
 public static IEnumerable<FileInfo> FindFileInfos(IEnumerable<string> directoryPaths, 
@@ -26,7 +26,7 @@ A sequence of FileInfo instances.
 
 # DirectoryUtility.FindFileInfos method (2 of 2)
 
-Recursively finds all files matching *searchPatterns* in the folders specified by*directoryPaths* and their subfolders specified by *getDirectories*.
+Recursively finds all files matching *searchPatterns* in the folders specified by *directoryPaths* and their subfolders specified by *getDirectories*.
 
 ```csharp
 public static IEnumerable<FileInfo> FindFileInfos(IEnumerable<string> directoryPaths, 

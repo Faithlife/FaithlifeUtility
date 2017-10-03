@@ -3,13 +3,13 @@
 Represents the sequence as an IReadOnlyList.
 
 ```csharp
-public static IReadOnlyList<T> AsReadOnlyList<T>(this IEnumerable<T> sequence)
+public static IReadOnlyList<T> AsReadOnlyList<T>(this IEnumerable<T> source)
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type of items in the collection. |
-| sequence | The sequence. |
+| source | The sequence. |
 
 ## Return Value
 

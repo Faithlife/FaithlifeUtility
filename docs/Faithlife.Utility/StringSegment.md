@@ -14,11 +14,11 @@ public struct StringSegment : IComparable<StringSegment>, IEnumerable<char>, IEq
 | static readonly [Empty](StringSegment/Empty.md) | An empty segment of the empty string. |
 | [Chars](StringSegment/Chars.md) { get; } | Gets the Char with the specified index. |
 | [Length](StringSegment/Length.md) { get; } | Gets the length of the segment. |
-| [Offset](StringSegment/Offset.md) { get; } | Gets the offset into the owner string. |
-| [Owner](StringSegment/Owner.md) { get; } | Gets the owner string. |
-| [After](StringSegment/After.md)() | Returns everything that follows this segment in the owner string. |
+| [Offset](StringSegment/Offset.md) { get; } | Gets the offset into the source string. |
+| [Source](StringSegment/Source.md) { get; } | Gets the source string. |
+| [After](StringSegment/After.md)() | Returns everything that follows this segment in the source string. |
 | [AppendToStringBuilder](StringSegment/AppendToStringBuilder.md)(…) | Appends the segment to the specified StringBuilder. |
-| [Before](StringSegment/Before.md)() | Returns everything that precedes this segment in the owner string. |
+| [Before](StringSegment/Before.md)() | Returns everything that precedes this segment in the source string. |
 | [CompareTo](StringSegment/CompareTo.md)(…) | Compares the current object with another object of the same type. |
 | [CopyTo](StringSegment/CopyTo.md)(…) | Copies the characters of the string segment to an array. |
 | override [Equals](StringSegment/Equals.md)(…) | Indicates whether this instance and a specified object are equal. |
@@ -28,7 +28,6 @@ public struct StringSegment : IComparable<StringSegment>, IEnumerable<char>, IEq
 | [IndexOf](StringSegment/IndexOf.md)(…) | Returns the first index of the specified character in the string segment. (3 methods) |
 | [IndexOfAny](StringSegment/IndexOfAny.md)(…) | Returns the first index of any of the specified characters in the string segment. |
 | [Intersect](StringSegment/Intersect.md)(…) | Intersects this segment with another segment of the same string. |
-| [IsIdenticalTo](StringSegment/IsIdenticalTo.md)(…) | Determines whether this segment is identical to the specified segment. |
 | [LastIndexOf](StringSegment/LastIndexOf.md)(…) | Returns the last index of the specified character in the string segment. (2 methods) |
 | [LastIndexOfAny](StringSegment/LastIndexOfAny.md)(…) | Returns the last index of any of the specified characters in the string segment. |
 | [Match](StringSegment/Match.md)(…) | Matches the specified regex against the segment. |

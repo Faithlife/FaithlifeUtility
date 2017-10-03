@@ -10,7 +10,7 @@ public sealed class RebasedStream : WrappingStream
 
 | name | description |
 | --- | --- |
-| [RebasedStream](RebasedStream/RebasedStream.md)(…) | Initializes a new instance of the [`RebasedStream`](RebasedStream.md) class; the current position in *streamBase*will be the origin of the [`RebasedStream`](RebasedStream.md). (2 constructors) |
+| [RebasedStream](RebasedStream/RebasedStream.md)(…) | Initializes a new instance of the [`RebasedStream`](RebasedStream.md) class; the current position in *stream* will be the origin of the [`RebasedStream`](RebasedStream.md). (2 constructors) |
 | override [Length](RebasedStream/Length.md) { get; } | Gets the length in bytes of the stream. |
 | override [Position](RebasedStream/Position.md) { get; set; } | Gets or sets the position within the current stream. |
 | override [Seek](RebasedStream/Seek.md)(…) | Sets the position within the current stream. |

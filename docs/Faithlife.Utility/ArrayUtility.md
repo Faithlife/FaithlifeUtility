@@ -10,11 +10,11 @@ public static class ArrayUtility
 
 | name | description |
 | --- | --- |
-| static [AreEqual&lt;T&gt;](ArrayUtility/AreEqual.md)(…) |  (2 methods) |
-| static [Clone&lt;T&gt;](ArrayUtility/Clone.md)(…) |  |
-| static [Compare&lt;T&gt;](ArrayUtility/Compare.md)(…) |  (2 methods) |
-| static [Concatenate&lt;T&gt;](ArrayUtility/Concatenate.md)(…) |  |
-| static [CreateComparer&lt;T&gt;](ArrayUtility/CreateComparer.md)() | Creates a GenericComparer that uses ArrayUtility.Compare. |
+| static [AreEqual&lt;T&gt;](ArrayUtility/AreEqual.md)(…) | Returns true if the arrays are equal. (2 methods) |
+| static [Clone&lt;T&gt;](ArrayUtility/Clone.md)(…) | Clones the specified array. |
+| static [Compare&lt;T&gt;](ArrayUtility/Compare.md)(…) | Compares the two arrays. (2 methods) |
+| static [Concatenate&lt;T&gt;](ArrayUtility/Concatenate.md)(…) | Concatenates the specified arrays. |
+| static [CreateComparer&lt;T&gt;](ArrayUtility/CreateComparer.md)() | Creates a comparer that uses ArrayUtility.Compare. |
 
 ## See Also
 

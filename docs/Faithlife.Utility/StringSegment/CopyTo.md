@@ -3,15 +3,15 @@
 Copies the characters of the string segment to an array.
 
 ```csharp
-public void CopyTo(int nSourceIndex, char[] achDestination, int nDestinationIndex, int nCount)
+public void CopyTo(int sourceIndex, char[] destination, int destinationIndex, int count)
 ```
 
 | parameter | description |
 | --- | --- |
-| nSourceIndex | The first character in the segment to copy. |
-| achDestination | The destination array. |
-| nDestinationIndex | The first index in the destination array. |
-| nCount | The number of characters to copy. |
+| sourceIndex | The first character in the segment to copy. |
+| destination | The destination array. |
+| destinationIndex | The first index in the destination array. |
+| count | The number of characters to copy. |
 
 ## See Also
 

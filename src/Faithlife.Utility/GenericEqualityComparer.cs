@@ -12,26 +12,13 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Initializes a new instance of the <see cref="GenericEqualityComparer&lt;T&gt;"/> class.
 		/// </summary>
-		/// <param name="fnEquals">The equals delegate.</param>
-		/// <remarks>If GetHashCode is called, it will throw a NotImplementedException.</remarks>
-		public GenericEqualityComparer(Func<T, T, bool> fnEquals)
-			: this(fnEquals, null)
+		/// <param name="equals">The equals delegate.</param>
+		/// <param name="getHashCode">The hash code delegate.</param>
+		/// <remarks>If getHashCode is null and GetHashCode is called, it will throw a NotImplementedException.</remarks>
+		public GenericEqualityComparer(Func<T, T, bool> equals, Func<T, int> getHashCode = null)
 		{
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="GenericEqualityComparer&lt;T&gt;"/> class.
-		/// </summary>
-		/// <param name="fnEquals">The equals delegate.</param>
-		/// <param name="fnGetHashCode">The hash code delegate.</param>
-		/// <remarks>If fnGetHashCode is null and GetHashCode is called, it will throw a NotImplementedException.</remarks>
-		public GenericEqualityComparer(Func<T, T, bool> fnEquals, Func<T, int> fnGetHashCode)
-		{
-			if (fnEquals == null)
-				throw new ArgumentNullException("fnEquals");
-
-			m_fnEquals = fnEquals;
-			m_fnGetHashCode = fnGetHashCode ?? delegate { throw new NotImplementedException(); };
+			m_equals = equals ?? throw new ArgumentNullException(nameof(equals));
+			m_getHashCode = getHashCode ?? (_ => throw new NotImplementedException());
 		}
 
 		/// <summary>
@@ -42,10 +29,7 @@ namespace Faithlife.Utility
 		/// <returns>
 		/// true if the specified objects are equal; otherwise, false.
 		/// </returns>
-		public override bool Equals(T x, T y)
-		{
-			return m_fnEquals(x, y);
-		}
+		public override bool Equals(T x, T y) => m_equals(x, y);
 
 		/// <summary>
 		/// When overridden in a derived class, serves as a hash function for the specified object for hashing algorithms and data structures, such as a hash table.
@@ -55,12 +39,9 @@ namespace Faithlife.Utility
 		/// <exception cref="T:System.ArgumentNullException">
 		/// The type of <paramref name="obj"/> is a reference type and <paramref name="obj"/> is null.
 		/// </exception>
-		public override int GetHashCode(T obj)
-		{
-			return m_fnGetHashCode(obj);
-		}
+		public override int GetHashCode(T obj) => m_getHashCode(obj);
 
-		readonly Func<T, T, bool> m_fnEquals;
-		readonly Func<T, int> m_fnGetHashCode;
+		readonly Func<T, T, bool> m_equals;
+		readonly Func<T, int> m_getHashCode;
 	}
 }

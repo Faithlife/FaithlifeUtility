@@ -3,12 +3,12 @@
 Returns the last index of any of the specified characters in the string segment.
 
 ```csharp
-public int LastIndexOfAny(char[] ach)
+public int LastIndexOfAny(char[] anyOf)
 ```
 
 | parameter | description |
 | --- | --- |
-| ach | The characters to find. |
+| anyOf | The characters to find. |
 
 ## Return Value
 

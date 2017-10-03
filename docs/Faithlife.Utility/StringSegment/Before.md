@@ -1,6 +1,6 @@
 # StringSegment.Before method
 
-Returns everything that precedes this segment in the owner string.
+Returns everything that precedes this segment in the source string.
 
 ```csharp
 public StringSegment Before()
@@ -8,7 +8,7 @@ public StringSegment Before()
 
 ## Return Value
 
-Everything that precedes this segment in the owner string.
+Everything that precedes this segment in the source string.
 
 ## See Also
 

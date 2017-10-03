@@ -10,13 +10,10 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Creates a <see cref="Scope" /> for the specified delegate.
 		/// </summary>
-		/// <param name="fnDispose">The delegate.</param>
+		/// <param name="dispose">The delegate.</param>
 		/// <returns>An instance of <see cref="Scope" /> that calls the delegate when disposed.</returns>
-		/// <remarks>If fnDispose is null, the instance does nothing when disposed.</remarks>
-		public static Scope Create(Action fnDispose)
-		{
-			return new Scope(fnDispose);
-		}
+		/// <remarks>If dispose is null, the instance does nothing when disposed.</remarks>
+		public static Scope Create(Action dispose) => new Scope(dispose);
 
 		/// <summary>
 		/// Creates a <see cref="Scope" /> that disposes the specified object.
@@ -24,10 +21,7 @@ namespace Faithlife.Utility
 		/// <param name="disposable">The object to dispose.</param>
 		/// <returns>An instance of <see cref="Scope" /> that disposes the object when disposed.</returns>
 		/// <remarks>If disposable is null, the instance does nothing when disposed.</remarks>
-		public static Scope Create<T>(T disposable) where T : IDisposable
-		{
-			return disposable == null ? Empty : new Scope(disposable.Dispose);
-		}
+		public static Scope Create<T>(T disposable) where T : IDisposable => disposable == null ? Empty : new Scope(disposable.Dispose);
 
 		/// <summary>
 		/// An empty scope, which does nothing when disposed.
@@ -38,10 +32,7 @@ namespace Faithlife.Utility
 		/// Cancel the call to the encapsulated delegate.
 		/// </summary>
 		/// <remarks>After calling this method, disposing this instance does nothing.</remarks>
-		public void Cancel()
-		{
-			m_fnDispose = null;
-		}
+		public void Cancel() => m_dispose = null;
 
 		/// <summary>
 		/// Returns a new Scope that will call the encapsulated delegate.
@@ -50,8 +41,8 @@ namespace Faithlife.Utility
 		/// <remarks>After calling this method, disposing this instance does nothing.</remarks>
 		public Scope Transfer()
 		{
-			Scope scope = new Scope(m_fnDispose);
-			m_fnDispose = null;
+			Scope scope = new Scope(m_dispose);
+			m_dispose = null;
 			return scope;
 		}
 
@@ -60,18 +51,15 @@ namespace Faithlife.Utility
 		/// </summary>
 		public void Dispose()
 		{
-			if (m_fnDispose != null)
+			if (m_dispose != null)
 			{
-				m_fnDispose();
-				m_fnDispose = null;
+				m_dispose();
+				m_dispose = null;
 			}
 		}
 
-		private Scope(Action fnDispose)
-		{
-			m_fnDispose = fnDispose;
-		}
+		private Scope(Action dispose) => m_dispose = dispose;
 
-		Action m_fnDispose;
+		Action m_dispose;
 	}
 }

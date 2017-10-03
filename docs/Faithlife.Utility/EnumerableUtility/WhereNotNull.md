@@ -3,13 +3,13 @@
 Enumerates the specified collection, returning all the elements that are not null.
 
 ```csharp
-public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T> seq)
+public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T> source)
     where T : class
 ```
 
 | parameter | description |
 | --- | --- |
-| seq | The sequence to enumerate. |
+| source | The sequence to enumerate. |
 
 ## Return Value
 
@@ -27,13 +27,13 @@ The non null items.
 Enumerates the specified collection, returning all the elements that are not null.
 
 ```csharp
-public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T?> seq)
+public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T?> source)
     where T : struct
 ```
 
 | parameter | description |
 | --- | --- |
-| seq | The sequence to enumerate. |
+| source | The sequence to enumerate. |
 
 ## Return Value
 

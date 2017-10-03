@@ -10,13 +10,10 @@ public static class StreamUtility
 
 | name | description |
 | --- | --- |
-| static [CopyStream](StreamUtility/CopyStream.md)(…) | Copies all the data after the current position in the source stream to the destination stream. (5 methods) |
-| static [CopyToMemoryStream](StreamUtility/CopyToMemoryStream.md)(…) | Copies the contents of *stream* to a new MemoryStream. |
 | static [CreatePartialStream](StreamUtility/CreatePartialStream.md)(…) | Uses [`RebasedStream`](RebasedStream.md) and/or [`TruncatedStream`](TruncatedStream.md) to create a read-only partial stream wrapper. |
 | static [ReadAllBytes](StreamUtility/ReadAllBytes.md)(…) | Reads all bytes from the stream. |
-| static [ReadBlock](StreamUtility/ReadBlock.md)(…) | Reads *count* bytes from *stream* into*buffer*, starting at the byte given by *offset*. |
+| static [ReadBlock](StreamUtility/ReadBlock.md)(…) | Reads *count* bytes from *stream* into *buffer*, starting at the byte given by *offset*. |
 | static [ReadExactly](StreamUtility/ReadExactly.md)(…) | Reads exactly *count* bytes from *stream*. (2 methods) |
-| static [WriteBatched](StreamUtility/WriteBatched.md)(…) | Writes the specified bytes to the stream, one batch at a time. |
 
 ## See Also
 

@@ -91,15 +91,6 @@ namespace Faithlife.Utility.Tests
 		}
 
 		[Test]
-		public void DictionariesAreNotEqualWhenUsingDifferentKeyComparer()
-		{
-			Dictionary<string, int> dict1 = new Dictionary<string, int>(StringComparer.Ordinal) { { "one", 1 }, { "two", 2 }, { "three", 3 } };
-			Dictionary<string, int> dict2 = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase) { { "ONE", 1 }, { "Two", 2 }, { "THREE", 3 } };
-
-			Assert.IsFalse(DictionaryUtility.AreEqual(dict1, dict2));
-		}
-
-		[Test]
 		public void ReadOnlyDictionariesAreEqual()
 		{
 			ReadOnlyDictionary<int, int> dict1 = new Dictionary<int, int> { { 1, 1 }, { 2, 2 }, { 3, 3 } }.AsReadOnly();
@@ -132,6 +123,43 @@ namespace Faithlife.Utility.Tests
 			Assert.AreEqual(2, dict["two"]);
 			Assert.AreEqual(3, dict["three"]);
 			CollectionAssert.AreEqual(new[] { 1, 2, 3 }, dict.Values.Order());
+		}
+
+		[Test]
+		public void DictionaryAsReadOnlyDictionary()
+		{
+			// AsReadOnlyDictionary should not rewrap a Dictionary
+			var dictionary = new Dictionary<int, int> { [1] = 1, [2] = 4 };
+			Assert.AreSame(dictionary, dictionary.AsReadOnlyDictionary());
+		}
+
+		[Test]
+		public void ReadOnlyDictionaryAsReadOnlyDictionary()
+		{
+			// AsReadOnlyDictionary should not rewrap a ReadOnlyCollection
+			var dictionary = new Dictionary<int, int> { [1] = 1, [2] = 4 };
+			IEnumerable<KeyValuePair<int, int>> readOnlyDictionary = new ReadOnlyDictionary<int, int>(dictionary);
+			Assert.AreSame(readOnlyDictionary, readOnlyDictionary.AsReadOnlyDictionary());
+		}
+
+		[Test]
+		public void MutateDictionaryAsReadOnlyDictionary()
+		{
+			// AsReadOnlyDictionary does not guarantee that the collection can't be mutated by someone else
+			var dictionary = new Dictionary<int, int> { [1] = 1, [2] = 4 };
+			var readOnlyDictionary = dictionary.AsReadOnlyDictionary();
+			dictionary.Add(3, 9);
+			Assert.AreEqual(3, readOnlyDictionary.Count);
+		}
+
+		[Test]
+		public void EnumerableAsReadOnlyDictionary()
+		{
+			// AsReadOnlyDictionary must duplicate a non-IDictionary
+			var keyValuePairs = new[] { new KeyValuePair<int, int>(2, 4) };
+			var readOnlyDictionary = keyValuePairs.AsReadOnlyDictionary();
+			Assert.AreEqual(1, readOnlyDictionary.Count);
+			Assert.AreEqual(4, readOnlyDictionary[2]);
 		}
 
 		[Test]
@@ -209,91 +237,14 @@ namespace Faithlife.Utility.Tests
 		}
 
 		[Test]
-		public void MergeWithWhenThisIsEmpty()
-		{
-			Dictionary<int, int> thisDictionary = new Dictionary<int, int>();
-			Dictionary<int, int> otherDictionary = new Dictionary<int, int> { { 1, 1 }, { 2, 2 } };
-			thisDictionary.MergeWith(otherDictionary, MergeWithStrategy.ThrowException);
-			Assert.AreEqual(2, thisDictionary.Count);
-			Assert.AreEqual(1, thisDictionary[1]);
-			Assert.AreEqual(2, thisDictionary[2]);
-		}
-
-		[Test]
-		public void MergeWithWhenOtherIsEmpty()
-		{
-			Dictionary<int, int> thisDictionary = new Dictionary<int, int> { { 1, 1 }, { 2, 2 } };
-			Dictionary<int, int> otherDictionary = new Dictionary<int, int>();
-			thisDictionary.MergeWith(otherDictionary, MergeWithStrategy.ThrowException);
-			Assert.AreEqual(2, thisDictionary.Count);
-			Assert.AreEqual(1, thisDictionary[1]);
-			Assert.AreEqual(2, thisDictionary[2]);
-		}
-
-		[Test]
-		public void MergeWithStrategyKeepOriginalValue()
-		{
-			Dictionary<int, int> thisDictionary = new Dictionary<int, int> { { 1, 1 }, { 2, 2 } };
-			Dictionary<int, int> otherDictionary = new Dictionary<int, int> { { 2, -2 }, { 3, -3 } };
-			thisDictionary.MergeWith(otherDictionary, MergeWithStrategy.KeepOriginalValue);
-			Assert.AreEqual(3, thisDictionary.Count);
-			Assert.AreEqual(1, thisDictionary[1]);
-			Assert.AreEqual(2, thisDictionary[2]);
-			Assert.AreEqual(-3, thisDictionary[3]);
-		}
-
-		[Test]
-		public void MergeWithStrategyOverwriteValue()
-		{
-			Dictionary<int, int> thisDictionary = new Dictionary<int, int> { { 1, 1 }, { 2, 2 } };
-			Dictionary<int, int> otherDictionary = new Dictionary<int, int> { { 2, -2 }, { 3, -3 } };
-			thisDictionary.MergeWith(otherDictionary, MergeWithStrategy.OverwriteValue);
-			Assert.AreEqual(3, thisDictionary.Count);
-			Assert.AreEqual(1, thisDictionary[1]);
-			Assert.AreEqual(-2, thisDictionary[2]);
-			Assert.AreEqual(-3, thisDictionary[3]);
-		}
-
-		[Test]
-		public void MergeWithStrategyThrowException()
-		{
-			Dictionary<int, int> thisDictionary = new Dictionary<int, int> { { 1, 1 }, { 2, 2 } };
-			Dictionary<int, int> otherDictionary = new Dictionary<int, int> { { 2, -2 }, { 3, -3 } };
-			Assert.Throws<InvalidOperationException>(() => thisDictionary.MergeWith(otherDictionary, MergeWithStrategy.ThrowException));
-		}
-
-		[Test]
 		public void TryAdd()
 		{
-			Dictionary<int, int> dict = new Dictionary<int, int>();
+			// use IDictionary<int, int> to force extension method
+			IDictionary<int, int> dict = new Dictionary<int, int>();
 			Assert.IsTrue(dict.TryAdd(1, 2));
 			Assert.IsFalse(dict.TryAdd(1, 3));
 			Assert.IsFalse(dict.TryAdd(1, 4));
 			Assert.IsTrue(dict.TryAdd(2, 1));
-		}
-
-		[Test]
-		public void TryGetValueWithConversion()
-		{
-			Dictionary<int, int> dict = new Dictionary<int, int> { { 2, 4 }, { 3, 6 } };
-
-			int nResult;
-			bool bExisted = DictionaryUtility.TryGetValueWithConversion(dict, 2, out nResult, n => n + 1);
-			Assert.IsTrue(bExisted);
-			Assert.AreEqual(5, nResult);
-
-			bExisted = DictionaryUtility.TryGetValueWithConversion(dict, 1, out nResult, n => n + 1);
-			Assert.IsFalse(bExisted);
-			Assert.AreEqual(0, nResult);
-		}
-
-		[Test]
-		public void ToDictionaries()
-		{
-			var kvps = new[] { DictionaryUtility.CreateKeyValuePair(2, "two"), DictionaryUtility.CreateKeyValuePair(1, "one"), DictionaryUtility.CreateKeyValuePair(3, "three") };
-			Assert.AreEqual("one", kvps.ToDictionary()[1]);
-			Assert.AreEqual("one", kvps.ToSortedDictionary()[1]);
-			Assert.AreEqual("one", kvps.ToSortedList()[1]);
 		}
 	}
 }

@@ -3,12 +3,12 @@
 Splits the string on whitespace.
 
 ```csharp
-public static string[] SplitOnWhitespace(this string str)
+public static string[] SplitOnWhitespace(this string value)
 ```
 
 | parameter | description |
 | --- | --- |
-| str | The string. |
+| value | The string. |
 
 ## Return Value
 
@@ -30,12 +30,12 @@ See the documentation for string.Split for the white-space characters recognized
 Splits the string on whitespace.
 
 ```csharp
-public static string[] SplitOnWhitespace(this string str, StringSplitOptions options)
+public static string[] SplitOnWhitespace(this string value, StringSplitOptions options)
 ```
 
 | parameter | description |
 | --- | --- |
-| str | The string. |
+| value | The string. |
 | options | The options. |
 
 ## Return Value

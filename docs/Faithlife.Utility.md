@@ -1,7 +1,5 @@
 # Faithlife.Utility assembly
 
-The assembly `Faithlife.Utility.dll` has 63 public types in 3 namespaces.
-
 ## Faithlife.Utility namespace
 
 | public type | description |
@@ -30,31 +28,26 @@ The assembly `Faithlife.Utility.dll` has 63 public types in 3 namespaces.
 | static class [GuidUtility](Faithlife.Utility/GuidUtility.md) | Helper methods for working with Guid. |
 | static class [GzipUtility](Faithlife.Utility/GzipUtility.md) | Methods for working with gzip. |
 | static class [HashCodeUtility](Faithlife.Utility/HashCodeUtility.md) | Provides methods for manipulating integers. |
-| static class [HashSetUtility](Faithlife.Utility/HashSetUtility.md) | Provides methods for working with HashSet. |
 | interface [IHasEquivalence&lt;T&gt;](Faithlife.Utility/IHasEquivalence-1.md) | Implemented by reference classes that do not want to implement IEquatable{T}, but do want to support some form of equivalence. |
+| static class [InvariantConvert](Faithlife.Utility/InvariantConvert.md) | Methods for converting to and from strings using the invariant culture. |
 | static class [ListUtility](Faithlife.Utility/ListUtility.md) | Methods for manipulating lists. |
-| enum [MergeWithStrategy](Faithlife.Utility/MergeWithStrategy.md) | Specifies how to handle key collisions in DictionaryUtility.MergeWith. |
 | static class [ObjectImpl](Faithlife.Utility/ObjectImpl.md) | Provides methods for manipulating objects. |
 | static class [ObjectUtility](Faithlife.Utility/ObjectUtility.md) | Provides methods for manipulating objects. |
 | enum [Ownership](Faithlife.Utility/Ownership.md) | Indicates whether an object takes ownership of an item. |
-| class [PeekEnumerator&lt;T&gt;](Faithlife.Utility/PeekEnumerator-1.md) | An enumerator that can peek ahead. |
 | class [PriorityQueue&lt;T&gt;](Faithlife.Utility/PriorityQueue-1.md) | Implements a priority queue using a binary heap. The priority queue is sorted so that the smallest item is removed from the queue first. |
 | static class [ReaderWriterLockSlimUtility](Faithlife.Utility/ReaderWriterLockSlimUtility.md) | Extension methods for ReaderWriterLockSlim |
-| class [ReadOnlyHashSet&lt;T&gt;](Faithlife.Utility/ReadOnlyHashSet-1.md) | Implements a read-only wrapper around a HashSet. |
+| class [ReadOnlySet&lt;T&gt;](Faithlife.Utility/ReadOnlySet-1.md) | Implements a read-only wrapper around a HashSet. |
 | class [ReadOnlyStream](Faithlife.Utility/ReadOnlyStream.md) | A read-only stream wrapper. |
 | class [RebasedStream](Faithlife.Utility/RebasedStream.md) | [`RebasedStream`](Faithlife.Utility/RebasedStream.md) is a [`WrappingStream`](Faithlife.Utility/WrappingStream.md) that changes the effective origin of the wrapped stream. |
 | class [Scope](Faithlife.Utility/Scope.md) | Executes the specified delegate when disposed. |
-| class [Scoped&lt;T&gt;](Faithlife.Utility/Scoped-1.md) | A value that can easily be restored to its current value after it has been set. |
+| static class [SetUtility](Faithlife.Utility/SetUtility.md) | Provides methods for working with ISet. |
 | static class [StackUtility](Faithlife.Utility/StackUtility.md) | Provides methods for manipulating stacks. |
-| static class [StreamImpl](Faithlife.Utility/StreamImpl.md) | Provides implementations of common methods needed by an implementer of Stream. |
 | static class [StreamUtility](Faithlife.Utility/StreamUtility.md) | Copies data from one stream to another. |
 | static class [StringBuilderUtility](Faithlife.Utility/StringBuilderUtility.md) | Provides methods for manipulating StringBuilder objects. |
 | class [StringCache](Faithlife.Utility/StringCache.md) | [`StringCache`](Faithlife.Utility/StringCache.md) provides an append-only cache of strings that can be used to reuse the same string object instance when a string is being dynamically created at runtime (e.g., loaded from an XML file or database). |
 | struct [StringSegment](Faithlife.Utility/StringSegment.md) | Encapsulates a length of characters from a string starting at a particular offset. |
 | static class [StringUtility](Faithlife.Utility/StringUtility.md) | Provides methods for manipulating strings. |
-| static class [TextWriterUtility](Faithlife.Utility/TextWriterUtility.md) | Utility methods for TextWriter. |
 | class [TimeoutTimer](Faithlife.Utility/TimeoutTimer.md) | Tracks the time left for a timeout. |
-| static class [TimeSpanUtility](Faithlife.Utility/TimeSpanUtility.md) | Helper methods for working with TimeSpan. |
 | class [TruncatedStream](Faithlife.Utility/TruncatedStream.md) | [`TruncatedStream`](Faithlife.Utility/TruncatedStream.md) is a read-only [`WrappingStream`](Faithlife.Utility/WrappingStream.md) that will not read past the specified length. |
 | static class [TypeUtility](Faithlife.Utility/TypeUtility.md) | Extension methods allowing portable and non portable libraries to call a single set of reflection based Type methods. |
 | enum [UnicodeCharacterClass](Faithlife.Utility/UnicodeCharacterClass.md) | The major class of a Unicode character's general category. |
@@ -64,20 +57,7 @@ The assembly `Faithlife.Utility.dll` has 63 public types in 3 namespaces.
 | static class [UrlEncoding](Faithlife.Utility/UrlEncoding.md) | Methods for encoding and decoding URL-style strings. |
 | class [UrlEncodingSettings](Faithlife.Utility/UrlEncodingSettings.md) | Stores settings used for encoding and decoding URL-style strings. |
 | static class [Verify](Faithlife.Utility/Verify.md) | Provides methods for throwing InvalidOperationException for "impossible" conditions. |
-| class [WrappingStream](Faithlife.Utility/WrappingStream.md) | A Stream that wraps another stream. One major feature of [`WrappingStream`](Faithlife.Utility/WrappingStream.md) is that it does not dispose the underlying stream when it is disposed if Ownership.None is used; this is useful when using classes such as BinaryReaderthat take ownership of the stream passed to their constructors. |
+| class [WrappingStream](Faithlife.Utility/WrappingStream.md) | A Stream that wraps another stream. One major feature of [`WrappingStream`](Faithlife.Utility/WrappingStream.md) is that it does not dispose the underlying stream when it is disposed if Ownership.None is used; this is useful when using classes such as BinaryReader that take ownership of the stream passed to their constructors. |
 | class [ZeroStream](Faithlife.Utility/ZeroStream.md) | A stream of zeroes. |
-
-## Faithlife.Utility.Invariant namespace
-
-| public type | description |
-| --- | --- |
-| static class [InvariantConvert](Faithlife.Utility.Invariant/InvariantConvert.md) | Methods for converting to and from strings using the invariant culture. |
-
-## Faithlife.Utility.Threading namespace
-
-| public type | description |
-| --- | --- |
-| interface [IWorkState](Faithlife.Utility.Threading/IWorkState.md) | Implemented by any worker method's state to support cancellation. |
-| static class [WorkState](Faithlife.Utility.Threading/WorkState.md) | Standard implementations of [`IWorkState`](Faithlife.Utility.Threading/IWorkState.md). |
 
 <!-- DO NOT EDIT: generated by xmldocmd for Faithlife.Utility.dll -->

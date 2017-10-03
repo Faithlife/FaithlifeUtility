@@ -3,18 +3,18 @@
 Throws InvalidOperationException if the parameter is not false.
 
 ```csharp
-public static void IsFalse(bool bValue)
+public static void IsFalse(bool value)
 ```
 
 | parameter | description |
 | --- | --- |
-| bValue | The parameter to check. |
+| value | The parameter to check. |
 
 ## Exceptions
 
 | exception | condition |
 | --- | --- |
-| InvalidOperationException | *bValue* is true. |
+| InvalidOperationException | *value* is true. |
 
 ## See Also
 

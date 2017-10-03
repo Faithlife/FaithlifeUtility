@@ -3,15 +3,15 @@
 Disposes the specified object after executing the specified delegate.
 
 ```csharp
-public static void DisposeAfter<T>(this T d, Action fn)
+public static void DisposeAfter<T>(this T disposable, Action action)
     where T : IDisposable
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type of the input |
-| d | The object to dispose. |
-| fn | The delegate to execute before disposing the object. |
+| disposable | The object to dispose. |
+| action | The delegate to execute before disposing the object. |
 
 ## See Also
 
@@ -25,15 +25,15 @@ public static void DisposeAfter<T>(this T d, Action fn)
 Disposes the specified object after executing the specified delegate.
 
 ```csharp
-public static void DisposeAfter<T>(this T d, Action<T> fn)
+public static void DisposeAfter<T>(this T disposable, Action<T> action)
     where T : IDisposable
 ```
 
 | parameter | description |
 | --- | --- |
 | T | The type of the input |
-| d | The object to dispose. |
-| fn | The delegate to execute before disposing the object. |
+| disposable | The object to dispose. |
+| action | The delegate to execute before disposing the object. |
 
 ## See Also
 
@@ -47,7 +47,7 @@ public static void DisposeAfter<T>(this T d, Action<T> fn)
 Disposes the specified object after executing the specified delegate.
 
 ```csharp
-public static TOutput DisposeAfter<TInput, TOutput>(this TInput d, Func<TInput, TOutput> fn)
+public static TOutput DisposeAfter<TInput, TOutput>(this TInput disposable, Func<TInput, TOutput> action)
     where TInput : IDisposable
 ```
 
@@ -55,8 +55,8 @@ public static TOutput DisposeAfter<TInput, TOutput>(this TInput d, Func<TInput, 
 | --- | --- |
 | TInput | The type of the input. |
 | TOutput | The type of the output. |
-| d | The object to dispose. |
-| fn | The delegate to execute before disposing the object. |
+| disposable | The object to dispose. |
+| action | The delegate to execute before disposing the object. |
 
 ## Return Value
 
@@ -74,7 +74,7 @@ The value returned by the delegate.
 Disposes the specified object after executing the specified delegate.
 
 ```csharp
-public static TOutput DisposeAfter<TInput, TOutput>(this TInput d, Func<TOutput> fn)
+public static TOutput DisposeAfter<TInput, TOutput>(this TInput disposable, Func<TOutput> action)
     where TInput : IDisposable
 ```
 
@@ -82,8 +82,8 @@ public static TOutput DisposeAfter<TInput, TOutput>(this TInput d, Func<TOutput>
 | --- | --- |
 | TInput | The type of the input. |
 | TOutput | The type of the output. |
-| d | The object to dispose. |
-| fn | The delegate to execute before disposing the object. |
+| disposable | The object to dispose. |
+| action | The delegate to execute before disposing the object. |
 
 ## Return Value
 

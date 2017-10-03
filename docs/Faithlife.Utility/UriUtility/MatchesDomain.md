@@ -1,6 +1,6 @@
 # UriUtility.MatchesDomain method
 
-Indicates whether a URI targets a domain. 
+Indicates whether a URI targets a domain.
 
 ```csharp
 public static bool MatchesDomain(this Uri uri, string domain)

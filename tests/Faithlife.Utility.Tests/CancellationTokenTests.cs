@@ -1,6 +1,4 @@
 using System.Threading;
-using System.Threading.Tasks;
-using Faithlife.Utility.Threading;
 using NUnit.Framework;
 
 namespace Faithlife.Utility.Tests

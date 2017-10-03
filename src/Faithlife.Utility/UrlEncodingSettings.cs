@@ -68,10 +68,7 @@ namespace Faithlife.Utility
 		/// Clones this instance.
 		/// </summary>
 		/// <returns>A clone of this instance.</returns>
-		public UrlEncodingSettings Clone()
-		{
-			return new UrlEncodingSettings(this);
-		}
+		public UrlEncodingSettings Clone() => new UrlEncodingSettings(this);
 
 		/// <summary>
 		/// Returns a <see cref="UrlEncodingSettings"/> object that matches the behavior of <c>HttpUtility.UrlEncode(string)</c> in .NET 4.

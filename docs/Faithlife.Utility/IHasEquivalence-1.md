@@ -3,7 +3,7 @@
 Implemented by reference classes that do not want to implement IEquatable{T}, but do want to support some form of equivalence.
 
 ```csharp
-public interface IHasEquivalence<T>
+public interface IHasEquivalence<in T>
 ```
 
 | parameter | description |

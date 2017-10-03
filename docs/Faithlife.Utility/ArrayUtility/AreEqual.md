@@ -1,8 +1,19 @@
 # ArrayUtility.AreEqual&lt;T&gt; method (1 of 2)
 
+Returns true if the arrays are equal.
+
 ```csharp
 public static bool AreEqual<T>(T[] array1, T[] array2)
 ```
+
+| parameter | description |
+| --- | --- |
+| array1 | The first array. |
+| array2 | The second array. |
+
+## Return Value
+
+true if the arrays are both null, or if they both have equal length and the first item of the first array is equal to the first item of the second array, etc.
 
 ## See Also
 
@@ -13,9 +24,21 @@ public static bool AreEqual<T>(T[] array1, T[] array2)
 
 # ArrayUtility.AreEqual&lt;T&gt; method (2 of 2)
 
+Returns true if the arrays are equal.
+
 ```csharp
 public static bool AreEqual<T>(T[] array1, T[] array2, IEqualityComparer<T> comparer)
 ```
+
+| parameter | description |
+| --- | --- |
+| array1 | The first array. |
+| array2 | The second array. |
+| comparer | The equality comparer to use. |
+
+## Return Value
+
+true if the arrays are both null, or if they both have equal length and the first item of the first array is equal to the first item of the second array, etc.
 
 ## See Also
 

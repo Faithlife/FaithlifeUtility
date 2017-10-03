@@ -3,14 +3,14 @@
 Wraps the dictionary in a read-only dictionary.
 
 ```csharp
-public static ReadOnlyDictionary<TKey, TValue> AsReadOnly<TKey, TValue>(this IDictionary<TKey, TValue> dict)
+public static ReadOnlyDictionary<TKey, TValue> AsReadOnly<TKey, TValue>(this IDictionary<TKey, TValue> dictionary)
 ```
 
 | parameter | description |
 | --- | --- |
 | TKey | The type of the key. |
 | TValue | The type of the value. |
-| dict | The dictionary to wrap. |
+| dictionary | The dictionary to wrap. |
 
 ## Return Value
 

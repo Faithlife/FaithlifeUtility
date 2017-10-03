@@ -28,8 +28,7 @@ namespace Faithlife.Utility
 		/// checked at runtime.</remarks>
 		public static void DisposeObject<T>(ref T obj)
 		{
-			IDisposable disposable = obj as IDisposable;
-			if (disposable != null)
+			if (obj is IDisposable disposable)
 				disposable.Dispose();
 			obj = default(T);
 		}
@@ -39,13 +38,13 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <typeparam name="TInput">The type of the input.</typeparam>
 		/// <typeparam name="TOutput">The type of the output.</typeparam>
-		/// <param name="d">The object to dispose.</param>
-		/// <param name="fn">The delegate to execute before disposing the object.</param>
+		/// <param name="disposable">The object to dispose.</param>
+		/// <param name="action">The delegate to execute before disposing the object.</param>
 		/// <returns>The value returned by the delegate.</returns>
-		public static TOutput DisposeAfter<TInput, TOutput>(this TInput d, Func<TInput, TOutput> fn) where TInput : IDisposable
+		public static TOutput DisposeAfter<TInput, TOutput>(this TInput disposable, Func<TInput, TOutput> action) where TInput : IDisposable
 		{
-			using (d)
-				return fn(d);
+			using (disposable)
+				return action(disposable);
 		}
 
 		/// <summary>
@@ -53,51 +52,51 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <typeparam name="TInput">The type of the input.</typeparam>
 		/// <typeparam name="TOutput">The type of the output.</typeparam>
-		/// <param name="d">The object to dispose.</param>
-		/// <param name="fn">The delegate to execute before disposing the object.</param>
+		/// <param name="disposable">The object to dispose.</param>
+		/// <param name="action">The delegate to execute before disposing the object.</param>
 		/// <returns>The value returned by the delegate.</returns>
-		public static TOutput DisposeAfter<TInput, TOutput>(this TInput d, Func<TOutput> fn) where TInput : IDisposable
+		public static TOutput DisposeAfter<TInput, TOutput>(this TInput disposable, Func<TOutput> action) where TInput : IDisposable
 		{
-			using (d)
-				return fn();
+			using (disposable)
+				return action();
 		}
 
 		/// <summary>
 		/// Disposes the specified object after executing the specified delegate.
 		/// </summary>
 		/// <typeparam name="T">The type of the input</typeparam>
-		/// <param name="d">The object to dispose.</param>
-		/// <param name="fn">The delegate to execute before disposing the object.</param>
-		public static void DisposeAfter<T>(this T d, Action<T> fn) where T : IDisposable
+		/// <param name="disposable">The object to dispose.</param>
+		/// <param name="action">The delegate to execute before disposing the object.</param>
+		public static void DisposeAfter<T>(this T disposable, Action<T> action) where T : IDisposable
 		{
-			using (d)
-				fn(d);
+			using (disposable)
+				action(disposable);
 		}
 
 		/// <summary>
 		/// Disposes the specified object after executing the specified delegate.
 		/// </summary>
 		/// <typeparam name="T">The type of the input</typeparam>
-		/// <param name="d">The object to dispose.</param>
-		/// <param name="fn">The delegate to execute before disposing the object.</param>
-		public static void DisposeAfter<T>(this T d, Action fn) where T : IDisposable
+		/// <param name="disposable">The object to dispose.</param>
+		/// <param name="action">The delegate to execute before disposing the object.</param>
+		public static void DisposeAfter<T>(this T disposable, Action action) where T : IDisposable
 		{
-			using (d)
-				fn();
+			using (disposable)
+				action();
 		}
 
 		/// <summary>
 		/// Adds the specified <see cref="IDisposable"/> object to <paramref name="disposables"/> and returns it.
 		/// </summary>
 		/// <typeparam name="T">The type of the <see cref="IDisposable"/> object.</typeparam>
-		/// <param name="t">The <see cref="IDisposable"/> object.</param>
-		/// <param name="disposables">A <paramref name="disposables"/> that will dispose <paramref name="t"/> when it is disposed.</param>
+		/// <param name="disposable">The <see cref="IDisposable"/> object.</param>
+		/// <param name="disposables">A <paramref name="disposables"/> that will dispose <paramref name="disposable"/> when it is disposed.</param>
 		/// <returns>The <see cref="IDisposable"/> object that was added to <paramref name="disposables"/>.</returns>
-		public static T DisposeWith<T>(this T t, Disposables disposables)
+		public static T DisposeWith<T>(this T disposable, Disposables disposables)
 			where T : IDisposable
 		{
-			disposables.Add(t);
-			return t;
+			disposables.Add(disposable);
+			return disposable;
 		}
 	}
 }

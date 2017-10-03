@@ -21,37 +21,25 @@ namespace Faithlife.Utility
 		/// Initializes a new instance of the <see cref="ZeroStream"/> class.
 		/// </summary>
 		/// <param name="length">The length of the stream in bytes.</param>
-		public ZeroStream(long length)
-		{
-			DoSetLength(length);
-		}
+		public ZeroStream(long length) => DoSetLength(length);
 
 		/// <summary>
 		/// Returns whether the current stream supports reading.
 		/// </summary>
 		/// <value>True if the stream supports reading; otherwise, false.</value>
-		public override bool CanRead
-		{
-			get { return true; }
-		}
+		public override bool CanRead => true;
 
 		/// <summary>
 		/// Returns whether the current stream supports writing.
 		/// </summary>
 		/// <value>True if the stream supports writing; otherwise, false.</value>
-		public override bool CanWrite
-		{
-			get { return true; }
-		}
+		public override bool CanWrite => true;
 
 		/// <summary>
 		/// Returns whether the current stream supports seeking.
 		/// </summary>
 		/// <value>True if the stream supports seeking; otherwise, false.</value>
-		public override bool CanSeek
-		{
-			get { return true; }
-		}
+		public override bool CanSeek => true;
 
 		/// <summary>
 		/// Gets or sets the position within the current stream.
@@ -59,18 +47,15 @@ namespace Faithlife.Utility
 		/// <value>The current position within the stream.</value>
 		public override long Position
 		{
-			get { return m_position; }
-			set { m_position = value; }
+			get => m_position;
+			set => m_position = value;
 		}
 
 		/// <summary>
 		/// Gets the length in bytes of the stream.
 		/// </summary>
 		/// <value>The length of the stream in bytes.</value>
-		public override long Length
-		{
-			get { return m_length; }
-		}
+		public override long Length => m_length;
 
 		/// <summary>
 		/// Reads zeroes from the current stream and advances the position within the stream by the number of bytes read.
@@ -83,11 +68,11 @@ namespace Faithlife.Utility
 		public override int Read(byte[] buffer, int offset, int count)
 		{
 			if (buffer == null)
-				throw new ArgumentNullException("buffer");
+				throw new ArgumentNullException(nameof(buffer));
 			if (offset < 0)
-				throw new ArgumentOutOfRangeException("offset", "Offset cannot be negative.");
+				throw new ArgumentOutOfRangeException(nameof(offset), "Offset cannot be negative.");
 			if (count < 0)
-				throw new ArgumentOutOfRangeException("count", "Count cannot be negative.");
+				throw new ArgumentOutOfRangeException(nameof(count), "Count cannot be negative.");
 			if (offset + count > buffer.Length)
 				throw new ArgumentException("Offset and count extend past the end of the buffer.");
 
@@ -111,11 +96,11 @@ namespace Faithlife.Utility
 		public override void Write(byte[] buffer, int offset, int count)
 		{
 			if (buffer == null)
-				throw new ArgumentNullException("buffer");
+				throw new ArgumentNullException(nameof(buffer));
 			if (offset < 0)
-				throw new ArgumentOutOfRangeException("offset", "Offset cannot be negative.");
+				throw new ArgumentOutOfRangeException(nameof(offset), "Offset cannot be negative.");
 			if (count < 0)
-				throw new ArgumentOutOfRangeException("count", "Count cannot be negative.");
+				throw new ArgumentOutOfRangeException(nameof(count), "Count cannot be negative.");
 			if (offset + count > buffer.Length)
 				throw new ArgumentException("Offset and count extend past the end of the buffer.");
 
@@ -155,7 +140,7 @@ namespace Faithlife.Utility
 				break;
 
 			default:
-				throw new ArgumentException("Invalid seek origin.", "origin");
+				throw new ArgumentException("Invalid seek origin.", nameof(origin));
 			}
 
 			if (newPosition < 0)
@@ -169,10 +154,7 @@ namespace Faithlife.Utility
 		/// Sets the length of the current stream.
 		/// </summary>
 		/// <param name="value">The desired length of the current stream in bytes.</param>
-		public override void SetLength(long value)
-		{
-			DoSetLength(value);
-		}
+		public override void SetLength(long value) => DoSetLength(value);
 
 		/// <summary>
 		/// Flushes the stream.
@@ -185,7 +167,7 @@ namespace Faithlife.Utility
 		private void DoSetLength(long value)
 		{
 			if (value < 0)
-				throw new ArgumentOutOfRangeException("value", "Stream length cannot be negative.");
+				throw new ArgumentOutOfRangeException(nameof(value), "Stream length cannot be negative.");
 
 			m_length = value;
 

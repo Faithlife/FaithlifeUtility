@@ -3,12 +3,12 @@
 Intersects this segment with another segment of the same string.
 
 ```csharp
-public StringSegment Intersect(StringSegment seg)
+public StringSegment Intersect(StringSegment segment)
 ```
 
 | parameter | description |
 | --- | --- |
-| seg | The segment to intersect. |
+| segment | The segment to intersect. |
 
 ## Return Value
 

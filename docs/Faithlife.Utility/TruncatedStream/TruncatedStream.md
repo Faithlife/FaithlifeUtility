@@ -3,13 +3,13 @@
 Creates a new truncated stream.
 
 ```csharp
-public TruncatedStream(Stream streamBase, long length, Ownership ownership)
+public TruncatedStream(Stream stream, long length, Ownership ownership)
 ```
 
 | parameter | description |
 | --- | --- |
 | length | The length of the truncated stream. |
-| streamBase | The base stream. |
+| stream | The base stream. |
 | ownership | The ownership of the base stream. |
 
 ## See Also

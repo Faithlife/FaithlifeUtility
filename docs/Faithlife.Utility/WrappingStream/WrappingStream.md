@@ -3,12 +3,12 @@
 Initializes a new instance of the [`WrappingStream`](../WrappingStream.md) class.
 
 ```csharp
-public WrappingStream(Stream streamBase, Ownership ownership)
+public WrappingStream(Stream stream, Ownership ownership)
 ```
 
 | parameter | description |
 | --- | --- |
-| streamBase | The wrapped stream. |
+| stream | The wrapped stream. |
 | ownership | Use Owns if the wrapped stream should be disposed when this stream is disposed. |
 
 ## See Also

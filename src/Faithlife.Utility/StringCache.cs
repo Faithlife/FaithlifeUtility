@@ -36,8 +36,7 @@ namespace Faithlife.Utility
 				return "";
 
 			// use string equality to find the instance in the cache if it exists
-			string cachedString;
-			if (m_cache.TryGetValue(value, out cachedString))
+			if (m_cache.TryGetValue(value, out var cachedString))
 				return cachedString;
 
 			// otherwise, cache this string (it becomes the canonical instance)

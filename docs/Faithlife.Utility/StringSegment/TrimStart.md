@@ -22,12 +22,12 @@ A string segment with the whitespace trimmed.
 Trims the whitespace from the start of the string segment.
 
 ```csharp
-public StringSegment TrimStart(char[] achTrim)
+public StringSegment TrimStart(char[] characters)
 ```
 
 | parameter | description |
 | --- | --- |
-| achTrim | The characters to trim. |
+| characters | The characters to trim. |
 
 ## Return Value
 

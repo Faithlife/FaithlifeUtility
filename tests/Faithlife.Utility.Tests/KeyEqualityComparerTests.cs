@@ -9,8 +9,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void NullConstructor()
 		{
-			Assert.Throws<ArgumentNullException>(delegate { new KeyEqualityComparer<int, int>(null); });
-			Assert.Throws<ArgumentNullException>(delegate { new KeyEqualityComparer<int, int>(i => i, null); });
+			Assert.Throws<ArgumentNullException>(delegate
+			{ new KeyEqualityComparer<int, int>(null); });
 		}
 
 		[TestCase(1, 1, true)]
@@ -47,7 +47,7 @@ namespace Faithlife.Utility.Tests
 		public void TestStringAndInts(string str1, string str2, bool bExpected)
 		{
 			var keyComparer = new KeyEqualityComparer<string, int>(str => str.Length);
-			Assert.AreEqual(keyComparer.Equals(str1, str2), bExpected);	
+			Assert.AreEqual(keyComparer.Equals(str1, str2), bExpected);
 		}
 
 		[TestCase("test", 4)]

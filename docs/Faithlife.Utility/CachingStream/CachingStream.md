@@ -3,12 +3,12 @@
 Initializes a new instance of the [`CachingStream`](../CachingStream.md) class.
 
 ```csharp
-public CachingStream(Stream streamBase, Ownership ownership)
+public CachingStream(Stream stream, Ownership ownership)
 ```
 
 | parameter | description |
 | --- | --- |
-| streamBase | The stream to be cached. |
+| stream | The stream to be cached. |
 | ownership | Use Owns if the cached stream should be disposed when this stream is disposed. |
 
 ## See Also

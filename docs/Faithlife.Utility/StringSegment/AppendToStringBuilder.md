@@ -3,12 +3,12 @@
 Appends the segment to the specified StringBuilder.
 
 ```csharp
-public void AppendToStringBuilder(StringBuilder sb)
+public void AppendToStringBuilder(StringBuilder stringBuilder)
 ```
 
 | parameter | description |
 | --- | --- |
-| sb | The StringBuilder. |
+| stringBuilder | The StringBuilder. |
 
 ## See Also
 

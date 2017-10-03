@@ -3,12 +3,12 @@
 Returns the first index of any of the specified characters in the string segment.
 
 ```csharp
-public int IndexOfAny(char[] ach)
+public int IndexOfAny(char[] anyOf)
 ```
 
 | parameter | description |
 | --- | --- |
-| ach | The characters to find. |
+| anyOf | The characters to find. |
 
 ## Return Value
 

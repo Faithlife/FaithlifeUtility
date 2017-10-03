@@ -15,9 +15,7 @@ namespace Faithlife.Utility
 		/// <param name="ownership">The ownership of the specified stream.</param>
 		/// <returns>The stream to write the uncompressed bytes to.</returns>
 		public static Stream CreateCompressingWriteStream(Stream compressedWriteStream, Ownership ownership)
-		{
-			return new GZipStream(compressedWriteStream, CompressionMode.Compress, ownership != Ownership.Owns);
-		}
+			=> new GZipStream(compressedWriteStream, CompressionMode.Compress, ownership != Ownership.Owns);
 
 		/// <summary>
 		/// Creates a decompressing read stream.
@@ -26,8 +24,6 @@ namespace Faithlife.Utility
 		/// <param name="ownership">The ownership of the specified stream.</param>
 		/// <returns>The stream to read the uncompressed bytes from.</returns>
 		public static Stream CreateDecompressingReadStream(Stream compressedReadStream, Ownership ownership)
-		{
-			return new GZipStream(compressedReadStream, CompressionMode.Decompress, ownership != Ownership.Owns);
-		}
+			=> new GZipStream(compressedReadStream, CompressionMode.Decompress, ownership != Ownership.Owns);
 	}
 }
