@@ -1,11 +1,7 @@
-#if !NETSTANDARD1_4
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-#if NET46
-using System.Security.Permissions;
-#endif
 using System.Threading;
 
 namespace Faithlife.Utility
@@ -158,26 +154,7 @@ namespace Faithlife.Utility
 			}
 		}
 
-		private static IEnumerable<string> DoFindFiles(string path, string searchPattern)
-		{
-			IEnumerable<string> files = Directory.GetFiles(path, searchPattern, SearchOption.TopDirectoryOnly);
-#if NET46
-			files = files.Where(str =>
-			{
-				try
-				{
-					new FileIOPermission(FileIOPermissionAccess.PathDiscovery, str).Demand();
-					return true;
-				}
-				catch (IOException)
-				{
-					// checking permission can throw PathTooLongException
-					return false;
-				}
-			});
-#endif
-			return files;
-		}
+		private static IEnumerable<string> DoFindFiles(string path, string searchPattern) => Directory.GetFiles(path, searchPattern, SearchOption.TopDirectoryOnly);
 
 		private static IEnumerable<FileInfo> DoFindFileInfos(string path, string searchPattern)
 		{
@@ -197,4 +174,3 @@ namespace Faithlife.Utility
 		}
 	}
 }
-#endif

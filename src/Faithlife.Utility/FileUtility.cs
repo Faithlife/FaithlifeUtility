@@ -1,5 +1,4 @@
-﻿#if !NETSTANDARD1_4
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -74,6 +73,7 @@ namespace Faithlife.Utility
 			return false;
 		}
 
+#if NET461
 		/// <summary>
 		/// Attempts to replace the specified file with another file, returning <c>true</c> if successful.
 		/// </summary>
@@ -106,6 +106,6 @@ namespace Faithlife.Utility
 
 			return false;
 		}
+#endif
 	}
 }
-#endif
