@@ -9,6 +9,7 @@ Prefix the description of the change with `[major]`, `[minor]` or `[patch]` in a
 
 * [minor] Add `ByteUtility`.
 * Change .NET Framework minimum version to 4.6.1.
+* [minor] Add `FileUtility` and `DirectoryUtility`.
 
 ## Released
 
