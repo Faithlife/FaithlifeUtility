@@ -11,7 +11,7 @@
     <DebugSymbols>True</DebugSymbols>
     <PackageLicenseUrl>https://raw.githubusercontent.com/Faithlife/FaithlifeUtility/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Faithlife/FaithlifeUtility</PackageProjectUrl>
-    <PackageReleaseNotes>https://github.com/Faithlife/FaithlifeUtility/VersionHistory.md</PackageReleaseNotes>
+    <PackageReleaseNotes>https://github.com/Faithlife/FaithlifeUtility/blob/master/VersionHistory.md#released</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/Faithlife/FaithlifeUtility.git</RepositoryUrl>
     <Description>Common .NET utility code in use at Faithlife</Description>
     <Authors>Faithlife Corporation</Authors>
