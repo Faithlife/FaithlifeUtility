@@ -7,11 +7,18 @@ is updated in preparation for publishing an updated NuGet package.
 
 Prefix the description of the change with `[major]`, `[minor]` or `[patch]` in accordance with [SemVer](http://semver.org).
 
-* [minor] Add `ByteUtility`.
-* Change .NET Framework minimum version to 4.6.1.
-* [minor] Add `FileUtility` and `DirectoryUtility`.
-
 ## Released
+
+### 0.4.0
+
+* **Breaking** Change .NET Framework minimum version to 4.6.1.
+* **Breaking** Remove `PeekEnumerator`, `Scoped`, `StreamImpl`, `TextWriterUtility`, `TimeSpanUtility`, `IWorkState`, `WorkState`.
+* **Breaking** Modify and/or remove methods from `CollectionUtility`, `DateTimeUtility`, `DateTimeOffsetUtility`, `DictionaryUtility`, `EnumerableUtility`, `EnumUtility`, `GuidUtility`, `ListUtility`, `UriUtility`, `StreamUtility`, `StringSegment`, `StringUtility`.
+* **Breaking** Rename `HashSetUtility` and `ReadOnlyHashSet` to `SetUtility` and `ReadOnlySet`.
+* **Breaking** Move `InvariantConvert` to `Faithlife.Utility` namespace.
+* **Breaking** Improve parameter names.
+* Add `ByteUtility`.
+* Add `FileUtility` and `DirectoryUtility`.
 
 ### 0.3.0
 
