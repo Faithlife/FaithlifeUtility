@@ -9,6 +9,10 @@ Prefix the description of the change with `[major]`, `[minor]` or `[patch]` in a
 
 ## Released
 
+### 0.4.1
+
+* Update release notes link in NuGet package.
+
 ### 0.4.0
 
 * **Breaking** Change .NET Framework minimum version to 4.6.1.
