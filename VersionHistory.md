@@ -9,6 +9,10 @@ Prefix the description of the change with `[major]`, `[minor]` or `[patch]` in a
 
 ## Released
 
+### 0.4.2
+
+* Add `Optional<T>`.
+
 ### 0.4.1
 
 * Update release notes link in NuGet package.
