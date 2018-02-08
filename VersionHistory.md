@@ -7,6 +7,8 @@ is updated in preparation for publishing an updated NuGet package.
 
 Prefix the description of the change with `[major]`, `[minor]` or `[patch]` in accordance with [SemVer](http://semver.org).
 
+* [patch] Remove WrappingStream.CopyToAsync() override. Fixes TruncatedStream.CopyToAsync().
+
 ## Released
 
 ### 0.4.2

@@ -123,12 +123,6 @@ namespace Faithlife.Utility
 			WrappedStream.ReadAsync(buffer, offset, count, cancellationToken);
 
 		/// <summary>
-		/// Asynchronously reads the bytes from the current stream and writes them to another stream, using a specified buffer size and cancellation token.
-		/// </summary>
-		public override Task CopyToAsync(Stream destination, int bufferSize, CancellationToken cancellationToken) =>
-			WrappedStream.CopyToAsync(destination, bufferSize, cancellationToken);
-
-		/// <summary>
 		/// Sets the position within the current stream.
 		/// </summary>
 		/// <param name="offset">A byte offset relative to the <paramref name="origin"/> parameter.</param>

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using NUnit.Framework;
 
 namespace Faithlife.Utility.Tests
@@ -63,6 +64,41 @@ namespace Faithlife.Utility.Tests
 			{
 				byte[] buffer = new byte[16];
 				Assert.AreEqual(5, stream.Read(buffer, 0, buffer.Length));
+				CollectionAssert.AreEqual(new byte[] { 1, 2, 3, 4, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, buffer);
+			}
+		}
+
+		[Test]
+		public async Task ReadAsync()
+		{
+			using (TruncatedStream stream = CreateTruncatedStream(5))
+			{
+				byte[] buffer = new byte[16];
+				Assert.AreEqual(5, await stream.ReadAsync(buffer, 0, buffer.Length));
+				CollectionAssert.AreEqual(new byte[] { 1, 2, 3, 4, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, buffer);
+			}
+		}
+
+		[Test]
+		public void CopyTo()
+		{
+			using (TruncatedStream stream = CreateTruncatedStream(5))
+			{
+				byte[] buffer = new byte[16];
+				var destination = new MemoryStream(buffer);
+				stream.CopyTo(destination);
+				CollectionAssert.AreEqual(new byte[] { 1, 2, 3, 4, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, buffer);
+			}
+		}
+
+		[Test]
+		public async Task CopyToAsync()
+		{
+			using (TruncatedStream stream = CreateTruncatedStream(5))
+			{
+				byte[] buffer = new byte[16];
+				var destination = new MemoryStream(buffer);
+				await stream.CopyToAsync(destination);
 				CollectionAssert.AreEqual(new byte[] { 1, 2, 3, 4, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, buffer);
 			}
 		}
