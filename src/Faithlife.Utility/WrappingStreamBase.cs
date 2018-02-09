@@ -114,6 +114,10 @@ namespace Faithlife.Utility
 			set => WrappedStream.WriteTimeout = value;
 		}
 
+#if !NETSTANDARD1_4
+		public sealed override void Close() => base.Close();
+#endif
+
 		/// <summary>
 		/// Gets the wrapped stream.
 		/// </summary>
