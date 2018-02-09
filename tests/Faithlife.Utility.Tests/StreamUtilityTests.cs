@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using NUnit.Framework;
 
 namespace Faithlife.Utility.Tests
@@ -107,6 +108,54 @@ namespace Faithlife.Utility.Tests
 
 				Stream partialStream2 = StreamUtility.CreatePartialStream(memoryStream, 6, null, Ownership.None);
 				CollectionAssert.AreEqual(new byte[] { 6, 7, 8, 9, 10 }, partialStream2.ReadAllBytes());
+			}
+		}
+
+		[Test]
+		public void PartialStreamCopyTo()
+		{
+			byte[] bytes = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+			using (MemoryStream memoryStream = new MemoryStream())
+			{
+				memoryStream.Write(bytes, 0, bytes.Length);
+
+				Stream partialStream1 = StreamUtility.CreatePartialStream(memoryStream, 3, 4, Ownership.None);
+				using (var destination = new MemoryStream())
+				{
+					partialStream1.CopyTo(destination);
+					CollectionAssert.AreEqual(new byte[] { 3, 4, 5, 6 }, destination.ToArray());
+				}
+
+				Stream partialStream2 = StreamUtility.CreatePartialStream(memoryStream, 6, null, Ownership.None);
+				using (var destination = new MemoryStream())
+				{
+					partialStream2.CopyTo(destination);
+					CollectionAssert.AreEqual(new byte[] { 6, 7, 8, 9, 10 }, destination.ToArray());
+				}
+			}
+		}
+
+		[Test]
+		public async Task PartialStreamCopyToAsync()
+		{
+			byte[] bytes = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+			using (MemoryStream memoryStream = new MemoryStream())
+			{
+				memoryStream.Write(bytes, 0, bytes.Length);
+
+				Stream partialStream1 = StreamUtility.CreatePartialStream(memoryStream, 3, 4, Ownership.None);
+				using (var destination = new MemoryStream())
+				{
+					await partialStream1.CopyToAsync(destination);
+					CollectionAssert.AreEqual(new byte[] { 3, 4, 5, 6 }, destination.ToArray());
+				}
+
+				Stream partialStream2 = StreamUtility.CreatePartialStream(memoryStream, 6, null, Ownership.None);
+				using (var destination = new MemoryStream())
+				{
+					await partialStream2.CopyToAsync(destination);
+					CollectionAssert.AreEqual(new byte[] { 6, 7, 8, 9, 10 }, destination.ToArray());
+				}
 			}
 		}
 
