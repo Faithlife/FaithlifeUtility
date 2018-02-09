@@ -616,40 +616,6 @@ namespace Faithlife.Utility
 			(source is IList<T> list ? (IReadOnlyList<T>) new ReadOnlyListAdapter<T>(list) : source.ToList().AsReadOnly());
 
 		/// <summary>
-		/// Returns a new set of the elements in the specified sequence.
-		/// </summary>
-		/// <typeparam name="T">The type of element in the source sequence.</typeparam>
-		/// <param name="source">The sequence.</param>
-		/// <returns>A set of elements.</returns>
-		/// <remarks>
-		/// Note that the <code>AsSet{T}</code> method may be more performant because it will not copy the input to a new HashSet unless it has to.
-		/// </remarks>
-		public static HashSet<T> ToHashSet<T>(this IEnumerable<T> source)
-		{
-			if (source == null)
-				throw new ArgumentNullException(nameof(source));
-
-			return new HashSet<T>(source);
-		}
-
-		/// <summary>
-		/// Returns a set of the elements in the specified sequence, using the specified equality comparer.
-		/// </summary>
-		/// <typeparam name="T">The type of element in the source sequence.</typeparam>
-		/// <param name="source">The sequence.</param>
-		/// <param name="comparer">The equality comparer.</param>
-		/// <returns>A set of elements.</returns>
-		public static HashSet<T> ToHashSet<T>(this IEnumerable<T> source, IEqualityComparer<T> comparer)
-		{
-			if (source == null)
-				throw new ArgumentNullException(nameof(source));
-			if (comparer == null)
-				throw new ArgumentNullException(nameof(comparer));
-
-			return new HashSet<T>(source, comparer);
-		}
-
-		/// <summary>
 		/// Returns a set of the elements in the specified sequence.
 		/// </summary>
 		/// <typeparam name="T">The type of element in the source sequence.</typeparam>
