@@ -69,10 +69,9 @@ namespace Faithlife.Utility
 		public override void Flush() => WrappedStream.Flush();
 
 		/// <summary>
-		/// Reads a sequence of bytes from the current stream and advances the position
-		/// within the stream by the number of bytes read.
+		/// Asynchronously reads a sequence of bytes from the current stream, advances the position within the stream by the number of bytes read, and monitors cancellation requests.
 		/// </summary>
-		public override int Read(byte[] buffer, int offset, int count) => WrappedStream.Read(buffer, offset, count);
+		public override abstract Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken);
 
 		/// <summary>
 		/// Gets or sets a value, in milliseconds, that determines how long the stream will attempt to read before timing out.
@@ -102,7 +101,7 @@ namespace Faithlife.Utility
 		/// Writes a sequence of bytes to the current stream and advances the current position
 		/// within this stream by the number of bytes written.
 		/// </summary>
-		public override void Write(byte[] buffer, int offset, int count) => WrappedStream.Write(buffer, offset, count);
+		public override abstract Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken);
 
 		/// <summary>
 		/// Gets or sets a value, in milliseconds, that determines how long the stream will attempt to write before timing out.

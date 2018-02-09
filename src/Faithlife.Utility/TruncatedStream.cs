@@ -97,6 +97,11 @@ namespace Faithlife.Utility
 		public override void Write(byte[] buffer, int offset, int count) => throw CreateWriteNotSupportedException();
 
 		/// <summary>
+		/// Asynchronously writes a sequence of bytes to the current stream, advances the current position within this stream by the number of bytes written, and monitors cancellation requests.
+		/// </summary>
+		public override Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken) => throw CreateWriteNotSupportedException();
+
+		/// <summary>
 		/// Throws an exception; writes are not supported.
 		/// </summary>
 		public override void Flush() => throw CreateWriteNotSupportedException();

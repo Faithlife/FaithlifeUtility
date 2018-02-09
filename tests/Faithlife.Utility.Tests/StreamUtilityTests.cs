@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
@@ -197,10 +198,13 @@ namespace Faithlife.Utility.Tests
 			{
 			}
 
-			public override int Read(byte[] buffer, int offset, int count)
-			{
-				return base.Read(buffer, offset, Math.Min(count, 2));
-			}
+			public override int Read(byte[] buffer, int offset, int count) => WrappedStream.Read(buffer, offset, Math.Min(count, 2));
+
+			public override Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken) => WrappedStream.ReadAsync(buffer, offset, Math.Min(count, 2), cancellationToken);
+
+			public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
+
+			public override Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken) => throw new NotSupportedException();
 		}
 	}
 }
