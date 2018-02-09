@@ -52,6 +52,30 @@ namespace Faithlife.Utility
 		}
 
 		/// <summary>
+		/// Reads from the stream asynchronously.
+		/// </summary>
+		public override async Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
+		{
+			int byteCount = await WrappedStream.ReadAsync(buffer, offset, TruncateCount(count), cancellationToken).ConfigureAwait(false);
+			m_offset += byteCount;
+			return byteCount;
+		}
+
+		/// <summary>
+		/// Reads a byte from the stream.
+		/// </summary>
+		public override int ReadByte()
+		{
+			if (m_offset >= m_length)
+				return -1;
+
+			int ch = base.ReadByte();
+			if (ch != -1)
+				m_offset++;
+			return ch;
+		}
+
+		/// <summary>
 		/// Changes the current position in the stream.
 		/// </summary>
 		public override long Seek(long offset, SeekOrigin origin)

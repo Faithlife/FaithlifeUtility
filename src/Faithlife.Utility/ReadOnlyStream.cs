@@ -1,5 +1,7 @@
 using System;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Faithlife.Utility
 {
@@ -33,5 +35,10 @@ namespace Faithlife.Utility
 		/// within this stream by the number of bytes written.
 		/// </summary>
 		public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
+
+		/// <summary>
+		/// Asynchronously reads a sequence of bytes from the current stream, advances the position within the stream by the number of bytes read, and monitors cancellation requests.
+		/// </summary>
+		public override Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken) => WrappedStream.ReadAsync(buffer, offset, count, cancellationToken);
 	}
 }

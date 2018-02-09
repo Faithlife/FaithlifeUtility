@@ -1,5 +1,7 @@
 using System;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Faithlife.Utility
 {
@@ -50,6 +52,48 @@ namespace Faithlife.Utility
 			{
 				// read data
 				int bytesRead = stream.Read(buffer, offset, count);
+
+				// check for end of stream
+				if (bytesRead == 0)
+					break;
+
+				// move to next block
+				offset += bytesRead;
+				count -= bytesRead;
+				totalBytesRead += bytesRead;
+			}
+			return totalBytesRead;
+		}
+
+		/// <summary>
+		/// Reads <paramref name="count"/> bytes from <paramref name="stream"/> into
+		/// <paramref name="buffer"/>, starting at the byte given by <paramref name="offset"/>.
+		/// </summary>
+		/// <param name="stream">The stream to read from.</param>
+		/// <param name="buffer">The buffer to read data into.</param>
+		/// <param name="offset">The offset within the buffer at which data is first written.</param>
+		/// <param name="count">The count of bytes to read.</param>
+		/// <param name="cancellationToken">The cancellation token.</param>
+		/// <remarks>Unlike Stream.ReadAsync, this method will not return fewer bytes than requested
+		/// unless the end of the stream is reached.</remarks>
+		public static async Task<int> ReadBlockAsync(this Stream stream, byte[] buffer, int offset, int count, CancellationToken cancellationToken = default(CancellationToken))
+		{
+			// check arguments
+			if (stream == null)
+				throw new ArgumentNullException(nameof(stream));
+			if (buffer == null)
+				throw new ArgumentNullException(nameof(buffer));
+			if (offset < 0 || offset > buffer.Length)
+				throw new ArgumentOutOfRangeException(nameof(offset));
+			if (count < 0 || buffer.Length - offset < count)
+				throw new ArgumentOutOfRangeException(nameof(count));
+
+			// track total bytes read
+			int totalBytesRead = 0;
+			while (count > 0)
+			{
+				// read data
+				int bytesRead = await stream.ReadAsync(buffer, offset, count, cancellationToken).ConfigureAwait(false);
 
 				// check for end of stream
 				if (bytesRead == 0)

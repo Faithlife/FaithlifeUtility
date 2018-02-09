@@ -1,4 +1,6 @@
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Faithlife.Utility
 {
@@ -62,6 +64,18 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="value">The desired length of the current stream in bytes.</param>
 		public override void SetLength(long value) => base.SetLength(value + m_baseOffset);
+
+		/// <summary>
+		/// Asynchronously reads a sequence of bytes from the current stream, advances the position within the stream by the number of bytes read, and monitors cancellation requests.
+		/// </summary>
+		public override Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken) =>
+			WrappedStream.ReadAsync(buffer, offset, count, cancellationToken);
+
+		/// <summary>
+		/// Asynchronously writes a sequence of bytes to the current stream, advances the current position within this stream by the number of bytes written, and monitors cancellation requests.
+		/// </summary>
+		public override Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken) =>
+			WrappedStream.WriteAsync(buffer, offset, count, cancellationToken);
 
 		// the offset within the base stream where this stream begins
 		readonly long m_baseOffset;

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Faithlife.Utility
 {
@@ -80,6 +82,21 @@ namespace Faithlife.Utility
 		}
 
 		/// <summary>
+		/// Reads a sequence of bytes from the current stream and advances the position
+		/// within the stream by the number of bytes read.
+		/// </summary>
+		public override async Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
+		{
+			int blockIndex = (int) (Position / c_blockSize);
+			byte[] data = await LoadDataAsync(blockIndex).ConfigureAwait(false);
+			int blockOffset = Math.Min(data.Length, (int) (Position % c_blockSize));
+			int bytesToCopy = Math.Max(Math.Min(count, data.Length - blockOffset), 0);
+			Array.Copy(data, blockOffset, buffer, offset, bytesToCopy);
+			Position += bytesToCopy;
+			return bytesToCopy;
+		}
+
+		/// <summary>
 		/// Reads a byte from the stream and advances the position within the stream by one byte, or returns -1 if at the end of the stream.
 		/// </summary>
 		public override int ReadByte()
@@ -145,6 +162,26 @@ namespace Faithlife.Utility
 			return blockData;
 		}
 
+		private async Task<byte[]> LoadDataAsync(int blockIndex)
+		{
+			ThrowIfDisposed();
+
+			if (m_blocks.Count <= blockIndex)
+				m_blocks.AddRange(new byte[blockIndex - m_blocks.Count + 1][]);
+
+			byte[] blockData = m_blocks[blockIndex];
+			if (blockData == null)
+			{
+				WrappedStream.Position = blockIndex * c_blockSize;
+				blockData = new byte[c_blockSize];
+				int bytesRead = await WrappedStream.ReadBlockAsync(blockData, 0, blockData.Length).ConfigureAwait(false);
+				if (bytesRead != c_blockSize)
+					Array.Resize(ref blockData, bytesRead);
+				m_blocks[blockIndex] = blockData;
+			}
+
+			return blockData;
+		}
 		const int c_blockSize = 4096;
 
 		List<byte[]> m_blocks;
