@@ -25,6 +25,21 @@ namespace Faithlife.Utility
 		}
 
 		/// <summary>
+		/// Reads all bytes from the stream.
+		/// </summary>
+		/// <param name="stream">The stream.</param>
+		/// <param name="cancellationToken">The cancellation token.</param>
+		/// <returns>An array of all bytes read from the stream.</returns>
+		public static async Task<byte[]> ReadAllBytesAsync(this Stream stream, CancellationToken cancellationToken = default(CancellationToken))
+		{
+			using (MemoryStream streamMemory = new MemoryStream())
+			{
+				await stream.CopyToAsync(streamMemory, 81920, cancellationToken);
+				return streamMemory.ToArray();
+			}
+		}
+
+		/// <summary>
 		/// Reads <paramref name="count"/> bytes from <paramref name="stream"/> into
 		/// <paramref name="buffer"/>, starting at the byte given by <paramref name="offset"/>.
 		/// </summary>
@@ -123,6 +138,22 @@ namespace Faithlife.Utility
 		}
 
 		/// <summary>
+		/// Reads exactly <paramref name="count"/> bytes from <paramref name="stream"/>.
+		/// </summary>
+		/// <param name="stream">The stream to read from.</param>
+		/// <param name="count">The count of bytes to read.</param>
+		/// <param name="cancellationToken">The cancellation token.</param>
+		/// <returns>A new byte array containing the data read from the stream.</returns>
+		public static async Task<byte[]> ReadExactlyAsync(this Stream stream, int count, CancellationToken cancellationToken = default(CancellationToken))
+		{
+			if (count < 0)
+				throw new ArgumentOutOfRangeException(nameof(count));
+			byte[] buffer = new byte[count];
+			await ReadExactlyAsync(stream, buffer, 0, count, cancellationToken).ConfigureAwait(false);
+			return buffer;
+		}
+
+		/// <summary>
 		/// Reads exactly <paramref name="count"/> bytes from <paramref name="stream"/> into
 		/// <paramref name="buffer"/>, starting at the byte given by <paramref name="offset"/>.
 		/// </summary>
@@ -133,6 +164,21 @@ namespace Faithlife.Utility
 		public static void ReadExactly(this Stream stream, byte[] buffer, int offset, int count)
 		{
 			if (stream.ReadBlock(buffer, offset, count) != count)
+				throw new EndOfStreamException();
+		}
+
+		/// <summary>
+		/// Reads exactly <paramref name="count"/> bytes from <paramref name="stream"/> into
+		/// <paramref name="buffer"/>, starting at the byte given by <paramref name="offset"/>.
+		/// </summary>
+		/// <param name="stream">The stream to read from.</param>
+		/// <param name="buffer">The buffer to read data into.</param>
+		/// <param name="offset">The offset within the buffer at which data is first written.</param>
+		/// <param name="count">The count of bytes to read.</param>
+		/// <param name="cancellationToken">The cancellation token.</param>
+		public static async Task ReadExactlyAsync(this Stream stream, byte[] buffer, int offset, int count, CancellationToken cancellationToken = default(CancellationToken))
+		{
+			if (await stream.ReadBlockAsync(buffer, offset, count, cancellationToken).ConfigureAwait(false) != count)
 				throw new EndOfStreamException();
 		}
 

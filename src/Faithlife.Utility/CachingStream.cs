@@ -182,6 +182,7 @@ namespace Faithlife.Utility
 
 			return blockData;
 		}
+
 		const int c_blockSize = 4096;
 
 		List<byte[]> m_blocks;

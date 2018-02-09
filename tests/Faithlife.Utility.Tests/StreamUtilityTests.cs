@@ -67,6 +67,37 @@ namespace Faithlife.Utility.Tests
 		}
 
 		[Test]
+		public async Task ReadExactlyAsync()
+		{
+			byte[] abySource = new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+			using (Stream streamSource = new MemoryStream(abySource))
+			using (Stream stream = new SlowStream(streamSource))
+			{
+				byte[] read = await stream.ReadExactlyAsync(5);
+				CollectionAssert.AreEqual(abySource.Take(5), read);
+
+				read = await stream.ReadExactlyAsync(6);
+				CollectionAssert.AreEqual(abySource.Skip(5), read);
+
+				Assert.ThrowsAsync<EndOfStreamException>(() => stream.ReadExactlyAsync(1));
+			}
+
+			using (Stream streamSource = new MemoryStream(abySource))
+			using (Stream stream = new SlowStream(streamSource))
+			{
+				byte[] read = await stream.ReadExactlyAsync(11);
+				CollectionAssert.AreEqual(abySource, read);
+			}
+
+			using (Stream streamSource = new MemoryStream(abySource))
+			using (Stream stream = new SlowStream(streamSource))
+			{
+				Assert.ThrowsAsync<EndOfStreamException>(() => stream.ReadExactlyAsync(12));
+			}
+		}
+
+		[Test]
 		public void ReadExactlyArray()
 		{
 			byte[] abySource = new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };

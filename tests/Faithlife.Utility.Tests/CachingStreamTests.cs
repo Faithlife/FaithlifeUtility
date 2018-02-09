@@ -134,7 +134,7 @@ namespace Faithlife.Utility.Tests
 					int length = random.Next(1, data.Length - offset);
 
 					Assert.AreEqual(offset, cachingStream.Seek(offset, SeekOrigin.Begin));
-					var read = await ReadExactlyAsync(cachingStream, length);
+					var read = await cachingStream.ReadExactlyAsync(length);
 					Assert.AreEqual(data.Skip(offset).Take(length), read);
 				}
 			}
@@ -246,31 +246,6 @@ namespace Faithlife.Utility.Tests
 				results[index] = temp[index % 4];
 			}
 			return results;
-		}
-
-		private static async Task<byte[]> ReadExactlyAsync(Stream stream, int count)
-		{
-			byte[] buffer = new byte[count];
-			int offset = 0;
-
-			// track total bytes read
-			int totalBytesRead = 0;
-			while (count > 0)
-			{
-				// read data
-				int bytesRead = await stream.ReadAsync(buffer, offset, count).ConfigureAwait(false);
-
-				// check for end of stream
-				if (bytesRead == 0)
-					break;
-
-				// move to next block
-				offset += bytesRead;
-				count -= bytesRead;
-				totalBytesRead += bytesRead;
-			}
-
-			return buffer;
 		}
 	}
 }
