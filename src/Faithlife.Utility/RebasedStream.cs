@@ -3,9 +3,9 @@ using System.IO;
 namespace Faithlife.Utility
 {
 	/// <summary>
-	/// <see cref="RebasedStream"/> is a <see cref="WrappingStream"/> that changes the effective origin of the wrapped stream.
+	/// <see cref="RebasedStream"/> is a stream wrapper that changes the effective origin of the wrapped stream.
 	/// </summary>
-	public sealed class RebasedStream : WrappingStream
+	public sealed class RebasedStream : WrappingStreamBase
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="RebasedStream"/> class; the current position in <paramref name="stream"/>

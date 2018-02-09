@@ -7,7 +7,8 @@ is updated in preparation for publishing an updated NuGet package.
 
 Prefix the description of the change with `[major]`, `[minor]` or `[patch]` in accordance with [SemVer](http://semver.org).
 
-* [patch] Remove WrappingStream.CopyToAsync() override. Fixes TruncatedStream.CopyToAsync().
+* [major] Seal `WrappingStream`.
+* [major] Introduce `WrappingStreamBase` and make it the base class of `CachingStream`, `ReadOnlyStream`, `RebasedStream`, and `TruncatedStream`. This fixes `CopyToAsync` for `RebasedStream` and `TruncatedStream`.
 
 ## Released
 

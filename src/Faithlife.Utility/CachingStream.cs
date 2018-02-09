@@ -5,10 +5,10 @@ using System.IO;
 namespace Faithlife.Utility
 {
 	/// <summary>
-	/// A <see cref="WrappingStream"/> that caches all data read from the underlying <see cref="Stream"/>.
+	/// A stream wrapper that caches all data read from the underlying <see cref="Stream"/>.
 	/// </summary>
 	/// <remarks>This implementation doesn't enforce any upper bound on the amount of data that will be cached in memory.</remarks>
-	public sealed class CachingStream : WrappingStream
+	public sealed class CachingStream : WrappingStreamBase
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CachingStream"/> class.
@@ -123,23 +123,6 @@ namespace Faithlife.Utility
 		/// within this stream by the number of bytes written.
 		/// </summary>
 		public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
-
-		/// <summary>
-		/// Writes a byte to the current position in the stream and advances the position within the stream by one byte.
-		/// </summary>
-		public override void WriteByte(byte value) => throw new NotSupportedException();
-
-#if !NETSTANDARD1_4
-		/// <summary>
-		/// Begins an asynchronous write operation.
-		/// </summary>
-		public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback, object state) => throw new NotSupportedException();
-
-		/// <summary>
-		/// Waits for the pending asynchronous read to complete.
-		/// </summary>
-		public override void EndWrite(IAsyncResult asyncResult) => throw new NotSupportedException();
-#endif
 
 		private byte[] LoadData(int blockIndex)
 		{

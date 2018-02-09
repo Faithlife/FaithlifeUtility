@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-
+using System.Threading.Tasks;
 using NUnit.Framework;
 
 namespace Faithlife.Utility.Tests
@@ -87,12 +87,38 @@ namespace Faithlife.Utility.Tests
 		}
 
 		[Test]
+		public async Task ReadAsync()
+		{
+			byte[] aby = new byte[m_abyStreamData.Length];
+			Assert.AreEqual(aby.Length, await m_stream.ReadAsync(aby, 0, aby.Length));
+			CollectionAssert.AreEqual(m_abyStreamData, aby);
+		}
+
+		[Test]
+		public void CopyTo()
+		{
+			byte[] aby = new byte[m_abyStreamData.Length];
+			var destination = new MemoryStream(aby);
+			m_stream.CopyTo(destination);
+			CollectionAssert.AreEqual(m_abyStreamData, aby);
+		}
+
+		[Test]
+		public async Task CopyToAsync()
+		{
+			byte[] aby = new byte[m_abyStreamData.Length];
+			var destination = new MemoryStream(aby);
+			await m_stream.CopyToAsync(destination);
+			CollectionAssert.AreEqual(m_abyStreamData, aby);
+		}
+
+		[Test]
 		public void Write()
 		{
 			Assert.Throws<NotSupportedException>(delegate { m_stream.Write(m_abyStreamData, 0, 1); });
 			Assert.Throws<NotSupportedException>(delegate { m_stream.WriteByte(0); });
 			Assert.Throws<NotSupportedException>(delegate { m_stream.BeginWrite(m_abyStreamData, 0, 1, null, null); });
-			Assert.Throws<NotSupportedException>(delegate { m_stream.EndWrite(null); });
+			Assert.Throws<NotSupportedException>(delegate { m_stream.WriteAsync(m_abyStreamData, 0, 1); });
 			Assert.Throws<NotSupportedException>(delegate { m_stream.SetLength(0); });
 		}
 

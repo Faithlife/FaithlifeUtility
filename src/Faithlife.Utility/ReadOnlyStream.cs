@@ -6,7 +6,7 @@ namespace Faithlife.Utility
 	/// <summary>
 	/// A read-only stream wrapper.
 	/// </summary>
-	public sealed class ReadOnlyStream : WrappingStream
+	public sealed class ReadOnlyStream : WrappingStreamBase
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ReadOnlyStream"/> class.
@@ -33,22 +33,5 @@ namespace Faithlife.Utility
 		/// within this stream by the number of bytes written.
 		/// </summary>
 		public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
-
-		/// <summary>
-		/// Writes a byte to the current position in the stream and advances the position within the stream by one byte.
-		/// </summary>
-		public override void WriteByte(byte value) => throw new NotSupportedException();
-
-#if !NETSTANDARD1_4
-		/// <summary>
-		/// Begins an asynchronous write operation.
-		/// </summary>
-		public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback, object state) => throw new NotSupportedException();
-
-		/// <summary>
-		/// Ends an asynchronous write operation.
-		/// </summary>
-		public override void EndWrite(IAsyncResult asyncResult) => throw new NotSupportedException();
-#endif
 	}
 }

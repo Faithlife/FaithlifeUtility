@@ -110,7 +110,7 @@ namespace Faithlife.Utility.Tests
 			}
 		}
 
-		private class SlowStream : WrappingStream
+		private class SlowStream : WrappingStreamBase
 		{
 			public SlowStream(Stream stream)
 				: base(stream, Ownership.None)
