@@ -46,25 +46,6 @@ namespace Faithlife.Utility.Tests
 		}
 
 		[Test]
-		public void ToHashSetGivenBadArgumentShouldThrow()
-		{
-			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.ToHashSet(default(IEnumerable<int>)));
-		}
-
-		[Test]
-		public void ToHashSetGivenListShouldGenerateSet()
-		{
-			CollectionAssert.AreEqual(new[] { 1, 2, 3, 4 }, new[] { 1, 2, 3, 4, 4, 4, 4 }.ToHashSet().Order());
-		}
-
-		[Test]
-		public void ToHashSetGivenHashSetShouldGenerateNewHashSet()
-		{
-			IEnumerable<int> hashSet = new HashSet<int>(new[] { 1, 2, 3, 4 });
-			Assert.AreNotSame(hashSet, hashSet.ToHashSet());
-		}
-
-		[Test]
 		public void AsSetGivenBadArgumentShouldThrow()
 		{
 			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.AsSet(default(IEnumerable<int>)));
