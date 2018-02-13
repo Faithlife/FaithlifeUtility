@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 namespace Faithlife.Utility
 {
 	/// <summary>
-	/// <see cref="TruncatedStream"/> is a read-only <see cref="WrappingStream"/> that will not read past the specified length.
+	/// <see cref="TruncatedStream"/> is a read-only stream wrapper that will not read past the specified length.
 	/// </summary>
-	public sealed class TruncatedStream : WrappingStream
+	public sealed class TruncatedStream : WrappingStreamBase
 	{
 		/// <summary>
 		/// Creates a new truncated stream.
@@ -30,50 +30,23 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Returns the (truncated) length of the stream.
 		/// </summary>
-		public override long Length => Math.Min(m_length, base.Length);
+		public override long Length => Math.Min(m_length, WrappedStream.Length);
 
 		/// <summary>
 		/// The current position in the stream.
 		/// </summary>
 		public override long Position
 		{
-			get => base.Position;
-			set => m_offset = base.Position = value;
+			get => WrappedStream.Position;
+			set => m_offset = WrappedStream.Position = value;
 		}
-
-#if !NETSTANDARD1_4
-		/// <summary>
-		/// Starts an asynchronous read.
-		/// </summary>
-		public override IAsyncResult BeginRead(byte[] buffer, int offset, int count, AsyncCallback callback, object state) => base.BeginRead(buffer, offset, TruncateCount(count), callback, state);
-
-		/// <summary>
-		/// Throws an exception; writes are not supported.
-		/// </summary>
-		public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback, object state) => throw CreateWriteNotSupportedException();
-
-		/// <summary>
-		/// Finishes an asynchronous read.
-		/// </summary>
-		public override int EndRead(IAsyncResult asyncResult)
-		{
-			int byteCount = base.EndRead(asyncResult);
-			m_offset += byteCount;
-			return byteCount;
-		}
-
-		/// <summary>
-		/// Throws an exception; writes are not supported.
-		/// </summary>
-		public override void EndWrite(IAsyncResult asyncResult) => throw CreateWriteNotSupportedException();
-#endif
 
 		/// <summary>
 		/// Reads from the stream.
 		/// </summary>
 		public override int Read(byte[] buffer, int offset, int count)
 		{
-			int byteCount = base.Read(buffer, offset, TruncateCount(count));
+			int byteCount = WrappedStream.Read(buffer, offset, TruncateCount(count));
 			m_offset += byteCount;
 			return byteCount;
 		}
@@ -83,7 +56,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		public override async Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
 		{
-			int byteCount = await base.ReadAsync(buffer, offset, TruncateCount(count), cancellationToken).ConfigureAwait(false);
+			int byteCount = await WrappedStream.ReadAsync(buffer, offset, TruncateCount(count), cancellationToken).ConfigureAwait(false);
 			m_offset += byteCount;
 			return byteCount;
 		}
@@ -108,9 +81,9 @@ namespace Faithlife.Utility
 		public override long Seek(long offset, SeekOrigin origin)
 		{
 			if (origin == SeekOrigin.End)
-				offset -= base.Length - m_length;
+				offset -= WrappedStream.Length - m_length;
 
-			return m_offset = base.Seek(offset, origin);
+			return m_offset = WrappedStream.Seek(offset, origin);
 		}
 
 		/// <summary>
@@ -124,14 +97,14 @@ namespace Faithlife.Utility
 		public override void Write(byte[] buffer, int offset, int count) => throw CreateWriteNotSupportedException();
 
 		/// <summary>
-		/// Throws an exception; writes are not supported.
+		/// Asynchronously writes a sequence of bytes to the current stream, advances the current position within this stream by the number of bytes written, and monitors cancellation requests.
 		/// </summary>
 		public override Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken) => throw CreateWriteNotSupportedException();
 
 		/// <summary>
 		/// Throws an exception; writes are not supported.
 		/// </summary>
-		public override void WriteByte(byte value) => throw CreateWriteNotSupportedException();
+		public override void Flush() => throw CreateWriteNotSupportedException();
 
 		private int TruncateCount(int count)
 		{

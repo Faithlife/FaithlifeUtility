@@ -1,11 +1,13 @@
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Faithlife.Utility
 {
 	/// <summary>
-	/// <see cref="RebasedStream"/> is a <see cref="WrappingStream"/> that changes the effective origin of the wrapped stream.
+	/// <see cref="RebasedStream"/> is a stream wrapper that changes the effective origin of the wrapped stream.
 	/// </summary>
-	public sealed class RebasedStream : WrappingStream
+	public sealed class RebasedStream : WrappingStreamBase
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="RebasedStream"/> class; the current position in <paramref name="stream"/>
@@ -62,6 +64,30 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="value">The desired length of the current stream in bytes.</param>
 		public override void SetLength(long value) => base.SetLength(value + m_baseOffset);
+
+		/// <summary>
+		/// Reads a sequence of bytes from the current stream and advances the position
+		/// within the stream by the number of bytes read.
+		/// </summary>
+		public override int Read(byte[] buffer, int offset, int count) => WrappedStream.Read(buffer, offset, count);
+
+		/// <summary>
+		/// Asynchronously reads a sequence of bytes from the current stream, advances the position within the stream by the number of bytes read, and monitors cancellation requests.
+		/// </summary>
+		public override Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken) =>
+			WrappedStream.ReadAsync(buffer, offset, count, cancellationToken);
+
+		/// <summary>
+		/// Writes a sequence of bytes to the current stream and advances the current position
+		/// within this stream by the number of bytes written.
+		/// </summary>
+		public override void Write(byte[] buffer, int offset, int count) => WrappedStream.Write(buffer, offset, count);
+
+		/// <summary>
+		/// Asynchronously writes a sequence of bytes to the current stream, advances the current position within this stream by the number of bytes written, and monitors cancellation requests.
+		/// </summary>
+		public override Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken) =>
+			WrappedStream.WriteAsync(buffer, offset, count, cancellationToken);
 
 		// the offset within the base stream where this stream begins
 		readonly long m_baseOffset;

@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using NUnit.Framework;
 
 namespace Faithlife.Utility.Tests
@@ -23,7 +24,7 @@ namespace Faithlife.Utility.Tests
 				Assert.Throws<ObjectDisposedException>(() => cachingStream.ReadByte());
 				Assert.Throws<ObjectDisposedException>(() => cachingStream.Read(new byte[10], 0, 1));
 				Assert.Throws<ObjectDisposedException>(() => cachingStream.Seek(1, SeekOrigin.Begin));
-			}			
+			}
 		}
 
 		[TestCase(0)]
@@ -119,6 +120,72 @@ namespace Faithlife.Utility.Tests
 			}
 		}
 
+		[Test]
+		public async Task SeekAndReadAsync()
+		{
+			Random random = new Random(1);
+			var data = GenerateData(1234567);
+			using (var memoryStream = new MemoryStream(data, writable: false))
+			using (var cachingStream = new CachingStream(memoryStream, Ownership.Owns))
+			{
+				for (int i = 0; i < 100; i++)
+				{
+					int offset = random.Next(data.Length - 100);
+					int length = random.Next(1, data.Length - offset);
+
+					Assert.AreEqual(offset, cachingStream.Seek(offset, SeekOrigin.Begin));
+					var read = await cachingStream.ReadExactlyAsync(length);
+					Assert.AreEqual(data.Skip(offset).Take(length), read);
+				}
+			}
+		}
+
+		[Test]
+		public void SeekAndCopyTo()
+		{
+			Random random = new Random(1);
+			var data = GenerateData(54321);
+			using (var memoryStream = new MemoryStream(data, writable: false))
+			using (var cachingStream = new CachingStream(memoryStream, Ownership.Owns))
+			{
+				for (int i = 0; i < 100; i++)
+				{
+					int offset = random.Next(data.Length - 100);
+
+					Assert.AreEqual(offset, cachingStream.Seek(offset, SeekOrigin.Begin));
+
+					using (var destination = new MemoryStream(data.Length))
+					{
+						cachingStream.CopyTo(destination);
+						Assert.AreEqual(data.Skip(offset), destination.ToArray());
+					}
+				}
+			}
+		}
+
+		[Test]
+		public async Task SeekAndCopyToAsync()
+		{
+			Random random = new Random(1);
+			var data = GenerateData(54321);
+			using (var memoryStream = new MemoryStream(data, writable: false))
+			using (var cachingStream = new CachingStream(memoryStream, Ownership.Owns))
+			{
+				for (int i = 0; i < 100; i++)
+				{
+					int offset = random.Next(data.Length - 100);
+
+					Assert.AreEqual(offset, cachingStream.Seek(offset, SeekOrigin.Begin));
+
+					using (var destination = new MemoryStream(data.Length))
+					{
+						await cachingStream.CopyToAsync(destination);
+						Assert.AreEqual(data.Skip(offset), destination.ToArray());
+					}
+				}
+			}
+		}
+
 		[TestCase(1000)]
 		[TestCase(1001)]
 		[TestCase(4000)]
@@ -165,6 +232,7 @@ namespace Faithlife.Utility.Tests
 				Assert.Throws<NotSupportedException>(() => cachingStream.Write(new byte[1], 0, 1));
 				Assert.Throws<NotSupportedException>(() => cachingStream.WriteByte(1));
 				Assert.Throws<NotSupportedException>(() => cachingStream.BeginWrite(new byte[1], 0, 1, null, null));
+				Assert.Throws<NotSupportedException>(() => cachingStream.WriteAsync(new byte[1], 0, 1));
 			}
 		}
 

@@ -1,12 +1,14 @@
 using System;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Faithlife.Utility
 {
 	/// <summary>
 	/// A read-only stream wrapper.
 	/// </summary>
-	public sealed class ReadOnlyStream : WrappingStream
+	public sealed class ReadOnlyStream : WrappingStreamBase
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ReadOnlyStream"/> class.
@@ -35,20 +37,20 @@ namespace Faithlife.Utility
 		public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
 
 		/// <summary>
-		/// Writes a byte to the current position in the stream and advances the position within the stream by one byte.
+		/// Asynchronously writes a sequence of bytes to the current stream, advances the current position within this stream by the number of bytes written, and monitors cancellation requests.
 		/// </summary>
-		public override void WriteByte(byte value) => throw new NotSupportedException();
-
-#if !NETSTANDARD1_4
-		/// <summary>
-		/// Begins an asynchronous write operation.
-		/// </summary>
-		public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback, object state) => throw new NotSupportedException();
+		public override Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken) => throw new NotSupportedException();
 
 		/// <summary>
-		/// Ends an asynchronous write operation.
+		/// Reads a sequence of bytes from the current stream and advances the position
+		/// within the stream by the number of bytes read.
 		/// </summary>
-		public override void EndWrite(IAsyncResult asyncResult) => throw new NotSupportedException();
-#endif
+		public override int Read(byte[] buffer, int offset, int count) => WrappedStream.Read(buffer, offset, count);
+
+		/// <summary>
+		/// Asynchronously reads a sequence of bytes from the current stream, advances the position within the stream by the number of bytes read, and monitors cancellation requests.
+		/// </summary>
+		public override Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken) =>
+			WrappedStream.ReadAsync(buffer, offset, count, cancellationToken);
 	}
 }

@@ -1,14 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Faithlife.Utility
 {
 	/// <summary>
-	/// A <see cref="WrappingStream"/> that caches all data read from the underlying <see cref="Stream"/>.
+	/// A stream wrapper that caches all data read from the underlying <see cref="Stream"/>.
 	/// </summary>
 	/// <remarks>This implementation doesn't enforce any upper bound on the amount of data that will be cached in memory.</remarks>
-	public sealed class CachingStream : WrappingStream
+	public sealed class CachingStream : WrappingStreamBase
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CachingStream"/> class.
@@ -80,6 +82,21 @@ namespace Faithlife.Utility
 		}
 
 		/// <summary>
+		/// Reads a sequence of bytes from the current stream and advances the position
+		/// within the stream by the number of bytes read.
+		/// </summary>
+		public override async Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
+		{
+			int blockIndex = (int) (Position / c_blockSize);
+			byte[] data = await LoadDataAsync(blockIndex).ConfigureAwait(false);
+			int blockOffset = Math.Min(data.Length, (int) (Position % c_blockSize));
+			int bytesToCopy = Math.Max(Math.Min(count, data.Length - blockOffset), 0);
+			Array.Copy(data, blockOffset, buffer, offset, bytesToCopy);
+			Position += bytesToCopy;
+			return bytesToCopy;
+		}
+
+		/// <summary>
 		/// Reads a byte from the stream and advances the position within the stream by one byte, or returns -1 if at the end of the stream.
 		/// </summary>
 		public override int ReadByte()
@@ -125,21 +142,9 @@ namespace Faithlife.Utility
 		public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
 
 		/// <summary>
-		/// Writes a byte to the current position in the stream and advances the position within the stream by one byte.
+		/// Asynchronously writes a sequence of bytes to the current stream, advances the current position within this stream by the number of bytes written, and monitors cancellation requests.
 		/// </summary>
-		public override void WriteByte(byte value) => throw new NotSupportedException();
-
-#if !NETSTANDARD1_4
-		/// <summary>
-		/// Begins an asynchronous write operation.
-		/// </summary>
-		public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback, object state) => throw new NotSupportedException();
-
-		/// <summary>
-		/// Waits for the pending asynchronous read to complete.
-		/// </summary>
-		public override void EndWrite(IAsyncResult asyncResult) => throw new NotSupportedException();
-#endif
+		public override Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken) => throw new NotSupportedException();
 
 		private byte[] LoadData(int blockIndex)
 		{
@@ -154,6 +159,27 @@ namespace Faithlife.Utility
 				WrappedStream.Position = blockIndex * c_blockSize;
 				blockData = new byte[c_blockSize];
 				int bytesRead = WrappedStream.ReadBlock(blockData, 0, blockData.Length);
+				if (bytesRead != c_blockSize)
+					Array.Resize(ref blockData, bytesRead);
+				m_blocks[blockIndex] = blockData;
+			}
+
+			return blockData;
+		}
+
+		private async Task<byte[]> LoadDataAsync(int blockIndex)
+		{
+			ThrowIfDisposed();
+
+			if (m_blocks.Count <= blockIndex)
+				m_blocks.AddRange(new byte[blockIndex - m_blocks.Count + 1][]);
+
+			byte[] blockData = m_blocks[blockIndex];
+			if (blockData == null)
+			{
+				WrappedStream.Position = blockIndex * c_blockSize;
+				blockData = new byte[c_blockSize];
+				int bytesRead = await WrappedStream.ReadBlockAsync(blockData, 0, blockData.Length).ConfigureAwait(false);
 				if (bytesRead != c_blockSize)
 					Array.Resize(ref blockData, bytesRead);
 				m_blocks[blockIndex] = blockData;

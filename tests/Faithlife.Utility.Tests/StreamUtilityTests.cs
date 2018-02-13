@@ -1,6 +1,8 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using NUnit.Framework;
 
 namespace Faithlife.Utility.Tests
@@ -66,6 +68,37 @@ namespace Faithlife.Utility.Tests
 		}
 
 		[Test]
+		public async Task ReadExactlyAsync()
+		{
+			byte[] abySource = new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+			using (Stream streamSource = new MemoryStream(abySource))
+			using (Stream stream = new SlowStream(streamSource))
+			{
+				byte[] read = await stream.ReadExactlyAsync(5);
+				CollectionAssert.AreEqual(abySource.Take(5), read);
+
+				read = await stream.ReadExactlyAsync(6);
+				CollectionAssert.AreEqual(abySource.Skip(5), read);
+
+				Assert.ThrowsAsync<EndOfStreamException>(() => stream.ReadExactlyAsync(1));
+			}
+
+			using (Stream streamSource = new MemoryStream(abySource))
+			using (Stream stream = new SlowStream(streamSource))
+			{
+				byte[] read = await stream.ReadExactlyAsync(11);
+				CollectionAssert.AreEqual(abySource, read);
+			}
+
+			using (Stream streamSource = new MemoryStream(abySource))
+			using (Stream stream = new SlowStream(streamSource))
+			{
+				Assert.ThrowsAsync<EndOfStreamException>(() => stream.ReadExactlyAsync(12));
+			}
+		}
+
+		[Test]
 		public void ReadExactlyArray()
 		{
 			byte[] abySource = new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
@@ -110,17 +143,68 @@ namespace Faithlife.Utility.Tests
 			}
 		}
 
-		private class SlowStream : WrappingStream
+		[Test]
+		public void PartialStreamCopyTo()
+		{
+			byte[] bytes = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+			using (MemoryStream memoryStream = new MemoryStream())
+			{
+				memoryStream.Write(bytes, 0, bytes.Length);
+
+				Stream partialStream1 = StreamUtility.CreatePartialStream(memoryStream, 3, 4, Ownership.None);
+				using (var destination = new MemoryStream())
+				{
+					partialStream1.CopyTo(destination);
+					CollectionAssert.AreEqual(new byte[] { 3, 4, 5, 6 }, destination.ToArray());
+				}
+
+				Stream partialStream2 = StreamUtility.CreatePartialStream(memoryStream, 6, null, Ownership.None);
+				using (var destination = new MemoryStream())
+				{
+					partialStream2.CopyTo(destination);
+					CollectionAssert.AreEqual(new byte[] { 6, 7, 8, 9, 10 }, destination.ToArray());
+				}
+			}
+		}
+
+		[Test]
+		public async Task PartialStreamCopyToAsync()
+		{
+			byte[] bytes = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+			using (MemoryStream memoryStream = new MemoryStream())
+			{
+				memoryStream.Write(bytes, 0, bytes.Length);
+
+				Stream partialStream1 = StreamUtility.CreatePartialStream(memoryStream, 3, 4, Ownership.None);
+				using (var destination = new MemoryStream())
+				{
+					await partialStream1.CopyToAsync(destination);
+					CollectionAssert.AreEqual(new byte[] { 3, 4, 5, 6 }, destination.ToArray());
+				}
+
+				Stream partialStream2 = StreamUtility.CreatePartialStream(memoryStream, 6, null, Ownership.None);
+				using (var destination = new MemoryStream())
+				{
+					await partialStream2.CopyToAsync(destination);
+					CollectionAssert.AreEqual(new byte[] { 6, 7, 8, 9, 10 }, destination.ToArray());
+				}
+			}
+		}
+
+		private class SlowStream : WrappingStreamBase
 		{
 			public SlowStream(Stream stream)
 				: base(stream, Ownership.None)
 			{
 			}
 
-			public override int Read(byte[] buffer, int offset, int count)
-			{
-				return base.Read(buffer, offset, Math.Min(count, 2));
-			}
+			public override int Read(byte[] buffer, int offset, int count) => WrappedStream.Read(buffer, offset, Math.Min(count, 2));
+
+			public override Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken) => WrappedStream.ReadAsync(buffer, offset, Math.Min(count, 2), cancellationToken);
+
+			public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
+
+			public override Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken) => throw new NotSupportedException();
 		}
 	}
 }
