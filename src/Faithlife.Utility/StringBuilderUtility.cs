@@ -9,7 +9,7 @@ namespace Faithlife.Utility
 	public static class StringBuilderUtility
 	{
 		/// <summary>
-		/// Append the invariant representation of the specfied format tot he end of <paramref name="stringBuilder"/>.
+		/// Append the invariant representation of the specfied format to the end of <paramref name="stringBuilder"/>.
 		/// </summary>
 		/// <param name="stringBuilder">The <see cref="StringBuilder"/> instance to which the string representation will be appended.</param>
 		/// <param name="format">A composite format string.</param>
