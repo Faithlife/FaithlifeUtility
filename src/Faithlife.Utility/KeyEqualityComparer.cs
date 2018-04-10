@@ -8,7 +8,7 @@ namespace Faithlife.Utility
 	/// </summary>
 	/// <typeparam name="TSource">The source object type</typeparam>
 	/// <typeparam name="TKey">The key object type</typeparam>
-	internal class KeyEqualityComparer<TSource, TKey> : EqualityComparer<TSource>
+	public class KeyEqualityComparer<TSource, TKey> : EqualityComparer<TSource>
 	{
 		/// <summary>
 		/// Initializes a new instance of the KeyEqualityComparer class.
