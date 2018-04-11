@@ -7,9 +7,12 @@ is updated in preparation for publishing an updated NuGet package.
 
 Prefix the description of the change with `[major]`, `[minor]` or `[patch]` in accordance with [SemVer](http://semver.org).
 
-* Fix typo in StringBuilderUtility summary for AppendFormatInvariant.
-
 ## Released
+
+### 0.6.0
+
+* Add `KeyEqualityComparer`.
+* Fix typo in StringBuilderUtility summary for AppendFormatInvariant.
 
 ### 0.5.0
 
