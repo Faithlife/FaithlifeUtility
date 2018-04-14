@@ -9,14 +9,14 @@ var nugetApiKey = Argument("nugetApiKey", "");
 var trigger = Argument("trigger", "");
 var versionSuffix = Argument("versionSuffix", "");
 
-var buildBotUserName = "faithlifebuildbot";
-var buildBotPassword = EnvironmentVariable("BUILD_BOT_PASSWORD");
-
-var nugetSource = "https://api.nuget.org/v3/index.json";
 var solutionFileName = "Faithlife.Utility.sln";
 var docsAssembly = File($"src/Faithlife.Utility/bin/{configuration}/net461/Faithlife.Utility.dll").ToString();
 var docsRepoUri = "https://github.com/Faithlife/FaithlifeUtility.git";
 var docsSourceUri = "https://github.com/Faithlife/FaithlifeUtility/tree/master/src/Faithlife.Utility";
+
+var nugetSource = "https://api.nuget.org/v3/index.json";
+var buildBotUserName = "faithlifebuildbot";
+var buildBotPassword = EnvironmentVariable("BUILD_BOT_PASSWORD");
 
 Task("Clean")
 	.Does(() =>
@@ -123,6 +123,11 @@ Task("Default")
 
 void ExecuteProcess(string exePath, string arguments)
 {
+	if (IsRunningOnUnix())
+	{
+		arguments = exePath + " " + arguments;
+		exePath = "mono";
+	}
 	int exitCode = StartProcess(exePath, arguments);
 	if (exitCode != 0)
 		throw new InvalidOperationException($"{exePath} failed with exit code {exitCode}.");

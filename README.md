@@ -10,8 +10,7 @@ Ubuntu | Windows | NuGet
 
 ## Documentation
 
-https://faithlife.github.io/FaithlifeUtility/
-
-## License
-
-[MIT](LICENSE)
+* https://faithlife.github.io/FaithlifeUtility/
+* License: [MIT](LICENSE)
+* [Version History](VersionHistory.md)
+* [Contributing Guidelines](CONTRIBUTING.md)
