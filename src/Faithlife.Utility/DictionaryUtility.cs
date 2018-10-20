@@ -103,7 +103,11 @@ namespace Faithlife.Utility
 		/// <param name="dictionary">The dictionary.</param>
 		/// <param name="key">The key.</param>
 		/// <returns>The value, or a default value.</returns>
-		public static TValue GetValueOrDefault<TKey, TValue>(this IReadOnlyDictionary<TKey, TValue> dictionary, TKey key)
+		public static TValue GetValueOrDefault<TKey, TValue>(
+#if NETSTANDARD2_0
+			this
+#endif
+			IReadOnlyDictionary<TKey, TValue> dictionary, TKey key)
 		{
 			// specification for IDictionary<> requires that the returned value be the default if it fails
 			dictionary.TryGetValue(key, out var value);
@@ -119,7 +123,11 @@ namespace Faithlife.Utility
 		/// <param name="key">The key.</param>
 		/// <param name="defaultValue">The default value.</param>
 		/// <returns>The value, or a default value.</returns>
-		public static TValue GetValueOrDefault<TKey, TValue>(this IReadOnlyDictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue)
+		public static TValue GetValueOrDefault<TKey, TValue>(
+#if NETSTANDARD2_0
+			this
+#endif
+			IReadOnlyDictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue)
 			=> dictionary.TryGetValue(key, out var value) ? value : defaultValue;
 
 		/// <summary>
