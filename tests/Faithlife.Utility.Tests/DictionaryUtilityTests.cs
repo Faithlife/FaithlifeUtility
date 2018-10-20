@@ -221,6 +221,14 @@ namespace Faithlife.Utility.Tests
 		}
 
 		[Test]
+		public void GetValueOrDefaultViaNetStandard()
+		{
+			Dictionary<int, int> dict = new Dictionary<int, int> { { 2, 4 }, { 3, 6 } };
+			Assert.AreEqual(4, MyLib.MyClass.DoGetValueOrDefault(dict, 2));
+			Assert.AreEqual(0, MyLib.MyClass.DoGetValueOrDefault(dict, 1));
+		}
+
+		[Test]
 		public void GetValueOrDefaultWithDefault()
 		{
 			Dictionary<int, int> dict = new Dictionary<int, int> { { 2, 4 }, { 3, 6 } };
