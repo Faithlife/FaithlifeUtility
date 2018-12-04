@@ -9,17 +9,17 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void FromPattern()
 		{
-			Assert.AreEqual(UriUtility.FromPattern("http://example.com").AbsoluteUri, "http://example.com/");
+			Assert.AreEqual("http://example.com/", UriUtility.FromPattern("http://example.com").AbsoluteUri);
 
-			Assert.AreEqual(UriUtility.FromPattern("http://example.com/{x}").AbsoluteUri, "http://example.com/%7Bx%7D");
-			Assert.AreEqual(UriUtility.FromPattern("http://example.com/{x}", "x", "r&d").AbsoluteUri, "http://example.com/r%26d");
-			Assert.AreEqual(UriUtility.FromPattern("http://example.com/{x}", "x", "r&d", "y", "pb&j").AbsoluteUri, "http://example.com/r%26d?y=pb%26j");
-			Assert.AreEqual(UriUtility.FromPattern("http://example.com/{x}", "y", "pb&j", "x", "r&d").AbsoluteUri, "http://example.com/r%26d?y=pb%26j");
+			Assert.AreEqual("http://example.com/%7Bx%7D", UriUtility.FromPattern("http://example.com/{x}").AbsoluteUri);
+			Assert.AreEqual("http://example.com/r%26d", UriUtility.FromPattern("http://example.com/{x}", "x", "r&d").AbsoluteUri);
+			Assert.AreEqual("http://example.com/r%26d?y=pb%26j", UriUtility.FromPattern("http://example.com/{x}", "x", "r&d", "y", "pb&j").AbsoluteUri);
+			Assert.AreEqual("http://example.com/r%26d?y=pb%26j", UriUtility.FromPattern("http://example.com/{x}", "y", "pb&j", "x", "r&d").AbsoluteUri);
 
-			Assert.AreEqual(UriUtility.FromPattern("http://example.com/{x}?a={y}").AbsoluteUri, "http://example.com/%7Bx%7D?a=%7By%7D");
-			Assert.AreEqual(UriUtility.FromPattern("http://example.com/{x}?a={y}", "x", "r&d", "y", "pb&j").AbsoluteUri, "http://example.com/r%26d?a=pb%26j");
-			Assert.AreEqual(UriUtility.FromPattern("http://example.com/{x}?a={y}", "y", "pb&j", "x", "r&d").AbsoluteUri, "http://example.com/r%26d?a=pb%26j");
-			Assert.AreEqual(UriUtility.FromPattern("http://example.com/{x}?a={y}", "y", "pb&j", "z", "zed", "x", "r&d").AbsoluteUri, "http://example.com/r%26d?a=pb%26j&z=zed");
+			Assert.AreEqual("http://example.com/%7Bx%7D?a=%7By%7D", UriUtility.FromPattern("http://example.com/{x}?a={y}").AbsoluteUri);
+			Assert.AreEqual("http://example.com/r%26d?a=pb%26j", UriUtility.FromPattern("http://example.com/{x}?a={y}", "x", "r&d", "y", "pb&j").AbsoluteUri);
+			Assert.AreEqual("http://example.com/r%26d?a=pb%26j", UriUtility.FromPattern("http://example.com/{x}?a={y}", "y", "pb&j", "x", "r&d").AbsoluteUri);
+			Assert.AreEqual("http://example.com/r%26d?a=pb%26j&z=zed", UriUtility.FromPattern("http://example.com/{x}?a={y}", "y", "pb&j", "z", "zed", "x", "r&d").AbsoluteUri);
 		}
 
 		[TestCase(null, null)]
@@ -42,35 +42,35 @@ namespace Faithlife.Utility.Tests
 		public void MatchesDomain()
 		{
 			Uri uri = new Uri("http://maps.google.com");
-			Assert.AreEqual(UriUtility.MatchesDomain(uri, "amaps.google.com"), false);
-			Assert.AreEqual(UriUtility.MatchesDomain(uri, "maps.google.com"), true);
-			Assert.AreEqual(UriUtility.MatchesDomain(uri, "maps.GOOGLE.com"), true);
-			Assert.AreEqual(UriUtility.MatchesDomain(uri, "agoogle.com"), false);
-			Assert.AreEqual(UriUtility.MatchesDomain(uri, "google.com"), true);
-			Assert.AreEqual(UriUtility.MatchesDomain(uri, "GOOGLE.com"), true);
-			Assert.AreEqual(UriUtility.MatchesDomain(uri, ""), false);
+			Assert.IsFalse(UriUtility.MatchesDomain(uri, "amaps.google.com"));
+			Assert.IsTrue(UriUtility.MatchesDomain(uri, "maps.google.com"));
+			Assert.IsTrue(UriUtility.MatchesDomain(uri, "maps.GOOGLE.com"));
+			Assert.IsFalse(UriUtility.MatchesDomain(uri, "agoogle.com"));
+			Assert.IsTrue(UriUtility.MatchesDomain(uri, "google.com"));
+			Assert.IsTrue(UriUtility.MatchesDomain(uri, "GOOGLE.com"));
+			Assert.IsFalse(UriUtility.MatchesDomain(uri, ""));
 
 			uri = new Uri("http://google.com");
-			Assert.AreEqual(UriUtility.MatchesDomain(uri, "maps.google.com"), false);
-			Assert.AreEqual(UriUtility.MatchesDomain(uri, "maps.GOOGLE.com"), false);
-			Assert.AreEqual(UriUtility.MatchesDomain(uri, "agoogle.com"), false);
-			Assert.AreEqual(UriUtility.MatchesDomain(uri, "google.com"), true);
-			Assert.AreEqual(UriUtility.MatchesDomain(uri, "GOOGLE.com"), true);
-			Assert.AreEqual(UriUtility.MatchesDomain(uri, ""), false);
+			Assert.IsFalse(UriUtility.MatchesDomain(uri, "maps.google.com"));
+			Assert.IsFalse(UriUtility.MatchesDomain(uri, "maps.GOOGLE.com"));
+			Assert.IsFalse(UriUtility.MatchesDomain(uri, "agoogle.com"));
+			Assert.IsTrue(UriUtility.MatchesDomain(uri, "google.com"));
+			Assert.IsTrue(UriUtility.MatchesDomain(uri, "GOOGLE.com"));
+			Assert.IsFalse(UriUtility.MatchesDomain(uri, ""));
 
 			uri = new Uri("http://maps.GOOGLE.com");
-			Assert.AreEqual(UriUtility.MatchesDomain(uri, "maps.google.com"), true);
-			Assert.AreEqual(UriUtility.MatchesDomain(uri, "maps.GOOGLE.com"), true);
-			Assert.AreEqual(UriUtility.MatchesDomain(uri, "agoogle.com"), false);
-			Assert.AreEqual(UriUtility.MatchesDomain(uri, "google.com"), true);
-			Assert.AreEqual(UriUtility.MatchesDomain(uri, "GOOGLE.com"), true);
+			Assert.IsTrue(UriUtility.MatchesDomain(uri, "maps.google.com"));
+			Assert.IsTrue(UriUtility.MatchesDomain(uri, "maps.GOOGLE.com"));
+			Assert.IsFalse(UriUtility.MatchesDomain(uri, "agoogle.com"));
+			Assert.IsTrue(UriUtility.MatchesDomain(uri, "google.com"));
+			Assert.IsTrue(UriUtility.MatchesDomain(uri, "GOOGLE.com"));
 
 			uri = new Uri("http://office.google.com");
-			Assert.AreEqual(UriUtility.MatchesDomain(uri, "maps.google.com"), false);
-			Assert.AreEqual(UriUtility.MatchesDomain(uri, "maps.GOOGLE.com"), false);
-			Assert.AreEqual(UriUtility.MatchesDomain(uri, "agoogle.com"), false);
-			Assert.AreEqual(UriUtility.MatchesDomain(uri, "google.com"), true);
-			Assert.AreEqual(UriUtility.MatchesDomain(uri, "GOOGLE.com"), true);
+			Assert.IsFalse(UriUtility.MatchesDomain(uri, "maps.google.com"));
+			Assert.IsFalse(UriUtility.MatchesDomain(uri, "maps.GOOGLE.com"));
+			Assert.IsFalse(UriUtility.MatchesDomain(uri, "agoogle.com"));
+			Assert.IsTrue(UriUtility.MatchesDomain(uri, "google.com"));
+			Assert.IsTrue(UriUtility.MatchesDomain(uri, "GOOGLE.com"));
 		}
 	}
 }
