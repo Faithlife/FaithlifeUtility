@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace Faithlife.Utility.Tests
@@ -20,6 +21,22 @@ namespace Faithlife.Utility.Tests
 			Assert.AreEqual("http://example.com/r%26d?a=pb%26j", UriUtility.FromPattern("http://example.com/{x}?a={y}", "x", "r&d", "y", "pb&j").AbsoluteUri);
 			Assert.AreEqual("http://example.com/r%26d?a=pb%26j", UriUtility.FromPattern("http://example.com/{x}?a={y}", "y", "pb&j", "x", "r&d").AbsoluteUri);
 			Assert.AreEqual("http://example.com/r%26d?a=pb%26j&z=zed", UriUtility.FromPattern("http://example.com/{x}?a={y}", "y", "pb&j", "z", "zed", "x", "r&d").AbsoluteUri);
+		}
+
+		[Test]
+		public void FromPatternKeyValuePairs()
+		{
+			var parameters = new SortedDictionary<string, object>()
+			{
+				["x"] = "r&d",
+				["y"] = "pb&j",
+				["z"] = "zed",
+				["a"] = true,
+				["b"] = 0,
+				["c"] = TimeSpan.Zero,
+				["d"] = null,
+			};
+			Assert.AreEqual("http://example.com/r%26d?y=pb%26j&a=true&b=0&c=00%3A00%3A00&z=zed", UriUtility.FromPattern("http://example.com/{x}?y={y}", parameters).AbsoluteUri);
 		}
 
 		[TestCase(null, null)]

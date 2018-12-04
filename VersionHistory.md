@@ -8,6 +8,7 @@ is updated in preparation for publishing an updated NuGet package.
 Prefix the description of the change with `[major]`, `[minor]` or `[patch]` in accordance with [SemVer](http://semver.org).
 
 * [minor] Add `InvariantConvert.ToInvariantString(object value)` overload.
+* [minor] Use `InvariantConvert` in `UriUtility.FromPattern()` for better parameter stringification.
 
 ## Released
 
