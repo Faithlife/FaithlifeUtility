@@ -113,6 +113,28 @@ namespace Faithlife.Utility
 		/// <exception cref="FormatException">Failed to parse using invariant culture.</exception>
 		public static TimeSpan ParseTimeSpan(string text) => ThrowFormatExceptionIfNull(TryParseTimeSpan(text), text);
 
+		/// <summary>
+		/// Converts the value to a string using the invariant culture.
+		/// </summary>
+		public static string ToInvariantString(object value)
+		{
+			switch (value)
+			{
+			case bool val:
+				return val.ToInvariantString();
+			case double val:
+				return val.ToInvariantString();
+			case int val:
+				return val.ToInvariantString();
+			case long val:
+				return val.ToInvariantString();
+			case TimeSpan val:
+				return val.ToInvariantString();
+			default:
+				return Convert.ToString(value, CultureInfo.InvariantCulture);
+			}
+		}
+
 		private static T ThrowFormatExceptionIfNull<T>(T? result, string text)
 			where T : struct
 		{

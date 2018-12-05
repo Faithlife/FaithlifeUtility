@@ -28,7 +28,7 @@ namespace Faithlife.Utility
 		/// <returns>Each value is converted to a string with the invariant culture; see the other overload
 		/// for more details.</returns>
 		public static Uri FromPattern(string uriPattern, IEnumerable<KeyValuePair<string, object>> parameters)
-			=> FromPattern(uriPattern, parameters.Select(x => new KeyValuePair<string, string>(x.Key, x.Value == null ? null : Convert.ToString(x.Value, CultureInfo.InvariantCulture))));
+			=> FromPattern(uriPattern, parameters.Select(x => new KeyValuePair<string, string>(x.Key, x.Value == null ? null : InvariantConvert.ToInvariantString(x.Value))));
 
 		/// <summary>
 		/// Builds a URI from a pattern and parameters.
@@ -67,7 +67,7 @@ namespace Faithlife.Utility
 		}
 
 		/// <summary>
-		/// Indicates whether a URI targets a domain. 
+		/// Indicates whether a URI targets a domain.
 		/// </summary>
 		/// <param name="uri">A URI.</param>
 		/// <param name="domain">A domain name string.</param>

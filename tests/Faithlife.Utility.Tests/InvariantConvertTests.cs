@@ -193,5 +193,16 @@ namespace Faithlife.Utility.Tests
 			if (after != null)
 				Assert.AreEqual(after, value.Value.ToInvariantString());
 		}
+
+		[TestCase(null, "")]
+		[TestCase(true, "true")]
+		[TestCase(false, "false")]
+		[TestCase(0.0, "0")]
+		[TestCase(0, "0")]
+		[TestCase(0L, "0")]
+		public void TestObject(object value, string after)
+		{
+			Assert.AreEqual(after, InvariantConvert.ToInvariantString(value));
+		}
 	}
 }
