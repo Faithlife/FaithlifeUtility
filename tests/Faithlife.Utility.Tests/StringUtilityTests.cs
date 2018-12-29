@@ -26,10 +26,12 @@ namespace Faithlife.Utility.Tests
 		public void OrdinalStringComparisonExtensionMethods()
 		{
 			// demonstrate the problem; this is more expensive and possibly surprising
+#pragma warning disable FL0002 // Use StringComparison overload
 			Assert.IsTrue("ábá".StartsWith("a\u0301"));
 			Assert.IsTrue("ábá".EndsWith("a\u0301"));
 			Assert.AreEqual(0, "ábá".IndexOf("a\u0301"));
 			Assert.AreEqual(2, "ábá".LastIndexOf("a\u0301"));
+#pragma warning restore FL0002 // Use StringComparison overload
 
 			// show how using Ordinal fixes the problem
 			Assert.IsFalse("ábá".StartsWithOrdinal("a\u0301"));
