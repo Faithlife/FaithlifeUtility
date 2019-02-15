@@ -9,7 +9,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void NullConstructor()
 		{
-			Assert.Throws<ArgumentNullException>(delegate { new GenericComparer<int>(null); });
+			Assert.Throws<ArgumentNullException>(() => { new GenericComparer<int>(null); });
 		}
 
 		[TestCase(2, 3)]

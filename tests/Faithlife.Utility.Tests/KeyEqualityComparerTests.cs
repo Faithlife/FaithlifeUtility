@@ -9,8 +9,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void NullConstructor()
 		{
-			Assert.Throws<ArgumentNullException>(delegate
-			{ new KeyEqualityComparer<int, int>(null); });
+			Assert.Throws<ArgumentNullException>(() => { new KeyEqualityComparer<int, int>(null); });
 		}
 
 		[TestCase(1, 1, true)]
