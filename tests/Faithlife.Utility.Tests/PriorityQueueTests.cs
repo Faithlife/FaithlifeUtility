@@ -139,7 +139,7 @@ namespace Faithlife.Utility.Tests
 
 			// enumerate through items (IEnumerable)
 			nExpected = 1;
-			foreach (int item in (IEnumerable)pq)
+			foreach (int item in (IEnumerable) pq)
 				Assert.AreEqual(nExpected++, item);
 			Assert.AreEqual(101, nExpected);
 
@@ -153,7 +153,7 @@ namespace Faithlife.Utility.Tests
 		{
 			ICollection c = new PriorityQueue<int>();
 			Assert.IsFalse(c.IsSynchronized);
-			
+
 			object sr1 = c.SyncRoot;
 			object sr2 = c.SyncRoot;
 			Assert.AreEqual(sr1, sr2);
@@ -291,7 +291,7 @@ namespace Faithlife.Utility.Tests
 				pq.Enqueue(new string(startChar[i % 10], 101 - i));
 			TestDequeueOrder(pq, 100);
 		}
-		
+
 		private static void TestDequeueOrder(PriorityQueue<string> pq, int nMaxItem)
 		{
 			// check that everything comes out in the correct order

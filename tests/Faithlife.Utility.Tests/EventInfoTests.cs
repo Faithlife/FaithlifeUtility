@@ -184,7 +184,7 @@ namespace Faithlife.Utility.Tests
 				EventSource eventSource = new EventSource();
 
 
-				#region AddHandler/RemoveHandler
+		#region AddHandler/RemoveHandler
 
 				EventHandler fn = () => { Console.Write("Updated! "); };
 				EventSource.UpdatedEvent.AddHandler(eventSource, fn);
@@ -203,10 +203,10 @@ namespace Faithlife.Utility.Tests
 				Console.Write("\nNo: ");
 				eventSource.RaiseEvents();
 
-				#endregion
+		#endregion
 
 
-				#region Subscribe
+		#region Subscribe
 
 				using (EventSource.UpdatedEvent.Subscribe(eventSource, () => { Console.Write("Updated! "); }))
 				using (EventSource.ClosedEvent.Subscribe(eventSource, () => { Console.Write("Closed! "); }))
@@ -219,10 +219,10 @@ namespace Faithlife.Utility.Tests
 				Console.Write("\nNo: ");
 				eventSource.RaiseEvents();
 
-				#endregion
+		#endregion
 
 
-				#region WeakSubscribe (disposed)
+		#region WeakSubscribe (disposed)
 
 				using (new EventTarget(eventSource))
 				{
@@ -233,10 +233,10 @@ namespace Faithlife.Utility.Tests
 				Console.Write("\nNo: ");
 				eventSource.RaiseEvents();
 
-				#endregion
+		#endregion
 
 
-				#region WeakSubscribe (collected)
+		#region WeakSubscribe (collected)
 
 				CreateEventTarget(eventSource);
 
@@ -245,7 +245,7 @@ namespace Faithlife.Utility.Tests
 				Console.Write("\nNo: ");
 				eventSource.RaiseEvents();
 
-				#endregion
+		#endregion
 
 
 				Console.WriteLine();

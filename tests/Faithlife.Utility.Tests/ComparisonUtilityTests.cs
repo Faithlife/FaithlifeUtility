@@ -28,12 +28,12 @@ namespace Faithlife.Utility.Tests
 			Version verFirst = strVersionFirst == null ? null : new Version(strVersionFirst);
 			Version verSecond = strVersionSecond == null ? null : new Version(strVersionSecond);
 
-			Version verExpectedMax = verFirst == null ? verSecond : 
+			Version verExpectedMax = verFirst == null ? verSecond :
 				verSecond == null ? verFirst :
 					verFirst >= verSecond ? verFirst : verSecond;
 			Version verMax = ComparisonUtility.Max(verFirst, verSecond);
 			Assert.AreEqual(verExpectedMax, verMax);
-			
+
 			Version verExpectedMin = verFirst == null ? verFirst :
 				verSecond == null ? verSecond :
 					verFirst <= verSecond ? verFirst : verSecond;

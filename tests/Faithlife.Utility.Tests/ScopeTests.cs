@@ -43,7 +43,9 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void ScopeNull()
 		{
-			using (Scope.Create(null)) { }
+			using (Scope.Create(null))
+			{
+			}
 		}
 
 		[Test]

@@ -39,7 +39,7 @@ namespace Faithlife.Utility.Tests
 		public void DictionaryContains()
 		{
 			Dictionary<string, bool> dict = new Dictionary<string, bool>();
-			KeyValuePair<string, bool> keyvalue = new KeyValuePair<string,bool>("LLS:1.0.3", true);
+			KeyValuePair<string, bool> keyvalue = new KeyValuePair<string, bool>("LLS:1.0.3", true);
 			dict.Add(keyvalue.Key, keyvalue.Value);
 
 			ReadOnlyDictionary<string, bool> dictReadOnly = new ReadOnlyDictionary<string, bool>(dict);
@@ -90,7 +90,7 @@ namespace Faithlife.Utility.Tests
 
 			ReadOnlyDictionary<string, bool> dictReadOnly = new ReadOnlyDictionary<string, bool>(dict);
 
-			foreach(KeyValuePair<string, bool> pair in dictReadOnly)
+			foreach (KeyValuePair<string, bool> pair in dictReadOnly)
 				Assert.IsTrue(pair.Value);
 		}
 	}
