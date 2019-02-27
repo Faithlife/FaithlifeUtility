@@ -77,15 +77,15 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestConstructorStringSegmentOutOfRange()
 		{
-			Assert.Throws<ArgumentOutOfRangeException>(delegate { new StringSegment(null, 1); });
-			Assert.Throws<ArgumentOutOfRangeException>(delegate { new StringSegment(null, 1, 0); });
-			Assert.Throws<ArgumentOutOfRangeException>(delegate { new StringSegment(null, 1, 1); });
-			Assert.Throws<ArgumentOutOfRangeException>(delegate { new StringSegment("hey", 4, 0); });
-			Assert.Throws<ArgumentOutOfRangeException>(delegate { new StringSegment("hey", 3, 1); });
-			Assert.Throws<ArgumentOutOfRangeException>(delegate { new StringSegment("hey", 2, 2); });
-			Assert.Throws<ArgumentOutOfRangeException>(delegate { new StringSegment("hey", 1, 3); });
-			Assert.Throws<ArgumentOutOfRangeException>(delegate { new StringSegment("hey", -1, 2); });
-			Assert.Throws<ArgumentOutOfRangeException>(delegate { new StringSegment("hey", 2, -1); });
+			Assert.Throws<ArgumentOutOfRangeException>(() => { new StringSegment(null, 1); });
+			Assert.Throws<ArgumentOutOfRangeException>(() => { new StringSegment(null, 1, 0); });
+			Assert.Throws<ArgumentOutOfRangeException>(() => { new StringSegment(null, 1, 1); });
+			Assert.Throws<ArgumentOutOfRangeException>(() => { new StringSegment("hey", 4, 0); });
+			Assert.Throws<ArgumentOutOfRangeException>(() => { new StringSegment("hey", 3, 1); });
+			Assert.Throws<ArgumentOutOfRangeException>(() => { new StringSegment("hey", 2, 2); });
+			Assert.Throws<ArgumentOutOfRangeException>(() => { new StringSegment("hey", 1, 3); });
+			Assert.Throws<ArgumentOutOfRangeException>(() => { new StringSegment("hey", -1, 2); });
+			Assert.Throws<ArgumentOutOfRangeException>(() => { new StringSegment("hey", 2, -1); });
 		}
 
 		[Test]
@@ -101,12 +101,12 @@ namespace Faithlife.Utility.Tests
 		public void TestIndexer()
 		{
 			StringSegment seg = new StringSegment("hey!", 1, 2);
-			Assert.Throws<ArgumentOutOfRangeException>(delegate { Assert.AreNotEqual(seg[-2], 'h'); });
-			Assert.Throws<ArgumentOutOfRangeException>(delegate { Assert.AreNotEqual(seg[-1], 'h'); });
+			Assert.Throws<ArgumentOutOfRangeException>(() => { Assert.AreNotEqual(seg[-2], 'h'); });
+			Assert.Throws<ArgumentOutOfRangeException>(() => { Assert.AreNotEqual(seg[-1], 'h'); });
 			Assert.AreEqual(seg[0], 'e');
 			Assert.AreEqual(seg[1], 'y');
-			Assert.Throws<ArgumentOutOfRangeException>(delegate { Assert.AreNotEqual(seg[2], '!'); });
-			Assert.Throws<ArgumentOutOfRangeException>(delegate { Assert.AreNotEqual(seg[3], '!'); });
+			Assert.Throws<ArgumentOutOfRangeException>(() => { Assert.AreNotEqual(seg[2], '!'); });
+			Assert.Throws<ArgumentOutOfRangeException>(() => { Assert.AreNotEqual(seg[3], '!'); });
 		}
 
 		[Test]

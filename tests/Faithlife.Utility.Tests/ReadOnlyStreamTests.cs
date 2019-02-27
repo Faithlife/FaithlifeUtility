@@ -47,13 +47,13 @@ namespace Faithlife.Utility.Tests
 			Assert.IsFalse(m_stream.CanRead);
 			Assert.IsFalse(m_stream.CanSeek);
 
-			Assert.Throws<ObjectDisposedException>(delegate() { long i = m_stream.Length; });
-			Assert.Throws<ObjectDisposedException>(delegate() { long i = m_stream.Position; });
-			Assert.Throws<ObjectDisposedException>(delegate() { m_stream.Position = 0; });
-			Assert.Throws<ObjectDisposedException>(delegate() { m_stream.Flush(); });
-			Assert.Throws<ObjectDisposedException>(delegate() { m_stream.Read(new byte[1], 0, 1); });
-			Assert.Throws<ObjectDisposedException>(delegate() { m_stream.ReadByte(); });
-			Assert.Throws<ObjectDisposedException>(delegate() { m_stream.Seek(0, SeekOrigin.Begin); });
+			Assert.Throws<ObjectDisposedException>(() => { long i = m_stream.Length; });
+			Assert.Throws<ObjectDisposedException>(() => { long i = m_stream.Position; });
+			Assert.Throws<ObjectDisposedException>(() => { m_stream.Position = 0; });
+			Assert.Throws<ObjectDisposedException>(() => { m_stream.Flush(); });
+			Assert.Throws<ObjectDisposedException>(() => { m_stream.Read(new byte[1], 0, 1); });
+			Assert.Throws<ObjectDisposedException>(() => { m_stream.ReadByte(); });
+			Assert.Throws<ObjectDisposedException>(() => { m_stream.Seek(0, SeekOrigin.Begin); });
 		}
 
 		[Test]
@@ -115,11 +115,11 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void Write()
 		{
-			Assert.Throws<NotSupportedException>(delegate { m_stream.Write(m_abyStreamData, 0, 1); });
-			Assert.Throws<NotSupportedException>(delegate { m_stream.WriteByte(0); });
-			Assert.Throws<NotSupportedException>(delegate { m_stream.BeginWrite(m_abyStreamData, 0, 1, null, null); });
-			Assert.Throws<NotSupportedException>(delegate { m_stream.WriteAsync(m_abyStreamData, 0, 1); });
-			Assert.Throws<NotSupportedException>(delegate { m_stream.SetLength(0); });
+			Assert.Throws<NotSupportedException>(() => { m_stream.Write(m_abyStreamData, 0, 1); });
+			Assert.Throws<NotSupportedException>(() => { m_stream.WriteByte(0); });
+			Assert.Throws<NotSupportedException>(() => { m_stream.BeginWrite(m_abyStreamData, 0, 1, null, null); });
+			Assert.Throws<NotSupportedException>(() => { m_stream.WriteAsync(m_abyStreamData, 0, 1); });
+			Assert.Throws<NotSupportedException>(() => { m_stream.SetLength(0); });
 		}
 
 		private Stream m_memStream;

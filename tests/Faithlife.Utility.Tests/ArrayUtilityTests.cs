@@ -97,7 +97,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void EmptyArrayNotEqualNullArray()
 		{
-			int[] anFirst = new int[] {};
+			int[] anFirst = new int[] { };
 			Assert.IsFalse(ArrayUtility.AreEqual(anFirst, null));
 		}
 
@@ -113,7 +113,7 @@ namespace Faithlife.Utility.Tests
 		public void NullItemNotEqualNonNullItem()
 		{
 			string[] astrFirst = new string[] { "1", "2", null, "4" };
-			string[] astrSecond  = new string[] { "1", "2", "3", "4" };
+			string[] astrSecond = new string[] { "1", "2", "3", "4" };
 			Assert.IsFalse(ArrayUtility.AreEqual(astrFirst, astrSecond));
 		}
 

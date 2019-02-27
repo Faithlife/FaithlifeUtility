@@ -117,7 +117,7 @@ namespace Faithlife.Utility.Tests
 		public void OnlyEncodeSpaces()
 		{
 			UrlEncodingSettings settings = new UrlEncodingSettings();
-			settings.ShouldEncodeChar = delegate(char ch) { return ch == ' '; };
+			settings.ShouldEncodeChar = ch => ch == ' ';
 			Assert.AreEqual("Hi,%20there", UrlEncoding.Encode("Hi, there", settings));
 			Assert.AreEqual("Hi,%20there%20Ed.", UrlEncoding.Encode("Hi, there Ed.", settings));
 		}

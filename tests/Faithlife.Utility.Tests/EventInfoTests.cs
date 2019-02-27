@@ -16,11 +16,11 @@ namespace Faithlife.Utility.Tests
 			EventSource eventSource = new EventSource();
 
 			int nRaiseCount = 0;
-			EventHandler fn = delegate { nRaiseCount++; };
+			EventHandler fn = (sender, e) => { nRaiseCount++; };
 			EventSource.UpdatedEvent.AddHandler(eventSource, fn);
-			EventHandler<EventArgs> fn2 = delegate { nRaiseCount++; };
+			EventHandler<EventArgs> fn2 = (sender, e) => { nRaiseCount++; };
 			EventSource.ClosedEvent.AddHandler(eventSource, fn2);
-			EventHandler<EventArgs> fn3 = delegate { nRaiseCount++; };
+			EventHandler<EventArgs> fn3 = (sender, e) => { nRaiseCount++; };
 			EventSource.TerminatedEvent.AddHandler(eventSource, fn3);
 
 			Assert.AreEqual(0, nRaiseCount);
@@ -42,9 +42,9 @@ namespace Faithlife.Utility.Tests
 			EventSource eventSource = new EventSource();
 
 			int nRaiseCount = 0;
-			using (EventSource.UpdatedEvent.Subscribe(eventSource, delegate { nRaiseCount++; }))
-			using (EventSource.ClosedEvent.Subscribe(eventSource, delegate { nRaiseCount++; }))
-			using (EventSource.TerminatedEvent.Subscribe(eventSource, delegate { nRaiseCount++; }))
+			using (EventSource.UpdatedEvent.Subscribe(eventSource, (sender, e) => { nRaiseCount++; }))
+			using (EventSource.ClosedEvent.Subscribe(eventSource, (sender, e) => { nRaiseCount++; }))
+			using (EventSource.TerminatedEvent.Subscribe(eventSource, (sender, e) => { nRaiseCount++; }))
 			{
 				Assert.AreEqual(0, nRaiseCount);
 				eventSource.RaiseEvents();
@@ -171,7 +171,7 @@ namespace Faithlife.Utility.Tests
 			readonly Scope m_scopeUpdate;
 			readonly Scope m_scopeClose;
 			readonly Scope m_scopeTerminate;
-			
+
 			[ThreadStatic]
 			static int m_nRaiseCount;
 		}
@@ -184,13 +184,13 @@ namespace Faithlife.Utility.Tests
 				EventSource eventSource = new EventSource();
 
 
-				#region AddHandler/RemoveHandler
+		#region AddHandler/RemoveHandler
 
-				EventHandler fn = delegate { Console.Write("Updated! "); };
+				EventHandler fn = () => { Console.Write("Updated! "); };
 				EventSource.UpdatedEvent.AddHandler(eventSource, fn);
-				EventHandler<CancelEventArgs> fn2 = delegate { Console.Write("Closed! "); };
+				EventHandler<CancelEventArgs> fn2 = () => { Console.Write("Closed! "); };
 				EventSource.ClosedEvent.AddHandler(eventSource, fn2);
-				CancelEventHandler fn3 = delegate { Console.Write("Terminated! "); };
+				CancelEventHandler fn3 = () => { Console.Write("Terminated! "); };
 				EventSource.TerminatedEvent.AddHandler(eventSource, fn3);
 
 				Console.Write("\nYes: ");
@@ -203,14 +203,14 @@ namespace Faithlife.Utility.Tests
 				Console.Write("\nNo: ");
 				eventSource.RaiseEvents();
 
-				#endregion
+		#endregion
 
 
-				#region Subscribe
+		#region Subscribe
 
-				using (EventSource.UpdatedEvent.Subscribe(eventSource, delegate { Console.Write("Updated! "); }))
-				using (EventSource.ClosedEvent.Subscribe(eventSource, delegate { Console.Write("Closed! "); }))
-				using (EventSource.TerminatedEvent.Subscribe(eventSource, delegate { Console.Write("Terminated!"); }))
+				using (EventSource.UpdatedEvent.Subscribe(eventSource, () => { Console.Write("Updated! "); }))
+				using (EventSource.ClosedEvent.Subscribe(eventSource, () => { Console.Write("Closed! "); }))
+				using (EventSource.TerminatedEvent.Subscribe(eventSource, () => { Console.Write("Terminated!"); }))
 				{
 					Console.Write("\nYes: ");
 					eventSource.RaiseEvents();
@@ -219,10 +219,10 @@ namespace Faithlife.Utility.Tests
 				Console.Write("\nNo: ");
 				eventSource.RaiseEvents();
 
-				#endregion
+		#endregion
 
 
-				#region WeakSubscribe (disposed)
+		#region WeakSubscribe (disposed)
 
 				using (new EventTarget(eventSource))
 				{
@@ -233,10 +233,10 @@ namespace Faithlife.Utility.Tests
 				Console.Write("\nNo: ");
 				eventSource.RaiseEvents();
 
-				#endregion
+		#endregion
 
 
-				#region WeakSubscribe (collected)
+		#region WeakSubscribe (collected)
 
 				CreateEventTarget(eventSource);
 
@@ -245,7 +245,7 @@ namespace Faithlife.Utility.Tests
 				Console.Write("\nNo: ");
 				eventSource.RaiseEvents();
 
-				#endregion
+		#endregion
 
 
 				Console.WriteLine();

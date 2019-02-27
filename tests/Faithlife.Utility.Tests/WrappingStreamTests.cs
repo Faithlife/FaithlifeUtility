@@ -54,20 +54,20 @@ namespace Faithlife.Utility.Tests
 			Assert.IsFalse(m_stream.CanSeek);
 			Assert.IsFalse(m_stream.CanWrite);
 
-			Assert.Throws<ObjectDisposedException>(delegate { long i = m_stream.Length; });
-			Assert.Throws<ObjectDisposedException>(delegate { long i = m_stream.Position; });
-			Assert.Throws<ObjectDisposedException>(delegate { m_stream.Position = 0; });
-			Assert.Throws<ObjectDisposedException>(delegate { m_stream.BeginRead(new byte[1], 0, 1, null, null); });
-			Assert.Throws<ObjectDisposedException>(delegate { m_stream.EndRead(null); });
-			Assert.Throws<ObjectDisposedException>(delegate { m_stream.BeginWrite(new byte[1], 0, 1, null, null); });
-			Assert.Throws<ObjectDisposedException>(delegate { m_stream.EndWrite(null); });
-			Assert.Throws<ObjectDisposedException>(delegate { m_stream.Flush(); });
-			Assert.Throws<ObjectDisposedException>(delegate { m_stream.Read(new byte[1], 0, 1); });
-			Assert.Throws<ObjectDisposedException>(delegate { m_stream.ReadByte(); });
-			Assert.Throws<ObjectDisposedException>(delegate { m_stream.Write(new byte[1], 0, 1); });
-			Assert.Throws<ObjectDisposedException>(delegate { m_stream.WriteByte(0); });
-			Assert.Throws<ObjectDisposedException>(delegate { m_stream.Seek(0, SeekOrigin.Begin); });
-			Assert.Throws<ObjectDisposedException>(delegate { m_stream.SetLength(16); });
+			Assert.Throws<ObjectDisposedException>(() => { long i = m_stream.Length; });
+			Assert.Throws<ObjectDisposedException>(() => { long i = m_stream.Position; });
+			Assert.Throws<ObjectDisposedException>(() => { m_stream.Position = 0; });
+			Assert.Throws<ObjectDisposedException>(() => { m_stream.BeginRead(new byte[1], 0, 1, null, null); });
+			Assert.Throws<ObjectDisposedException>(() => { m_stream.EndRead(null); });
+			Assert.Throws<ObjectDisposedException>(() => { m_stream.BeginWrite(new byte[1], 0, 1, null, null); });
+			Assert.Throws<ObjectDisposedException>(() => { m_stream.EndWrite(null); });
+			Assert.Throws<ObjectDisposedException>(() => { m_stream.Flush(); });
+			Assert.Throws<ObjectDisposedException>(() => { m_stream.Read(new byte[1], 0, 1); });
+			Assert.Throws<ObjectDisposedException>(() => { m_stream.ReadByte(); });
+			Assert.Throws<ObjectDisposedException>(() => { m_stream.Write(new byte[1], 0, 1); });
+			Assert.Throws<ObjectDisposedException>(() => { m_stream.WriteByte(0); });
+			Assert.Throws<ObjectDisposedException>(() => { m_stream.Seek(0, SeekOrigin.Begin); });
+			Assert.Throws<ObjectDisposedException>(() => { m_stream.SetLength(16); });
 		}
 
 		[Test]

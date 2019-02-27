@@ -27,13 +27,13 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void MultiDimensionalArray()
 		{
-			Assert.Throws<ArgumentException>(() => CollectionImpl.CheckCopyToParameters(new int[1,1], 0, 1));
+			Assert.Throws<ArgumentException>(() => CollectionImpl.CheckCopyToParameters(new int[1, 1], 0, 1));
 		}
 
 		[Test]
 		public void NonZeroBasedArray()
 		{
-			Array a = Array.CreateInstance(typeof(int), new int[] {2}, new int[] {1});
+			Array a = Array.CreateInstance(typeof(int), new int[] { 2 }, new int[] { 1 });
 			Assert.Throws<ArgumentException>(() => CollectionImpl.CheckCopyToParameters(a, 1, 1));
 		}
 

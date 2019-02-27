@@ -19,7 +19,7 @@ namespace Faithlife.Utility.Tests
 			Assert.IsTrue(((IComparable) left).CompareTo(left) == 0);
 			Assert.IsTrue(((IComparable) right).CompareTo(left) > 0);
 			Assert.IsTrue(((IComparable) left).CompareTo(null) > 0);
-			Assert.Throws<ArgumentException>(delegate { ((IComparable) left).CompareTo(""); });
+			Assert.Throws<ArgumentException>(() => { ((IComparable) left).CompareTo(""); });
 		}
 
 		[Test]

@@ -168,10 +168,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void FindIndexBadArguments()
 		{
-			Assert.Throws<ArgumentNullException>(delegate
-			{ ListUtility.FindIndex<object>(null, n => true); });
-			Assert.Throws<ArgumentNullException>(delegate
-			{ ListUtility.FindIndex(new object[] { }, null); });
+			Assert.Throws<ArgumentNullException>(() => { ListUtility.FindIndex<object>(null, n => true); });
+			Assert.Throws<ArgumentNullException>(() => { ListUtility.FindIndex(new object[] { }, null); });
 		}
 
 		[Test]
