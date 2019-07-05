@@ -11,6 +11,14 @@ Prefix the description of the change with `[major]`, `[minor]` or `[patch]` in a
 
 ## Released
 
+### 0.8.0
+
+* Remove dependency on Faithlife.Analyzers.
+
+### 0.7.0
+
+* Update minimum target frameworks to .NET Standard 2.0, .NET 4.7.2.
+
 ### 0.6.0
 
 * Add `KeyEqualityComparer`.
