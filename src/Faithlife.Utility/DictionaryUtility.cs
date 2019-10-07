@@ -21,10 +21,10 @@ namespace Faithlife.Utility
 			if (left == right)
 				return true;
 
-			if (left == null || right == null || left.Count != right.Count)
+			if (left is null || right is null || left.Count != right.Count)
 				return false;
 
-			foreach (KeyValuePair<TKey, TValue> pair in left)
+			foreach (var pair in left)
 			{
 				if (!right.TryGetValue(pair.Key, out var value) || !comparer.Equals(pair.Value, value))
 					return false;

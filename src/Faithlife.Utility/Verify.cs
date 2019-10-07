@@ -44,7 +44,7 @@ namespace Faithlife.Utility
 		[AssertionMethod]
 		public static void IsNull([AssertionCondition(AssertionConditionType.IS_NULL)] object obj)
 		{
-			if (obj != null)
+			if (obj is object)
 				throw new InvalidOperationException();
 		}
 
@@ -57,7 +57,7 @@ namespace Faithlife.Utility
 		[AssertionMethod]
 		public static void IsNotNull([AssertionCondition(AssertionConditionType.IS_NOT_NULL)] object obj)
 		{
-			if (obj == null)
+			if (obj is null)
 				throw new InvalidOperationException();
 		}
 

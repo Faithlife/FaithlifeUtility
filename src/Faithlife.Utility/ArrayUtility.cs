@@ -32,9 +32,9 @@ namespace Faithlife.Utility
 		/// item of the first array is equal to the first item of the second array, etc.</returns>
 		public static bool AreEqual<T>(T[] array1, T[] array2, IEqualityComparer<T> comparer)
 		{
-			if (array1 == null)
-				return array2 == null;
-			if (array2 == null)
+			if (array1 is null)
+				return array2 is null;
+			if (array2 is null)
 				return false;
 			if (array1.Length != array2.Length)
 				return false;
@@ -72,9 +72,9 @@ namespace Faithlife.Utility
 		/// <returns>The result of a lexicographical comparison of the array items.</returns>
 		public static int Compare<T>(T[] array1, T[] array2, IComparer<T> comparer)
 		{
-			if (array1 == null)
-				return array2 == null ? 0 : -1;
-			if (array2 == null)
+			if (array1 is null)
+				return array2 is null ? 0 : -1;
+			if (array2 is null)
 				return 1;
 			int length1 = array1.Length;
 			int length2 = array2.Length;
@@ -101,12 +101,12 @@ namespace Faithlife.Utility
 		/// <returns>A new array with all of the elements of the specified arrays.</returns>
 		public static T[] Concatenate<T>(params T[][] arrays)
 		{
-			if (arrays == null)
+			if (arrays is null)
 				throw new ArgumentNullException(nameof(arrays));
 			int totalLength = 0;
 			foreach (T[] array in arrays)
 			{
-				if (array == null)
+				if (array is null)
 					throw new ArgumentOutOfRangeException(nameof(arrays));
 				totalLength += array.Length;
 			}

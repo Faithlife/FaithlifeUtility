@@ -19,7 +19,7 @@ namespace Faithlife.Utility
 		public static void CheckCopyToParameters(Array array, int index, int count)
 		{
 			// check for null array
-			if (array == null)
+			if (array is null)
 				throw new ArgumentNullException(nameof(array), "Array cannot be null.");
 
 			// check for multi-dimensional array
@@ -48,12 +48,12 @@ namespace Faithlife.Utility
 		/// <param name="arrayIndex">The zero-based index in <paramref name="array"/> at which copying begins.</param>
 		public static void CopyTo<T>(ICollection<T> source, T[] array, int arrayIndex)
 		{
-			if (source == null)
+			if (source is null)
 				throw new ArgumentNullException(nameof(source));
 
 			CheckCopyToParameters(array, arrayIndex, source.Count);
 
-			foreach (T item in source)
+			foreach (var item in source)
 			{
 				array[arrayIndex] = item;
 				arrayIndex++;
@@ -69,14 +69,14 @@ namespace Faithlife.Utility
 		/// <returns><c>true</c> if <paramref name="item"/> is found in <paramref name="source"/>; otherwise <c>false</c>.</returns>
 		public static bool Contains<T>(ICollection<T> source, T item)
 		{
-			if (source == null)
+			if (source is null)
 				throw new ArgumentNullException(nameof(source));
 
-			foreach (T sourceItem in source)
+			foreach (var sourceItem in source)
 			{
-				if (sourceItem == null && item == null)
+				if (sourceItem is null && item is null)
 					return true;
-				if (sourceItem != null && sourceItem.Equals(item))
+				if (sourceItem?.Equals(item) ?? false)
 					return true;
 			}
 

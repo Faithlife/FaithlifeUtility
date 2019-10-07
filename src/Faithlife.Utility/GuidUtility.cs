@@ -32,13 +32,8 @@ namespace Faithlife.Utility
 		/// <param name="value">The string.</param>
 		/// <returns>The GUID.</returns>
 		/// <exception cref="FormatException">The argument is not a valid GUID short string.</exception>
-		public static Guid FromLowerNoDashString(string value)
-		{
-			Guid? guid = TryFromLowerNoDashString(value);
-			if (guid == null)
-				throw new FormatException("The string '{0}' is not a no-dash lowercase GUID.".FormatInvariant(value ?? "(null)"));
-			return guid.Value;
-		}
+		public static Guid FromLowerNoDashString(string value) =>
+			TryFromLowerNoDashString(value) ?? throw new FormatException("The string '{0}' is not a no-dash lowercase GUID.".FormatInvariant(value ?? "(null)"));
 
 		/// <summary>
 		/// Attempts to convert a lowercase, no dashes string to a GUID.
@@ -65,14 +60,12 @@ namespace Faithlife.Utility
 		/// <returns>A UUID derived from the namespace and name.</returns>
 		public static Guid Create(Guid namespaceId, string name, int version)
 		{
-			if (name == null)
+			if (name is null)
 				throw new ArgumentNullException(nameof(name));
 
 			// convert the name to a sequence of octets (as defined by the standard or conventions of its namespace) (step 3)
 			// ASSUME: UTF-8 encoding is always appropriate
-			byte[] nameBytes = Encoding.UTF8.GetBytes(name);
-
-			return Create(namespaceId, nameBytes, version);
+			return Create(namespaceId, Encoding.UTF8.GetBytes(name), version);
 		}
 
 		/// <summary>
@@ -103,7 +96,7 @@ namespace Faithlife.Utility
 			// compute the hash of the namespace ID concatenated with the name (step 4)
 			byte[] data = namespaceBytes.Concat(nameBytes).ToArray();
 			byte[] hash;
-			using (HashAlgorithm algorithm = version == 3 ? (HashAlgorithm) MD5.Create() : SHA1.Create())
+			using (var algorithm = version == 3 ? (HashAlgorithm) MD5.Create() : SHA1.Create())
 				hash = algorithm.ComputeHash(data);
 
 			// most bytes from the hash are copied straight to the bytes of the new GUID (steps 5-7, 9, 11-12)

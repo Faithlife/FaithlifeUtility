@@ -229,7 +229,7 @@ namespace Faithlife.Utility
 		{
 			get
 			{
-				if (m_syncRoot == null)
+				if (m_syncRoot is null)
 					Interlocked.CompareExchange(ref m_syncRoot, new object(), null);
 
 				return m_syncRoot;

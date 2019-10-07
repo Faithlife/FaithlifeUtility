@@ -69,9 +69,9 @@ namespace Faithlife.Utility
 		public static int CompareByCodePoint(string left, string right)
 		{
 			// null sorts less than anything else (same as String.CompareOrdinal)
-			if (left == null)
-				return right == null ? 0 : -1;
-			else if (right == null)
+			if (left is null)
+				return right is null ? 0 : -1;
+			else if (right is null)
 				return 1;
 
 			// get the length of both strings
@@ -112,7 +112,7 @@ namespace Faithlife.Utility
 				.GetTypeInfo()
 				.GetDeclaredMethods("Create")
 				.FirstOrDefault(x => x.IsStatic && x.GetParameters().Select(p => p.ParameterType).SequenceEqual(new[] { typeof(CultureInfo), typeof(bool) }));
-			if (create != null)
+			if (create is object)
 				return (StringComparer) create.Invoke(null, new object[] { cultureInfo, ignoreCase });
 
 			// return comparer that implements Compare and Equals but not GetHashCode
@@ -132,7 +132,7 @@ namespace Faithlife.Utility
 		public static string FoldCase(this string value)
 		{
 			// check parameters
-			if (value == null)
+			if (value is null)
 				throw new ArgumentNullException(nameof(value));
 
 			// process each character in the input string
@@ -657,21 +657,19 @@ namespace Faithlife.Utility
 		/// <returns>All of the strings concatenated with the specified separator.</returns>
 		public static string Join(this IEnumerable<string> strings, string? separator)
 		{
-			if (strings == null)
-				throw new ArgumentNullException("strings");
+			if (strings is null)
+				throw new ArgumentNullException(nameof(strings));
 
-			using (var enumerator = strings.GetEnumerator())
+			using var enumerator = strings.GetEnumerator();
+			if (enumerator.MoveNext())
 			{
-				if (enumerator.MoveNext())
+				var sb = new StringBuilder(enumerator.Current);
+				while (enumerator.MoveNext())
 				{
-					var sb = new StringBuilder(enumerator.Current);
-					while (enumerator.MoveNext())
-					{
-						sb.Append(separator);
-						sb.Append(enumerator.Current);
-					}
-					return sb.ToString();
+					sb.Append(separator);
+					sb.Append(enumerator.Current);
 				}
+				return sb.ToString();
 			}
 
 			return "";
@@ -700,7 +698,7 @@ namespace Faithlife.Utility
 		/// <returns>All of the strings concatenated with the specified separator format.</returns>
 		public static string JoinFormat(this IEnumerable<string> strings, string separatorFormat)
 		{
-			if (separatorFormat == null)
+			if (separatorFormat is null)
 				throw new ArgumentNullException(nameof(separatorFormat));
 
 			return strings.Aggregate(string.Empty, (acc, src) => acc.Length == 0 ? src : separatorFormat.FormatInvariant(acc, src));
@@ -765,11 +763,11 @@ namespace Faithlife.Utility
 		/// <remarks>This method correctly reverses strings containing supplementary characters (which are encoded with two surrogate code units).</remarks>
 		public static string Reverse(this string value)
 		{
-			if (value == null)
+			if (value is null)
 				throw new ArgumentNullException(nameof(value));
 
 			// allocate a buffer to hold the output
-			char[] output = new char[value.Length];
+			var output = new char[value.Length];
 			for (int outputIndex = 0, inputIndex = value.Length - 1; outputIndex < value.Length; outputIndex++, inputIndex--)
 			{
 				// check for surrogate pair
@@ -815,18 +813,16 @@ namespace Faithlife.Utility
 		/// <returns>null if text is null, empty byte[] if text is empty, otherwise the compressed byte array.</returns>
 		public static byte[]? Compress(string? text)
 		{
-			if (text == null)
+			if (text is null)
 				return null;
 
 			if (text.Length == 0)
 				return new byte[0];
 
-			using (MemoryStream stream = new MemoryStream())
-			{
-				using (TextWriter textWriter = CreateCompressingTextWriter(stream, Ownership.None))
-					textWriter.Write(text);
-				return stream.ToArray();
-			}
+			using var stream = new MemoryStream();
+			using (var textWriter = CreateCompressingTextWriter(stream, Ownership.None))
+				textWriter.Write(text);
+			return stream.ToArray();
 		}
 
 		/// <summary>
@@ -837,18 +833,18 @@ namespace Faithlife.Utility
 		/// <remarks>The compressed text should have been created with the Compress or CreateCompressingTextWriter methods.</remarks>
 		public static string? Decompress(byte[]? compressedText)
 		{
-			if (compressedText == null)
+			if (compressedText is null)
 				return null;
 
 			if (compressedText.Length == 0)
-				return string.Empty;
+				return "";
 
 			const string invalidFormatMessage = "The compressed string has an invalid format.";
 			try
 			{
-				using (MemoryStream stream = new MemoryStream(compressedText, 0, compressedText.Length, false))
-				using (TextReader textReader = CreateDecompressingTextReader(stream, Ownership.None))
-					return textReader.ReadToEnd();
+				using var stream = new MemoryStream(compressedText, 0, compressedText.Length, false);
+				using var textReader = CreateDecompressingTextReader(stream, Ownership.None);
+				return textReader.ReadToEnd();
 			}
 			catch (InvalidDataException x)
 			{
@@ -878,10 +874,8 @@ namespace Faithlife.Utility
 		/// <returns>The TextWriter.</returns>
 		/// <remarks>The stream must be seekable so that the stream header can be finalized once the compression
 		/// is copmlete. The contents of the stream are not valid until the TextWriter has been closed.</remarks>
-		public static TextWriter CreateCompressingTextWriter(Stream stream, Ownership ownership)
-		{
-			return new CompressingTextWriter(stream, ownership);
-		}
+		public static TextWriter CreateCompressingTextWriter(Stream stream, Ownership ownership) =>
+			new CompressingTextWriter(stream, ownership);
 
 		/// <summary>
 		/// Creates a TextReader that reads compressed text from a stream that matches the format used by Compress.
@@ -889,17 +883,15 @@ namespace Faithlife.Utility
 		/// <param name="stream">The stream.</param>
 		/// <param name="ownership">The ownership of the stream.</param>
 		/// <returns>The TextReader.</returns>
-		public static TextReader CreateDecompressingTextReader(Stream stream, Ownership ownership)
-		{
-			return new DecompressingTextReader(stream, ownership);
-		}
+		public static TextReader CreateDecompressingTextReader(Stream stream, Ownership ownership) =>
+			new DecompressingTextReader(stream, ownership);
 
 		private sealed class CompressingTextWriter : TextWriter
 		{
 			public CompressingTextWriter(Stream stream, Ownership ownership)
 				: base(CultureInfo.InvariantCulture)
 			{
-				if (stream == null)
+				if (stream is null)
 					throw new ArgumentNullException(nameof(stream));
 				if (!stream.CanWrite)
 					throw new ArgumentException("Stream must support writing.", nameof(stream));
@@ -954,7 +946,7 @@ namespace Faithlife.Utility
 							WriteToStream(bytes, bytesUsed);
 						}
 
-						if (m_holdingStream != null)
+						if (m_holdingStream is object)
 						{
 							// write holding stream without compression
 							int uncompressedByteCount = (int) m_holdingStream.Length;
@@ -963,7 +955,7 @@ namespace Faithlife.Utility
 							m_stream.Write(m_holdingStream.ToArray(), 0, uncompressedByteCount);
 							DisposableUtility.Dispose(ref m_holdingStream);
 						}
-						else if (m_zipStream != null)
+						else if (m_zipStream is object)
 						{
 							// flush and dispose compression stream
 							DisposableUtility.Dispose(ref m_zipStream);
@@ -995,16 +987,15 @@ namespace Faithlife.Utility
 				{
 					// don't compress short strings
 					m_uncompressedByteCount += count;
-					if (m_zipStream == null && m_uncompressedByteCount < c_minimumByteCountToCompress)
+					if (m_zipStream is null && m_uncompressedByteCount < c_minimumByteCountToCompress)
 					{
-						if (m_holdingStream == null)
-							m_holdingStream = new MemoryStream();
+						m_holdingStream ??= new MemoryStream();
 						m_holdingStream.Write(bytes, 0, count);
 					}
 					else
 					{
 						// write the header if we haven't already, storing the seek position of the uncompressed byte count
-						if (m_zipStream == null)
+						if (m_zipStream is null)
 						{
 							// the first byte is the version; the next four bytes is the uncompressed byte count
 							// (based on http://www.csharphelp.com/2007/09/compress-and-decompress-strings-in-c/)
@@ -1014,7 +1005,7 @@ namespace Faithlife.Utility
 							m_zipStream = GzipUtility.CreateCompressingWriteStream(m_stream, Ownership.None);
 
 							// write any held bytes
-							if (m_holdingStream != null)
+							if (m_holdingStream is object)
 							{
 								m_zipStream.Write(m_holdingStream.ToArray(), 0, (int) m_holdingStream.Length);
 								DisposableUtility.Dispose(ref m_holdingStream);
@@ -1049,7 +1040,7 @@ namespace Faithlife.Utility
 		{
 			public DecompressingTextReader(Stream stream, Ownership ownership)
 			{
-				if (stream == null)
+				if (stream is null)
 					throw new ArgumentNullException(nameof(stream));
 				if (!stream.CanRead)
 					throw new ArgumentException("Stream must support reading.", nameof(stream));
@@ -1067,7 +1058,7 @@ namespace Faithlife.Utility
 				VerifyNotDisposed();
 
 				// read current character unless at end of stream
-				return m_buffer == null ? -1 : m_buffer[m_bufferIndex];
+				return m_buffer is null ? -1 : m_buffer[m_bufferIndex];
 			}
 
 			public override int Read()
@@ -1075,7 +1066,7 @@ namespace Faithlife.Utility
 				VerifyNotDisposed();
 
 				// check for end of stream
-				if (m_buffer == null)
+				if (m_buffer is null)
 					return -1;
 
 				// read current character and advance
@@ -1089,7 +1080,7 @@ namespace Faithlife.Utility
 				VerifyNotDisposed();
 
 				// check for end of stream
-				if (m_buffer == null)
+				if (m_buffer is null)
 					return 0;
 
 				// limit count to characters remaining in buffer
@@ -1248,17 +1239,15 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Compare the specified strings.
 		/// </summary>
-		public override int Compare(string x, string y)
-		{
-			if (object.ReferenceEquals(x, y))
-				return 0;
-			if (x == null)
-				return -1;
-			if (y == null)
-				return 1;
-			return m_cultureInfo.CompareInfo.Compare(x, y, m_ignoreCase ? CompareOptions.IgnoreCase : CompareOptions.None);
-		}
-
+		public override int Compare(string x, string y) =>
+			(x, y) switch
+			{
+				(_, _) when ReferenceEquals(x, y) => 0,
+				(null, _) => -1,
+				(_, null) => 1,
+				(_, _) => m_cultureInfo.CompareInfo.Compare(x, y, m_ignoreCase ? CompareOptions.IgnoreCase : CompareOptions.None),
+			};
+	
 		/// <summary>
 		/// Check the specified strings for equality.
 		/// </summary>

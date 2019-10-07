@@ -18,7 +18,7 @@ namespace Faithlife.Utility
 		{
 			if (object.ReferenceEquals(left, right))
 				return true;
-			else if (object.ReferenceEquals(left, null) || object.ReferenceEquals(right, null))
+			else if (left is null || right is null)
 				return false;
 			else
 				return left.Equals(right);
@@ -35,7 +35,7 @@ namespace Faithlife.Utility
 		{
 			if (object.ReferenceEquals(left, right))
 				return false;
-			else if (object.ReferenceEquals(left, null) || object.ReferenceEquals(right, null))
+			else if (left is null || right is null)
 				return true;
 			else
 				return !left.Equals(right);

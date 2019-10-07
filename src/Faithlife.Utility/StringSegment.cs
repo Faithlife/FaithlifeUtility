@@ -13,7 +13,7 @@ namespace Faithlife.Utility
 	/// </summary>
 	[SuppressMessage("Microsoft.Design", "CA1036:OverrideMethodsOnComparableTypes", Justification = "String does not support comparison operators.")]
 	[StructLayout(LayoutKind.Auto)]
-	public struct StringSegment :
+	public readonly struct StringSegment :
 		IEnumerable<char>,
 		IEquatable<StringSegment>,
 		IComparable<StringSegment>
@@ -56,9 +56,9 @@ namespace Faithlife.Utility
 			if (length < 0 || offset + length > stringLength)
 				throw new ArgumentOutOfRangeException(nameof(length));
 
-			m_source = source ?? "";
-			m_offset = offset;
-			m_length = length;
+			Source = source ?? "";
+			Offset = offset;
+			Length = length;
 		}
 
 		/// <summary>
@@ -80,19 +80,19 @@ namespace Faithlife.Utility
 		/// Gets the source string.
 		/// </summary>
 		/// <value>The source string of the segment.</value>
-		public string Source => m_source;
+		public string Source { get; }
 
 		/// <summary>
 		/// Gets the offset into the source string.
 		/// </summary>
 		/// <value>The offset into the source string of the segment.</value>
-		public int Offset => m_offset;
+		public int Offset { get; }
 
 		/// <summary>
 		/// Gets the length of the segment.
 		/// </summary>
 		/// <value>The length of the segment.</value>
-		public int Length => m_length;
+		public int Length { get; }
 
 		/// <summary>
 		/// Gets the <see cref="Char"/> with the specified index.
@@ -103,9 +103,9 @@ namespace Faithlife.Utility
 		{
 			get
 			{
-				if (index < 0 || index >= m_length)
+				if (index < 0 || index >= Length)
 					throw new ArgumentOutOfRangeException(nameof(index));
-				return m_source[m_offset + index];
+				return Source[Offset + index];
 			}
 		}
 
@@ -113,7 +113,7 @@ namespace Faithlife.Utility
 		/// Returns everything that follows this segment in the source string.
 		/// </summary>
 		/// <returns>Everything that follows this segment in the source string.</returns>
-		public StringSegment After() => new StringSegment(m_source, m_offset + m_length, m_source.Length - (m_offset + m_length));
+		public StringSegment After() => new StringSegment(Source, Offset + Length, Source.Length - (Offset + Length));
 
 		/// <summary>
 		/// Appends the segment to the specified <see cref="StringBuilder" />.
@@ -121,16 +121,16 @@ namespace Faithlife.Utility
 		/// <param name="stringBuilder">The <see cref="StringBuilder" />.</param>
 		public void AppendToStringBuilder(StringBuilder stringBuilder)
 		{
-			if (stringBuilder == null)
+			if (stringBuilder is null)
 				throw new ArgumentNullException(nameof(stringBuilder));
-			stringBuilder.Append(m_source, m_offset, m_length);
+			stringBuilder.Append(Source, Offset, Length);
 		}
 
 		/// <summary>
 		/// Returns everything that precedes this segment in the source string.
 		/// </summary>
 		/// <returns>Everything that precedes this segment in the source string.</returns>
-		public StringSegment Before() => new StringSegment(m_source, 0, m_offset);
+		public StringSegment Before() => new StringSegment(Source, 0, Offset);
 
 		/// <summary>
 		/// Compares two string segments.
@@ -142,7 +142,7 @@ namespace Faithlife.Utility
 		/// equal to, greater than, or less than the second segment, respectively.</returns>
 		public static int Compare(StringSegment segmentA, StringSegment segmentB, StringComparison comparison)
 		{
-			int result = string.Compare(segmentA.Source, segmentA.m_offset, segmentB.Source, segmentB.m_offset, Math.Min(segmentA.m_length, segmentB.m_length), comparison);
+			int result = string.Compare(segmentA.Source, segmentA.Offset, segmentB.Source, segmentB.Offset, Math.Min(segmentA.Length, segmentB.Length), comparison);
 			return CompareHelper(result, segmentA, segmentB);
 		}
 
@@ -155,7 +155,7 @@ namespace Faithlife.Utility
 		/// equal to, greater than, or less than the second segment, respectively.</returns>
 		public static int CompareOrdinal(StringSegment segmentA, StringSegment segmentB)
 		{
-			int result = string.CompareOrdinal(segmentA.Source, segmentA.m_offset, segmentB.Source, segmentB.m_offset, Math.Min(segmentA.m_length, segmentB.m_length));
+			int result = string.CompareOrdinal(segmentA.Source, segmentA.Offset, segmentB.Source, segmentB.Offset, Math.Min(segmentA.Length, segmentB.Length));
 			return CompareHelper(result, segmentA, segmentB);
 		}
 
@@ -166,7 +166,7 @@ namespace Faithlife.Utility
 		/// <returns>Zero, a positive integer, or a negative integer, if the first segment is
 		/// equal to, greater than, or less than the second segment, respectively.</returns>
 		public int CompareTo(StringSegment other)
-			=> CultureInfo.CurrentCulture.CompareInfo.Compare(m_source, m_offset, m_length, other.m_source, other.m_offset, other.m_length, CompareOptions.None);
+			=> CultureInfo.CurrentCulture.CompareInfo.Compare(Source, Offset, Length, other.Source, other.Offset, other.Length, CompareOptions.None);
 
 		/// <summary>
 		/// Copies the characters of the string segment to an array.
@@ -176,7 +176,7 @@ namespace Faithlife.Utility
 		/// <param name="destinationIndex">The first index in the destination array.</param>
 		/// <param name="count">The number of characters to copy.</param>
 		public void CopyTo(int sourceIndex, char[] destination, int destinationIndex, int count)
-			=> m_source.CopyTo(m_offset + sourceIndex, destination, destinationIndex, count);
+			=> Source.CopyTo(Offset + sourceIndex, destination, destinationIndex, count);
 
 		/// <summary>
 		/// Indicates whether this instance and a specified object are equal.
@@ -192,10 +192,10 @@ namespace Faithlife.Utility
 		/// <returns>true if the current object is equal to the other parameter; otherwise, false.</returns>
 		public bool Equals(StringSegment other)
 		{
-			if (m_length != other.m_length)
+			if (Length != other.Length)
 				return false;
 
-			if (object.ReferenceEquals(m_source, other.m_source) && m_offset == other.m_offset)
+			if (object.ReferenceEquals(Source, other.Source) && Offset == other.Offset)
 				return true;
 
 			return CompareOrdinal(this, other) == 0;
@@ -208,8 +208,8 @@ namespace Faithlife.Utility
 		/// iterate through the characters of the string segment.</returns>
 		public IEnumerator<char> GetEnumerator()
 		{
-			for (int index = 0; index < m_length; index++)
-				yield return m_source[m_offset + index];
+			for (int index = 0; index < Length; index++)
+				yield return Source[Offset + index];
 		}
 
 		/// <summary>
@@ -228,8 +228,8 @@ namespace Faithlife.Utility
 		/// or -1 if the character cannot be found.</returns>
 		public int IndexOf(char value)
 		{
-			int index = m_source.IndexOf(value, m_offset, m_length);
-			return index < 0 ? index : index - m_offset;
+			int index = Source.IndexOf(value, Offset, Length);
+			return index < 0 ? index : index - Offset;
 		}
 
 		/// <summary>
@@ -241,11 +241,11 @@ namespace Faithlife.Utility
 		/// or -1 if the character cannot be found.</returns>
 		public int IndexOf(char value, int startIndex)
 		{
-			if (startIndex < 0 || startIndex >= m_length)
+			if (startIndex < 0 || startIndex >= Length)
 				throw new ArgumentOutOfRangeException(nameof(startIndex));
 
-			int index = m_source.IndexOf(value, m_offset + startIndex, m_length - startIndex);
-			return index < 0 ? index : index - m_offset;
+			int index = Source.IndexOf(value, Offset + startIndex, Length - startIndex);
+			return index < 0 ? index : index - Offset;
 		}
 
 		/// <summary>
@@ -257,8 +257,8 @@ namespace Faithlife.Utility
 		/// or -1 if the string cannot be found.</returns>
 		public int IndexOf(string value, StringComparison sc)
 		{
-			int index = m_source.IndexOf(value, m_offset, m_length, sc);
-			return index < 0 ? index : index - m_offset;
+			int index = Source.IndexOf(value, Offset, Length, sc);
+			return index < 0 ? index : index - Offset;
 		}
 
 		/// <summary>
@@ -269,8 +269,8 @@ namespace Faithlife.Utility
 		/// or -1 if none of the characters cannot be found.</returns>
 		public int IndexOfAny(params char[] anyOf)
 		{
-			int index = m_source.IndexOfAny(anyOf, m_offset, m_length);
-			return index < 0 ? index : index - m_offset;
+			int index = Source.IndexOfAny(anyOf, Offset, Length);
+			return index < 0 ? index : index - Offset;
 		}
 
 		/// <summary>
@@ -283,15 +283,15 @@ namespace Faithlife.Utility
 		/// of zero, but will be positioned at the offset of the end-most substring.</remarks>
 		public StringSegment Intersect(StringSegment segment)
 		{
-			if (m_source != segment.m_source)
+			if (Source != segment.Source)
 				throw new ArgumentException("The specified segment is from a different string.", nameof(segment));
-			if (segment.m_offset >= m_offset + m_length)
-				return Redirect(segment.m_offset, 0);
-			if (segment.m_offset >= m_offset)
-				return Redirect(segment.m_offset, Math.Min(segment.m_length, m_offset + m_length - segment.m_offset));
-			if (m_offset >= segment.m_offset + segment.m_length)
-				return Redirect(m_offset, 0);
-			return Redirect(m_offset, Math.Min(m_length, segment.m_offset + segment.m_length - m_offset));
+			if (segment.Offset >= Offset + Length)
+				return Redirect(segment.Offset, 0);
+			if (segment.Offset >= Offset)
+				return Redirect(segment.Offset, Math.Min(segment.Length, Offset + Length - segment.Offset));
+			if (Offset >= segment.Offset + segment.Length)
+				return Redirect(Offset, 0);
+			return Redirect(Offset, Math.Min(Length, segment.Offset + segment.Length - Offset));
 		}
 
 		/// <summary>
@@ -302,8 +302,8 @@ namespace Faithlife.Utility
 		/// or -1 if the character cannot be found.</returns>
 		public int LastIndexOf(char value)
 		{
-			int index = m_source.LastIndexOf(value, m_offset + m_length - 1, m_length);
-			return index < 0 ? index : index - m_offset;
+			int index = Source.LastIndexOf(value, Offset + Length - 1, Length);
+			return index < 0 ? index : index - Offset;
 		}
 
 		/// <summary>
@@ -315,8 +315,8 @@ namespace Faithlife.Utility
 		/// or -1 if the string cannot be found.</returns>
 		public int LastIndexOf(string value, StringComparison comparison)
 		{
-			int index = m_source.LastIndexOf(value, m_offset + m_length - 1, m_length, comparison);
-			return index < 0 ? index : index - m_offset;
+			int index = Source.LastIndexOf(value, Offset + Length - 1, Length, comparison);
+			return index < 0 ? index : index - Offset;
 		}
 
 		/// <summary>
@@ -327,8 +327,8 @@ namespace Faithlife.Utility
 		/// or -1 if none of the characters cannot be found.</returns>
 		public int LastIndexOfAny(params char[] anyOf)
 		{
-			int index = m_source.LastIndexOfAny(anyOf, m_offset + m_length - 1, m_length);
-			return index < 0 ? index : index - m_offset;
+			int index = Source.LastIndexOfAny(anyOf, Offset + Length - 1, Length);
+			return index < 0 ? index : index - Offset;
 		}
 
 		/// <summary>
@@ -338,9 +338,9 @@ namespace Faithlife.Utility
 		/// <returns>The result of calling <c>regex.Match</c> on the segment.</returns>
 		public Match Match(Regex regex)
 		{
-			if (regex == null)
+			if (regex is null)
 				throw new ArgumentNullException(nameof(regex));
-			return regex.Match(m_source, m_offset, m_length);
+			return regex.Match(Source, Offset, Length);
 		}
 
 		/// <summary>
@@ -348,10 +348,8 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="offset">Offset of the new string segment.</param>
 		/// <returns>A new segment with the same owner string.</returns>
-		public StringSegment Redirect(int offset)
-		{
-			return new StringSegment(m_source, offset, m_source.Length - offset);
-		}
+		public StringSegment Redirect(int offset) =>
+			new StringSegment(Source, offset, Source.Length - offset);
 
 		/// <summary>
 		/// Returns a new <see cref="StringSegment"/> with the same owner string.
@@ -359,10 +357,8 @@ namespace Faithlife.Utility
 		/// <param name="offset">Offset of the new string segment.</param>
 		/// <param name="length">Length of the new string segment.</param>
 		/// <returns>A new segment with the same owner string.</returns>
-		public StringSegment Redirect(int offset, int length)
-		{
-			return new StringSegment(m_source, offset, length);
-		}
+		public StringSegment Redirect(int offset, int length) =>
+			new StringSegment(Source, offset, length);
 
 		/// <summary>
 		/// Returns a new <see cref="StringSegment"/> with the same owner string.
@@ -371,9 +367,9 @@ namespace Faithlife.Utility
 		/// <returns>A new segment with the same owner string.</returns>
 		public StringSegment Redirect(Capture capture)
 		{
-			if (capture == null)
+			if (capture is null)
 				throw new ArgumentNullException(nameof(capture));
-			return new StringSegment(m_source, capture.Index, capture.Length);
+			return new StringSegment(Source, capture.Index, capture.Length);
 		}
 
 		/// <summary>
@@ -398,7 +394,7 @@ namespace Faithlife.Utility
 			if (!regex.RightToLeft)
 			{
 				// loop through matches
-				int resultOffset = m_offset;
+				int resultOffset = Offset;
 				do
 				{
 					// yield segment before match
@@ -420,12 +416,12 @@ namespace Faithlife.Utility
 				while (match.Success);
 
 				// yield segment after last match
-				yield return Redirect(resultOffset, m_offset + m_length - resultOffset);
+				yield return Redirect(resultOffset, Offset + Length - resultOffset);
 			}
 			else
 			{
 				// loop through matches right to left
-				int resultOffset = m_offset + m_length;
+				int resultOffset = Offset + Length;
 				do
 				{
 					// yield segment before match
@@ -447,7 +443,7 @@ namespace Faithlife.Utility
 				while (match.Success);
 
 				// yield segment after last match
-				yield return Redirect(m_offset, resultOffset - m_offset);
+				yield return Redirect(Offset, resultOffset - Offset);
 			}
 		}
 
@@ -456,7 +452,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="index">The start index into this segment.</param>
 		/// <returns>A sub-segment of this segment</returns>
-		public StringSegment Substring(int index) => Redirect(m_offset + index, m_length - index);
+		public StringSegment Substring(int index) => Redirect(Offset + index, Length - index);
 
 		/// <summary>
 		/// Returns a sub-segment of this segment.
@@ -464,7 +460,7 @@ namespace Faithlife.Utility
 		/// <param name="index">The start index into this segment.</param>
 		/// <param name="length">The length of the sub-segment.</param>
 		/// <returns>A sub-segment of this segment</returns>
-		public StringSegment Substring(int index, int length) => Redirect(m_offset + index, length);
+		public StringSegment Substring(int index, int length) => Redirect(Offset + index, length);
 
 		/// <summary>
 		/// Trims the whitespace from the start and end of the string segment.
@@ -509,26 +505,26 @@ namespace Faithlife.Utility
 		/// Returns the array of characters represented by this string segment.
 		/// </summary>
 		/// <returns></returns>
-		public char[] ToCharArray() => m_source.ToCharArray(m_offset, m_length);
+		public char[] ToCharArray() => Source.ToCharArray(Offset, Length);
 
 		/// <summary>
 		/// Returns the string segment as a string.
 		/// </summary>
 		/// <returns>The string segment as a string.</returns>
-		public override string ToString() => m_source == null ? "" : m_source.Substring(m_offset, m_length);
+		public override string ToString() => Source is null ? "" : Source.Substring(Offset, Length);
 
 		/// <summary>
 		/// Returns the string segment as a <see cref="StringBuilder" />.
 		/// </summary>
 		/// <returns>The string segment as a <see cref="StringBuilder" />.</returns>
-		public StringBuilder ToStringBuilder() => new StringBuilder(m_source, m_offset, m_length, 0);
+		public StringBuilder ToStringBuilder() => new StringBuilder(Source, Offset, Length, 0);
 
 		/// <summary>
 		/// Returns the string segment as a <see cref="StringBuilder"/>.
 		/// </summary>
 		/// <param name="capacity">The capacity of the new <see cref="StringBuilder"/>.</param>
 		/// <returns>The string segment as a <see cref="StringBuilder"/>.</returns>
-		public StringBuilder ToStringBuilder(int capacity) => new StringBuilder(m_source, m_offset, m_length, capacity);
+		public StringBuilder ToStringBuilder(int capacity) => new StringBuilder(Source, Offset, Length, capacity);
 
 		/// <summary>
 		/// Returns the union of this segment with another segment of the same string.
@@ -539,10 +535,10 @@ namespace Faithlife.Utility
 		/// characters between the two segments.</remarks>
 		public StringSegment Union(StringSegment segment)
 		{
-			if (m_source != segment.m_source)
+			if (Source != segment.Source)
 				throw new ArgumentException("The specified segment is from a different string.", nameof(segment));
-			int start = Math.Min(m_offset, segment.m_offset);
-			int end = Math.Max(m_offset + m_length, segment.m_offset + segment.m_length);
+			int start = Math.Min(Offset, segment.Offset);
+			int end = Math.Max(Offset + Length, segment.Offset + segment.Length);
 			return Redirect(start, end - start);
 		}
 
@@ -575,19 +571,19 @@ namespace Faithlife.Utility
 
 		private StringSegment TrimHelper(int trimType)
 		{
-			int start = m_offset;
-			int end = m_offset + m_length;
+			int start = Offset;
+			int end = Offset + Length;
 
 			if (trimType != c_trimTypeEnd)
 				while (start < end)
-					if (char.IsWhiteSpace(m_source[start]))
+					if (char.IsWhiteSpace(Source[start]))
 						start++;
 					else
 						break;
 
 			if (trimType != c_trimTypeStart)
 				while (start < end)
-					if (char.IsWhiteSpace(m_source[end - 1]))
+					if (char.IsWhiteSpace(Source[end - 1]))
 						end--;
 					else
 						break;
@@ -597,19 +593,19 @@ namespace Faithlife.Utility
 
 		private StringSegment TrimHelper(char[] trimChars, int trimType)
 		{
-			int start = m_offset;
-			int end = m_offset + m_length;
+			int start = Offset;
+			int end = Offset + Length;
 
 			if (trimType != c_trimTypeEnd)
 				while (start < end)
-					if (Array.IndexOf(trimChars, m_source[start]) >= 0)
+					if (Array.IndexOf(trimChars, Source[start]) >= 0)
 						start++;
 					else
 						break;
 
 			if (trimType != c_trimTypeStart)
 				while (start < end)
-					if (Array.IndexOf(trimChars, m_source[end - 1]) >= 0)
+					if (Array.IndexOf(trimChars, Source[end - 1]) >= 0)
 						end--;
 					else
 						break;
@@ -618,10 +614,6 @@ namespace Faithlife.Utility
 		}
 
 		// Compares the string length if the string segments otherwise compare equal
-		private static int CompareHelper(int result, StringSegment segA, StringSegment segB) => result != 0 ? result : segA.m_length.CompareTo(segB.m_length);
-
-		readonly string m_source;
-		readonly int m_offset;
-		readonly int m_length;
+		private static int CompareHelper(int result, StringSegment segA, StringSegment segB) => result != 0 ? result : segA.Length.CompareTo(segB.Length);
 	}
 }

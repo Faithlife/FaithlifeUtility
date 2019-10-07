@@ -154,7 +154,7 @@ namespace Faithlife.Utility
 				m_blocks.AddRange(new byte[blockIndex - m_blocks.Count + 1][]);
 
 			byte[] blockData = m_blocks[blockIndex];
-			if (blockData == null)
+			if (blockData is null)
 			{
 				WrappedStream.Position = blockIndex * c_blockSize;
 				blockData = new byte[c_blockSize];
@@ -175,7 +175,7 @@ namespace Faithlife.Utility
 				m_blocks.AddRange(new byte[blockIndex - m_blocks.Count + 1][]);
 
 			byte[] blockData = m_blocks[blockIndex];
-			if (blockData == null)
+			if (blockData is null)
 			{
 				WrappedStream.Position = blockIndex * c_blockSize;
 				blockData = new byte[c_blockSize];

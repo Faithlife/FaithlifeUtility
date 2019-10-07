@@ -30,7 +30,7 @@ namespace Faithlife.Utility
 		public string? GetOrAdd(string? value)
 		{
 			// check for trivial cases
-			if (value == null)
+			if (value is null)
 				return null;
 			if (value.Length == 0)
 				return "";

@@ -18,7 +18,7 @@ namespace Faithlife.Utility
 		/// <param name="second">The second sequence.</param>
 		/// <returns><c>True</c> if the sequences are equal.</returns>
 		public static bool AreEqual<T>(IEnumerable<T> first, IEnumerable<T> second)
-			=> first != null ? second != null && first.SequenceEqual(second) : second == null;
+			=> first is object ? second is object && first.SequenceEqual(second) : second is null;
 
 		/// <summary>
 		/// Returns a value indicating whether the specified sequences are equal using the specified equality comparer. Supports one or both sequences being null.
@@ -28,7 +28,7 @@ namespace Faithlife.Utility
 		/// <param name="comparer">The comparer.</param>
 		/// <returns><c>True</c> if the sequences are equal.</returns>
 		public static bool AreEqual<T>(IEnumerable<T> first, IEnumerable<T> second, IEqualityComparer<T>? comparer)
-			=> first != null ? second != null && first.SequenceEqual(second, comparer) : second == null;
+			=> first is object ? second is object && first.SequenceEqual(second, comparer) : second is null;
 
 		/// <summary>
 		/// Returns a value indicating whether the specified sequences are equal using the specified equality comparer. Supports one or both sequences being null.
@@ -38,7 +38,7 @@ namespace Faithlife.Utility
 		/// <param name="equals">Returns true if two items are equal.</param>
 		/// <returns><c>True</c> if the sequences are equal.</returns>
 		public static bool AreEqual<T>(IEnumerable<T> first, IEnumerable<T> second, Func<T, T, bool>? equals)
-			=> AreEqual(first, second, equals == null ? null : ObjectUtility.CreateEqualityComparer(equals));
+			=> AreEqual(first, second, equals is null ? null : ObjectUtility.CreateEqualityComparer(equals));
 
 		/// <summary>
 		/// Returns true if the count is as specified.
@@ -51,7 +51,7 @@ namespace Faithlife.Utility
 		/// when the count may be much larger than the count being tested.</remarks>
 		public static bool CountIsExactly<T>(this IEnumerable<T> source, int count)
 		{
-			if (source == null)
+			if (source is null)
 				throw new ArgumentNullException(nameof(source));
 			if (count < 0)
 				throw new ArgumentOutOfRangeException(nameof(count));
@@ -64,16 +64,14 @@ namespace Faithlife.Utility
 			else
 			{
 				// iterate the sequence
-				using (IEnumerator<T> enumerator = source.GetEnumerator())
+				using var enumerator = source.GetEnumerator();
+				while (enumerator.MoveNext())
 				{
-					while (enumerator.MoveNext())
-					{
-						if (count == 0)
-							return false;
-						count--;
-					}
-					return count == 0;
+					if (count == 0)
+						return false;
+					count--;
 				}
+				return count == 0;
 			}
 		}
 
@@ -88,7 +86,7 @@ namespace Faithlife.Utility
 		/// when the count may be much larger than the count being tested.</remarks>
 		public static bool CountIsAtLeast<T>(this IEnumerable<T> source, int count)
 		{
-			if (source == null)
+			if (source is null)
 				throw new ArgumentNullException(nameof(source));
 			if (count < 0)
 				throw new ArgumentOutOfRangeException(nameof(count));
@@ -103,16 +101,14 @@ namespace Faithlife.Utility
 			else
 			{
 				// iterate the sequence
-				using (IEnumerator<T> enumerator = source.GetEnumerator())
+				using var enumerator = source.GetEnumerator();
+				while (enumerator.MoveNext())
 				{
-					while (enumerator.MoveNext())
-					{
-						count--;
-						if (count == 0)
-							return true;
-					}
-					return false;
+					count--;
+					if (count == 0)
+						return true;
 				}
+				return false;
 			}
 		}
 
@@ -135,7 +131,7 @@ namespace Faithlife.Utility
 		/// the second item is from the second input sequence, and so on.</returns>
 		public static IEnumerable<IEnumerable<T>> CrossProduct<T>(this IEnumerable<IEnumerable<T>> sources)
 		{
-			if (sources == null)
+			if (sources is null)
 				throw new ArgumentNullException(nameof(sources));
 			var collections = sources.Select(x => x.AsReadOnlyList()).AsReadOnlyList();
 			if (collections.Count == 0)
@@ -198,9 +194,9 @@ namespace Faithlife.Utility
 		/// <returns>An <see cref="IEnumerable{T}"/> that contains distinct elements from the source sequence.</returns>
 		public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? equalityComparer)
 		{
-			if (source == null)
+			if (source is null)
 				throw new ArgumentNullException(nameof(source));
-			if (keySelector == null)
+			if (keySelector is null)
 				throw new ArgumentNullException(nameof(keySelector));
 
 			return source.Distinct(new KeyEqualityComparer<TSource, TKey>(keySelector, equalityComparer ?? EqualityComparer<TKey>.Default));
@@ -217,17 +213,17 @@ namespace Faithlife.Utility
 		/// not fully evaluating each batch (the inner enumerator) before advancing the outer enumerator.</remarks>
 		public static IEnumerable<IReadOnlyList<T>> EnumerateBatches<T>(this IEnumerable<T> source, int batchSize)
 		{
-			if (source == null)
+			if (source is null)
 				throw new ArgumentNullException(nameof(source));
 			if (batchSize < 1)
 				throw new ArgumentOutOfRangeException(nameof(batchSize));
 
 			// optimize for small lists
-			if (source is IList<T> sourceAsList)
+			if (source is ICollection<T> sourceAsCollection)
 			{
-				int count = sourceAsList.Count;
+				int count = sourceAsCollection.Count;
 				if (count <= batchSize)
-					return count != 0 ? new[] { sourceAsList.AsReadOnly() } : Enumerable.Empty<ReadOnlyCollection<T>>();
+					return count != 0 ? new[] { sourceAsCollection.AsReadOnlyList() } : Enumerable.Empty<IReadOnlyList<T>>();
 			}
 
 			// iterator in a separate function causes arguments to be validated immediately
@@ -291,7 +287,7 @@ namespace Faithlife.Utility
 		/// <returns>A sequence of elements from the source collection, with value interspersed.</returns>
 		public static IEnumerable<T> Intersperse<T>(this IEnumerable<T> source, T value)
 		{
-			if (source == null)
+			if (source is null)
 				throw new ArgumentNullException(nameof(source));
 
 			// iterator in a separate function causes arguments to be validated immediately
@@ -299,16 +295,14 @@ namespace Faithlife.Utility
 
 			IEnumerable<T> doIntersperse()
 			{
-				using (IEnumerator<T> it = source.GetEnumerator())
-				{
-					if (it.MoveNext())
-						yield return it.Current;
+				using var it = source.GetEnumerator();
+				if (it.MoveNext())
+					yield return it.Current;
 
-					while (it.MoveNext())
-					{
-						yield return value;
-						yield return it.Current;
-					}
+				while (it.MoveNext())
+				{
+					yield return value;
+					yield return it.Current;
 				}
 			}
 		}
@@ -330,25 +324,22 @@ namespace Faithlife.Utility
 		/// <returns><c>true</c> if the specified sequence is sorted; otherwise, <c>false</c>.</returns>
 		public static bool IsSorted<T>(this IEnumerable<T> source, IComparer<T>? comparer)
 		{
-			if (source == null)
+			if (source is null)
 				throw new ArgumentNullException(nameof(source));
 
-			if (comparer == null)
-				comparer = Comparer<T>.Default;
+			comparer ??= Comparer<T>.Default;
 
-			using (IEnumerator<T> it = source.GetEnumerator())
+			using var it = source.GetEnumerator();
+			if (it.MoveNext())
 			{
-				if (it.MoveNext())
-				{
-					T last = it.Current;
+				T last = it.Current;
 
-					while (it.MoveNext())
-					{
-						T item = it.Current;
-						if (comparer.Compare(last, item) > 0)
-							return false;
-						last = item;
-					}
+				while (it.MoveNext())
+				{
+					T item = it.Current;
+					if (comparer.Compare(last, item) > 0)
+						return false;
+					last = item;
 				}
 			}
 
@@ -388,30 +379,27 @@ namespace Faithlife.Utility
 		/// <returns>0 if they are equal; less than zero if the first is less than the second; greater than zero if the first is greater than the second.</returns>
 		public static int SequenceCompare<T>(this IEnumerable<T> first, IEnumerable<T> second, IComparer<T>? comparer)
 		{
-			if (first == null)
+			if (first is null)
 				throw new ArgumentNullException(nameof(first));
-			if (second == null)
+			if (second is null)
 				throw new ArgumentNullException(nameof(second));
 
-			if (comparer == null)
-				comparer = Comparer<T>.Default;
+			comparer ??= Comparer<T>.Default;
 
-			using (IEnumerator<T> firstEnumerator = first.GetEnumerator())
-			using (IEnumerator<T> secondEnumerator = second.GetEnumerator())
+			using var firstEnumerator = first.GetEnumerator();
+			using var secondEnumerator = second.GetEnumerator();
+			while (firstEnumerator.MoveNext())
 			{
-				while (firstEnumerator.MoveNext())
-				{
-					if (!secondEnumerator.MoveNext())
-						return 1;
+				if (!secondEnumerator.MoveNext())
+					return 1;
 
-					int compare = comparer.Compare(firstEnumerator.Current, secondEnumerator.Current);
-					if (compare != 0)
-						return compare;
-				}
-
-				if (secondEnumerator.MoveNext())
-					return -1;
+				int compare = comparer.Compare(firstEnumerator.Current, secondEnumerator.Current);
+				if (compare != 0)
+					return compare;
 			}
+
+			if (secondEnumerator.MoveNext())
+				return -1;
 
 			return 0;
 		}
@@ -435,11 +423,10 @@ namespace Faithlife.Utility
 		/// <remarks>If the sequence is null, zero is returned.</remarks>
 		public static int SequenceHashCode<T>(this IEnumerable<T> source, IEqualityComparer<T>? comparer)
 		{
-			if (source == null)
+			if (source is null)
 				return 0;
 
-			if (comparer == null)
-				comparer = EqualityComparer<T>.Default;
+			comparer ??= EqualityComparer<T>.Default;
 
 			return HashCodeUtility.CombineHashCodes(source.Select(x => comparer.GetHashCode(x)).ToArray());
 		}
@@ -461,7 +448,7 @@ namespace Faithlife.Utility
 		/// </remarks>
 		public static IEnumerable<ReadOnlyCollection<T>> SplitIntoBins<T>(this IEnumerable<T> source, int binCount)
 		{
-			if (source == null)
+			if (source is null)
 				throw new ArgumentNullException(nameof(source));
 			if (binCount < 1)
 				throw new ArgumentOutOfRangeException(nameof(binCount));
@@ -479,7 +466,7 @@ namespace Faithlife.Utility
 				if (remainder > 0)
 					binSize++;
 
-				List<T> batch = new List<T>(binSize);
+				var batch = new List<T>(binSize);
 
 				foreach (T item in source)
 				{
@@ -528,46 +515,43 @@ namespace Faithlife.Utility
 		/// <returns>a sorted sequence</returns>
 		public static IEnumerable<T> MergeSorted<T>(IEnumerable<T> source1, IEnumerable<T> source2, IComparer<T> comparer)
 		{
-			if (source1 == null)
+			if (source1 is null)
 				throw new ArgumentNullException(nameof(source1));
-			if (source2 == null)
+			if (source2 is null)
 				throw new ArgumentNullException(nameof(source2));
 
-			if (comparer == null)
-				comparer = Comparer<T>.Default;
+			comparer ??= Comparer<T>.Default;
 
 			return doMerge();
 
 			IEnumerable<T> doMerge()
 			{
-				using (IEnumerator<T> enumerator1 = source1.GetEnumerator())
-				using (IEnumerator<T> enumerator2 = source2.GetEnumerator())
+				using var enumerator1 = source1.GetEnumerator();
+				using var enumerator2 = source2.GetEnumerator();
+				bool hasMore1 = enumerator1.MoveNext();
+				bool hasMore2 = enumerator2.MoveNext();
+				while (hasMore1 && hasMore2)
 				{
-					bool bMore1 = enumerator1.MoveNext();
-					bool bMore2 = enumerator2.MoveNext();
-					while (bMore1 && bMore2)
-					{
-						if (comparer.Compare(enumerator1.Current, enumerator2.Current) <= 0)
-						{
-							yield return enumerator1.Current;
-							bMore1 = enumerator1.MoveNext();
-						}
-						else
-						{
-							yield return enumerator2.Current;
-							bMore2 = enumerator2.MoveNext();
-						}
-					}
-					while (bMore1)
+					if (comparer.Compare(enumerator1.Current, enumerator2.Current) <= 0)
 					{
 						yield return enumerator1.Current;
-						bMore1 = enumerator1.MoveNext();
+						hasMore1 = enumerator1.MoveNext();
 					}
-					while (bMore2)
+					else
 					{
 						yield return enumerator2.Current;
-						bMore2 = enumerator2.MoveNext();
+						hasMore2 = enumerator2.MoveNext();
 					}
+				}
+				while (hasMore1)
+				{
+					yield return enumerator1.Current;
+					hasMore1 = enumerator1.MoveNext();
+				}
+				while (hasMore2)
+				{
+					yield return enumerator2.Current;
+					hasMore2 = enumerator2.MoveNext();
 				}
 			}
 		}
@@ -582,14 +566,14 @@ namespace Faithlife.Utility
 		/// <remarks>The source sequence is only evaluated once.</remarks>
 		public static IReadOnlyList<T> TakeLast<T>(this IEnumerable<T> source, int count)
 		{
-			if (source == null)
+			if (source is null)
 				throw new ArgumentNullException(nameof(source));
 			if (count < 0)
 				throw new ArgumentOutOfRangeException(nameof(count));
 			else if (count == 0)
 				return new T[0];
 
-			Queue<T> queue = new Queue<T>(count);
+			var queue = new Queue<T>(count);
 			foreach (T item in source)
 			{
 				if (queue.Count >= count)
@@ -626,7 +610,7 @@ namespace Faithlife.Utility
 		/// </remarks>
 		public static ISet<T> AsSet<T>(this IEnumerable<T> source)
 		{
-			if (source == null)
+			if (source is null)
 				throw new ArgumentNullException(nameof(source));
 
 			return source as ISet<T> ?? new HashSet<T>(source);
@@ -641,7 +625,7 @@ namespace Faithlife.Utility
 		/// <returns><c>True</c> if the sequence is not empty; otherwise, <c>false</c>.</returns>
 		public static bool TryFirst<T>(this IEnumerable<T> source, out T found)
 		{
-			if (source == null)
+			if (source is null)
 				throw new ArgumentNullException(nameof(source));
 
 			foreach (T item in source)
@@ -664,9 +648,9 @@ namespace Faithlife.Utility
 		/// <returns><c>True</c> if any elements in the source sequence pass the test in the specified predicate; otherwise, <c>false</c>.</returns>
 		public static bool TryFirst<T>(this IEnumerable<T> source, Func<T, bool> predicate, out T found)
 		{
-			if (source == null)
+			if (source is null)
 				throw new ArgumentNullException(nameof(source));
-			if (predicate == null)
+			if (predicate is null)
 				throw new ArgumentNullException(nameof(predicate));
 
 			foreach (T item in source)
@@ -690,9 +674,9 @@ namespace Faithlife.Utility
 		public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T> source)
 			where T : class
 		{
-			if (source == null)
+			if (source is null)
 				throw new ArgumentNullException(nameof(source));
-			return source.Where(x => x != null);
+			return source.Where(x => x is object);
 		}
 
 		/// <summary>
@@ -703,7 +687,7 @@ namespace Faithlife.Utility
 		public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T?> source)
 			where T : struct
 		{
-			if (source == null)
+			if (source is null)
 				throw new ArgumentNullException(nameof(source));
 
 			return doWhereNotNull();
@@ -724,15 +708,8 @@ namespace Faithlife.Utility
 		/// <param name="first">An IEnumerable whos elements will be returned as ValueTuple.First.</param>
 		/// <param name="second">An IEnumerable whos elements will be returned as ValueTuple.Second.</param>
 		/// <returns>A sequence of tuples combining the input items. Throws if the sequences don't have the same number of items.</returns>
-		public static IEnumerable<ValueTuple<T1, T2>> Zip<T1, T2>(this IEnumerable<T1> first, IEnumerable<T2> second)
-		{
-			if (first == null)
-				throw new ArgumentNullException(nameof(first));
-			if (second == null)
-				throw new ArgumentNullException(nameof(second));
-
-			return ZipImpl(first, second, UnbalancedZipStrategy.Throw);
-		}
+		public static IEnumerable<ValueTuple<T1, T2>> Zip<T1, T2>(this IEnumerable<T1> first, IEnumerable<T2> second) =>
+			ZipImpl(first ?? throw new ArgumentNullException(nameof(first)), second ?? throw new ArgumentNullException(nameof(second)), UnbalancedZipStrategy.Throw);
 
 		/// <summary>
 		/// Combines two sequences.
@@ -740,15 +717,8 @@ namespace Faithlife.Utility
 		/// <param name="first">An IEnumerable whos elements will be returned as ValueTuple.First.</param>
 		/// <param name="second">An IEnumerable whos elements will be returned as ValueTuple.Second.</param>
 		/// <returns>A sequence of tuples combining the input items. If the sequences don't have the same number of items, it stops at the end of the shorter sequence.</returns>
-		public static IEnumerable<ValueTuple<T1, T2>> ZipTruncate<T1, T2>(this IEnumerable<T1> first, IEnumerable<T2> second)
-		{
-			if (first == null)
-				throw new ArgumentNullException(nameof(first));
-			if (second == null)
-				throw new ArgumentNullException(nameof(second));
-
-			return ZipImpl(first, second, UnbalancedZipStrategy.Truncate);
-		}
+		public static IEnumerable<ValueTuple<T1, T2>> ZipTruncate<T1, T2>(this IEnumerable<T1> first, IEnumerable<T2> second) =>
+			ZipImpl(first ?? throw new ArgumentNullException(nameof(first)), second ?? throw new ArgumentNullException(nameof(second)), UnbalancedZipStrategy.Truncate);
 
 		/// <summary>
 		/// Makes distinct and then removes a single item from a sequence.
@@ -777,48 +747,46 @@ namespace Faithlife.Utility
 		/// <returns>A sequence of IGroupings containing a sequence of objects and a key.</returns>
 		public static IEnumerable<IGrouping<TKey, TSource>> GroupConsecutiveBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
 		{
-			if (source == null)
+			if (source is null)
 				throw new ArgumentNullException(nameof(source));
-			if (keySelector == null)
+			if (keySelector is null)
 				throw new ArgumentNullException(nameof(keySelector));
 
 			return doGroupConsecutive();
 
 			IEnumerable<IGrouping<TKey, TSource>> doGroupConsecutive()
 			{
-				using (IEnumerator<TSource> enumerator = source.GetEnumerator())
+				using var enumerator = source.GetEnumerator();
+				if (!enumerator.MoveNext())
+					yield break;
+
+				var comparer = EqualityComparer<TKey>.Default;
+
+				var lastKey = keySelector(enumerator.Current);
+				var values = new List<TSource>
 				{
-					if (!enumerator.MoveNext())
-						yield break;
+					enumerator.Current
+				};
 
-					EqualityComparer<TKey> comparer = EqualityComparer<TKey>.Default;
-
-					TKey lastKey = keySelector(enumerator.Current);
-					List<TSource> values = new List<TSource>
+				while (enumerator.MoveNext())
+				{
+					var currentKey = keySelector(enumerator.Current);
+					if (comparer.Equals(lastKey, currentKey))
 					{
-						enumerator.Current
-					};
-
-					while (enumerator.MoveNext())
-					{
-						TKey currentKey = keySelector(enumerator.Current);
-						if (comparer.Equals(lastKey, currentKey))
-						{
-							values.Add(enumerator.Current);
-						}
-						else
-						{
-							yield return new Grouping<TKey, TSource>(lastKey, values.AsReadOnly());
-							lastKey = currentKey;
-							values = new List<TSource>
-							{
-								enumerator.Current
-							};
-						}
+						values.Add(enumerator.Current);
 					}
-
-					yield return new Grouping<TKey, TSource>(lastKey, values.AsReadOnly());
+					else
+					{
+						yield return new Grouping<TKey, TSource>(lastKey, values.AsReadOnly());
+						lastKey = currentKey;
+						values = new List<TSource>
+						{
+							enumerator.Current
+						};
+					}
 				}
+
+				yield return new Grouping<TKey, TSource>(lastKey, values.AsReadOnly());
 			}
 		}
 
@@ -847,25 +815,23 @@ namespace Faithlife.Utility
 
 		private static IEnumerable<ValueTuple<T1, T2>> ZipImpl<T1, T2>(IEnumerable<T1> first, IEnumerable<T2> second, UnbalancedZipStrategy strategy)
 		{
-			using (IEnumerator<T1> firstEnumerator = first.GetEnumerator())
-			using (IEnumerator<T2> secondEnumerator = second.GetEnumerator())
+			using var firstEnumerator = first.GetEnumerator();
+			using var secondEnumerator = second.GetEnumerator();
+			while (firstEnumerator.MoveNext())
 			{
-				while (firstEnumerator.MoveNext())
-				{
-					if (secondEnumerator.MoveNext())
-						yield return ValueTuple.Create(firstEnumerator.Current, secondEnumerator.Current);
-					else if (strategy == UnbalancedZipStrategy.Truncate)
-						yield break;
-					else
-						throw new ArgumentException("Both sequences must be of the same size, first is larger.", nameof(first));
-				}
 				if (secondEnumerator.MoveNext())
-				{
-					if (strategy == UnbalancedZipStrategy.Truncate)
-						yield break;
-					else
-						throw new ArgumentException("Both sequences must be of the same size, second is larger.", nameof(second));
-				}
+					yield return ValueTuple.Create(firstEnumerator.Current, secondEnumerator.Current);
+				else if (strategy == UnbalancedZipStrategy.Truncate)
+					yield break;
+				else
+					throw new ArgumentException("Both sequences must be of the same size, first is larger.", nameof(first));
+			}
+			if (secondEnumerator.MoveNext())
+			{
+				if (strategy == UnbalancedZipStrategy.Truncate)
+					yield break;
+				else
+					throw new ArgumentException("Both sequences must be of the same size, second is larger.", nameof(second));
 			}
 		}
 	}

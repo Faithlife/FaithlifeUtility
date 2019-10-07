@@ -14,7 +14,7 @@ namespace Faithlife.Utility
 		/// <returns>A byte array containing the bytes represented in the string.</returns>
 		public static byte[] ToBytes(string value)
 		{
-			if (value == null)
+			if (value is null)
 				throw new ArgumentNullException(nameof(value));
 			if (value.Length % 2 != 0)
 				throw new ArgumentException("There must be an even number of characters in the string.", nameof(value));
@@ -33,7 +33,7 @@ namespace Faithlife.Utility
 		/// <returns>A string containing two hexadecimal digits for each input byte.</returns>
 		public static string ToString(byte[] bytes)
 		{
-			if (bytes == null)
+			if (bytes is null)
 				throw new ArgumentNullException(nameof(bytes));
 
 			const string hexDigits = "0123456789ABCDEF";

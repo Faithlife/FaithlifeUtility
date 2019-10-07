@@ -13,7 +13,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="obj">The object for which to get a hash code.</param>
 		/// <returns>The hash code for the specified object, or zero if the object is null.</returns>
-		public static int GetHashCode<T>(T obj) => obj == null ? 0 : obj.GetHashCode();
+		public static int GetHashCode<T>(T obj) => obj is null ? 0 : obj.GetHashCode();
 
 		/// <summary>
 		/// Creates an equality comparer from delegates.

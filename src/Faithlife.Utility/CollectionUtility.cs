@@ -16,11 +16,11 @@ namespace Faithlife.Utility
 		/// <param name="items">The sequence of items to add to the collection.</param>
 		public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> items)
 		{
-			if (collection == null)
+			if (collection is null)
 				throw new ArgumentNullException(nameof(collection));
 			if (collection.IsReadOnly)
 				throw new ArgumentException("The collection must not be read-only.", nameof(collection));
-			if (items == null)
+			if (items is null)
 				throw new ArgumentNullException(nameof(items));
 
 			// check for, and invoke, the most efficient method that is available
@@ -30,7 +30,7 @@ namespace Faithlife.Utility
 			}
 			else
 			{
-				foreach (T item in items)
+				foreach (var item in items)
 					collection.Add(item);
 			}
 		}
@@ -43,7 +43,7 @@ namespace Faithlife.Utility
 		/// <param name="value">The value to add. May be null.</param>
 		public static void AddIfNotNull<T>(this ICollection<T> collection, T value)
 		{
-			if (value != null)
+			if (value is object)
 				collection.Add(value);
 		}
 

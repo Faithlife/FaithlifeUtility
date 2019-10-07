@@ -10,7 +10,7 @@ namespace Faithlife.Utility
 	/// </summary>
 	/// <typeparam name="T">The type of the optional value.</typeparam>
 	[SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Justification = "Optional is not reserved in C#.")]
-	public struct Optional<T> : IEquatable<Optional<T>>, IOptional
+	public readonly struct Optional<T> : IEquatable<Optional<T>>, IOptional
 	{
 		/// <summary>
 		/// Initializes a new instance of the Optional{T} structure to the specified value. 
@@ -19,13 +19,13 @@ namespace Faithlife.Utility
 		public Optional(T value)
 		{
 			m_value = value;
-			m_hasValue = true;
+			HasValue = true;
 		}
 
 		/// <summary>
 		/// Gets a value indicating whether the current Optional{T} object has a value.
 		/// </summary>
-		public bool HasValue => m_hasValue;
+		public bool HasValue { get; }
 
 		/// <summary>
 		/// Gets the value of the current Optional{T} value.
@@ -35,7 +35,7 @@ namespace Faithlife.Utility
 		{
 			get
 			{
-				if (!m_hasValue)
+				if (!HasValue)
 					throw new InvalidOperationException("The HasValue property is false.");
 
 				return m_value;
@@ -59,7 +59,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="other">An object to compare with this object.</param>
 		/// <returns>True if the current object is equal to the <paramref name="other"/> parameter; otherwise, false.</returns>
-		public bool Equals(Optional<T> other) => m_hasValue && other.m_hasValue ? EqualityComparer<T>.Default.Equals(m_value, other.m_value) : m_hasValue == other.m_hasValue;
+		public bool Equals(Optional<T> other) => HasValue && other.HasValue ? EqualityComparer<T>.Default.Equals(m_value, other.m_value) : HasValue == other.HasValue;
 
 		/// <summary>
 		/// Indicates whether the current object is equal to another object of the same type.
@@ -72,26 +72,26 @@ namespace Faithlife.Utility
 		/// Retrieves the hash code of the object returned by the Value property.
 		/// </summary>
 		/// <returns>The hash code of the object returned by the Value property if the HasValue property is true and the Value is not null; otherwise zero.</returns>
-		public override int GetHashCode() => m_hasValue && m_value != null ? EqualityComparer<T>.Default.GetHashCode(m_value) : 0;
+		public override int GetHashCode() => HasValue && m_value is object ? EqualityComparer<T>.Default.GetHashCode(m_value) : 0;
 
 		/// <summary>
 		/// Retrieves the value of the current Optional{T} object, or the object's default value.
 		/// </summary>
 		/// <returns>The value of the Value property if the HasValue property is true; otherwise, the default value of the type T.</returns>
-		public T GetValueOrDefault() => GetValueOrDefault(default(T));
+		public T GetValueOrDefault() => GetValueOrDefault(default);
 
 		/// <summary>
 		/// Retrieves the value of the current Optional{T} object, or the specified default value.
 		/// </summary>
 		/// <param name="defaultValue">A value to return if the HasValue property is false.</param>
 		/// <returns>The value of the Value property if the HasValue property is true; otherwise, the defaultValue parameter.</returns>
-		public T GetValueOrDefault(T defaultValue) => m_hasValue ? m_value : defaultValue;
+		public T GetValueOrDefault(T defaultValue) => HasValue ? m_value : defaultValue;
 
 		/// <summary>
 		/// Returns the text representation of the value of the current Optional{T} object.
 		/// </summary>
 		/// <returns>The text representation of the object returned by the Value property if the HasValue property is true and the Value is not null; otherwise the empty string.</returns>
-		public override string ToString() => m_hasValue && m_value != null ? m_value.ToString() : "";
+		public override string ToString() => HasValue && m_value is object ? m_value.ToString() : "";
 
 		/// <summary>
 		/// Creates a new Optional{T} object initialized to a specified value. 
@@ -124,7 +124,6 @@ namespace Faithlife.Utility
 		/// <returns><c>true</c> if the instances are not equal; otherwise, <c>false</c>.</returns>
 		public static bool operator !=(Optional<T> left, Optional<T> right) => !left.Equals(right);
 
-		readonly bool m_hasValue;
 		readonly T m_value;
 	}
 }

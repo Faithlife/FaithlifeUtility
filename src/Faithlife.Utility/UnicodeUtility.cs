@@ -61,7 +61,7 @@ namespace Faithlife.Utility
 		public static int GetCharacterLength(StringBuilder stringBuilder, int index)
 		{
 			// check arguments
-			if (stringBuilder == null)
+			if (stringBuilder is null)
 				throw new ArgumentNullException(nameof(stringBuilder));
 			if (index < 0 || index >= stringBuilder.Length)
 				throw new ArgumentOutOfRangeException(nameof(index));
@@ -81,7 +81,7 @@ namespace Faithlife.Utility
 		public static int GetCodePoint(StringBuilder stringBuilder, int index)
 		{
 			// check arguments
-			if (stringBuilder == null)
+			if (stringBuilder is null)
 				throw new ArgumentNullException(nameof(stringBuilder));
 			if (index < 0 || index >= stringBuilder.Length)
 				throw new ArgumentOutOfRangeException(nameof(index));

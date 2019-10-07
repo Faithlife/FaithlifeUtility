@@ -25,11 +25,11 @@ namespace Faithlife.Utility
 		public static string? Encode(string? value, UrlEncodingSettings settings)
 		{
 			// check arguments
-			if (settings == null)
+			if (settings is null)
 				throw new ArgumentNullException(nameof(settings));
 
 			// null encodes to null
-			if (value == null)
+			if (value is null)
 				return null;
 
 			// empty string encodes to empty string
@@ -135,11 +135,11 @@ namespace Faithlife.Utility
 		public static string? Decode(string? value, UrlEncodingSettings settings)
 		{
 			// check arguments
-			if (settings == null)
+			if (settings is null)
 				throw new ArgumentNullException(nameof(settings));
 
 			// null decodes to null
-			if (value == null)
+			if (value is null)
 				return null;
 
 			// empty string decodes to empty string

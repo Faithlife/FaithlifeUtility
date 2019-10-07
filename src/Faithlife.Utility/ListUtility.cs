@@ -32,9 +32,9 @@ namespace Faithlife.Utility
 		/// <remarks>Modified from similar function in PowerCollections, copyright (c) 2004-2005, Wintellect.</remarks>
 		public static int BinarySearchForKey<TItem, TKey>(IReadOnlyList<TItem> list, TKey key, Func<TItem, TKey, int> compare, out int index)
 		{
-			if (list == null)
+			if (list is null)
 				throw new ArgumentNullException(nameof(list));
-			if (compare == null)
+			if (compare is null)
 				throw new ArgumentNullException(nameof(compare));
 
 			int l = 0;
@@ -126,9 +126,9 @@ namespace Faithlife.Utility
 		public static int FindIndex<T>(this IReadOnlyList<T> list, int startIndex, Func<T, bool> match)
 		{
 			// check arguments
-			if (list == null)
+			if (list is null)
 				throw new ArgumentNullException(nameof(list));
-			if (match == null)
+			if (match is null)
 				throw new ArgumentNullException(nameof(match));
 			if (startIndex < 0 || startIndex > list.Count)
 				throw new ArgumentOutOfRangeException(nameof(startIndex));
@@ -150,9 +150,9 @@ namespace Faithlife.Utility
 		public static int RemoveWhere<T>(this IList<T> list, Func<T, bool> predicate)
 		{
 			// check arguments
-			if (list == null)
+			if (list is null)
 				throw new ArgumentNullException(nameof(list));
-			if (predicate == null)
+			if (predicate is null)
 				throw new ArgumentNullException(nameof(predicate));
 
 			// remove items that match

@@ -116,24 +116,16 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Converts the value to a string using the invariant culture.
 		/// </summary>
-		public static string ToInvariantString(object value)
-		{
-			switch (value)
+		public static string ToInvariantString(object value) =>
+			value switch
 			{
-			case bool val:
-				return val.ToInvariantString();
-			case double val:
-				return val.ToInvariantString();
-			case int val:
-				return val.ToInvariantString();
-			case long val:
-				return val.ToInvariantString();
-			case TimeSpan val:
-				return val.ToInvariantString();
-			default:
-				return Convert.ToString(value, CultureInfo.InvariantCulture);
-			}
-		}
+				bool val => val.ToInvariantString(),
+				double val => val.ToInvariantString(),
+				int val => val.ToInvariantString(),
+				long val => val.ToInvariantString(),
+				TimeSpan val => val.ToInvariantString(),
+				_ => Convert.ToString(value, CultureInfo.InvariantCulture),
+			};
 
 		private static T ThrowFormatExceptionIfNull<T>(T? result, string text)
 			where T : struct

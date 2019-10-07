@@ -159,7 +159,7 @@ namespace Faithlife.Utility
 		protected void ThrowIfDisposed()
 		{
 			// throws an ObjectDisposedException if this object has been disposed
-			if (m_wrappedStream == null)
+			if (m_wrappedStream is null)
 				throw new ObjectDisposedException(GetType().Name);
 		}
 

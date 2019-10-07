@@ -41,7 +41,7 @@ namespace Faithlife.Utility
 		{
 			lock (m_lock)
 			{
-				if (m_list == null)
+				if (m_list is null)
 					throw new ObjectDisposedException("Illegal to add after Dispose.");
 
 				m_list.Add(disposable);
@@ -55,7 +55,7 @@ namespace Faithlife.Utility
 		/// <exception cref="System.ObjectDisposedException">AddRange called after Dispose.</exception>
 		public void AddRange(IEnumerable<IDisposable> disposables)
 		{
-			foreach (IDisposable disposable in disposables)
+			foreach (var disposable in disposables)
 				Add(disposable);
 		}
 
@@ -71,7 +71,7 @@ namespace Faithlife.Utility
 				m_list = null;
 			}
 
-			if (list != null)
+			if (list is object)
 			{
 				int count = list.Count;
 				for (int index = count - 1; index >= 0; index--)

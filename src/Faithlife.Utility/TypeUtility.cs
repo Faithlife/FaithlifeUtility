@@ -102,13 +102,13 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Gets the properties.
 		/// </summary>
-		public static PropertyInfo[] GetProperties(this Type type) => type.GetRuntimeProperties().Where(x => x.GetMethod != null).ToArray();
+		public static PropertyInfo[] GetProperties(this Type type) => type.GetRuntimeProperties().Where(x => x.GetMethod is object).ToArray();
 
 		/// <summary>
 		/// Gets the property.
 		/// </summary>
 		public static PropertyInfo GetProperty(this Type type, string propertyName, bool ignoreCase = false)
-			=> type.GetRuntimeProperties().FirstOrDefault(x => x.GetMethod != null && string.Equals(x.Name, propertyName, ignoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal));
+			=> type.GetRuntimeProperties().FirstOrDefault(x => x.GetMethod is object && string.Equals(x.Name, propertyName, ignoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal));
 
 		/// <summary>
 		/// Gets the custom attributes.

@@ -168,7 +168,7 @@ namespace Faithlife.Utility
 			unchecked
 			{
 				// check for null
-				if (hashCodes == null)
+				if (hashCodes is null)
 					return 0x0d608219;
 
 				int nLength = hashCodes.Length;

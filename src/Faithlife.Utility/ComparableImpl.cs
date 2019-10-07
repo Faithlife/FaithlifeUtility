@@ -17,14 +17,13 @@ namespace Faithlife.Utility
 		/// instance of T.</exception>
 		/// <remarks>Does not check whether <paramref name="that"/> is null,
 		/// since <c>this</c> should always be used.</remarks>
-		public static int CompareToObject<T>(T that, object obj) where T : IComparable<T>
-		{
-			if (object.ReferenceEquals(obj, null))
-				return 1;
-			if (!(obj is T))
-				throw new ArgumentException("obj is not a {0}".FormatInvariant(typeof(T).Name), nameof(obj));
-			return that.CompareTo((T) obj);
-		}
+		public static int CompareToObject<T>(T that, object obj) where T : IComparable<T> =>
+			obj switch
+			{
+				null => 1,
+				T t => that.CompareTo(t),
+				_ => throw new ArgumentException("obj is not a {0}".FormatInvariant(typeof(T).Name), nameof(obj)),
+			};
 
 		/// <summary>
 		/// Standard implementation of the less than operator.
@@ -33,17 +32,14 @@ namespace Faithlife.Utility
 		/// <param name="right">The right item.</param>
 		/// <returns>True if the left is less than the right.</returns>
 		public static bool OperatorLessThan<T>(T left, T right)
-			where T : class, IComparable<T>
-		{
-			if (object.ReferenceEquals(left, right))
-				return false;
-			else if (object.ReferenceEquals(left, null))
-				return true;
-			else if (object.ReferenceEquals(right, null))
-				return false;
-			else
-				return left.CompareTo(right) < 0;
-		}
+			where T : class, IComparable<T> =>
+			(left, right) switch
+			{
+				(_, _) when ReferenceEquals(left, right) => false,
+				(null, _) => true,
+				(_, null) => false,
+				(_, _) => left.CompareTo(right) < 0,
+			};
 
 		/// <summary>
 		/// Standard implementation of the less than or equal to operator.
@@ -52,36 +48,30 @@ namespace Faithlife.Utility
 		/// <param name="right">The right item.</param>
 		/// <returns>True if the left is less than or equal to the right.</returns>
 		public static bool OperatorLessThanOrEqual<T>(T left, T right)
-			where T : class, IComparable<T>
-		{
-			if (object.ReferenceEquals(left, right))
-				return true;
-			else if (object.ReferenceEquals(left, null))
-				return true;
-			else if (object.ReferenceEquals(right, null))
-				return false;
-			else
-				return left.CompareTo(right) <= 0;
-		}
+			where T : class, IComparable<T> =>
+			(left, right) switch
+			{
+				(_, _) when ReferenceEquals(left, right) => true,
+				(null, _) => true,
+				(_, null) => false,
+				(_, _) => left.CompareTo(right) <= 0,
+			};
 
-		/// <summary>
-		/// Standard implementation of the greater than operator.
-		/// </summary>
-		/// <param name="left">The left item.</param>
-		/// <param name="right">The right item.</param>
-		/// <returns>True if the left is greater than the right.</returns>
-		public static bool OperatorGreaterThan<T>(T left, T right)
-			where T : class, IComparable<T>
-		{
-			if (object.ReferenceEquals(left, right))
-				return false;
-			else if (object.ReferenceEquals(left, null))
-				return false;
-			else if (object.ReferenceEquals(right, null))
-				return true;
-			else
-				return left.CompareTo(right) > 0;
-		}
+	/// <summary>
+	/// Standard implementation of the greater than operator.
+	/// </summary>
+	/// <param name="left">The left item.</param>
+	/// <param name="right">The right item.</param>
+	/// <returns>True if the left is greater than the right.</returns>
+	public static bool OperatorGreaterThan<T>(T left, T right)
+			where T : class, IComparable<T> =>
+			(left, right) switch
+			{
+				(_, _) when ReferenceEquals(left, right) => false,
+				(null, _) => false,
+				(_, null) => true,
+				(_, _) => left.CompareTo(right) > 0,
+			};
 
 		/// <summary>
 		/// Standard implementation of the greater than or equal to operator.
@@ -90,16 +80,13 @@ namespace Faithlife.Utility
 		/// <param name="right">The right item.</param>
 		/// <returns>True if the left is greater than or equal to the right.</returns>
 		public static bool OperatorGreaterThanOrEqual<T>(T left, T right)
-			where T : class, IComparable<T>
-		{
-			if (object.ReferenceEquals(left, right))
-				return true;
-			else if (object.ReferenceEquals(left, null))
-				return false;
-			else if (object.ReferenceEquals(right, null))
-				return true;
-			else
-				return left.CompareTo(right) >= 0;
-		}
+			where T : class, IComparable<T> =>
+			(left, right) switch
+			{
+				(_, _) when ReferenceEquals(left, right) => true,
+				(null, _) => false,
+				(_, null) => true,
+				(_, _) => left.CompareTo(right) >= 0,
+			};
 	}
 }

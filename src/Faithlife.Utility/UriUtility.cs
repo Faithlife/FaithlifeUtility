@@ -28,7 +28,7 @@ namespace Faithlife.Utility
 		/// <returns>Each value is converted to a string with the invariant culture; see the other overload
 		/// for more details.</returns>
 		public static Uri FromPattern(string uriPattern, IEnumerable<KeyValuePair<string, object?>> parameters)
-			=> FromPattern(uriPattern, parameters.Select(x => new KeyValuePair<string, string?>(x.Key, x.Value == null ? null : InvariantConvert.ToInvariantString(x.Value))));
+			=> FromPattern(uriPattern, parameters.Select(x => new KeyValuePair<string, string?>(x.Key, x.Value is null ? null : InvariantConvert.ToInvariantString(x.Value))));
 
 		/// <summary>
 		/// Builds a URI from a pattern and parameters.
@@ -46,7 +46,7 @@ namespace Faithlife.Utility
 
 			foreach (var parameter in parameters)
 			{
-				if (parameter.Key != null && parameter.Value != null)
+				if (parameter.Key is object && parameter.Value is object)
 				{
 					string bracketedKey = "{" + parameter.Key + "}";
 					int bracketedKeyIndex = uriPattern.IndexOf(bracketedKey, StringComparison.Ordinal);
@@ -74,9 +74,9 @@ namespace Faithlife.Utility
 		/// <returns>True if the supplied URI targets the supplied domain name string, otherwise false.</returns>
 		public static bool MatchesDomain(this Uri uri, string domain)
 		{
-			if (domain == null)
+			if (domain is null)
 				throw new ArgumentNullException(nameof(domain));
-			if (uri == null)
+			if (uri is null)
 				throw new ArgumentNullException(nameof(uri));
 			if (!uri.IsAbsoluteUri)
 				throw new ArgumentException("The argument must be an absolute URI.", nameof(uri));

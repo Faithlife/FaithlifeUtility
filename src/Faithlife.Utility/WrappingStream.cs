@@ -201,7 +201,7 @@ namespace Faithlife.Utility
 			get
 			{
 				// throws an ObjectDisposedException if this object has been disposed
-				if (m_wrappedStream == null)
+				if (m_wrappedStream is null)
 					throw new ObjectDisposedException(nameof(WrappingStream));
 				return m_wrappedStream;
 			}

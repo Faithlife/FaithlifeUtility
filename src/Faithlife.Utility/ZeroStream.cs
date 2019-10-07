@@ -67,7 +67,7 @@ namespace Faithlife.Utility
 		/// many bytes are not currently available, or zero (0) if the end of the stream has been reached.</returns>
 		public override int Read(byte[] buffer, int offset, int count)
 		{
-			if (buffer == null)
+			if (buffer is null)
 				throw new ArgumentNullException(nameof(buffer));
 			if (offset < 0)
 				throw new ArgumentOutOfRangeException(nameof(offset), "Offset cannot be negative.");
@@ -95,7 +95,7 @@ namespace Faithlife.Utility
 		/// <remarks>The bytes are not actually stored and will be read as zeroes.</remarks>
 		public override void Write(byte[] buffer, int offset, int count)
 		{
-			if (buffer == null)
+			if (buffer is null)
 				throw new ArgumentNullException(nameof(buffer));
 			if (offset < 0)
 				throw new ArgumentOutOfRangeException(nameof(offset), "Offset cannot be negative.");
@@ -123,25 +123,13 @@ namespace Faithlife.Utility
 		/// <returns>The new position within the current stream.</returns>
 		public override long Seek(long offset, SeekOrigin origin)
 		{
-			long newPosition;
-
-			switch (origin)
+			long newPosition = origin switch
 			{
-			case SeekOrigin.Begin:
-				newPosition = offset;
-				break;
-
-			case SeekOrigin.Current:
-				newPosition = m_position + offset;
-				break;
-
-			case SeekOrigin.End:
-				newPosition = m_length + offset;
-				break;
-
-			default:
-				throw new ArgumentException("Invalid seek origin.", nameof(origin));
-			}
+				SeekOrigin.Begin => offset,
+				SeekOrigin.Current => m_position + offset,
+				SeekOrigin.End => m_length + offset,
+				_ => throw new ArgumentException("Invalid seek origin.", nameof(origin)),
+			};
 
 			if (newPosition < 0)
 				throw new IOException("Cannot seek before begin.");

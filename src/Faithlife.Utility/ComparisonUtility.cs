@@ -71,7 +71,7 @@ namespace Faithlife.Utility
 
 		private static void VerifyComparers<T>(Func<T, T, int>[] comparers)
 		{
-			if (comparers == null)
+			if (comparers is null)
 				throw new ArgumentNullException(nameof(comparers));
 			if (comparers.Length == 0)
 				throw new ArgumentException("Must supply at least one comparer; use Comparer<T>.Default for a default comparer.", nameof(comparers));

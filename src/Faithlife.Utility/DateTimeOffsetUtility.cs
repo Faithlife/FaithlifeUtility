@@ -48,7 +48,7 @@ namespace Faithlife.Utility
 		private static string GetParseFormat(string strInput)
 		{
 			// a trailing "Z" means to use the "legacy" timezone format
-			return strInput != null && strInput.EndsWith("Z", StringComparison.Ordinal) ? DateTimeUtility.Iso8601Format : Iso8601Format;
+			return strInput is object && strInput.EndsWith("Z", StringComparison.Ordinal) ? DateTimeUtility.Iso8601Format : Iso8601Format;
 		}
 	}
 }

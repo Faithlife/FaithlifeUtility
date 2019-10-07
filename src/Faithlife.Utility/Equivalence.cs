@@ -17,7 +17,7 @@ namespace Faithlife.Utility
 		/// <param name="right">The right object.</param>
 		/// <returns>True if the objects are equivalent.</returns>
 		public static bool AreEquivalent<T>(T left, T right) where T : IHasEquivalence<T>
-			=> left == null ? right == null : left.IsEquivalentTo(right);
+			=> left is null ? right is null : left.IsEquivalentTo(right);
 
 		/// <summary>
 		/// True if the sequences are equivalent.
@@ -27,7 +27,7 @@ namespace Faithlife.Utility
 		/// <param name="right">The right sequence.</param>
 		/// <returns>True if the sequence are equivalent.</returns>
 		public static bool AreSequencesEquivalent<T>(IEnumerable<T> left, IEnumerable<T> right) where T : IHasEquivalence<T>
-			=> left == null ? right == null : right != null && left.SequenceEquivalent(right);
+			=> left is null ? right is null : right is object && left.SequenceEquivalent(right);
 
 		/// <summary>
 		/// Returns an equality comparer that calls IHasEquivalence.IsEquivalentTo.
@@ -82,13 +82,13 @@ namespace Faithlife.Utility
 
 			private static IEqualityComparer<T>? CreateInstance()
 			{
-				Type type = typeof(T);
+				var type = typeof(T);
 				do
 				{
 					if (typeof(IHasEquivalence<>).MakeGenericType(type).IsAssignableFrom(typeof(T)))
 						return (IEqualityComparer<T>) Activator.CreateInstance(typeof(EquivalenceComparer<,>).MakeGenericType(typeof(T), type));
 					type = type.GetBaseType();
-				} while (type != null);
+				} while (type is object);
 
 				return null;
 			}
@@ -97,7 +97,7 @@ namespace Faithlife.Utility
 		private sealed class EquivalenceComparer<TDerived, TBase> : EqualityComparer<TDerived>
 			where TDerived : TBase, IHasEquivalence<TBase>
 		{
-			public override bool Equals(TDerived left, TDerived right) => left == null ? right == null : left.IsEquivalentTo(right);
+			public override bool Equals(TDerived left, TDerived right) => left?.IsEquivalentTo(right) ?? right is null;
 
 			public override int GetHashCode(TDerived value) => throw new NotImplementedException();
 		}
