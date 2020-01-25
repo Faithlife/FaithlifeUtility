@@ -15,7 +15,7 @@ namespace Faithlife.Utility
 		/// <param name="equals">The equals delegate.</param>
 		/// <param name="getHashCode">The hash code delegate.</param>
 		/// <remarks>If getHashCode is null and GetHashCode is called, it will throw a NotImplementedException.</remarks>
-		public GenericEqualityComparer(Func<T, T, bool> equals, Func<T, int> getHashCode = null)
+		public GenericEqualityComparer(Func<T, T, bool> equals, Func<T, int>? getHashCode = null)
 		{
 			m_equals = equals ?? throw new ArgumentNullException(nameof(equals));
 			m_getHashCode = getHashCode ?? (_ => throw new NotImplementedException());

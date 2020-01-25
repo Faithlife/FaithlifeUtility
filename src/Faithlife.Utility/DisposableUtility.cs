@@ -11,7 +11,7 @@ namespace Faithlife.Utility
 		/// Disposes and nulls the specified object.
 		/// </summary>
 		/// <param name="obj">The object to dispose and null.</param>
-		public static void Dispose<T>(ref T obj) where T : class, IDisposable
+		public static void Dispose<T>(ref T? obj) where T : class, IDisposable
 		{
 			if (obj != null)
 			{
@@ -30,7 +30,7 @@ namespace Faithlife.Utility
 		{
 			if (obj is IDisposable disposable)
 				disposable.Dispose();
-			obj = default(T);
+			obj = default!;
 		}
 
 		/// <summary>

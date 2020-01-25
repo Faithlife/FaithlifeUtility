@@ -48,7 +48,7 @@ namespace Faithlife.Utility
 		/// <param name="offset">The offset of the segment.</param>
 		/// <param name="length">The length of the segment.</param>
 		/// <exception cref="ArgumentOutOfRangeException">The offset or length are out of range.</exception>
-		public StringSegment(string source, int offset, int length)
+		public StringSegment(string? source, int offset, int length)
 		{
 			int stringLength = source?.Length ?? 0;
 			if (offset < 0 || offset > stringLength)
@@ -56,7 +56,7 @@ namespace Faithlife.Utility
 			if (length < 0 || offset + length > stringLength)
 				throw new ArgumentOutOfRangeException(nameof(length));
 
-			m_source = source;
+			m_source = source ?? "";
 			m_offset = offset;
 			m_length = length;
 		}

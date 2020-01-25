@@ -27,7 +27,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="value">The string value to look up.</param>
 		/// <returns>The unique cached instance of a <see cref="string"/> that is equal to <paramref name="value"/>.</returns>
-		public string GetOrAdd(string value)
+		public string? GetOrAdd(string? value)
 		{
 			// check for trivial cases
 			if (value == null)

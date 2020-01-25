@@ -27,7 +27,7 @@ namespace Faithlife.Utility
 		/// <param name="second">The second sequence.</param>
 		/// <param name="comparer">The comparer.</param>
 		/// <returns><c>True</c> if the sequences are equal.</returns>
-		public static bool AreEqual<T>(IEnumerable<T> first, IEnumerable<T> second, IEqualityComparer<T> comparer)
+		public static bool AreEqual<T>(IEnumerable<T> first, IEnumerable<T> second, IEqualityComparer<T>? comparer)
 			=> first != null ? second != null && first.SequenceEqual(second, comparer) : second == null;
 
 		/// <summary>
@@ -37,7 +37,7 @@ namespace Faithlife.Utility
 		/// <param name="second">The second sequence.</param>
 		/// <param name="equals">Returns true if two items are equal.</param>
 		/// <returns><c>True</c> if the sequences are equal.</returns>
-		public static bool AreEqual<T>(IEnumerable<T> first, IEnumerable<T> second, Func<T, T, bool> equals)
+		public static bool AreEqual<T>(IEnumerable<T> first, IEnumerable<T> second, Func<T, T, bool>? equals)
 			=> AreEqual(first, second, equals == null ? null : ObjectUtility.CreateEqualityComparer(equals));
 
 		/// <summary>
@@ -196,7 +196,7 @@ namespace Faithlife.Utility
 		/// <param name="keySelector">The function that determines the key.</param>
 		/// <param name="equalityComparer">The <see cref="IEqualityComparer{T}"/> used to compare keys; if <c>null</c>, the default comparer will be used.</param>
 		/// <returns>An <see cref="IEnumerable{T}"/> that contains distinct elements from the source sequence.</returns>
-		public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> equalityComparer)
+		public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? equalityComparer)
 		{
 			if (source == null)
 				throw new ArgumentNullException(nameof(source));
@@ -328,7 +328,7 @@ namespace Faithlife.Utility
 		/// <param name="source">The sequence.</param>
 		/// <param name="comparer">The comparer.</param>
 		/// <returns><c>true</c> if the specified sequence is sorted; otherwise, <c>false</c>.</returns>
-		public static bool IsSorted<T>(this IEnumerable<T> source, IComparer<T> comparer)
+		public static bool IsSorted<T>(this IEnumerable<T> source, IComparer<T>? comparer)
 		{
 			if (source == null)
 				throw new ArgumentNullException(nameof(source));
@@ -386,7 +386,7 @@ namespace Faithlife.Utility
 		/// <param name="second">The second sequence.</param>
 		/// <param name="comparer">The comparer.</param>
 		/// <returns>0 if they are equal; less than zero if the first is less than the second; greater than zero if the first is greater than the second.</returns>
-		public static int SequenceCompare<T>(this IEnumerable<T> first, IEnumerable<T> second, IComparer<T> comparer)
+		public static int SequenceCompare<T>(this IEnumerable<T> first, IEnumerable<T> second, IComparer<T>? comparer)
 		{
 			if (first == null)
 				throw new ArgumentNullException(nameof(first));
@@ -433,7 +433,7 @@ namespace Faithlife.Utility
 		/// <param name="comparer">The comparer.</param>
 		/// <returns>A valid hash code for the sequence, assuming Enumerable.SequenceEqual is used to compare them.</returns>
 		/// <remarks>If the sequence is null, zero is returned.</remarks>
-		public static int SequenceHashCode<T>(this IEnumerable<T> source, IEqualityComparer<T> comparer)
+		public static int SequenceHashCode<T>(this IEnumerable<T> source, IEqualityComparer<T>? comparer)
 		{
 			if (source == null)
 				return 0;
@@ -650,7 +650,7 @@ namespace Faithlife.Utility
 				return true;
 			}
 
-			found = default(T);
+			found = default!;
 			return false;
 		}
 
@@ -678,7 +678,7 @@ namespace Faithlife.Utility
 				}
 			}
 
-			found = default(T);
+			found = default!;
 			return false;
 		}
 

@@ -27,8 +27,8 @@ namespace Faithlife.Utility
 		/// <param name="parameters">The parameters.</param>
 		/// <returns>Each value is converted to a string with the invariant culture; see the other overload
 		/// for more details.</returns>
-		public static Uri FromPattern(string uriPattern, IEnumerable<KeyValuePair<string, object>> parameters)
-			=> FromPattern(uriPattern, parameters.Select(x => new KeyValuePair<string, string>(x.Key, x.Value == null ? null : InvariantConvert.ToInvariantString(x.Value))));
+		public static Uri FromPattern(string uriPattern, IEnumerable<KeyValuePair<string, object?>> parameters)
+			=> FromPattern(uriPattern, parameters.Select(x => new KeyValuePair<string, string?>(x.Key, x.Value == null ? null : InvariantConvert.ToInvariantString(x.Value))));
 
 		/// <summary>
 		/// Builds a URI from a pattern and parameters.
@@ -40,11 +40,11 @@ namespace Faithlife.Utility
 		/// for the URI. Any parameter that doesn't appear in the pattern is added to the end of the
 		/// URI as a query parameter. The same key must not appear multiple times in the pattern or in
 		/// the list of parameters (the behavior is undefined). If the key or value is null, the pair is ignored.</returns>
-		public static Uri FromPattern(string uriPattern, IEnumerable<KeyValuePair<string, string>> parameters)
+		public static Uri FromPattern(string uriPattern, IEnumerable<KeyValuePair<string, string?>> parameters)
 		{
 			bool hasQuery = uriPattern.IndexOf('?') != -1;
 
-			foreach (KeyValuePair<string, string> parameter in parameters)
+			foreach (var parameter in parameters)
 			{
 				if (parameter.Key != null && parameter.Value != null)
 				{
@@ -85,14 +85,14 @@ namespace Faithlife.Utility
 			return host.EndsWith(domain, StringComparison.OrdinalIgnoreCase) && (host.Length == domain.Length || host[host.Length - domain.Length - 1] == '.');
 		}
 
-		private static IEnumerable<KeyValuePair<string, string>> CreatePairsFromStrings(string[] strings)
+		private static IEnumerable<KeyValuePair<string, string?>> CreatePairsFromStrings(string[] strings)
 		{
 			int stringCount = strings.Length;
 			if (stringCount % 2 == 1)
 				throw new ArgumentException("The number of strings must be even.");
 
 			for (int stringIndex = 0; stringIndex < stringCount; stringIndex += 2)
-				yield return new KeyValuePair<string, string>(strings[stringIndex], strings[stringIndex + 1]);
+				yield return new KeyValuePair<string, string?>(strings[stringIndex], strings[stringIndex + 1]);
 		}
 	}
 }

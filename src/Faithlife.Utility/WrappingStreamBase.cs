@@ -126,7 +126,7 @@ namespace Faithlife.Utility
 			get
 			{
 				ThrowIfDisposed();
-				return m_wrappedStream;
+				return m_wrappedStream!;
 			}
 		}
 
@@ -163,7 +163,7 @@ namespace Faithlife.Utility
 				throw new ObjectDisposedException(GetType().Name);
 		}
 
-		Stream m_wrappedStream;
+		Stream? m_wrappedStream;
 		readonly Ownership m_ownership;
 	}
 }

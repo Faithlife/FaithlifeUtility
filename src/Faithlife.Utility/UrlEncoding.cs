@@ -14,7 +14,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="value">The string to encode.</param>
 		/// <returns>The encoded string.</returns>
-		public static string Encode(string value) => Encode(value, s_settingsDefault);
+		public static string? Encode(string? value) => Encode(value, s_settingsDefault);
 
 		/// <summary>
 		/// Encodes a string with the specified settings.
@@ -22,7 +22,7 @@ namespace Faithlife.Utility
 		/// <param name="value">The string to encode.</param>
 		/// <param name="settings">The settings to use when encoding.</param>
 		/// <returns>The encoded string.</returns>
-		public static string Encode(string value, UrlEncodingSettings settings)
+		public static string? Encode(string? value, UrlEncodingSettings settings)
 		{
 			// check arguments
 			if (settings == null)
@@ -88,7 +88,7 @@ namespace Faithlife.Utility
 				if (encodingSpaceChar)
 				{
 					// encode space character directly
-					output[outputChar++] = encodedSpaceChar.Value;
+					output[outputChar++] = encodedSpaceChar!.Value;
 				}
 				else if (shouldEncode)
 				{
@@ -124,7 +124,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="value">The string to be decoded.</param>
 		/// <returns>The decoded string.</returns>
-		public static string Decode(string value) => Decode(value, s_settingsDefault);
+		public static string? Decode(string? value) => Decode(value, s_settingsDefault);
 
 		/// <summary>
 		/// Decodes a string with the specified settings.
@@ -132,7 +132,7 @@ namespace Faithlife.Utility
 		/// <param name="value">The string to be decoded.</param>
 		/// <param name="settings">The settings to use when decoding.</param>
 		/// <returns>The decoded string.</returns>
-		public static string Decode(string value, UrlEncodingSettings settings)
+		public static string? Decode(string? value, UrlEncodingSettings settings)
 		{
 			// check arguments
 			if (settings == null)

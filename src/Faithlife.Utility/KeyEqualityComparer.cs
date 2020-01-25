@@ -15,7 +15,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="keySelector">The key selector delegate</param>
 		/// <param name="keyComparer">The IEqualityComparer used for comparison of keys</param>
-		public KeyEqualityComparer(Func<TSource, TKey> keySelector, IEqualityComparer<TKey> keyComparer = null)
+		public KeyEqualityComparer(Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? keyComparer = null)
 		{
 			m_keySelector = keySelector ?? throw new ArgumentNullException(nameof(keySelector));
 			m_keyComparer = keyComparer ?? EqualityComparer<TKey>.Default;

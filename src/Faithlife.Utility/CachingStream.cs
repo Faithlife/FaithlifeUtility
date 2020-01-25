@@ -150,7 +150,7 @@ namespace Faithlife.Utility
 		{
 			ThrowIfDisposed();
 
-			if (m_blocks.Count <= blockIndex)
+			if (m_blocks!.Count <= blockIndex)
 				m_blocks.AddRange(new byte[blockIndex - m_blocks.Count + 1][]);
 
 			byte[] blockData = m_blocks[blockIndex];
@@ -171,7 +171,7 @@ namespace Faithlife.Utility
 		{
 			ThrowIfDisposed();
 
-			if (m_blocks.Count <= blockIndex)
+			if (m_blocks!.Count <= blockIndex)
 				m_blocks.AddRange(new byte[blockIndex - m_blocks.Count + 1][]);
 
 			byte[] blockData = m_blocks[blockIndex];
@@ -190,7 +190,7 @@ namespace Faithlife.Utility
 
 		const int c_blockSize = 4096;
 
-		List<byte[]> m_blocks;
+		List<byte[]>? m_blocks;
 		long m_position;
 	}
 }

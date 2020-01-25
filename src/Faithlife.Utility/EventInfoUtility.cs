@@ -24,7 +24,7 @@ namespace Faithlife.Utility
 		{
 			WeakReference weakTarget = new WeakReference(target, false);
 
-			EventHandler handler = null;
+			EventHandler handler = null!;
 			handler =
 				(s, e) =>
 				{
@@ -57,7 +57,7 @@ namespace Faithlife.Utility
 		{
 			WeakReference weakTarget = new WeakReference(target, false);
 
-			EventHandler<TEventArgs> handler = null;
+			EventHandler<TEventArgs> handler = null!;
 			handler =
 				(s, e) =>
 				{

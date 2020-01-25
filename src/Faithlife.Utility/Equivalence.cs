@@ -78,9 +78,9 @@ namespace Faithlife.Utility
 
 		private static class EquivalenceComparerCache<T>
 		{
-			public static readonly IEqualityComparer<T> Instance = CreateInstance();
+			public static readonly IEqualityComparer<T>? Instance = CreateInstance();
 
-			private static IEqualityComparer<T> CreateInstance()
+			private static IEqualityComparer<T>? CreateInstance()
 			{
 				Type type = typeof(T);
 				do

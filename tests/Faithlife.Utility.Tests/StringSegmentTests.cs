@@ -69,7 +69,7 @@ namespace Faithlife.Utility.Tests
 		public void TestConstructorNull()
 		{
 			StringSegment seg = new StringSegment(null);
-			Assert.AreEqual(null, seg.Source);
+			Assert.AreEqual("", seg.Source);
 			Assert.AreEqual(0, seg.Offset);
 			Assert.AreEqual(0, seg.Length);
 		}

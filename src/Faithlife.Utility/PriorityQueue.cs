@@ -36,7 +36,7 @@ namespace Faithlife.Utility
 		/// <param name="comparer">The <see cref="IComparer{T}"/> implementation to use when comparing items.<br/>
 		/// -or-<br/>
 		/// a null reference to use the default <see cref="Comparer{T}"/> for the type of the data.</param>
-		public PriorityQueue(IComparer<T> comparer) : this(0, comparer)
+		public PriorityQueue(IComparer<T>? comparer) : this(0, comparer)
 		{
 		}
 
@@ -48,7 +48,7 @@ namespace Faithlife.Utility
 		/// <param name="comparer">The <see cref="IComparer{T}"/> implementation to use when comparing items.<br/>
 		/// -or-<br/>
 		/// a null reference to use the default <see cref="Comparer{T}"/> for the type of the data.</param>
-		public PriorityQueue(int capacity, IComparer<T> comparer)
+		public PriorityQueue(int capacity, IComparer<T>? comparer)
 		{
 			if (capacity < 0)
 				throw new ArgumentOutOfRangeException(nameof(capacity), "The parameter must be a non-negative number.");
@@ -309,7 +309,7 @@ namespace Faithlife.Utility
 			// replace the item with the last item
 			m_size--;
 			m_array[index] = m_array[m_size];
-			m_array[m_size] = default(T);
+			m_array[m_size] = default!;
 
 			// restore the heap order
 			SiftDownHeap(index);
@@ -373,7 +373,7 @@ namespace Faithlife.Utility
 		readonly IComparer<T> m_comparer;
 		T[] m_array;
 		int m_size;
-		object m_syncRoot;
+		object? m_syncRoot;
 
 		static readonly T[] s_emptyArray = new T[0];
 	}

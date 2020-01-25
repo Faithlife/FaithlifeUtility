@@ -646,7 +646,7 @@ namespace Faithlife.Utility
 		/// <returns>All of the strings concatenated with no separator.</returns>
 		public static string Join(this IEnumerable<string> strings)
 		{
-			return Join(strings, default(string));
+			return Join(strings, default);
 		}
 
 		/// <summary>
@@ -655,7 +655,7 @@ namespace Faithlife.Utility
 		/// <param name="strings">The strings.</param>
 		/// <param name="separator">The separator. (The empty string is used if null.)</param>
 		/// <returns>All of the strings concatenated with the specified separator.</returns>
-		public static string Join(this IEnumerable<string> strings, string separator)
+		public static string Join(this IEnumerable<string> strings, string? separator)
 		{
 			if (strings == null)
 				throw new ArgumentNullException("strings");
@@ -797,7 +797,7 @@ namespace Faithlife.Utility
 		/// <param name="value">The string.</param>
 		/// <returns>The array of substrings.</returns>
 		/// <remarks>See the documentation for string.Split for the white-space characters recognized by this method.</remarks>
-		public static string[] SplitOnWhitespace(this string value) => value.Split((char[]) null);
+		public static string[] SplitOnWhitespace(this string value) => value.Split((char[]?) null);
 
 		/// <summary>
 		/// Splits the string on whitespace.
@@ -806,14 +806,14 @@ namespace Faithlife.Utility
 		/// <param name="options">The options.</param>
 		/// <returns>The array of substrings.</returns>
 		/// <remarks>See the documentation for string.Split for the white-space characters recognized by this method.</remarks>
-		public static string[] SplitOnWhitespace(this string value, StringSplitOptions options) => value.Split((char[]) null, options);
+		public static string[] SplitOnWhitespace(this string value, StringSplitOptions options) => value.Split((char[]?) null, options);
 
 		/// <summary>
 		/// Compresses a string.
 		/// </summary>
 		/// <param name="text">The text.</param>
 		/// <returns>null if text is null, empty byte[] if text is empty, otherwise the compressed byte array.</returns>
-		public static byte[] Compress(string text)
+		public static byte[]? Compress(string? text)
 		{
 			if (text == null)
 				return null;
@@ -835,7 +835,7 @@ namespace Faithlife.Utility
 		/// <param name="compressedText">The compressed string.</param>
 		/// <returns>null if compressedText is null, empty string if compressedText length is 0, otherwise the decompressed text.</returns>
 		/// <remarks>The compressed text should have been created with the Compress or CreateCompressingTextWriter methods.</remarks>
-		public static string Decompress(byte[] compressedText)
+		public static string? Decompress(byte[]? compressedText)
 		{
 			if (compressedText == null)
 				return null;
@@ -1038,8 +1038,8 @@ namespace Faithlife.Utility
 			readonly Ownership m_ownership;
 			readonly Encoding m_encoding;
 			readonly Encoder m_encoder;
-			MemoryStream m_holdingStream;
-			Stream m_zipStream;
+			MemoryStream? m_holdingStream;
+			Stream? m_zipStream;
 			long m_uncompressedByteCountSeekPosition;
 			int m_uncompressedByteCount;
 			bool m_isDisposed;
@@ -1208,10 +1208,10 @@ namespace Faithlife.Utility
 			readonly Ownership m_ownership;
 			readonly Encoding m_encoding;
 			readonly Decoder m_decoder;
-			Stream m_unzipStream;
+			Stream? m_unzipStream;
 			int m_uncompressedByteCount;
 			int m_uncompressedByteIndex;
-			char[] m_buffer;
+			char[]? m_buffer;
 			int m_bufferIndex;
 			int m_bufferLength;
 			bool m_isDisposed;

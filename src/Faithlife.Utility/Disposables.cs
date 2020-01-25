@@ -64,7 +64,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		public void Dispose()
 		{
-			List<IDisposable> list;
+			List<IDisposable>? list;
 			lock (m_lock)
 			{
 				list = m_list;
@@ -85,6 +85,6 @@ namespace Faithlife.Utility
 		IEnumerator IEnumerable.GetEnumerator() => throw new NotSupportedException("IEnumerable.GetEnumerator implemented only for collection initialization syntax.");
 
 		readonly object m_lock;
-		List<IDisposable> m_list;
+		List<IDisposable>? m_list;
 	}
 }
