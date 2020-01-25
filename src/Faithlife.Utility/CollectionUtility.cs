@@ -41,7 +41,8 @@ namespace Faithlife.Utility
 		/// <typeparam name="T">The type of item in the collection.</typeparam>
 		/// <param name="collection">The collection. Must not be null.</param>
 		/// <param name="value">The value to add. May be null.</param>
-		public static void AddIfNotNull<T>(this ICollection<T> collection, T value)
+		public static void AddIfNotNull<T>(this ICollection<T> collection, T? value)
+			where T : class
 		{
 			if (value is object)
 				collection.Add(value);

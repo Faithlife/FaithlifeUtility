@@ -20,7 +20,7 @@ namespace Faithlife.Utility
 		/// <param name="array2">The second array.</param>
 		/// <returns>true if the arrays are both null, or if they both have equal length and the first
 		/// item of the first array is equal to the first item of the second array, etc.</returns>
-		public static bool AreEqual<T>(T[] array1, T[] array2) => AreEqual(array1, array2, EqualityComparer<T>.Default);
+		public static bool AreEqual<T>(T[]? array1, T[]? array2) => AreEqual(array1, array2, EqualityComparer<T>.Default);
 
 		/// <summary>
 		/// Returns true if the arrays are equal.
@@ -30,7 +30,7 @@ namespace Faithlife.Utility
 		/// <param name="comparer">The equality comparer to use.</param>
 		/// <returns>true if the arrays are both null, or if they both have equal length and the first
 		/// item of the first array is equal to the first item of the second array, etc.</returns>
-		public static bool AreEqual<T>(T[] array1, T[] array2, IEqualityComparer<T> comparer)
+		public static bool AreEqual<T>(T[]? array1, T[]? array2, IEqualityComparer<T> comparer)
 		{
 			if (array1 is null)
 				return array2 is null;
@@ -61,7 +61,7 @@ namespace Faithlife.Utility
 		/// <param name="array1">The first array.</param>
 		/// <param name="array2">The second array.</param>
 		/// <returns>The result of a lexicographical comparison of the array items.</returns>
-		public static int Compare<T>(T[] array1, T[] array2) => Compare(array1, array2, Comparer<T>.Default);
+		public static int Compare<T>(T[]? array1, T[]? array2) => Compare(array1, array2, Comparer<T>.Default);
 
 		/// <summary>
 		/// Compares the two arrays.
@@ -70,7 +70,7 @@ namespace Faithlife.Utility
 		/// <param name="array2">The second array.</param>
 		/// <param name="comparer">Used to compare the two items.</param>
 		/// <returns>The result of a lexicographical comparison of the array items.</returns>
-		public static int Compare<T>(T[] array1, T[] array2, IComparer<T> comparer)
+		public static int Compare<T>(T[]? array1, T[]? array2, IComparer<T> comparer)
 		{
 			if (array1 is null)
 				return array2 is null ? 0 : -1;

@@ -13,7 +13,7 @@ namespace Faithlife.Utility
 		/// <param name="left">The left item.</param>
 		/// <param name="right">The right item.</param>
 		/// <returns>True if the items are equal.</returns>
-		public static bool OperatorEquality<T>(T left, T right)
+		public static bool OperatorEquality<T>(T? left, T? right)
 			where T : class, IEquatable<T>
 		{
 			if (object.ReferenceEquals(left, right))
@@ -30,7 +30,7 @@ namespace Faithlife.Utility
 		/// <param name="left">The left item.</param>
 		/// <param name="right">The right item.</param>
 		/// <returns>True if the items are not equal.</returns>
-		public static bool OperatorInequality<T>(T left, T right)
+		public static bool OperatorInequality<T>(T? left, T? right)
 			where T : class, IEquatable<T>
 		{
 			if (object.ReferenceEquals(left, right))

@@ -14,7 +14,7 @@ namespace Faithlife.Utility
 		/// Returns true if there is a one-to-one relationship between every key-value pair.
 		/// </summary>
 		/// <remarks>Uses the default equality comparer for TValue if none is specified.</remarks>
-		public static bool AreEqual<TKey, TValue>(IReadOnlyDictionary<TKey, TValue> left, IReadOnlyDictionary<TKey, TValue> right, IEqualityComparer<TValue>? comparer = null)
+		public static bool AreEqual<TKey, TValue>(IReadOnlyDictionary<TKey, TValue>? left, IReadOnlyDictionary<TKey, TValue>? right, IEqualityComparer<TValue>? comparer = null)
 		{
 			comparer ??= EqualityComparer<TValue>.Default;
 

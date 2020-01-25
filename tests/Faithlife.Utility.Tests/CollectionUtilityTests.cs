@@ -67,7 +67,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestAddIfNotNullToListOfInts()
 		{
-			List<int?> listOfInts = new List<int?>();
+			List<int> listOfInts = new List<int>();
 
 			int? undefined = null;
 			int? five = 5;

@@ -17,7 +17,7 @@ namespace Faithlife.Utility
 		/// <param name="guid">When this method returns, contains the <see cref="Guid"/> equivalent to the GUID
 		/// contained in <paramref name="value"/>, if the conversion succeeded, or Guid.Empty if the conversion failed.</param>
 		/// <returns><c>true</c> if a GUID was successfully parsed; <c>false</c> otherwise.</returns>
-		public static bool TryParse(string value, out Guid guid) => Guid.TryParse(value, out guid);
+		public static bool TryParse(string? value, out Guid guid) => Guid.TryParse(value, out guid);
 
 		/// <summary>
 		/// Converts a GUID to a lowercase string with no dashes.

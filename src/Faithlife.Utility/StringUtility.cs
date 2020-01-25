@@ -66,7 +66,7 @@ namespace Faithlife.Utility
 		/// <param name="right">The second string.</param>
 		/// <returns>Less than zero if <paramref name="left"/> is less than <paramref name="right"/>; zero if the strings are equal;
 		/// greater than zero if <paramref name="left"/> is greater than <paramref name="right"/>.</returns>
-		public static int CompareByCodePoint(string left, string right)
+		public static int CompareByCodePoint(string? left, string? right)
 		{
 			// null sorts less than anything else (same as String.CompareOrdinal)
 			if (left is null)
@@ -637,7 +637,7 @@ namespace Faithlife.Utility
 		/// <param name="args">The format arguments.</param>
 		/// <returns>The formatted string.</returns>
 		[StringFormatMethod("format")]
-		public static string FormatInvariant(this string format, params object[] args) => string.Format(CultureInfo.InvariantCulture, format, args);
+		public static string FormatInvariant(this string format, params object?[] args) => string.Format(CultureInfo.InvariantCulture, format, args);
 
 		/// <summary>
 		/// Joins the specified strings into one string.
@@ -710,12 +710,12 @@ namespace Faithlife.Utility
 		/// <param name="value">The string to hash.</param>
 		/// <returns>A hash code for the specified string</returns>
 		/// <remarks>Based on SuperFastHash: http://www.azillionmonkeys.com/qed/hash.html</remarks>
-		public static int GetPersistentHashCode(this string value)
+		public static int GetPersistentHashCode(this string? value)
 		{
 			unchecked
 			{
 				// check for degenerate input
-				if (string.IsNullOrEmpty(value))
+				if (value is null || value.Length == 0)
 					return 0;
 
 				int length = value.Length;

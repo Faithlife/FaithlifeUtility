@@ -17,7 +17,7 @@ namespace Faithlife.Utility
 		/// <param name="first">The first sequence.</param>
 		/// <param name="second">The second sequence.</param>
 		/// <returns><c>True</c> if the sequences are equal.</returns>
-		public static bool AreEqual<T>(IEnumerable<T> first, IEnumerable<T> second)
+		public static bool AreEqual<T>(IEnumerable<T>? first, IEnumerable<T>? second)
 			=> first is object ? second is object && first.SequenceEqual(second) : second is null;
 
 		/// <summary>
@@ -27,7 +27,7 @@ namespace Faithlife.Utility
 		/// <param name="second">The second sequence.</param>
 		/// <param name="comparer">The comparer.</param>
 		/// <returns><c>True</c> if the sequences are equal.</returns>
-		public static bool AreEqual<T>(IEnumerable<T> first, IEnumerable<T> second, IEqualityComparer<T>? comparer)
+		public static bool AreEqual<T>(IEnumerable<T>? first, IEnumerable<T>? second, IEqualityComparer<T>? comparer)
 			=> first is object ? second is object && first.SequenceEqual(second, comparer) : second is null;
 
 		/// <summary>
@@ -37,7 +37,7 @@ namespace Faithlife.Utility
 		/// <param name="second">The second sequence.</param>
 		/// <param name="equals">Returns true if two items are equal.</param>
 		/// <returns><c>True</c> if the sequences are equal.</returns>
-		public static bool AreEqual<T>(IEnumerable<T> first, IEnumerable<T> second, Func<T, T, bool>? equals)
+		public static bool AreEqual<T>(IEnumerable<T>? first, IEnumerable<T>? second, Func<T, T, bool>? equals)
 			=> AreEqual(first, second, equals is null ? null : ObjectUtility.CreateEqualityComparer(equals));
 
 		/// <summary>
@@ -411,7 +411,7 @@ namespace Faithlife.Utility
 		/// <param name="source">The sequence.</param>
 		/// <returns>A valid hash code for the sequence, assuming Enumerable.SequenceEqual is used to compare them.</returns>
 		/// <remarks>If the sequence is null, zero is returned.</remarks>
-		public static int SequenceHashCode<T>(this IEnumerable<T> source) => source.SequenceHashCode(null);
+		public static int SequenceHashCode<T>(this IEnumerable<T>? source) => source.SequenceHashCode(null);
 
 		/// <summary>
 		/// Gets the hash code for a sequence.
@@ -421,7 +421,7 @@ namespace Faithlife.Utility
 		/// <param name="comparer">The comparer.</param>
 		/// <returns>A valid hash code for the sequence, assuming Enumerable.SequenceEqual is used to compare them.</returns>
 		/// <remarks>If the sequence is null, zero is returned.</remarks>
-		public static int SequenceHashCode<T>(this IEnumerable<T> source, IEqualityComparer<T>? comparer)
+		public static int SequenceHashCode<T>(this IEnumerable<T>? source, IEqualityComparer<T>? comparer)
 		{
 			if (source is null)
 				return 0;

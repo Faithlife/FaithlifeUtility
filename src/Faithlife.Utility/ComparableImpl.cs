@@ -17,7 +17,7 @@ namespace Faithlife.Utility
 		/// instance of T.</exception>
 		/// <remarks>Does not check whether <paramref name="that"/> is null,
 		/// since <c>this</c> should always be used.</remarks>
-		public static int CompareToObject<T>(T that, object obj) where T : IComparable<T> =>
+		public static int CompareToObject<T>(T that, object? obj) where T : IComparable<T> =>
 			obj switch
 			{
 				null => 1,
@@ -31,14 +31,14 @@ namespace Faithlife.Utility
 		/// <param name="left">The left item.</param>
 		/// <param name="right">The right item.</param>
 		/// <returns>True if the left is less than the right.</returns>
-		public static bool OperatorLessThan<T>(T left, T right)
+		public static bool OperatorLessThan<T>(T? left, T? right)
 			where T : class, IComparable<T> =>
 			(left, right) switch
 			{
 				(_, _) when ReferenceEquals(left, right) => false,
 				(null, _) => true,
 				(_, null) => false,
-				(_, _) => left.CompareTo(right) < 0,
+				(_, _) => left!.CompareTo(right!) < 0, // https://github.com/dotnet/roslyn/issues/37136
 			};
 
 		/// <summary>
@@ -47,14 +47,14 @@ namespace Faithlife.Utility
 		/// <param name="left">The left item.</param>
 		/// <param name="right">The right item.</param>
 		/// <returns>True if the left is less than or equal to the right.</returns>
-		public static bool OperatorLessThanOrEqual<T>(T left, T right)
+		public static bool OperatorLessThanOrEqual<T>(T? left, T? right)
 			where T : class, IComparable<T> =>
 			(left, right) switch
 			{
 				(_, _) when ReferenceEquals(left, right) => true,
 				(null, _) => true,
 				(_, null) => false,
-				(_, _) => left.CompareTo(right) <= 0,
+				(_, _) => left!.CompareTo(right!) <= 0, // https://github.com/dotnet/roslyn/issues/37136
 			};
 
 	/// <summary>
@@ -63,14 +63,14 @@ namespace Faithlife.Utility
 	/// <param name="left">The left item.</param>
 	/// <param name="right">The right item.</param>
 	/// <returns>True if the left is greater than the right.</returns>
-	public static bool OperatorGreaterThan<T>(T left, T right)
+	public static bool OperatorGreaterThan<T>(T? left, T? right)
 			where T : class, IComparable<T> =>
 			(left, right) switch
 			{
 				(_, _) when ReferenceEquals(left, right) => false,
 				(null, _) => false,
 				(_, null) => true,
-				(_, _) => left.CompareTo(right) > 0,
+				(_, _) => left!.CompareTo(right!) > 0, // https://github.com/dotnet/roslyn/issues/37136
 			};
 
 		/// <summary>
@@ -79,14 +79,14 @@ namespace Faithlife.Utility
 		/// <param name="left">The left item.</param>
 		/// <param name="right">The right item.</param>
 		/// <returns>True if the left is greater than or equal to the right.</returns>
-		public static bool OperatorGreaterThanOrEqual<T>(T left, T right)
+		public static bool OperatorGreaterThanOrEqual<T>(T? left, T? right)
 			where T : class, IComparable<T> =>
 			(left, right) switch
 			{
 				(_, _) when ReferenceEquals(left, right) => true,
 				(null, _) => false,
 				(_, null) => true,
-				(_, _) => left.CompareTo(right) >= 0,
+				(_, _) => left!.CompareTo(right!) >= 0, // https://github.com/dotnet/roslyn/issues/37136
 			};
 	}
 }
