@@ -41,7 +41,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase("3", 3.0, "3")]
 		[TestCase("0", 0.0, "0")]
 		[TestCase("-3", -3.0, "-3")]
-		[TestCase("4.94065645841247E-324", double.Epsilon, "4.94065645841247E-324")]
+		[TestCase("4.94065645841247E-324", double.Epsilon, "5E-324")]
 		[TestCase("1.7976931348623157E+308", double.MaxValue, "1.7976931348623157E+308")]
 		[TestCase("-1.7976931348623157E+308", double.MinValue, "-1.7976931348623157E+308")]
 		[TestCase("+0006.0221412927000e23", 6.0221412927E+23, "6.0221412927E+23")]
@@ -53,7 +53,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase(" NaN ", double.NaN, "NaN")]
 		[TestCase(" -Infinity ", double.NegativeInfinity, "-Infinity")]
 		[TestCase(" Infinity ", double.PositiveInfinity, "Infinity")]
-		[TestCase("0.33333333333333331", 1.0 / 3.0, "0.33333333333333331")]
+		[TestCase("0.33333333333333331", 1.0 / 3.0, "0.3333333333333333")]
 		[TestCase(null, null, null)]
 		[TestCase("", null, null)]
 		[TestCase(" ", null, null)]
@@ -62,9 +62,9 @@ namespace Faithlife.Utility.Tests
 		[TestCase("3.", 3.0, "3")]
 		[TestCase("-0", 0.0, "0")]
 		[TestCase("-0", -0.0, "-0")]
-		[TestCase("-infinity", null, null)]
-		[TestCase("infinity", null, null)]
-		[TestCase("nan", null, null)]
+		[TestCase("-infinity", double.NegativeInfinity, "-Infinity")]
+		[TestCase("infinity", double.PositiveInfinity, "Infinity")]
+		[TestCase("nan", double.NaN, "NaN")]
 		public void TestDouble(string before, object value, string after)
 		{
 			Assert.AreEqual((double?) value, InvariantConvert.TryParseDouble(before));
