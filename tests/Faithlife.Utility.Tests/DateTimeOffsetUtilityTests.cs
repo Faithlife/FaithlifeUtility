@@ -17,7 +17,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void BadInput()
 		{
-			Assert.Throws<ArgumentNullException>(() => DateTimeOffsetUtility.ParseIso8601(null));
+			Assert.Throws<ArgumentNullException>(() => DateTimeOffsetUtility.ParseIso8601(null!));
 			Assert.Throws<FormatException>(() => DateTimeOffsetUtility.ParseIso8601(""));
 
 			DateTimeOffset dt;

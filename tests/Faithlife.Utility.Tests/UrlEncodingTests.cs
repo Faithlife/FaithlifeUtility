@@ -77,13 +77,13 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void EncodeNullSettings()
 		{
-			Assert.Throws<ArgumentNullException>(() => UrlEncoding.Encode("test", null));
+			Assert.Throws<ArgumentNullException>(() => UrlEncoding.Encode("test", null!));
 		}
 
 		[Test]
 		public void DecodeNullSettings()
 		{
-			Assert.Throws<ArgumentNullException>(() => UrlEncoding.Decode("test", null));
+			Assert.Throws<ArgumentNullException>(() => UrlEncoding.Decode("test", null!));
 		}
 
 		[Test]

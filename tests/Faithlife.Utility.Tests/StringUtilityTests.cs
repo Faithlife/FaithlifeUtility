@@ -69,7 +69,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void JoinStrings()
 		{
-			LinkedList<string> linked = new LinkedList<string>();
+			var linked = new LinkedList<string?>();
 			linked.AddLast("one");
 			linked.AddLast(default(string));
 			linked.AddLast("two");
@@ -82,29 +82,29 @@ namespace Faithlife.Utility.Tests
 			Assert.AreEqual("onetwothree", linked.Join(null));
 		}
 
-		[TestCase(0, new string[0])]
-		[TestCase(1, new string[] { null })]
-		[TestCase(2, new[] { null, "one", null, "", "three" })]
-		[TestCase(3, new[] { "one" })]
-		[TestCase(4, new[] { "one", "two", "three" })]
-		public void JoinStringsInEnumerable(int nIgnored, string[] astrStrings)
+		[TestCase(0, new string?[0])]
+		[TestCase(1, new string?[] { null })]
+		[TestCase(2, new string?[] { null, "one", null, "", "three" })]
+		[TestCase(3, new string?[] { "one" })]
+		[TestCase(4, new string?[] { "one", "two", "three" })]
+		public void JoinStringsInEnumerable(int nIgnored, string?[] astrStrings)
 		{
 			const string strSeparator = ", ";
-			string strActual = ((IEnumerable<string>) astrStrings).Join(strSeparator);
+			string strActual = ((IEnumerable<string?>) astrStrings).Join(strSeparator);
 			Assert.AreEqual(string.Join(strSeparator, astrStrings), strActual);
-			strActual = ((IEnumerable<string>) astrStrings).Join();
+			strActual = ((IEnumerable<string?>) astrStrings).Join();
 			Assert.AreEqual(string.Join(string.Empty, astrStrings), strActual);
-			strActual = ((IEnumerable<string>) astrStrings).Join(string.Empty);
+			strActual = ((IEnumerable<string?>) astrStrings).Join(string.Empty);
 			Assert.AreEqual(string.Join(string.Empty, astrStrings), strActual);
-			strActual = ((IEnumerable<string>) astrStrings).Join(null);
+			strActual = ((IEnumerable<string?>) astrStrings).Join(null);
 			Assert.AreEqual(string.Join(null, astrStrings), strActual);
 		}
 
 		[Test]
 		public void JoinStringsNull()
 		{
-			string[] nullStrings = null;
-			Assert.Throws<ArgumentNullException>(() => nullStrings.Join(", "));
+			string?[]? nullStrings = null;
+			Assert.Throws<ArgumentNullException>(() => nullStrings!.Join(", "));
 		}
 
 		[Test]
@@ -146,7 +146,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void ReverseNull()
 		{
-			Assert.Throws<ArgumentNullException>(() => StringUtility.Reverse(null));
+			Assert.Throws<ArgumentNullException>(() => StringUtility.Reverse(null!));
 		}
 
 		[TestCase("", "")]
@@ -319,7 +319,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void FoldCaseNull()
 		{
-			Assert.Throws<ArgumentNullException>(() => StringUtility.FoldCase(null));
+			Assert.Throws<ArgumentNullException>(() => StringUtility.FoldCase(null!));
 		}
 
 		[TestCase("", 0)]
@@ -332,7 +332,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase("abcabca", 451022788)]
 		[TestCase("\" \"", 1671599841)]
 		[TestCase("#@!", 1671599841)]
-		public void GetPersistentHash(string s, int nExpected)
+		public void GetPersistentHash(string? s, int nExpected)
 		{
 			Assert.AreEqual(nExpected, StringUtility.GetPersistentHashCode(s));
 		}
@@ -341,9 +341,9 @@ namespace Faithlife.Utility.Tests
 		[TestCase("")]
 		[TestCase("1")]
 		[TestCase("ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏ")]
-		public void CompressAndDecompress(string text)
+		public void CompressAndDecompress(string? text)
 		{
-			byte[] bytes = StringUtility.Compress(text);
+			var bytes = StringUtility.Compress(text);
 			Assert.AreEqual(StringUtility.Decompress(bytes), text);
 		}
 
@@ -351,8 +351,8 @@ namespace Faithlife.Utility.Tests
 		public void CompressAndDecompressShortString()
 		{
 			const string text = "1234";
-			byte[] bytes = StringUtility.Compress(text);
-			Assert.AreEqual(bytes[0], (byte) 2);
+			var bytes = StringUtility.Compress(text);
+			Assert.AreEqual(bytes![0], (byte) 2);
 			Assert.AreEqual(StringUtility.Decompress(bytes), text);
 		}
 
@@ -363,8 +363,8 @@ namespace Faithlife.Utility.Tests
 			for (int i = 0; i < 100000; i++)
 				textBuilder.AppendLine(Guid.NewGuid().ToString());
 			string text = textBuilder.ToString();
-			byte[] bytes = StringUtility.Compress(text);
-			Assert.AreEqual(bytes[0], (byte) 1);
+			var bytes = StringUtility.Compress(text);
+			Assert.AreEqual(bytes![0], (byte) 1);
 			Assert.AreEqual(StringUtility.Decompress(bytes), text);
 		}
 
@@ -373,9 +373,9 @@ namespace Faithlife.Utility.Tests
 		[TestCase("02-01-00-00-00-31", "1")]
 		[TestCase("01-00-00-00-00", "")]
 		[TestCase("02-00-00-00-00", "")]
-		public void Decompress(string data, string text)
+		public void Decompress(string? data, string? text)
 		{
-			byte[] bytes = data == null ? null :
+			var bytes = data == null ? null :
 				data.Split(new[] { '-' }, StringSplitOptions.RemoveEmptyEntries).Select(x => byte.Parse(x, NumberStyles.HexNumber)).ToArray();
 			Assert.AreEqual(StringUtility.Decompress(bytes), text);
 		}
@@ -384,9 +384,9 @@ namespace Faithlife.Utility.Tests
 		[TestCase("03-00-00-00-00", null)]
 		[TestCase("01-00-00", null)]
 		[TestCase("01-00-00-00-01-00", "")]
-		public void DecompressFormatException(string data, string text)
+		public void DecompressFormatException(string? data, string? text)
 		{
-			byte[] bytes = data == null ? null :
+			var bytes = data == null ? null :
 				data.Split(new[] { '-' }, StringSplitOptions.RemoveEmptyEntries).Select(x => byte.Parse(x, NumberStyles.HexNumber)).ToArray();
 			Assert.Throws<FormatException>(() => StringUtility.Decompress(bytes));
 		}

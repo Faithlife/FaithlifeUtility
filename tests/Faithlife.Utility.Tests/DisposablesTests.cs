@@ -123,7 +123,7 @@ namespace Faithlife.Utility.Tests
 		{
 			Assert.Throws<NotSupportedException>(() =>
 			{
-				foreach (IDisposable disposable in new Disposables())
+				foreach (IDisposable? disposable in new Disposables())
 					Assert.IsNotNull(disposable);
 			});
 		}

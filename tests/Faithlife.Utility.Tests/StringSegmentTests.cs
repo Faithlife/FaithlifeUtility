@@ -131,7 +131,7 @@ namespace Faithlife.Utility.Tests
 		public void TestAppendToNullStringBuilder()
 		{
 			StringSegment seg = new StringSegment("hey", 1, 1);
-			Assert.Throws<ArgumentNullException>(() => seg.AppendToStringBuilder(null));
+			Assert.Throws<ArgumentNullException>(() => seg.AppendToStringBuilder(null!));
 		}
 
 		[Test]
@@ -275,7 +275,9 @@ namespace Faithlife.Utility.Tests
 			string str = "";
 			foreach (char ch in new StringSegment("hey", 1))
 				str += ch;
-			foreach (char ch in ((IEnumerable) new StringSegment("hey", 1)))
+#pragma warning disable CS8605 // Unboxing a possibly null value.
+			foreach (char ch in (IEnumerable) new StringSegment("hey", 1))
+#pragma warning restore CS8605 // Unboxing a possibly null value.
 				str += ch;
 			Assert.AreEqual("eyey", str);
 		}
@@ -459,8 +461,8 @@ namespace Faithlife.Utility.Tests
 		{
 			string str = "hey you";
 			StringSegment seg = new StringSegment(str, 1, 5);
-			Regex regex = null;
-			Assert.Throws<ArgumentNullException>(() => seg.Match(regex));
+			Regex? regex = null;
+			Assert.Throws<ArgumentNullException>(() => seg.Match(regex!));
 		}
 
 		[Test]
@@ -487,8 +489,8 @@ namespace Faithlife.Utility.Tests
 		{
 			string str = "hey you";
 			StringSegment seg = new StringSegment(str, 1, 5);
-			Capture capture = null;
-			Assert.Throws<ArgumentNullException>(() => seg.Redirect(capture));
+			Capture? capture = null;
+			Assert.Throws<ArgumentNullException>(() => seg.Redirect(capture!));
 		}
 
 		[Test]

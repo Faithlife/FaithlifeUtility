@@ -84,7 +84,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void CombineHashCodesNull()
 		{
-			HashCodeUtility.CombineHashCodes((int[]) null);
+			HashCodeUtility.CombineHashCodes((int[]?) null);
 		}
 	}
 }

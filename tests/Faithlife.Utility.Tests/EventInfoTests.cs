@@ -106,15 +106,15 @@ namespace Faithlife.Utility.Tests
 
 		class EventSource
 		{
-			public event EventHandler Updated;
+			public event EventHandler? Updated;
 			public static readonly EventInfo<EventSource, EventHandler> UpdatedEvent =
 				new EventInfo<EventSource, EventHandler>((x, fn) => x.Updated += fn, (x, fn) => x.Updated -= fn);
 
-			public event EventHandler<EventArgs> Closed;
+			public event EventHandler<EventArgs>? Closed;
 			public static readonly EventInfo<EventSource, EventHandler<EventArgs>> ClosedEvent =
 				new EventInfo<EventSource, EventHandler<EventArgs>>((x, fn) => x.Closed += fn, (x, fn) => x.Closed -= fn);
 
-			public event EventHandler<EventArgs> Terminated;
+			public event EventHandler<EventArgs>? Terminated;
 			public static readonly EventInfo<EventSource, EventHandler<EventArgs>> TerminatedEvent =
 				new EventInfo<EventSource, EventHandler<EventArgs>>((x, fn) => x.Terminated += fn, (x, fn) => x.Terminated -= fn);
 

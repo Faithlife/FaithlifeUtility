@@ -16,7 +16,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void InvalidConstructorArgument()
 		{
-			Assert.Throws<ArgumentNullException>(() => new ReadOnlySet<int>(null));
+			Assert.Throws<ArgumentNullException>(() => new ReadOnlySet<int>(null!));
 		}
 
 		[Test]
@@ -103,6 +103,8 @@ namespace Faithlife.Utility.Tests
 			Assert.IsTrue(m_set.SetEquals(new[] { 1, 2, 3 }));
 		}
 
+#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 		ReadOnlySet<int> m_set;
+#pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 	}
 }

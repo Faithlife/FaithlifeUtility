@@ -26,7 +26,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void FromPatternKeyValuePairs()
 		{
-			var parameters = new SortedDictionary<string, object>()
+			var parameters = new SortedDictionary<string, object?>()
 			{
 				["x"] = "r&d",
 				["y"] = "pb&j",
@@ -42,10 +42,10 @@ namespace Faithlife.Utility.Tests
 		[TestCase(null, null)]
 		[TestCase(null, "somewhere.com")]
 		[TestCase("http://maps.google.com", null)]
-		public void MatchesDomainArgumentNullException(string uristring, string domain)
+		public void MatchesDomainArgumentNullException(string? uristring, string? domain)
 		{
-			Uri uri = uristring != null ? new Uri(uristring) : null;
-			Assert.Throws<ArgumentNullException>(() => UriUtility.MatchesDomain(uri, domain));
+			var uri = uristring != null ? new Uri(uristring) : null;
+			Assert.Throws<ArgumentNullException>(() => UriUtility.MatchesDomain(uri!, domain!));
 		}
 
 		[TestCase("maps.google.com", "someplace.com")]

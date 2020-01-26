@@ -33,7 +33,7 @@ namespace Faithlife.Utility.Tests
 			Assert.IsFalse(right.Equals(left));
 			Assert.IsTrue(left.Equals(left2));
 			Assert.IsFalse(left.Equals(null));
-			Assert.IsFalse(((object) left).Equals(right));
+			Assert.IsFalse(((object) left!).Equals(right));
 			Assert.IsTrue(((object) left).Equals(left));
 			Assert.IsFalse(((object) right).Equals(left));
 			Assert.IsTrue(((object) left).Equals(left2));
@@ -47,22 +47,22 @@ namespace Faithlife.Utility.Tests
 				m_n = n;
 			}
 
-			public int CompareTo(MyComparable other)
+			public int CompareTo(MyComparable? other)
 			{
 				return other == null ? 1 : m_n.CompareTo(other.m_n);
 			}
 
-			int IComparable.CompareTo(object obj)
+			int IComparable.CompareTo(object? obj)
 			{
 				return ComparableImpl.CompareToObject(this, obj);
 			}
 
-			public bool Equals(MyComparable other)
+			public bool Equals(MyComparable? other)
 			{
 				return other == null ? false : m_n == other.m_n;
 			}
 
-			public override bool Equals(object obj)
+			public override bool Equals(object? obj)
 			{
 				return obj is MyComparable && Equals((MyComparable) obj);
 			}

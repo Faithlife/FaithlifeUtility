@@ -9,7 +9,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void OperatorEquality()
 		{
-			EquatableClass eNull = null;
+			EquatableClass? eNull = null;
 			EquatableClass e1 = new EquatableClass(1);
 			EquatableClass e1b = new EquatableClass(1);
 			EquatableClass e2 = new EquatableClass(2);
@@ -25,7 +25,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void OperatorInequality()
 		{
-			EquatableClass eNull = null;
+			EquatableClass? eNull = null;
 			EquatableClass e1 = new EquatableClass(1);
 			EquatableClass e1b = new EquatableClass(1);
 			EquatableClass e2 = new EquatableClass(2);

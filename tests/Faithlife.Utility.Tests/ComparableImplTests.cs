@@ -43,14 +43,14 @@ namespace Faithlife.Utility.Tests
 		public void TestNull()
 		{
 			TestInt ti = new TestInt(1);
-			object o = null;
+			object? o = null;
 			Assert.Greater(ti.CompareTo(o), 0);
 		}
 
 		[Test]
 		public void OperatorLessThan()
 		{
-			TestInt iNull = null;
+			TestInt? iNull = null;
 			TestInt i1 = new TestInt(1);
 			TestInt i1b = new TestInt(1);
 			TestInt i2 = new TestInt(2);
@@ -66,7 +66,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void OperatorLessThanOrEqual()
 		{
-			TestInt iNull = null;
+			TestInt? iNull = null;
 			TestInt i1 = new TestInt(1);
 			TestInt i1b = new TestInt(1);
 			TestInt i2 = new TestInt(2);
@@ -82,7 +82,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void OperatorGreaterThan()
 		{
-			TestInt iNull = null;
+			TestInt? iNull = null;
 			TestInt i1 = new TestInt(1);
 			TestInt i1b = new TestInt(1);
 			TestInt i2 = new TestInt(2);
@@ -98,7 +98,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void OperatorGreaterThanOrEqual()
 		{
-			TestInt iNull = null;
+			TestInt? iNull = null;
 			TestInt i1 = new TestInt(1);
 			TestInt i1b = new TestInt(1);
 			TestInt i2 = new TestInt(2);
@@ -123,7 +123,7 @@ namespace Faithlife.Utility.Tests
 			m_nValue = nValue;
 		}
 
-		public int CompareTo(object obj)
+		public int CompareTo(object? obj)
 		{
 			return ComparableImpl.CompareToObject(this, obj);
 		}

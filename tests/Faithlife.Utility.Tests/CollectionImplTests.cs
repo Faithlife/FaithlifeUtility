@@ -9,7 +9,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void NullArray()
 		{
-			Assert.Throws<ArgumentNullException>(() => CollectionImpl.CheckCopyToParameters(null, 0, 0));
+			Assert.Throws<ArgumentNullException>(() => CollectionImpl.CheckCopyToParameters(null!, 0, 0));
 		}
 
 		[Test]

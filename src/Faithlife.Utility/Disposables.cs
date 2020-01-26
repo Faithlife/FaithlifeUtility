@@ -19,17 +19,17 @@ namespace Faithlife.Utility
 		public Disposables()
 		{
 			m_lock = new object();
-			m_list = new List<IDisposable>();
+			m_list = new List<IDisposable?>();
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Disposables"/> class.
 		/// </summary>
 		/// <param name="disposables">The initial disposables.</param>
-		public Disposables(IEnumerable<IDisposable> disposables)
+		public Disposables(IEnumerable<IDisposable?> disposables)
 		{
 			m_lock = new object();
-			m_list = new List<IDisposable>(disposables);
+			m_list = new List<IDisposable?>(disposables);
 		}
 
 		/// <summary>
@@ -37,7 +37,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="disposable">The disposable.</param>
 		/// <exception cref="System.ObjectDisposedException">Illegal to add after Dispose.</exception>
-		public void Add(IDisposable disposable)
+		public void Add(IDisposable? disposable)
 		{
 			lock (m_lock)
 			{
@@ -53,7 +53,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="disposables">The disposables.</param>
 		/// <exception cref="System.ObjectDisposedException">AddRange called after Dispose.</exception>
-		public void AddRange(IEnumerable<IDisposable> disposables)
+		public void AddRange(IEnumerable<IDisposable?> disposables)
 		{
 			foreach (var disposable in disposables)
 				Add(disposable);
@@ -64,7 +64,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		public void Dispose()
 		{
-			List<IDisposable>? list;
+			List<IDisposable?>? list;
 			lock (m_lock)
 			{
 				list = m_list;
@@ -85,6 +85,6 @@ namespace Faithlife.Utility
 		IEnumerator IEnumerable.GetEnumerator() => throw new NotSupportedException("IEnumerable.GetEnumerator implemented only for collection initialization syntax.");
 
 		readonly object m_lock;
-		List<IDisposable>? m_list;
+		List<IDisposable?>? m_list;
 	}
 }

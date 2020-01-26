@@ -26,7 +26,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void BadConstructorArguments()
 		{
-			Assert.Throws<ArgumentNullException>(() => new RebasedStream(null));
+			Assert.Throws<ArgumentNullException>(() => new RebasedStream(null!));
 		}
 
 		[Test]
@@ -165,7 +165,9 @@ namespace Faithlife.Utility.Tests
 			return new RebasedStream(m_stream);
 		}
 
+#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 		byte[] m_buffer;
 		Stream m_stream;
+#pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 	}
 }

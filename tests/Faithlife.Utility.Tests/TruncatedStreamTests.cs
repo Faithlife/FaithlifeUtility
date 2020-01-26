@@ -20,13 +20,13 @@ namespace Faithlife.Utility.Tests
 		[TearDown]
 		public void TearDown()
 		{
-			m_stream.Dispose();
+			m_stream!.Dispose();
 		}
 
 		[Test]
 		public void BadConstructorArguments()
 		{
-			Assert.Throws<ArgumentNullException>(() => new TruncatedStream(null, 5, Ownership.None));
+			Assert.Throws<ArgumentNullException>(() => new TruncatedStream(null!, 5, Ownership.None));
 		}
 
 		[Test]
@@ -45,7 +45,7 @@ namespace Faithlife.Utility.Tests
 			{
 				Assert.AreEqual(2, stream.Seek(2, SeekOrigin.Begin));
 				Assert.AreEqual(2, stream.Position);
-				Assert.AreEqual(2, m_stream.Position);
+				Assert.AreEqual(2, m_stream!.Position);
 
 				Assert.AreEqual(3, stream.Seek(1, SeekOrigin.Current));
 				Assert.AreEqual(3, stream.Position);
@@ -105,10 +105,10 @@ namespace Faithlife.Utility.Tests
 
 		private TruncatedStream CreateTruncatedStream(int length)
 		{
-			return new TruncatedStream(m_stream, length, Ownership.None);
+			return new TruncatedStream(m_stream!, length, Ownership.None);
 		}
 
-		byte[] m_buffer;
-		Stream m_stream;
+		byte[]? m_buffer;
+		Stream? m_stream;
 	}
 }

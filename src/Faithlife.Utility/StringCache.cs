@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Faithlife.Utility
 {
@@ -27,6 +28,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="value">The string value to look up.</param>
 		/// <returns>The unique cached instance of a <see cref="string"/> that is equal to <paramref name="value"/>.</returns>
+		[return: NotNullIfNotNull("value")]
 		public string? GetOrAdd(string? value)
 		{
 			// check for trivial cases

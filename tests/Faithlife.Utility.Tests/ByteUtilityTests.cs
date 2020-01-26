@@ -9,7 +9,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void ToBytesArguments()
 		{
-			Assert.Throws<ArgumentNullException>(() => ByteUtility.ToBytes(null));
+			Assert.Throws<ArgumentNullException>(() => ByteUtility.ToBytes(null!));
 			Assert.Throws<ArgumentException>(() => ByteUtility.ToBytes("1"));
 			Assert.Throws<ArgumentOutOfRangeException>(() => ByteUtility.ToBytes("XY"));
 		}
@@ -17,7 +17,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void ToStringArguments()
 		{
-			Assert.Throws<ArgumentNullException>(() => ByteUtility.ToString(null));
+			Assert.Throws<ArgumentNullException>(() => ByteUtility.ToString(null!));
 		}
 
 		[TestCase("", new byte[0])]

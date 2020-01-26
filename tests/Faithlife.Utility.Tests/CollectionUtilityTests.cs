@@ -12,14 +12,14 @@ namespace Faithlife.Utility.Tests
 		public void AddNullRange()
 		{
 			ICollection<int> listNumbers = new List<int>();
-			Assert.Throws<ArgumentNullException>(() => listNumbers.AddRange(null));
+			Assert.Throws<ArgumentNullException>(() => listNumbers.AddRange(null!));
 		}
 
 		[Test]
 		public void AddRangeToNullCollection()
 		{
-			ICollection<int> listNumbers = null;
-			Assert.Throws<ArgumentNullException>(() => listNumbers.AddRange(new int[] { 1, 2, 3 }));
+			ICollection<int>? listNumbers = null;
+			Assert.Throws<ArgumentNullException>(() => listNumbers!.AddRange(new int[] { 1, 2, 3 }));
 		}
 
 		[Test]

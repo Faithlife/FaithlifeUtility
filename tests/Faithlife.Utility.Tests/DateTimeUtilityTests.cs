@@ -60,7 +60,7 @@ namespace Faithlife.Utility.Tests
 
 			DateTime? dtParsed2 = DateTimeUtility.TryParseIso8601("2006-01-02T03:04:05Z");
 			Assert.IsTrue(dtParsed2.HasValue);
-			Assert.AreEqual(dtExpected, dtParsed2.Value);
+			Assert.AreEqual(dtExpected, dtParsed2!.Value);
 		}
 
 		[Test]
@@ -127,7 +127,7 @@ namespace Faithlife.Utility.Tests
 			DateTime? now = DateTime.Now;
 			Assert.AreEqual(now.Value.Kind, DateTimeKind.Local);
 			Assert.AreEqual(now.Value.SpecifyUtc().Kind, DateTimeKind.Utc);
-			Assert.AreEqual(now.SpecifyUtc().Value.Kind, DateTimeKind.Utc);
+			Assert.AreEqual(now.SpecifyUtc()!.Value.Kind, DateTimeKind.Utc);
 			now = null;
 			Assert.AreEqual(now.SpecifyUtc(), null);
 		}

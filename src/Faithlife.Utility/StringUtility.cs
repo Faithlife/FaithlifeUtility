@@ -644,7 +644,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="strings">The strings.</param>
 		/// <returns>All of the strings concatenated with no separator.</returns>
-		public static string Join(this IEnumerable<string> strings)
+		public static string Join(this IEnumerable<string?> strings)
 		{
 			return Join(strings, default);
 		}
@@ -655,7 +655,7 @@ namespace Faithlife.Utility
 		/// <param name="strings">The strings.</param>
 		/// <param name="separator">The separator. (The empty string is used if null.)</param>
 		/// <returns>All of the strings concatenated with the specified separator.</returns>
-		public static string Join(this IEnumerable<string> strings, string? separator)
+		public static string Join(this IEnumerable<string?> strings, string? separator)
 		{
 			if (strings is null)
 				throw new ArgumentNullException(nameof(strings));

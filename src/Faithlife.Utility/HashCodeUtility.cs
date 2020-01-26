@@ -163,7 +163,7 @@ namespace Faithlife.Utility
 		/// <returns>The combined hash code.</returns>
 		/// <remarks>This method is based on the "hashword" function at http://burtleburtle.net/bob/c/lookup3.c. It attempts to thoroughly
 		/// mix all the bits in the input hash codes.</remarks>
-		public static int CombineHashCodes(params int[] hashCodes)
+		public static int CombineHashCodes(params int[]? hashCodes)
 		{
 			unchecked
 			{

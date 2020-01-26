@@ -37,7 +37,7 @@ namespace Faithlife.Utility.Tests
 		public void BinarySearchNullList()
 		{
 			int nIndex;
-			Assert.Throws<ArgumentNullException>(() => ListUtility.BinarySearchForKey<SearchData, int>(null, 1, CompareItemToKey, out nIndex));
+			Assert.Throws<ArgumentNullException>(() => ListUtility.BinarySearchForKey<SearchData, int>(null!, 1, CompareItemToKey, out nIndex));
 		}
 
 		[Test]
@@ -45,7 +45,7 @@ namespace Faithlife.Utility.Tests
 		{
 			int nIndex;
 			List<SearchData> list = new List<SearchData>();
-			Assert.Throws<ArgumentNullException>(() => ListUtility.BinarySearchForKey(list, 1, null, out nIndex));
+			Assert.Throws<ArgumentNullException>(() => ListUtility.BinarySearchForKey(list, 1, null!, out nIndex));
 		}
 
 		[Test]
@@ -168,8 +168,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void FindIndexBadArguments()
 		{
-			Assert.Throws<ArgumentNullException>(() => { ListUtility.FindIndex<object>(null, n => true); });
-			Assert.Throws<ArgumentNullException>(() => { ListUtility.FindIndex(new object[] { }, null); });
+			Assert.Throws<ArgumentNullException>(() => { ListUtility.FindIndex<object>(null!, n => true); });
+			Assert.Throws<ArgumentNullException>(() => { ListUtility.FindIndex(new object[] { }, null!); });
 		}
 
 		[Test]

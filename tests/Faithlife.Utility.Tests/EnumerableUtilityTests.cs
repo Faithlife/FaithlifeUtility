@@ -15,8 +15,8 @@ namespace Faithlife.Utility.Tests
 		public void TryFirstBadArguments()
 		{
 			int i;
-			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.TryFirst(null, n => n == 2, out i));
-			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.TryFirst(new int[0], null, out i));
+			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.TryFirst(null!, n => n == 2, out i));
+			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.TryFirst(new int[0], null!, out i));
 		}
 
 		[Test]
@@ -48,7 +48,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void AsSetGivenBadArgumentShouldThrow()
 		{
-			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.AsSet(default(IEnumerable<int>)));
+			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.AsSet(default(IEnumerable<int>)!));
 		}
 
 		[Test]
@@ -67,7 +67,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void CountIsExactlyBadArguments()
 		{
-			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.CountIsExactly(default(IEnumerable<int>), 1));
+			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.CountIsExactly(default(IEnumerable<int>)!, 1));
 			Assert.Throws<ArgumentOutOfRangeException>(() => EnumerableUtility.CountIsExactly(new int[0], -1));
 		}
 
@@ -88,7 +88,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void CountIsAtLeastBadArguments()
 		{
-			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.CountIsAtLeast(default(IEnumerable<int>), 1));
+			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.CountIsAtLeast(default(IEnumerable<int>)!, 1));
 			Assert.Throws<ArgumentOutOfRangeException>(() => EnumerableUtility.CountIsAtLeast(new int[0], -1));
 		}
 
@@ -120,8 +120,8 @@ namespace Faithlife.Utility.Tests
 			var seqLong = new[] { 1, 2, 3 };
 			Assert.Throws<ArgumentException>(() => seq1.Zip(seqLong).ToList());
 			Assert.Throws<ArgumentException>(() => seqLong.Zip(seq2).ToList());
-			Assert.Throws<ArgumentNullException>(() => seq1.Zip((IEnumerable<int>) null));
-			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.Zip((IEnumerable<int>) null, seq1));
+			Assert.Throws<ArgumentNullException>(() => seq1.Zip((IEnumerable<int>) null!));
+			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.Zip((IEnumerable<int>) null!, seq1));
 		}
 
 		// forces a sequence to be IEnumerable<T>, but not ICollection<T>
@@ -134,7 +134,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void CrossProductBadArguments()
 		{
-			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.CrossProduct((IEnumerable<IEnumerable<int>>) null));
+			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.CrossProduct((IEnumerable<IEnumerable<int>>) null!));
 			Assert.Throws<ArgumentException>(() => EnumerableUtility.CrossProduct(Enumerable.Empty<IEnumerable<int>>()));
 		}
 
@@ -197,8 +197,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void DistinctBy()
 		{
-			Assert.Throws<ArgumentNullException>(() => ((IEnumerable<int>) null).DistinctBy(i => i));
-			Assert.Throws<ArgumentNullException>(() => new[] { 1 }.DistinctBy((Func<int, int>) null));
+			Assert.Throws<ArgumentNullException>(() => ((IEnumerable<int>) null!).DistinctBy(i => i));
+			Assert.Throws<ArgumentNullException>(() => new[] { 1 }.DistinctBy((Func<int, int>) null!));
 
 			CollectionAssert.AreEqual(new[] { 2.1, 1, 2, 3, 1.4 }.DistinctBy(d => Math.Floor(d)), new[] { 2.1, 1, 3 });
 			CollectionAssert.AreEqual(new double[] { 1, 2, 1, 3, 1 }.DistinctBy(d => Math.Floor(d)), new double[] { 1, 2, 3 });
@@ -211,8 +211,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void DistinctByComparerArgumentNull()
 		{
-			Assert.Throws<ArgumentNullException>(() => ((IEnumerable<int>) null).DistinctBy(i => i, EqualityComparer<int>.Default));
-			Assert.Throws<ArgumentNullException>(() => new[] { 1 }.DistinctBy(null, EqualityComparer<int>.Default));
+			Assert.Throws<ArgumentNullException>(() => ((IEnumerable<int>) null!).DistinctBy(i => i, EqualityComparer<int>.Default));
+			Assert.Throws<ArgumentNullException>(() => new[] { 1 }.DistinctBy(null!, EqualityComparer<int>.Default));
 		}
 
 		[Test]
@@ -240,7 +240,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void EnumerateBatchesNull()
 		{
-			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.EnumerateBatches<int>(null, 1));
+			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.EnumerateBatches<int>(null!, 1));
 		}
 
 		[Test]
@@ -354,7 +354,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void SplitIntoBinsNull()
 		{
-			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.SplitIntoBins<int>(null, 1));
+			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.SplitIntoBins<int>(null!, 1));
 		}
 
 		[Test]
@@ -477,7 +477,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void IntersperseNull()
 		{
-			Assert.Throws<ArgumentNullException>(() => ((int[]) null).Intersperse(0));
+			Assert.Throws<ArgumentNullException>(() => ((int[]) null!).Intersperse(0));
 		}
 
 		[TestCase(new[] { 0 }, 42)]
@@ -548,7 +548,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TakeLastArguments()
 		{
-			Assert.Throws<ArgumentNullException>(() => ((IEnumerable<int>) null).TakeLast(1));
+			Assert.Throws<ArgumentNullException>(() => ((IEnumerable<int>) null!).TakeLast(1));
 			Assert.Throws<ArgumentOutOfRangeException>(() => new[] { 1 }.TakeLast(-1));
 		}
 
@@ -621,10 +621,10 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void WhereNotNullClass()
 		{
-			IEnumerable<string> input = new[] { "this", null, "is", "a", null, "test", null };
+			IEnumerable<string?> input = new[] { "this", null, "is", "a", null, "test", null };
 			CollectionAssert.AreEqual("this is a test".SplitOnWhitespace(), input.WhereNotNull());
 
-			Assert.AreEqual(0, new string[] { null, null, null }.WhereNotNull().Count());
+			Assert.AreEqual(0, new string?[] { null, null, null }.WhereNotNull().Count());
 		}
 
 		[Test]
@@ -682,7 +682,7 @@ namespace Faithlife.Utility.Tests
 			DoAreEqualTest(false, new[] { 1, 2 }, new[] { 1, -3 }, absEquals);
 		}
 
-		private void DoAreEqualTest(bool areEqual, IEnumerable<int> left, IEnumerable<int> right)
+		private void DoAreEqualTest(bool areEqual, IEnumerable<int>? left, IEnumerable<int>? right)
 		{
 			Assert.AreEqual(areEqual, EnumerableUtility.AreEqual(left, right));
 			Assert.AreEqual(areEqual, EnumerableUtility.AreEqual(right, left));

@@ -22,7 +22,7 @@ namespace Faithlife.Utility
 		/// <param name="value">The ISO 8601 string representation to parse.</param>
 		/// <param name="date">The DateTimeOffset equivalent.</param>
 		/// <returns>True if successful.</returns>
-		public static bool TryParseIso8601(string value, out DateTimeOffset date)
+		public static bool TryParseIso8601(string? value, out DateTimeOffset date)
 			=> DateTimeOffset.TryParseExact(value, GetParseFormat(value), CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out date);
 
 		/// <summary>
@@ -30,7 +30,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="value">The ISO 8601 string representation to parse.</param>
 		/// <returns>Non-null if successful.</returns>
-		public static DateTimeOffset? TryParseIso8601(string value) => TryParseIso8601(value, out var dt) ? dt : default(DateTimeOffset?);
+		public static DateTimeOffset? TryParseIso8601(string? value) => TryParseIso8601(value, out var dt) ? dt : default(DateTimeOffset?);
 
 		/// <summary>
 		/// Formats the date in the standard ISO 8601 format.
@@ -45,7 +45,7 @@ namespace Faithlife.Utility
 		public const string Iso8601Format = "yyyy'-'MM'-'dd'T'HH':'mm':'sszzz";
 
 		// Returns a string containing the pattern that should be used for parsing the input.
-		private static string GetParseFormat(string strInput)
+		private static string GetParseFormat(string? strInput)
 		{
 			// a trailing "Z" means to use the "legacy" timezone format
 			return strInput is object && strInput.EndsWith("Z", StringComparison.Ordinal) ? DateTimeUtility.Iso8601Format : Iso8601Format;

@@ -10,7 +10,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void NullConstructorArgument()
 		{
-			Assert.Throws<ArgumentNullException>(() => new ReadOnlyListAdapter<int>(null));
+			Assert.Throws<ArgumentNullException>(() => new ReadOnlyListAdapter<int>(null!));
 		}
 
 		[Test]

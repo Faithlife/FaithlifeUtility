@@ -48,13 +48,13 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void ConcatenateNullParams()
 		{
-			Assert.Throws<ArgumentNullException>(() => ArrayUtility.Concatenate<int>(null));
+			Assert.Throws<ArgumentNullException>(() => ArrayUtility.Concatenate<int>(null!));
 		}
 
 		[Test]
 		public void ConcatenateNullArray()
 		{
-			Assert.Throws<ArgumentOutOfRangeException>(() => ArrayUtility.Concatenate(new int[] { }, null));
+			Assert.Throws<ArgumentOutOfRangeException>(() => ArrayUtility.Concatenate(new int[] { }, null!));
 		}
 
 		[Test]
@@ -76,8 +76,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void ArraysEqualWithNull()
 		{
-			string[] anFirst = new string[] { "1", "2", null, "4", "5" };
-			string[] anSecond = new string[] { "1", "2", null, "4", "5" };
+			var anFirst = new string?[] { "1", "2", null, "4", "5" };
+			var anSecond = new string?[] { "1", "2", null, "4", "5" };
 			Assert.IsTrue(ArrayUtility.AreEqual(anFirst, anSecond));
 		}
 
@@ -112,16 +112,16 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void NullItemNotEqualNonNullItem()
 		{
-			string[] astrFirst = new string[] { "1", "2", null, "4" };
-			string[] astrSecond = new string[] { "1", "2", "3", "4" };
+			var astrFirst = new string?[] { "1", "2", null, "4" };
+			var astrSecond = new string?[] { "1", "2", "3", "4" };
 			Assert.IsFalse(ArrayUtility.AreEqual(astrFirst, astrSecond));
 		}
 
 		[Test]
 		public void NonNullItemNotEqualNullItem()
 		{
-			string[] astrFirst = new string[] { "1", "2", "3", "4" };
-			string[] astrSecond = new string[] { "1", "2", "3", null };
+			var astrFirst = new string?[] { "1", "2", "3", "4" };
+			var astrSecond = new string?[] { "1", "2", "3", null };
 			Assert.IsFalse(ArrayUtility.AreEqual(astrFirst, astrSecond));
 		}
 
@@ -136,8 +136,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void ArraysCompareEqualWithNull()
 		{
-			string[] astrFirst = new string[] { "1", "2", null, "4", "5" };
-			string[] astrSecond = new string[] { "1", "2", null, "4", "5" };
+			var astrFirst = new string?[] { "1", "2", null, "4", "5" };
+			var astrSecond = new string?[] { "1", "2", null, "4", "5" };
 			Assert.AreEqual(0, ArrayUtility.Compare(astrFirst, astrSecond));
 		}
 
@@ -180,16 +180,16 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void NullItemLessThanNonNullItem()
 		{
-			string[] astrFirst = new string[] { "1", "2", "3", null };
-			string[] astrSecond = new string[] { "1", "2", "3", "4" };
+			var astrFirst = new string?[] { "1", "2", "3", null };
+			var astrSecond = new string?[] { "1", "2", "3", "4" };
 			Assert.Less(ArrayUtility.Compare(astrFirst, astrSecond), 0);
 		}
 
 		[Test]
 		public void NonNullItemGreaterThanNullItem()
 		{
-			string[] astrFirst = new string[] { "1", "2", "3", "4" };
-			string[] astrSecond = new string[] { "1", "2", "3", null };
+			var astrFirst = new string?[] { "1", "2", "3", "4" };
+			var astrSecond = new string?[] { "1", "2", "3", null };
 			Assert.Greater(ArrayUtility.Compare(astrFirst, astrSecond), 0);
 		}
 

@@ -23,7 +23,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="source">The source string.</param>
 		/// <remarks>Creates a segment that represents the entire source string.</remarks>
-		public StringSegment(string source)
+		public StringSegment(string? source)
 			: this(source, 0, source?.Length ?? 0)
 		{
 		}
@@ -36,7 +36,7 @@ namespace Faithlife.Utility
 		/// <remarks>Creates a segment that starts at the specified offset and continues to the end
 		/// of the source string.</remarks>
 		/// <exception cref="ArgumentOutOfRangeException">The offset is out of range.</exception>
-		public StringSegment(string source, int offset)
+		public StringSegment(string? source, int offset)
 			: this(source, offset, (source?.Length ?? 0) - offset)
 		{
 		}

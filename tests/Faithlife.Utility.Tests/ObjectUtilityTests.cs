@@ -7,13 +7,6 @@ namespace Faithlife.Utility.Tests
 	public class ObjectUtilityTests
 	{
 		[Test]
-		public void GetHashCodeProblem()
-		{
-			const string str = null;
-			Assert.Throws<NullReferenceException>(() => str.GetHashCode());
-		}
-
-		[Test]
 		public void GetHashCodeNull()
 		{
 			ObjectUtility.GetHashCode(default(string));

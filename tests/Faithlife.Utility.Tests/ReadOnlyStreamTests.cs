@@ -18,8 +18,8 @@ namespace Faithlife.Utility.Tests
 		[TearDown]
 		public void TearDown()
 		{
-			m_stream = null;
-			m_memStream = null;
+			m_stream = null!;
+			m_memStream = null!;
 		}
 
 		[Test]
@@ -34,7 +34,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void ConstructorNull()
 		{
-			Assert.Throws<ArgumentNullException>(() => new ReadOnlyStream(null));
+			Assert.Throws<ArgumentNullException>(() => new ReadOnlyStream(null!));
 		}
 
 		[Test]
@@ -117,13 +117,15 @@ namespace Faithlife.Utility.Tests
 		{
 			Assert.Throws<NotSupportedException>(() => { m_stream.Write(m_abyStreamData, 0, 1); });
 			Assert.Throws<NotSupportedException>(() => { m_stream.WriteByte(0); });
-			Assert.Throws<NotSupportedException>(() => { m_stream.BeginWrite(m_abyStreamData, 0, 1, null, null); });
+			Assert.Throws<NotSupportedException>(() => { m_stream.BeginWrite(m_abyStreamData, 0, 1, null!, null); });
 			Assert.Throws<NotSupportedException>(() => { m_stream.WriteAsync(m_abyStreamData, 0, 1); });
 			Assert.Throws<NotSupportedException>(() => { m_stream.SetLength(0); });
 		}
 
+#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 		private Stream m_memStream;
 		private Stream m_stream;
+#pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 		private byte[] m_abyStreamData = new byte[] { 0, 1, 2, 3, 4, 5, 6, 7 };
 	}
 }

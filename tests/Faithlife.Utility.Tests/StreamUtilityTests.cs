@@ -15,8 +15,8 @@ namespace Faithlife.Utility.Tests
 		{
 			using (Stream stream = new MemoryStream())
 			{
-				Assert.Throws<ArgumentNullException>(() => StreamUtility.ReadExactly(null, new byte[1], 0, 1));
-				Assert.Throws<ArgumentNullException>(() => stream.ReadExactly(null, 0, 1));
+				Assert.Throws<ArgumentNullException>(() => StreamUtility.ReadExactly(null!, new byte[1], 0, 1));
+				Assert.Throws<ArgumentNullException>(() => stream.ReadExactly(null!, 0, 1));
 				Assert.Throws<ArgumentOutOfRangeException>(() => stream.ReadExactly(new byte[1], -1, 1));
 				Assert.Throws<ArgumentOutOfRangeException>(() => stream.ReadExactly(new byte[1], 1, 1));
 				Assert.Throws<ArgumentOutOfRangeException>(() => stream.ReadExactly(new byte[1], 0, -1));

@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Faithlife.Utility
 {
@@ -26,7 +27,7 @@ namespace Faithlife.Utility
 		/// <param name="obj">The object to dispose and null.</param>
 		/// <remarks>This method is similar to <see cref="Dispose{T}"/>, but doesn't require that the parameter implement <see cref="IDisposable"/>; it will be
 		/// checked at runtime.</remarks>
-		public static void DisposeObject<T>(ref T obj)
+		public static void DisposeObject<T>([MaybeNull] ref T obj)
 		{
 			if (obj is IDisposable disposable)
 				disposable.Dispose();

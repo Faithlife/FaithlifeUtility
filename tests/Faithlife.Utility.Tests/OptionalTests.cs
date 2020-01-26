@@ -35,14 +35,14 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestEqualsOptionalNullAndOptionalNull()
 		{
-			DoTestEquals(new Optional<string>(null), new Optional<string>(null), true);
+			DoTestEquals(new Optional<string?>(null), new Optional<string?>(null), true);
 		}
 
 		[Test]
 		public void TestEqualsOptionalNullAndNull()
 		{
-			DoTestEquals(new Optional<string>(null), null, true); // promotion
-			DoTestObjectEquals(new Optional<string>(null), null, false);
+			DoTestEquals(new Optional<string?>(null), null, true); // promotion
+			DoTestObjectEquals(new Optional<string?>(null), null, false);
 		}
 
 		[Test]
@@ -73,16 +73,16 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestValueThrowsForNoValue()
 		{
-			string value = null;
-			Assert.Throws<InvalidOperationException>(() => value = new Optional<string>().Value);
+			string? value = null;
+			Assert.Throws<InvalidOperationException>(() => value = new Optional<string?>().Value);
 			Assert.IsNull(value);
 		}
 
 		[Test]
 		public void TestCastThrowsForNoValue()
 		{
-			string value = null;
-			Assert.Throws<InvalidOperationException>(() => value = (string) new Optional<string>());
+			string? value = null;
+			Assert.Throws<InvalidOperationException>(() => value = (string?) new Optional<string?>());
 			Assert.IsNull(value);
 		}
 
@@ -96,7 +96,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestGetHashCodeReturnsZeroForNull()
 		{
-			int actual = new Optional<string>(null).GetHashCode();
+			int actual = new Optional<string?>(null).GetHashCode();
 			Assert.AreEqual(0, actual);
 		}
 
@@ -110,7 +110,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestToStringReturnsEmptyForNull()
 		{
-			string actual = new Optional<string>(null).ToString();
+			string actual = new Optional<string?>(null).ToString();
 			Assert.AreEqual("", actual);
 		}
 
@@ -208,7 +208,7 @@ namespace Faithlife.Utility.Tests
 			DoTestObjectEquals(left, right, expected);
 		}
 
-		private static void DoTestObjectEquals(object left, object right, bool expected)
+		private static void DoTestObjectEquals(object? left, object? right, bool expected)
 		{
 			// Ensure that .Equals is symmetric
 			bool actualLeftToRight = object.Equals(left, right);

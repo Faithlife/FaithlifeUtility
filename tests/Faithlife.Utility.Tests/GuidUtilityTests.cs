@@ -94,7 +94,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void CreateNullName()
 		{
-			Assert.Throws<ArgumentNullException>(() => GuidUtility.Create(GuidUtility.DnsNamespace, default(string)));
+			Assert.Throws<ArgumentNullException>(() => GuidUtility.Create(GuidUtility.DnsNamespace, default(string)!));
 		}
 
 		[Test]

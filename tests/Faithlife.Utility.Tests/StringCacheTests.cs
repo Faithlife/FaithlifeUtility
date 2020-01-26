@@ -9,10 +9,10 @@ namespace Faithlife.Utility.Tests
 		[TestCase(null)]
 		[TestCase("")]
 		[TestCase("test")]
-		public void GetOrAdd(string input)
+		public void GetOrAdd(string? input)
 		{
 			StringCache stringCache = new StringCache();
-			string added = stringCache.GetOrAdd(input);
+			var added = stringCache.GetOrAdd(input);
 			Assert.AreEqual(added, input);
 		}
 

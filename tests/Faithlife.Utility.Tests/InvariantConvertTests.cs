@@ -183,7 +183,7 @@ namespace Faithlife.Utility.Tests
 			try
 			{
 				TimeSpan parsed = InvariantConvert.ParseTimeSpan(before);
-				Assert.AreEqual(value.Value, parsed);
+				Assert.AreEqual(value!.Value, parsed);
 			}
 			catch (FormatException)
 			{
@@ -191,7 +191,7 @@ namespace Faithlife.Utility.Tests
 			}
 
 			if (after != null)
-				Assert.AreEqual(after, value.Value.ToInvariantString());
+				Assert.AreEqual(after, value!.Value.ToInvariantString());
 		}
 
 		[TestCase(null, "")]

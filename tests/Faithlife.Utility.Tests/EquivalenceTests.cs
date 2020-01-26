@@ -153,10 +153,7 @@ namespace Faithlife.Utility.Tests
 		{
 			public int Value { get; set; }
 
-			public bool IsEquivalentTo(HasEquivalence other)
-			{
-				return other != null && other.Value == Value;
-			}
+			public bool IsEquivalentTo(HasEquivalence? other) => other is object && other.Value == Value;
 		}
 
 		private sealed class HasNotEquivalence

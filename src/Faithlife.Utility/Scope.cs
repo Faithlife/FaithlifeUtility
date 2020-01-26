@@ -13,7 +13,7 @@ namespace Faithlife.Utility
 		/// <param name="dispose">The delegate.</param>
 		/// <returns>An instance of <see cref="Scope" /> that calls the delegate when disposed.</returns>
 		/// <remarks>If dispose is null, the instance does nothing when disposed.</remarks>
-		public static Scope Create(Action dispose) => new Scope(dispose);
+		public static Scope Create(Action? dispose) => new Scope(dispose);
 
 		/// <summary>
 		/// Creates a <see cref="Scope" /> that disposes the specified object.

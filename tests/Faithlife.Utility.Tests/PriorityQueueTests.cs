@@ -139,7 +139,9 @@ namespace Faithlife.Utility.Tests
 
 			// enumerate through items (IEnumerable)
 			nExpected = 1;
+#pragma warning disable CS8605 // Unboxing a possibly null value.
 			foreach (int item in (IEnumerable) pq)
+#pragma warning restore CS8605 // Unboxing a possibly null value.
 				Assert.AreEqual(nExpected++, item);
 			Assert.AreEqual(101, nExpected);
 
@@ -303,7 +305,9 @@ namespace Faithlife.Utility.Tests
 				Assert.AreEqual(nMaxItem - nItem, pq.Count);
 			}
 		}
+#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 		private IComparer<string> m_comparer;
+#pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 	}
 
 	// compare strings by length
@@ -365,7 +369,9 @@ namespace Faithlife.Utility.Tests
 			}
 		}
 
+#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 		private IComparer<IntHolder> m_comparer;
+#pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 	}
 
 	class IntHolder

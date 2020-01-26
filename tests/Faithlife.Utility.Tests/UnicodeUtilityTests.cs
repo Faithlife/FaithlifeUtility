@@ -61,7 +61,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void CharacterClassNullString()
 		{
-			Assert.Throws<ArgumentNullException>(() => UnicodeUtility.GetCharacterClass(null, 1));
+			Assert.Throws<ArgumentNullException>(() => UnicodeUtility.GetCharacterClass(null!, 1));
 		}
 
 		[Test]
@@ -108,8 +108,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void CharacterLengthNullString()
 		{
-			Assert.Throws<ArgumentNullException>(() => UnicodeUtility.GetCharacterLength((string) null, 1));
-			Assert.Throws<ArgumentNullException>(() => UnicodeUtility.GetCharacterLength((StringBuilder) null, 1));
+			Assert.Throws<ArgumentNullException>(() => UnicodeUtility.GetCharacterLength((string) null!, 1));
+			Assert.Throws<ArgumentNullException>(() => UnicodeUtility.GetCharacterLength((StringBuilder) null!, 1));
 		}
 
 		[Test]
@@ -140,7 +140,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void GetCodePointArgumentException()
 		{
-			Assert.Throws<ArgumentNullException>(() => UnicodeUtility.GetCodePoint(null, 0));
+			Assert.Throws<ArgumentNullException>(() => UnicodeUtility.GetCodePoint(null!, 0));
 			Assert.Throws<ArgumentOutOfRangeException>(() => UnicodeUtility.GetCodePoint(new StringBuilder("a"), -1));
 			Assert.Throws<ArgumentOutOfRangeException>(() => UnicodeUtility.GetCodePoint(new StringBuilder("a"), 1));
 			Assert.Throws<ArgumentOutOfRangeException>(() => UnicodeUtility.GetCodePoint(new StringBuilder("\uD800"), 0));
