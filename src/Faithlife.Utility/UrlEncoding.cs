@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace Faithlife.Utility
@@ -14,6 +15,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="value">The string to encode.</param>
 		/// <returns>The encoded string.</returns>
+		[return: NotNullIfNotNull("value")]
 		public static string? Encode(string? value) => Encode(value, s_settingsDefault);
 
 		/// <summary>
@@ -22,6 +24,7 @@ namespace Faithlife.Utility
 		/// <param name="value">The string to encode.</param>
 		/// <param name="settings">The settings to use when encoding.</param>
 		/// <returns>The encoded string.</returns>
+		[return: NotNullIfNotNull("value")]
 		public static string? Encode(string? value, UrlEncodingSettings settings)
 		{
 			// check arguments
@@ -124,6 +127,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="value">The string to be decoded.</param>
 		/// <returns>The decoded string.</returns>
+		[return: NotNullIfNotNull("value")]
 		public static string? Decode(string? value) => Decode(value, s_settingsDefault);
 
 		/// <summary>
@@ -132,6 +136,7 @@ namespace Faithlife.Utility
 		/// <param name="value">The string to be decoded.</param>
 		/// <param name="settings">The settings to use when decoding.</param>
 		/// <returns>The decoded string.</returns>
+		[return: NotNullIfNotNull("value")]
 		public static string? Decode(string? value, UrlEncodingSettings settings)
 		{
 			// check arguments

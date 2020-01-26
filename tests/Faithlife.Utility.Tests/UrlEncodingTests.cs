@@ -12,7 +12,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase("%e8%a5%90", "\u8950")]
 		[TestCase(null, null)]
 		[TestCase("NoEncoding", "NoEncoding")]
-		public void EncodeString(string strEncoded, string strDecoded)
+		public void EncodeString(string? strEncoded, string? strDecoded)
 		{
 			Assert.AreEqual(strEncoded, UrlEncoding.Encode(strDecoded));
 		}
@@ -25,7 +25,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase("%E8%A5%90", "\u8950")]
 		[TestCase(null, null)]
 		[TestCase("NoEncoding", "NoEncoding")]
-		public void DecodeString(string strEncoded, string strDecoded)
+		public void DecodeString(string? strEncoded, string? strDecoded)
 		{
 			Assert.AreEqual(strDecoded, UrlEncoding.Decode(strEncoded));
 		}
@@ -34,7 +34,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase("Hi,+there%20Ed.", "Hi, there Ed.")]
 		[TestCase(null, null)]
 		[TestCase("NoEncoding", "NoEncoding")]
-		public void DecodeStringWithSpaceSetting(string strEncoded, string strDecoded)
+		public void DecodeStringWithSpaceSetting(string? strEncoded, string? strDecoded)
 		{
 			UrlEncodingSettings settings = new UrlEncodingSettings();
 			settings.EncodedSpaceChar = '+';
@@ -51,7 +51,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase("Hi%2c+there+Ed%2e", "Hi, there Ed.")]
 		[TestCase(null, null)]
 		[TestCase("NoEncoding", "NoEncoding")]
-		public void EncodeStringWithSpaceSetting(string strEncoded, string strDecoded)
+		public void EncodeStringWithSpaceSetting(string? strEncoded, string? strDecoded)
 		{
 			UrlEncodingSettings settings = new UrlEncodingSettings();
 			settings.EncodedSpaceChar = '+';
@@ -63,7 +63,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase(null, null)]
 		[TestCase("NoEncoding", "NoEncoding")]
 		[TestCase("%2b+=+%25", "+ = %")]
-		public void EncodeStringWithSpaceCustomShouldEncode(string strEncoded, string strDecoded)
+		public void EncodeStringWithSpaceCustomShouldEncode(string? strEncoded, string? strDecoded)
 		{
 			UrlEncodingSettings settings = new UrlEncodingSettings
 			{
