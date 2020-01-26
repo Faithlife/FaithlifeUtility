@@ -103,6 +103,9 @@ namespace Faithlife.Utility
 		/// <param name="dictionary">The dictionary.</param>
 		/// <param name="key">The key.</param>
 		/// <returns>The value, or a default value.</returns>
+#if !NETSTANDARD2_0
+		[Obsolete("Use System.Collections.Generic.CollectionExtensions.GetValueOrDefault instead (available in netcoreapp2.0, netstandard2.1)")]
+#endif
 		public static TValue GetValueOrDefault<TKey, TValue>(
 #if NETSTANDARD2_0
 			this
@@ -123,6 +126,9 @@ namespace Faithlife.Utility
 		/// <param name="key">The key.</param>
 		/// <param name="defaultValue">The default value.</param>
 		/// <returns>The value, or a default value.</returns>
+#if !NETSTANDARD2_0
+		[Obsolete("Use System.Collections.Generic.CollectionExtensions.GetValueOrDefault instead (available in netcoreapp2.0, netstandard2.1)")]
+#endif
 		public static TValue GetValueOrDefault<TKey, TValue>(
 #if NETSTANDARD2_0
 			this
