@@ -5,11 +5,13 @@
 Describe changes here when they're committed to the `master` branch. Move them to **Released** when the project version number is updated in preparation for publishing an updated NuGet package.
 
 Prefix the description of the change with `[major]`, `[minor]`, or `[patch]` in accordance with [Semantic Versioning](https://semver.org/).
-
-* [minor] Add `InvariantConvert.ToInvariantString(object value)` overload.
-* [minor] Use `InvariantConvert` in `UriUtility.FromPattern()` for better parameter stringification.
-
 ## Released
+
+### 0.9.0 Beta 1
+
+* Add `netcoreapp2.0` and `netstandard2.1` target frameworks; remove `net472`.
+* Add C# 8 nullable annotations.
+* Remove `DictionaryUtility.GetValueOrDefault` and `TryAdd` as extension methods on new frameworks.
 
 ### 0.8.0
 
@@ -18,6 +20,8 @@ Prefix the description of the change with `[major]`, `[minor]`, or `[patch]` in 
 ### 0.7.0
 
 * Update minimum target frameworks to .NET Standard 2.0, .NET 4.7.2.
+* Add `InvariantConvert.ToInvariantString(object value)` overload.
+* Use `InvariantConvert` in `UriUtility.FromPattern()` for better parameter stringification.
 
 ### 0.6.0
 
