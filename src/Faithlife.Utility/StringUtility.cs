@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -811,6 +812,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="text">The text.</param>
 		/// <returns>null if text is null, empty byte[] if text is empty, otherwise the compressed byte array.</returns>
+		[return: NotNullIfNotNull("text")]
 		public static byte[]? Compress(string? text)
 		{
 			if (text is null)
@@ -831,6 +833,7 @@ namespace Faithlife.Utility
 		/// <param name="compressedText">The compressed string.</param>
 		/// <returns>null if compressedText is null, empty string if compressedText length is 0, otherwise the decompressed text.</returns>
 		/// <remarks>The compressed text should have been created with the Compress or CreateCompressingTextWriter methods.</remarks>
+		[return: NotNullIfNotNull("text")]
 		public static string? Decompress(byte[]? compressedText)
 		{
 			if (compressedText is null)
