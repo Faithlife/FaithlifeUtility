@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Faithlife.Utility\Faithlife.Utility.csproj" />
+    <ProjectReference Include="..\MyLib\MyLib.csproj" />
   </ItemGroup>
 
 </Project>
