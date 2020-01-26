@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="10.4.0" />
-    <PackageReference Include="Nullable" Version="1.2.0" Condition=" '$(TargetFramework)' == 'netstandard2.0' " IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive" PrivateAssets="all" />
+    <PackageReference Include="Nullable" Version="1.2.0" Condition=" '$(TargetFramework)' != 'netstandard2.1' " IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive" PrivateAssets="all" />
   </ItemGroup>
 
 </Project>
