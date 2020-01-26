@@ -169,7 +169,14 @@ namespace Faithlife.Utility
 		/// <returns>True if successful, i.e. the key was not already in the dictionary.</returns>
 		/// <remarks>Unfortunately, there is no more efficient way to do this on an IDictionary than to check
 		/// ContainsKey before calling Add.</remarks>
-		public static bool TryAdd<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue value)
+#if !NETSTANDARD2_0
+		[Obsolete("Use System.Collections.Generic.CollectionExtensions.TryAdd instead (available in netcoreapp2.0, netstandard2.1)")]
+#endif
+		public static bool TryAdd<TKey, TValue>(
+#if NETSTANDARD2_0
+			this
+#endif
+			IDictionary<TKey, TValue> dictionary, TKey key, TValue value)
 		{
 			if (dictionary.ContainsKey(key))
 				return false;

@@ -258,6 +258,19 @@ namespace Faithlife.Utility.Tests
 			Assert.IsFalse(dict.TryAdd(1, 3));
 			Assert.IsFalse(dict.TryAdd(1, 4));
 			Assert.IsTrue(dict.TryAdd(2, 1));
+			Assert.AreEqual(new Dictionary<int, int> { { 1, 2 }, { 2, 1 } }, dict);
+		}
+
+		[Test]
+		public void TryAddViaNetStandard()
+		{
+			// use IDictionary<int, int> to force extension method
+			IDictionary<int, int> dict = new Dictionary<int, int>();
+			Assert.IsTrue(MyLib.MyClass.DoTryAdd(dict, 1, 2));
+			Assert.IsFalse(MyLib.MyClass.DoTryAdd(dict, 1, 3));
+			Assert.IsFalse(MyLib.MyClass.DoTryAdd(dict, 1, 4));
+			Assert.IsTrue(MyLib.MyClass.DoTryAdd(dict, 2, 1));
+			Assert.AreEqual(new Dictionary<int, int> { { 1, 2 }, { 2, 1 } }, dict);
 		}
 	}
 }
