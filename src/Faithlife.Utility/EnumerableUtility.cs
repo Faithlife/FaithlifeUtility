@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Faithlife.Utility
@@ -624,7 +623,7 @@ namespace Faithlife.Utility
 		/// <param name="source">The source sequence.</param>
 		/// <param name="found">The first item, if any.</param>
 		/// <returns><c>True</c> if the sequence is not empty; otherwise, <c>false</c>.</returns>
-		public static bool TryFirst<T>(this IEnumerable<T> source, [NotNullWhen(true)] out T found)
+		public static bool TryFirst<T>(this IEnumerable<T> source, out T found)
 		{
 			if (source is null)
 				throw new ArgumentNullException(nameof(source));
@@ -647,7 +646,7 @@ namespace Faithlife.Utility
 		/// <param name="predicate">The predicate.</param>
 		/// <param name="found">The first item that satisfies the predicate, if any.</param>
 		/// <returns><c>True</c> if any elements in the source sequence pass the test in the specified predicate; otherwise, <c>false</c>.</returns>
-		public static bool TryFirst<T>(this IEnumerable<T> source, Func<T, bool> predicate, [NotNullWhen(true)] out T found)
+		public static bool TryFirst<T>(this IEnumerable<T> source, Func<T, bool> predicate, out T found)
 		{
 			if (source is null)
 				throw new ArgumentNullException(nameof(source));

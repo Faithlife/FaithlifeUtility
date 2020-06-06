@@ -313,9 +313,9 @@ namespace Faithlife.Utility.Tests
 	// compare strings by length
 	class StringLengthComparer : IComparer<string>
 	{
-		public int Compare(string x, string y)
+		public int Compare(string? x, string? y)
 		{
-			return x.Length.CompareTo(y.Length);
+			return x!.Length.CompareTo(y!.Length);
 		}
 	}
 
@@ -387,9 +387,9 @@ namespace Faithlife.Utility.Tests
 	// compare objects by value
 	class IntHolderComparer : IComparer<IntHolder>
 	{
-		public int Compare(IntHolder x, IntHolder y)
+		public int Compare(IntHolder? x, IntHolder? y)
 		{
-			return x.Value.CompareTo(y.Value);
+			return x!.Value.CompareTo(y!.Value);
 		}
 	}
 }

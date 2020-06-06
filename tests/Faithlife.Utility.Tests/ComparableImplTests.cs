@@ -128,7 +128,7 @@ namespace Faithlife.Utility.Tests
 			return ComparableImpl.CompareToObject(this, obj);
 		}
 
-		public int CompareTo(TestInt other)
+		public int CompareTo(TestInt? other)
 		{
 			if (other == null)
 				return 1;

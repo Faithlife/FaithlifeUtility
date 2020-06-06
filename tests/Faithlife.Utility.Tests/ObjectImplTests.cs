@@ -45,7 +45,7 @@ namespace Faithlife.Utility.Tests
 				m_i = i;
 			}
 
-			public bool Equals(EquatableClass other)
+			public bool Equals(EquatableClass? other)
 			{
 				return other != null && m_i == other.m_i;
 			}
