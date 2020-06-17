@@ -833,7 +833,7 @@ namespace Faithlife.Utility
 		/// <param name="compressedText">The compressed string.</param>
 		/// <returns>null if compressedText is null, empty string if compressedText length is 0, otherwise the decompressed text.</returns>
 		/// <remarks>The compressed text should have been created with the Compress or CreateCompressingTextWriter methods.</remarks>
-		[return: NotNullIfNotNull("text")]
+		[return: NotNullIfNotNull("compressedText")]
 		public static string? Decompress(byte[]? compressedText)
 		{
 			if (compressedText is null)
