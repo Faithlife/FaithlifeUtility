@@ -1,6 +1,6 @@
 # Version History
 
-### 0.9.0 Beta 1
+### 0.9.0
 
 * Add `netcoreapp2.0` and `netstandard2.1` target frameworks; remove `net472`.
 * Add C# 8 nullable annotations.
