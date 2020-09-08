@@ -57,20 +57,20 @@ namespace Faithlife.Utility
 				(_, _) => left!.CompareTo(right!) <= 0, // https://github.com/dotnet/roslyn/issues/37136
 			};
 
-	/// <summary>
-	/// Standard implementation of the greater than operator.
-	/// </summary>
-	/// <param name="left">The left item.</param>
-	/// <param name="right">The right item.</param>
-	/// <returns>True if the left is greater than the right.</returns>
-	public static bool OperatorGreaterThan<T>(T? left, T? right)
-			where T : class, IComparable<T> =>
-			(left, right) switch
-			{
-				(_, _) when ReferenceEquals(left, right) => false,
-				(null, _) => false,
-				(_, null) => true,
-				(_, _) => left!.CompareTo(right!) > 0, // https://github.com/dotnet/roslyn/issues/37136
+		/// <summary>
+		/// Standard implementation of the greater than operator.
+		/// </summary>
+		/// <param name="left">The left item.</param>
+		/// <param name="right">The right item.</param>
+		/// <returns>True if the left is greater than the right.</returns>
+		public static bool OperatorGreaterThan<T>(T? left, T? right)
+				where T : class, IComparable<T> =>
+				(left, right) switch
+				{
+					(_, _) when ReferenceEquals(left, right) => false,
+					(null, _) => false,
+					(_, null) => true,
+					(_, _) => left!.CompareTo(right!) > 0, // https://github.com/dotnet/roslyn/issues/37136
 			};
 
 		/// <summary>

@@ -5,8 +5,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Reflection;
+using System.Text;
 using JetBrains.Annotations;
 
 namespace Faithlife.Utility
@@ -1250,7 +1250,7 @@ namespace Faithlife.Utility
 				(_, null) => 1,
 				(_, _) => m_cultureInfo.CompareInfo.Compare(x, y, m_ignoreCase ? CompareOptions.IgnoreCase : CompareOptions.None),
 			};
-	
+
 		/// <summary>
 		/// Check the specified strings for equality.
 		/// </summary>

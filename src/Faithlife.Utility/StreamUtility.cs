@@ -18,7 +18,7 @@ namespace Faithlife.Utility
 		public static byte[] ReadAllBytes(this Stream stream)
 		{
 			using var streamMemory = new MemoryStream();
-   			stream.CopyTo(streamMemory);
+			stream.CopyTo(streamMemory);
 			return streamMemory.ToArray();
 		}
 
