@@ -5,19 +5,17 @@
     <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>$(NoWarn);1591;1998</NoWarn>
-    <DebugType>portable</DebugType>
-    <DebugSymbols>true</DebugSymbols>
+    <NoWarn>$(NoWarn);1591;1998;NU5105</NoWarn>
+    <DebugType>embedded</DebugType>
     <RepositoryName>FaithlifeUtility</RepositoryName>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Faithlife/$(RepositoryName)</PackageProjectUrl>
-    <PackageReleaseNotes>https://github.com/Faithlife/$(RepositoryName)/blob/master/VersionHistory.md</PackageReleaseNotes>
+    <PackageReleaseNotes>https://github.com/Faithlife/$(RepositoryName)/blob/master/ReleaseNotes.md</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/Faithlife/$(RepositoryName).git</RepositoryUrl>
-    <Authors>Faithlife Corporation</Authors>
-    <Copyright>Copyright Faithlife Corporation</Copyright>
+    <Authors>Faithlife</Authors>
+    <Copyright>Copyright $(Authors)</Copyright>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <IsPackable>false</IsPackable>
     <IsTestProject>false</IsTestProject>
   </PropertyGroup>
@@ -27,7 +25,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Faithlife.Analyzers" Version="1.0.7" PrivateAssets="All" />
+    <PackageReference Include="Faithlife.Analyzers" Version="1.0.7" PrivateAssets="All" IncludeAssets="runtime; build; native; contentfiles; analyzers" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
 
