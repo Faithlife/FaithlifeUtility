@@ -1,5 +1,9 @@
 # Release Notes
 
+## 0.10.0
+
+* Remove dependency on `JetBrains.Annotations`. Use source code copied from ReSharper » Options » Code Inspection » Code Annotations. (This allows the annotations to be seen by ReSharper where the library is used.)
+
 ## 0.9.0
 
 * Add `netcoreapp2.0` and `netstandard2.1` target frameworks; remove `net472`.
