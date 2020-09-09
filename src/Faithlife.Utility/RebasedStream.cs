@@ -90,6 +90,6 @@ namespace Faithlife.Utility
 			WrappedStream.WriteAsync(buffer, offset, count, cancellationToken);
 
 		// the offset within the base stream where this stream begins
-		readonly long m_baseOffset;
+		private readonly long m_baseOffset;
 	}
 }

@@ -13,7 +13,7 @@ namespace Faithlife.Utility.Tests
 		{
 			using (CancellationTokenSource source = new CancellationTokenSource())
 			{
-				CancellationToken token = source.Token;
+				var token = source.Token;
 				Assert.IsFalse(token.IsCancellationRequested);
 				Assert.IsTrue(token.CanBeCanceled);
 
@@ -40,7 +40,7 @@ namespace Faithlife.Utility.Tests
 		{
 			using (CancellationTokenSource source = new CancellationTokenSource())
 			{
-				bool canceled = false;
+				var canceled = false;
 				using (source.Token.Register(() => canceled = true))
 				{
 					Assert.IsFalse(canceled);
@@ -55,7 +55,7 @@ namespace Faithlife.Utility.Tests
 		{
 			using (CancellationTokenSource source = new CancellationTokenSource())
 			{
-				bool canceled = false;
+				var canceled = false;
 				source.Cancel();
 				using (source.Token.Register(() => canceled = true))
 				{

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
-
 using NUnit.Framework;
 
 namespace Faithlife.Utility.Tests
@@ -14,7 +13,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestConstructorStringSegmentStr()
 		{
-			StringSegment seg = new StringSegment("hey");
+			var seg = new StringSegment("hey");
 			Assert.AreEqual(seg.Source, "hey");
 			Assert.AreEqual(seg.Offset, 0);
 			Assert.AreEqual(seg.Length, 3);
@@ -23,7 +22,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestConstructorStringSegmentStrNOffset()
 		{
-			StringSegment seg = new StringSegment("hey", 1);
+			var seg = new StringSegment("hey", 1);
 			Assert.AreEqual(seg.Source, "hey");
 			Assert.AreEqual(seg.Offset, 1);
 			Assert.AreEqual(seg.Length, 2);
@@ -32,7 +31,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestConstructorStringSegmentStrNOffsetNLength()
 		{
-			StringSegment seg = new StringSegment("hey", 1, 1);
+			var seg = new StringSegment("hey", 1, 1);
 			Assert.AreEqual(seg.Source, "hey");
 			Assert.AreEqual(seg.Offset, 1);
 			Assert.AreEqual(seg.Length, 1);
@@ -41,7 +40,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestConstructorStringSegmentDegenerateStart()
 		{
-			StringSegment seg = new StringSegment("hey", 0, 0);
+			var seg = new StringSegment("hey", 0, 0);
 			Assert.AreEqual(seg.Source, "hey");
 			Assert.AreEqual(seg.Offset, 0);
 			Assert.AreEqual(seg.Length, 0);
@@ -50,7 +49,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestConstructorStringSegmentDegenerateEnd()
 		{
-			StringSegment seg = new StringSegment("hey", 3, 0);
+			var seg = new StringSegment("hey", 3, 0);
 			Assert.AreEqual(seg.Source, "hey");
 			Assert.AreEqual(seg.Offset, 3);
 			Assert.AreEqual(seg.Length, 0);
@@ -59,7 +58,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestConstructorStringSegmentDegenerateMiddle()
 		{
-			StringSegment seg = new StringSegment("hey", 1, 0);
+			var seg = new StringSegment("hey", 1, 0);
 			Assert.AreEqual(seg.Source, "hey");
 			Assert.AreEqual(seg.Offset, 1);
 			Assert.AreEqual(seg.Length, 0);
@@ -68,7 +67,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestConstructorNull()
 		{
-			StringSegment seg = new StringSegment(null);
+			var seg = new StringSegment(null);
 			Assert.AreEqual("", seg.Source);
 			Assert.AreEqual(0, seg.Offset);
 			Assert.AreEqual(0, seg.Length);
@@ -91,7 +90,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestConstructorStringSegmentStrCapture()
 		{
-			StringSegment seg = new StringSegment("hey", Regex.Match("hey", "e"));
+			var seg = new StringSegment("hey", Regex.Match("hey", "e"));
 			Assert.AreEqual(seg.Source, "hey");
 			Assert.AreEqual(seg.Offset, 1);
 			Assert.AreEqual(seg.Length, 1);
@@ -100,7 +99,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestIndexer()
 		{
-			StringSegment seg = new StringSegment("hey!", 1, 2);
+			var seg = new StringSegment("hey!", 1, 2);
 			Assert.Throws<ArgumentOutOfRangeException>(() => { Assert.AreNotEqual(seg[-2], 'h'); });
 			Assert.Throws<ArgumentOutOfRangeException>(() => { Assert.AreNotEqual(seg[-1], 'h'); });
 			Assert.AreEqual(seg[0], 'e');
@@ -112,7 +111,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestAfter()
 		{
-			StringSegment seg = new StringSegment("hey", 1, 1).After();
+			var seg = new StringSegment("hey", 1, 1).After();
 			Assert.AreEqual(seg.Source, "hey");
 			Assert.AreEqual(seg.Offset, 2);
 			Assert.AreEqual(seg.Length, 1);
@@ -121,7 +120,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestAppendToStringBuilder()
 		{
-			StringSegment seg = new StringSegment("hey", 1, 1);
+			var seg = new StringSegment("hey", 1, 1);
 			StringBuilder sb = new StringBuilder();
 			seg.AppendToStringBuilder(sb);
 			Assert.AreEqual("e", sb.ToString());
@@ -130,14 +129,14 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestAppendToNullStringBuilder()
 		{
-			StringSegment seg = new StringSegment("hey", 1, 1);
+			var seg = new StringSegment("hey", 1, 1);
 			Assert.Throws<ArgumentNullException>(() => seg.AppendToStringBuilder(null!));
 		}
 
 		[Test]
 		public void TestBefore()
 		{
-			StringSegment seg = new StringSegment("hey", 1, 1).Before();
+			var seg = new StringSegment("hey", 1, 1).Before();
 			Assert.AreEqual(seg.Source, "hey");
 			Assert.AreEqual(seg.Offset, 0);
 			Assert.AreEqual(seg.Length, 1);
@@ -146,32 +145,32 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestCompareSegASegB()
 		{
-			StringSegment segA = new StringSegment("Aaa", 0, 2);
-			StringSegment segB = new StringSegment("Aaa", 1, 2);
+			var segA = new StringSegment("Aaa", 0, 2);
+			var segB = new StringSegment("Aaa", 1, 2);
 			Assert.Greater(StringSegment.Compare(segA, segB, StringComparison.InvariantCulture), 0);
 		}
 
 		[Test]
 		public void TestCompareSegASegBSc()
 		{
-			StringSegment segA = new StringSegment("Aaa", 0, 2);
-			StringSegment segB = new StringSegment("Aaa", 1, 2);
+			var segA = new StringSegment("Aaa", 0, 2);
+			var segB = new StringSegment("Aaa", 1, 2);
 			Assert.AreEqual(0, StringSegment.Compare(segA, segB, StringComparison.OrdinalIgnoreCase));
 		}
 
 		[Test]
 		public void TestCompareOrdinal()
 		{
-			StringSegment segA = new StringSegment("Aaa", 0, 2);
-			StringSegment segB = new StringSegment("Aaa", 1, 2);
+			var segA = new StringSegment("Aaa", 0, 2);
+			var segB = new StringSegment("Aaa", 1, 2);
 			Assert.Less(StringSegment.CompareOrdinal(segA, segB), 0);
 		}
 
 		[Test]
 		public void TestCompareDifferentLengths()
 		{
-			StringSegment segA = new StringSegment("This is a test", 5, 4);
-			StringSegment segB = new StringSegment("This is a test", 5, 6);
+			var segA = new StringSegment("This is a test", 5, 4);
+			var segB = new StringSegment("This is a test", 5, 6);
 
 			Assert.Less(segA.CompareTo(segB), 0);
 			Assert.Less(StringSegment.Compare(segA, segB, StringComparison.Ordinal), 0);
@@ -181,15 +180,15 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestCompareTo()
 		{
-			StringSegment segA = new StringSegment("Aaa", 0, 2);
-			StringSegment segB = new StringSegment("Aaa", 1, 2);
+			var segA = new StringSegment("Aaa", 0, 2);
+			var segB = new StringSegment("Aaa", 1, 2);
 			Assert.Greater(segA.CompareTo(segB), 0);
 		}
 
 		[Test]
 		public void TestCopyTo()
 		{
-			StringSegment seg = new StringSegment("hey", 1);
+			var seg = new StringSegment("hey", 1);
 			char[] ach = { 'o', 'x' };
 			seg.CopyTo(1, ach, 1, 1);
 			CollectionAssert.AreEqual(new char[] { 'o', 'y' }, ach);
@@ -198,7 +197,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestEqualsSelf()
 		{
-			StringSegment segA = new StringSegment("hey", 1);
+			var segA = new StringSegment("hey", 1);
 			Assert.AreEqual((object) segA, (object) segA);
 			Assert.AreEqual(segA, segA);
 		}
@@ -206,8 +205,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestEqualsIdentical()
 		{
-			StringSegment segA = new StringSegment("hey", 1);
-			StringSegment segB = new StringSegment("hey", 1);
+			var segA = new StringSegment("hey", 1);
+			var segB = new StringSegment("hey", 1);
 			Assert.AreEqual((object) segA, (object) segB);
 			Assert.AreEqual(segA, segB);
 			Assert.IsTrue(segA == segB);
@@ -217,8 +216,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestEqualsDifferentOffset()
 		{
-			StringSegment segA = new StringSegment("hey you", 2, 1);
-			StringSegment segB = new StringSegment("hey you", 4, 1);
+			var segA = new StringSegment("hey you", 2, 1);
+			var segB = new StringSegment("hey you", 4, 1);
 			Assert.AreEqual((object) segA, (object) segB);
 			Assert.AreEqual(segA, segB);
 			Assert.IsTrue(segA == segB);
@@ -228,8 +227,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestEqualsDifferentOwner()
 		{
-			StringSegment segA = new StringSegment("hey", 2, 1);
-			StringSegment segB = new StringSegment("you", 0, 1);
+			var segA = new StringSegment("hey", 2, 1);
+			var segB = new StringSegment("you", 0, 1);
 			Assert.AreEqual((object) segA, (object) segB);
 			Assert.AreEqual(segA, segB);
 			Assert.IsTrue(segA == segB);
@@ -239,8 +238,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestNotEqualsDifferentLength()
 		{
-			StringSegment segA = new StringSegment("hey", 1, 1);
-			StringSegment segB = new StringSegment("hey", 1, 2);
+			var segA = new StringSegment("hey", 1, 1);
+			var segB = new StringSegment("hey", 1, 2);
 			Assert.AreNotEqual((object) segA, (object) segB);
 			Assert.AreNotEqual(segA, segB);
 			Assert.IsTrue(segA != segB);
@@ -250,8 +249,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestNotEqualsDifferentText()
 		{
-			StringSegment segA = new StringSegment("hey", 1, 1);
-			StringSegment segB = new StringSegment("hey", 2, 1);
+			var segA = new StringSegment("hey", 1, 1);
+			var segB = new StringSegment("hey", 2, 1);
 			Assert.AreNotEqual((object) segA, (object) segB);
 			Assert.AreNotEqual(segA, segB);
 			Assert.IsTrue(segA != segB);
@@ -261,8 +260,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestNotEqualsCase()
 		{
-			StringSegment segA = new StringSegment("AAA", 1, 1);
-			StringSegment segB = new StringSegment("aaa", 2, 1);
+			var segA = new StringSegment("AAA", 1, 1);
+			var segB = new StringSegment("aaa", 2, 1);
 			Assert.AreNotEqual((object) segA, (object) segB);
 			Assert.AreNotEqual(segA, segB);
 			Assert.IsTrue(segA != segB);
@@ -273,7 +272,7 @@ namespace Faithlife.Utility.Tests
 		public void TestGetEnumerator()
 		{
 			string str = "";
-			foreach (char ch in new StringSegment("hey", 1))
+			foreach (var ch in new StringSegment("hey", 1))
 				str += ch;
 #pragma warning disable CS8605 // Unboxing a possibly null value.
 			foreach (char ch in (IEnumerable) new StringSegment("hey", 1))
@@ -292,7 +291,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestIndexOfCh()
 		{
-			StringSegment seg = new StringSegment("hey you", 1, 5);
+			var seg = new StringSegment("hey you", 1, 5);
 			Assert.AreEqual(-1, seg.IndexOf('h'));
 			Assert.AreEqual(0, seg.IndexOf('e'));
 			Assert.AreEqual(1, seg.IndexOf('y'));
@@ -303,7 +302,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestIndexOfCharWithStartOffset()
 		{
-			StringSegment seg = new StringSegment("hey you", 1, 5);
+			var seg = new StringSegment("hey you", 1, 5);
 			Assert.AreEqual(-1, seg.IndexOf('h', 0));
 			Assert.AreEqual(0, seg.IndexOf('e', 0));
 			Assert.AreEqual(-1, seg.IndexOf('e', 1));
@@ -320,7 +319,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestIndexOfStr()
 		{
-			StringSegment seg = new StringSegment("hey you", 1, 5);
+			var seg = new StringSegment("hey you", 1, 5);
 			Assert.AreEqual(-1, seg.IndexOf("he", StringComparison.Ordinal));
 			Assert.AreEqual(0, seg.IndexOf("ey", StringComparison.Ordinal));
 			Assert.AreEqual(1, seg.IndexOf("y", StringComparison.Ordinal));
@@ -331,7 +330,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestIndexOfAny()
 		{
-			StringSegment seg = new StringSegment("hey you", 1, 5);
+			var seg = new StringSegment("hey you", 1, 5);
 			Assert.AreEqual(-1, seg.IndexOfAny(new char[] { 'h' }));
 			Assert.AreEqual(0, seg.IndexOfAny(new char[] { 'h', 'e' }));
 			Assert.AreEqual(1, seg.IndexOfAny('h', 'y', 'x'));
@@ -343,13 +342,13 @@ namespace Faithlife.Utility.Tests
 		public void TestIntersect()
 		{
 			string str = "01234567";
-			StringSegment segFull = new StringSegment(str);
-			StringSegment segFirstHalf = new StringSegment(str, 0, 4);
-			StringSegment segLastHalf = new StringSegment(str, 4);
-			StringSegment segMiddle = new StringSegment(str, 2, 4);
-			StringSegment segSecondChar = new StringSegment(str, 1, 1);
-			StringSegment segLastChar = new StringSegment(str, 7, 1);
-			StringSegment segCenter = new StringSegment(str, 4, 0);
+			var segFull = new StringSegment(str);
+			var segFirstHalf = new StringSegment(str, 0, 4);
+			var segLastHalf = new StringSegment(str, 4);
+			var segMiddle = new StringSegment(str, 2, 4);
+			var segSecondChar = new StringSegment(str, 1, 1);
+			var segLastChar = new StringSegment(str, 7, 1);
+			var segCenter = new StringSegment(str, 4, 0);
 
 			Assert.IsTrue(segFull.Intersect(segFull).IsIdenticalTo(segFull));
 			Assert.IsTrue(segFull.Intersect(segFirstHalf).IsIdenticalTo(segFirstHalf));
@@ -417,7 +416,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestLastIndexOfCh()
 		{
-			StringSegment seg = new StringSegment("hey you", 1, 5);
+			var seg = new StringSegment("hey you", 1, 5);
 			Assert.AreEqual(-1, seg.LastIndexOf('h'));
 			Assert.AreEqual(0, seg.LastIndexOf('e'));
 			Assert.AreEqual(3, seg.LastIndexOf('y'));
@@ -428,7 +427,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestLastIndexOfStr()
 		{
-			StringSegment seg = new StringSegment("hey you", 1, 5);
+			var seg = new StringSegment("hey you", 1, 5);
 			Assert.AreEqual(-1, seg.LastIndexOf("he", StringComparison.Ordinal));
 			Assert.AreEqual(0, seg.LastIndexOf("ey", StringComparison.Ordinal));
 			Assert.AreEqual(3, seg.LastIndexOf("y", StringComparison.Ordinal));
@@ -439,7 +438,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestLastIndexOfAny()
 		{
-			StringSegment seg = new StringSegment("hey you", 1, 5);
+			var seg = new StringSegment("hey you", 1, 5);
 			Assert.AreEqual(-1, seg.LastIndexOfAny(new char[] { 'h' }));
 			Assert.AreEqual(0, seg.LastIndexOfAny(new char[] { 'h', 'e' }));
 			Assert.AreEqual(3, seg.LastIndexOfAny('h', 'y', 'x'));
@@ -451,7 +450,7 @@ namespace Faithlife.Utility.Tests
 		public void TestMatch()
 		{
 			string str = "hey you";
-			StringSegment seg = new StringSegment(str, 1, 5);
+			var seg = new StringSegment(str, 1, 5);
 			Regex regex = new Regex("[bcdfghjklmnpqrstvwxyz]");
 			Assert.IsTrue(new StringSegment(str, seg.Match(regex)).IsIdenticalTo(new StringSegment(str, 2, 1)));
 		}
@@ -460,7 +459,7 @@ namespace Faithlife.Utility.Tests
 		public void TestMatchNull()
 		{
 			string str = "hey you";
-			StringSegment seg = new StringSegment(str, 1, 5);
+			var seg = new StringSegment(str, 1, 5);
 			Regex? regex = null;
 			Assert.Throws<ArgumentNullException>(() => seg.Match(regex!));
 		}
@@ -469,7 +468,7 @@ namespace Faithlife.Utility.Tests
 		public void TestMatchAnchors()
 		{
 			string str = "hey you";
-			StringSegment seg = new StringSegment(str, 4, 2);
+			var seg = new StringSegment(str, 4, 2);
 			Regex regex = new Regex("^yo$");
 			Assert.IsTrue(seg.Match(regex).Success);
 		}
@@ -478,7 +477,7 @@ namespace Faithlife.Utility.Tests
 		public void TestRedirect()
 		{
 			string str = "hey you";
-			StringSegment seg = new StringSegment(str, 1, 5);
+			var seg = new StringSegment(str, 1, 5);
 			Assert.IsTrue(seg.Redirect(3).IsIdenticalTo(new StringSegment(str, 3)));
 			Assert.IsTrue(seg.Redirect(3, 2).IsIdenticalTo(new StringSegment(str, 3, 2)));
 			Assert.IsTrue(seg.Redirect(Regex.Match(str, "ey")).IsIdenticalTo(new StringSegment(str, 1, 2)));
@@ -488,7 +487,7 @@ namespace Faithlife.Utility.Tests
 		public void TestRedirectNull()
 		{
 			string str = "hey you";
-			StringSegment seg = new StringSegment(str, 1, 5);
+			var seg = new StringSegment(str, 1, 5);
 			Capture? capture = null;
 			Assert.Throws<ArgumentNullException>(() => seg.Redirect(capture!));
 		}
@@ -497,7 +496,7 @@ namespace Faithlife.Utility.Tests
 		public void TestSplitSimple()
 		{
 			string str = "shiny happy people";
-			StringSegment seg = new StringSegment(str);
+			var seg = new StringSegment(str);
 			Regex regex = new Regex(@"\s", RegexOptions.CultureInvariant);
 			List<StringSegment> listSplit = new List<StringSegment>(seg.Split(regex));
 			Assert.AreEqual(3, listSplit.Count);
@@ -512,7 +511,7 @@ namespace Faithlife.Utility.Tests
 		public void TestSplitSegment()
 		{
 			string str = "shiny happy people";
-			StringSegment seg = new StringSegment(str, 1, 16);
+			var seg = new StringSegment(str, 1, 16);
 			Regex regex = new Regex(@"\s", RegexOptions.CultureInvariant);
 			List<StringSegment> listSplit = new List<StringSegment>(seg.Split(regex));
 			Assert.AreEqual(3, listSplit.Count);
@@ -527,7 +526,7 @@ namespace Faithlife.Utility.Tests
 		public void TestSplitEdges()
 		{
 			string str = "shiny happy people";
-			StringSegment seg = new StringSegment(str, 5, 7);
+			var seg = new StringSegment(str, 5, 7);
 			Regex regex = new Regex(@"\s", RegexOptions.CultureInvariant);
 			List<StringSegment> listSplit = new List<StringSegment>(seg.Split(regex));
 			Assert.AreEqual(3, listSplit.Count);
@@ -542,7 +541,7 @@ namespace Faithlife.Utility.Tests
 		public void TestSplitTrivial()
 		{
 			string str = "shiny happy people";
-			StringSegment seg = new StringSegment(str, 6, 5);
+			var seg = new StringSegment(str, 6, 5);
 			Regex regex = new Regex(@"\s", RegexOptions.CultureInvariant);
 			List<StringSegment> listSplit = new List<StringSegment>(seg.Split(regex));
 			Assert.AreEqual(1, listSplit.Count);
@@ -555,7 +554,7 @@ namespace Faithlife.Utility.Tests
 		public void TestSplitSegmentGroups()
 		{
 			string str = "shiny happy people";
-			StringSegment seg = new StringSegment(str, 1, 16);
+			var seg = new StringSegment(str, 1, 16);
 			Regex regex = new Regex(@"(\s)", RegexOptions.CultureInvariant);
 			List<StringSegment> listSplit = new List<StringSegment>(seg.Split(regex));
 			Assert.AreEqual(5, listSplit.Count);
@@ -572,7 +571,7 @@ namespace Faithlife.Utility.Tests
 		public void TestSplitSegmentGroupsRightToLeft()
 		{
 			string str = "shiny happy people";
-			StringSegment seg = new StringSegment(str, 1, 16);
+			var seg = new StringSegment(str, 1, 16);
 			Regex regex = new Regex(@"(\s)", RegexOptions.CultureInvariant | RegexOptions.RightToLeft);
 			List<StringSegment> listSplit = new List<StringSegment>(seg.Split(regex));
 			Assert.AreEqual(5, listSplit.Count, "listSplit has incorrect count.");
@@ -589,7 +588,7 @@ namespace Faithlife.Utility.Tests
 		public void TestSubstringNIndex()
 		{
 			string str = "hey you";
-			StringSegment seg = new StringSegment(str, 1, 5).Substring(1);
+			var seg = new StringSegment(str, 1, 5).Substring(1);
 			Assert.IsTrue(seg.IsIdenticalTo(new StringSegment(str, 2, 4)));
 		}
 
@@ -597,7 +596,7 @@ namespace Faithlife.Utility.Tests
 		public void TestSubstringNIndexNLength()
 		{
 			string str = "hey you";
-			StringSegment seg = new StringSegment(str, 1, 5).Substring(1, 3);
+			var seg = new StringSegment(str, 1, 5).Substring(1, 3);
 			Assert.IsTrue(seg.IsIdenticalTo(new StringSegment(str, 2, 3)));
 		}
 
@@ -755,13 +754,13 @@ namespace Faithlife.Utility.Tests
 		public void TestUnion()
 		{
 			string str = "01234567";
-			StringSegment segFull = new StringSegment(str);
-			StringSegment segFirstHalf = new StringSegment(str, 0, 4);
-			StringSegment segLastHalf = new StringSegment(str, 4);
-			StringSegment segMiddle = new StringSegment(str, 2, 4);
-			StringSegment segSecondChar = new StringSegment(str, 1, 1);
-			StringSegment segLastChar = new StringSegment(str, 7, 1);
-			StringSegment segCenter = new StringSegment(str, 4, 0);
+			var segFull = new StringSegment(str);
+			var segFirstHalf = new StringSegment(str, 0, 4);
+			var segLastHalf = new StringSegment(str, 4);
+			var segMiddle = new StringSegment(str, 2, 4);
+			var segSecondChar = new StringSegment(str, 1, 1);
+			var segLastChar = new StringSegment(str, 7, 1);
+			var segCenter = new StringSegment(str, 4, 0);
 
 			Assert.IsTrue(segFull.Union(segFull).IsIdenticalTo(segFull));
 			Assert.IsTrue(segFull.Union(segFirstHalf).IsIdenticalTo(segFull));
@@ -829,7 +828,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestDefaultStringSegment()
 		{
-			StringSegment segment = default(StringSegment);
+			var segment = default(StringSegment);
 
 			Assert.AreEqual(segment.ToString(), "");
 		}

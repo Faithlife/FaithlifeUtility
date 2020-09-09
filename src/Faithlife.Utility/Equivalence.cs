@@ -89,7 +89,8 @@ namespace Faithlife.Utility
 					if (typeof(IHasEquivalence<>).MakeGenericType(type).IsAssignableFrom(typeof(T)))
 						return (IEqualityComparer<T>) Activator.CreateInstance(typeof(EquivalenceComparer<,>).MakeGenericType(typeof(T), type));
 					type = type.GetBaseType();
-				} while (type is object);
+				}
+				while (type is object);
 
 				return null;
 			}

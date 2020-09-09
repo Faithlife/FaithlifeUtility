@@ -30,7 +30,7 @@ namespace Faithlife.Utility
 			// delete the file, ignoring common exceptions (e.g., file in use, insufficient permissions)
 			try
 			{
-				FileUtility.Delete(path);
+				Delete(path);
 				return true;
 			}
 			catch (IOException)

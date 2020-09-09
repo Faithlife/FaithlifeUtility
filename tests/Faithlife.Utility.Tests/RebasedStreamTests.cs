@@ -150,12 +150,17 @@ namespace Faithlife.Utility.Tests
 			using (RebasedStream stream = CreateRebasedStream(3))
 			{
 				stream.Dispose();
-				Assert.Throws<ObjectDisposedException>(() => { long p = stream.Position; });
+				Assert.Throws<ObjectDisposedException>(() =>
+				{
+					var p = stream.Position;
+				});
 				Assert.Throws<ObjectDisposedException>(() => stream.Position = 3);
-				Assert.Throws<ObjectDisposedException>(() => { long p = stream.Length; });
+				Assert.Throws<ObjectDisposedException>(() =>
+				{
+					var p = stream.Length;
+				});
 				Assert.Throws<ObjectDisposedException>(() => stream.SetLength(20));
 				Assert.Throws<ObjectDisposedException>(() => stream.Seek(0, SeekOrigin.Begin));
-
 			}
 		}
 
@@ -166,8 +171,8 @@ namespace Faithlife.Utility.Tests
 		}
 
 #pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
-		byte[] m_buffer;
-		Stream m_stream;
+		private byte[] m_buffer;
+		private Stream m_stream;
 #pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 	}
 }

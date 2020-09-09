@@ -124,6 +124,6 @@ namespace Faithlife.Utility
 		/// <returns><c>true</c> if the instances are not equal; otherwise, <c>false</c>.</returns>
 		public static bool operator !=(Optional<T> left, Optional<T> right) => !left.Equals(right);
 
-		readonly T m_value;
+		private readonly T m_value;
 	}
 }

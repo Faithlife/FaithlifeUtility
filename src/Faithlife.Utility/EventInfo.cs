@@ -52,7 +52,7 @@ namespace Faithlife.Utility
 			return Scope.Create(() => RemoveHandler(source, handler));
 		}
 
-		readonly Action<TSource, TEventHandler> m_addHandler;
-		readonly Action<TSource, TEventHandler> m_removeHandler;
+		private readonly Action<TSource, TEventHandler> m_addHandler;
+		private readonly Action<TSource, TEventHandler> m_removeHandler;
 	}
 }

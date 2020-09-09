@@ -1,5 +1,4 @@
 using System;
-
 using NUnit.Framework;
 
 namespace Faithlife.Utility.Tests
@@ -135,6 +134,6 @@ namespace Faithlife.Utility.Tests
 			return m_nValue.CompareTo(other.m_nValue);
 		}
 
-		int m_nValue;
+		private readonly int m_nValue;
 	}
 }

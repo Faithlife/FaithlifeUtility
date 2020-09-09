@@ -22,6 +22,6 @@ namespace Faithlife.Utility
 		public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator() => m_dictionary.GetEnumerator();
 		IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable) m_dictionary).GetEnumerator();
 
-		readonly IDictionary<TKey, TValue> m_dictionary;
+		private readonly IDictionary<TKey, TValue> m_dictionary;
 	}
 }

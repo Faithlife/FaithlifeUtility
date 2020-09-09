@@ -108,7 +108,7 @@ namespace Faithlife.Utility.Tests
 			return new TruncatedStream(m_stream!, length, Ownership.None);
 		}
 
-		byte[]? m_buffer;
-		Stream? m_stream;
+		private byte[]? m_buffer;
+		private Stream? m_stream;
 	}
 }

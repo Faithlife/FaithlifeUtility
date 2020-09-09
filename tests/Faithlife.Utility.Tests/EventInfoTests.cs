@@ -1,6 +1,4 @@
 using System;
-using System.ComponentModel;
-using Faithlife.Utility;
 using NUnit.Framework;
 
 // ReSharper disable AccessToModifiedClosure
@@ -15,7 +13,7 @@ namespace Faithlife.Utility.Tests
 		{
 			EventSource eventSource = new EventSource();
 
-			int nRaiseCount = 0;
+			var nRaiseCount = 0;
 			EventHandler fn = (sender, e) => { nRaiseCount++; };
 			EventSource.UpdatedEvent.AddHandler(eventSource, fn);
 			EventHandler<EventArgs> fn2 = (sender, e) => { nRaiseCount++; };
@@ -41,7 +39,7 @@ namespace Faithlife.Utility.Tests
 		{
 			EventSource eventSource = new EventSource();
 
-			int nRaiseCount = 0;
+			var nRaiseCount = 0;
 			using (EventSource.UpdatedEvent.Subscribe(eventSource, (sender, e) => { nRaiseCount++; }))
 			using (EventSource.ClosedEvent.Subscribe(eventSource, (sender, e) => { nRaiseCount++; }))
 			using (EventSource.TerminatedEvent.Subscribe(eventSource, (sender, e) => { nRaiseCount++; }))
@@ -104,17 +102,20 @@ namespace Faithlife.Utility.Tests
 			GC.KeepAlive(target);
 		}
 
-		class EventSource
+		private class EventSource
 		{
 			public event EventHandler? Updated;
+
 			public static readonly EventInfo<EventSource, EventHandler> UpdatedEvent =
 				new EventInfo<EventSource, EventHandler>((x, fn) => x.Updated += fn, (x, fn) => x.Updated -= fn);
 
 			public event EventHandler<EventArgs>? Closed;
+
 			public static readonly EventInfo<EventSource, EventHandler<EventArgs>> ClosedEvent =
 				new EventInfo<EventSource, EventHandler<EventArgs>>((x, fn) => x.Closed += fn, (x, fn) => x.Closed -= fn);
 
 			public event EventHandler<EventArgs>? Terminated;
+
 			public static readonly EventInfo<EventSource, EventHandler<EventArgs>> TerminatedEvent =
 				new EventInfo<EventSource, EventHandler<EventArgs>>((x, fn) => x.Terminated += fn, (x, fn) => x.Terminated -= fn);
 
@@ -129,7 +130,7 @@ namespace Faithlife.Utility.Tests
 			}
 		}
 
-		class EventTarget : IDisposable
+		private class EventTarget : IDisposable
 		{
 			public EventTarget(EventSource eventSource)
 			{
@@ -168,12 +169,11 @@ namespace Faithlife.Utility.Tests
 				m_scopeTerminate.Dispose();
 			}
 
-			readonly Scope m_scopeUpdate;
-			readonly Scope m_scopeClose;
-			readonly Scope m_scopeTerminate;
+			private readonly Scope m_scopeUpdate;
+			private readonly Scope m_scopeClose;
+			private readonly Scope m_scopeTerminate;
 
-			[ThreadStatic]
-			static int m_nRaiseCount;
+			[ThreadStatic] private static int m_nRaiseCount;
 		}
 
 #if false

@@ -52,7 +52,7 @@ namespace Faithlife.Utility
 				if (m_timeoutTicks == int.MaxValue)
 					return int.MaxValue;
 
-				int nTicksSinceStart = unchecked(Environment.TickCount - m_startTickCount);
+				var nTicksSinceStart = unchecked(Environment.TickCount - m_startTickCount);
 				return Math.Max(0, m_timeoutTicks - nTicksSinceStart);
 			}
 		}
@@ -99,7 +99,7 @@ namespace Faithlife.Utility
 		/// <remarks>Use at least int.MaxValue (or Timeout.Infinite) milliseconds for a timer that never times out.</remarks>
 		public void Reset(TimeSpan timeSpanUntilTimeout) => Reset((int) Math.Min(timeSpanUntilTimeout.TotalMilliseconds, int.MaxValue));
 
-		int m_startTickCount;
-		int m_timeoutTicks;
+		private int m_startTickCount;
+		private int m_timeoutTicks;
 	}
 }

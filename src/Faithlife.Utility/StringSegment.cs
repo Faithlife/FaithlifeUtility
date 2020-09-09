@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -50,7 +52,7 @@ namespace Faithlife.Utility
 		/// <exception cref="ArgumentOutOfRangeException">The offset or length are out of range.</exception>
 		public StringSegment(string? source, int offset, int length)
 		{
-			int stringLength = source?.Length ?? 0;
+			var stringLength = source?.Length ?? 0;
 			if (offset < 0 || offset > stringLength)
 				throw new ArgumentOutOfRangeException(nameof(offset));
 			if (length < 0 || offset + length > stringLength)
@@ -98,7 +100,7 @@ namespace Faithlife.Utility
 		/// Gets the <see cref="Char"/> with the specified index.
 		/// </summary>
 		/// <value>The character at the specified index.</value>
-		[System.Runtime.CompilerServices.IndexerName("Chars")]
+		[IndexerName("Chars")]
 		public char this[int index]
 		{
 			get
@@ -142,7 +144,7 @@ namespace Faithlife.Utility
 		/// equal to, greater than, or less than the second segment, respectively.</returns>
 		public static int Compare(StringSegment segmentA, StringSegment segmentB, StringComparison comparison)
 		{
-			int result = string.Compare(segmentA.Source, segmentA.Offset, segmentB.Source, segmentB.Offset, Math.Min(segmentA.Length, segmentB.Length), comparison);
+			var result = string.Compare(segmentA.Source, segmentA.Offset, segmentB.Source, segmentB.Offset, Math.Min(segmentA.Length, segmentB.Length), comparison);
 			return CompareHelper(result, segmentA, segmentB);
 		}
 
@@ -155,7 +157,7 @@ namespace Faithlife.Utility
 		/// equal to, greater than, or less than the second segment, respectively.</returns>
 		public static int CompareOrdinal(StringSegment segmentA, StringSegment segmentB)
 		{
-			int result = string.CompareOrdinal(segmentA.Source, segmentA.Offset, segmentB.Source, segmentB.Offset, Math.Min(segmentA.Length, segmentB.Length));
+			var result = string.CompareOrdinal(segmentA.Source, segmentA.Offset, segmentB.Source, segmentB.Offset, Math.Min(segmentA.Length, segmentB.Length));
 			return CompareHelper(result, segmentA, segmentB);
 		}
 
@@ -195,7 +197,7 @@ namespace Faithlife.Utility
 			if (Length != other.Length)
 				return false;
 
-			if (object.ReferenceEquals(Source, other.Source) && Offset == other.Offset)
+			if (ReferenceEquals(Source, other.Source) && Offset == other.Offset)
 				return true;
 
 			return CompareOrdinal(this, other) == 0;
@@ -208,7 +210,7 @@ namespace Faithlife.Utility
 		/// iterate through the characters of the string segment.</returns>
 		public IEnumerator<char> GetEnumerator()
 		{
-			for (int index = 0; index < Length; index++)
+			for (var index = 0; index < Length; index++)
 				yield return Source[Offset + index];
 		}
 
@@ -228,7 +230,7 @@ namespace Faithlife.Utility
 		/// or -1 if the character cannot be found.</returns>
 		public int IndexOf(char value)
 		{
-			int index = Source.IndexOf(value, Offset, Length);
+			var index = Source.IndexOf(value, Offset, Length);
 			return index < 0 ? index : index - Offset;
 		}
 
@@ -244,7 +246,7 @@ namespace Faithlife.Utility
 			if (startIndex < 0 || startIndex >= Length)
 				throw new ArgumentOutOfRangeException(nameof(startIndex));
 
-			int index = Source.IndexOf(value, Offset + startIndex, Length - startIndex);
+			var index = Source.IndexOf(value, Offset + startIndex, Length - startIndex);
 			return index < 0 ? index : index - Offset;
 		}
 
@@ -257,7 +259,7 @@ namespace Faithlife.Utility
 		/// or -1 if the string cannot be found.</returns>
 		public int IndexOf(string value, StringComparison sc)
 		{
-			int index = Source.IndexOf(value, Offset, Length, sc);
+			var index = Source.IndexOf(value, Offset, Length, sc);
 			return index < 0 ? index : index - Offset;
 		}
 
@@ -269,7 +271,7 @@ namespace Faithlife.Utility
 		/// or -1 if none of the characters cannot be found.</returns>
 		public int IndexOfAny(params char[] anyOf)
 		{
-			int index = Source.IndexOfAny(anyOf, Offset, Length);
+			var index = Source.IndexOfAny(anyOf, Offset, Length);
 			return index < 0 ? index : index - Offset;
 		}
 
@@ -302,7 +304,7 @@ namespace Faithlife.Utility
 		/// or -1 if the character cannot be found.</returns>
 		public int LastIndexOf(char value)
 		{
-			int index = Source.LastIndexOf(value, Offset + Length - 1, Length);
+			var index = Source.LastIndexOf(value, Offset + Length - 1, Length);
 			return index < 0 ? index : index - Offset;
 		}
 
@@ -315,7 +317,7 @@ namespace Faithlife.Utility
 		/// or -1 if the string cannot be found.</returns>
 		public int LastIndexOf(string value, StringComparison comparison)
 		{
-			int index = Source.LastIndexOf(value, Offset + Length - 1, Length, comparison);
+			var index = Source.LastIndexOf(value, Offset + Length - 1, Length, comparison);
 			return index < 0 ? index : index - Offset;
 		}
 
@@ -327,7 +329,7 @@ namespace Faithlife.Utility
 		/// or -1 if none of the characters cannot be found.</returns>
 		public int LastIndexOfAny(params char[] anyOf)
 		{
-			int index = Source.LastIndexOfAny(anyOf, Offset + Length - 1, Length);
+			var index = Source.LastIndexOfAny(anyOf, Offset + Length - 1, Length);
 			return index < 0 ? index : index - Offset;
 		}
 
@@ -394,7 +396,7 @@ namespace Faithlife.Utility
 			if (!regex.RightToLeft)
 			{
 				// loop through matches
-				int resultOffset = Offset;
+				var resultOffset = Offset;
 				do
 				{
 					// yield segment before match
@@ -403,7 +405,7 @@ namespace Faithlife.Utility
 
 					// yield captures
 					GroupCollection groups = match.Groups;
-					for (int nGroup = 1; nGroup < groups.Count; nGroup++)
+					for (var nGroup = 1; nGroup < groups.Count; nGroup++)
 					{
 						Group group = groups[nGroup];
 						if (group.Success)
@@ -421,7 +423,7 @@ namespace Faithlife.Utility
 			else
 			{
 				// loop through matches right to left
-				int resultOffset = Offset + Length;
+				var resultOffset = Offset + Length;
 				do
 				{
 					// yield segment before match
@@ -430,7 +432,7 @@ namespace Faithlife.Utility
 
 					// yield captures
 					GroupCollection groups = match.Groups;
-					for (int index = 1; index < groups.Count; index++)
+					for (var index = 1; index < groups.Count; index++)
 					{
 						Group group = groups[index];
 						if (group.Success)
@@ -537,8 +539,8 @@ namespace Faithlife.Utility
 		{
 			if (Source != segment.Source)
 				throw new ArgumentException("The specified segment is from a different string.", nameof(segment));
-			int start = Math.Min(Offset, segment.Offset);
-			int end = Math.Max(Offset + Length, segment.Offset + segment.Length);
+			var start = Math.Min(Offset, segment.Offset);
+			var end = Math.Max(Offset + Length, segment.Offset + segment.Length);
 			return Redirect(start, end - start);
 		}
 
@@ -563,16 +565,16 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <returns>An <see cref="T:System.Collections.IEnumerator"></see> object that can be used to iterate
 		/// through the characters of the string segment.</returns>
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-		const int c_trimTypeStart = 0;
-		const int c_trimTypeEnd = 1;
-		const int c_trimTypeBoth = 2;
+		private const int c_trimTypeStart = 0;
+		private const int c_trimTypeEnd = 1;
+		private const int c_trimTypeBoth = 2;
 
 		private StringSegment TrimHelper(int trimType)
 		{
-			int start = Offset;
-			int end = Offset + Length;
+			var start = Offset;
+			var end = Offset + Length;
 
 			if (trimType != c_trimTypeEnd)
 				while (start < end)
@@ -593,8 +595,8 @@ namespace Faithlife.Utility
 
 		private StringSegment TrimHelper(char[] trimChars, int trimType)
 		{
-			int start = Offset;
-			int end = Offset + Length;
+			var start = Offset;
+			var end = Offset + Length;
 
 			if (trimType != c_trimTypeEnd)
 				while (start < end)

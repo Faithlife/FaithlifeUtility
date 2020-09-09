@@ -17,7 +17,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void DisposeSingleItem()
 		{
-			bool disposed = false;
+			var disposed = false;
 			using (Disposables disposables = new Disposables())
 			{
 				disposables.Add(Scope.Create(() => disposed = true));
@@ -47,11 +47,11 @@ namespace Faithlife.Utility.Tests
 			{
 				disposables.AddRange(
 					new List<IDisposable>
-						{
-							Scope.Create(() => test += "a"),
-							Scope.Create(() => test += "b"),
-							Scope.Create(() => test += "c")
-						});
+					{
+						Scope.Create(() => test += "a"),
+						Scope.Create(() => test += "b"),
+						Scope.Create(() => test += "c"),
+					});
 			}
 			Assert.AreEqual("cba", test);
 		}
@@ -61,11 +61,11 @@ namespace Faithlife.Utility.Tests
 		{
 			string test = "";
 			Disposables disposables = new Disposables(new List<IDisposable>
-				{
-					Scope.Create(() => test += "a"),
-					Scope.Create(() => test += "b"),
-					Scope.Create(() => test += "c")
-				});
+			{
+				Scope.Create(() => test += "a"),
+				Scope.Create(() => test += "b"),
+				Scope.Create(() => test += "c"),
+			});
 			disposables.Dispose();
 			Assert.AreEqual("cba", test);
 		}
@@ -75,11 +75,11 @@ namespace Faithlife.Utility.Tests
 		{
 			string test = "";
 			Disposables disposables = new Disposables
-				{
-					Scope.Create(() => test += "a"),
-					Scope.Create(() => test += "b"),
-					Scope.Create(() => test += "c")
-				};
+			{
+				Scope.Create(() => test += "a"),
+				Scope.Create(() => test += "b"),
+				Scope.Create(() => test += "c"),
+			};
 			disposables.Dispose();
 			Assert.AreEqual("cba", test);
 		}

@@ -40,7 +40,7 @@ namespace Faithlife.Utility.Tests
 			Assert.IsFalse(((object) left).Equals(null));
 		}
 
-		class MyComparable : IComparable<MyComparable>, IComparable, IEquatable<MyComparable>
+		private class MyComparable : IComparable<MyComparable>, IComparable, IEquatable<MyComparable>
 		{
 			public MyComparable(int n)
 			{
@@ -72,7 +72,7 @@ namespace Faithlife.Utility.Tests
 				return m_n;
 			}
 
-			int m_n;
+			private readonly int m_n;
 		}
 	}
 }

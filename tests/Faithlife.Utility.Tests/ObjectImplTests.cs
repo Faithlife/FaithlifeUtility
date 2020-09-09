@@ -50,7 +50,7 @@ namespace Faithlife.Utility.Tests
 				return other != null && m_i == other.m_i;
 			}
 
-			private int m_i;
+			private readonly int m_i;
 		}
 	}
 }

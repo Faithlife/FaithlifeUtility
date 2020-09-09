@@ -31,6 +31,6 @@ namespace Faithlife.Utility.Tests
 			return x - y;
 		}
 
-		bool m_bCompareCalled;
+		private bool m_bCompareCalled;
 	}
 }

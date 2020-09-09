@@ -76,7 +76,7 @@ namespace Faithlife.Utility
 			if (offset + count > buffer.Length)
 				throw new ArgumentException("Offset and count extend past the end of the buffer.");
 
-			int actualByteCount = (int) Math.Min(count, m_length - m_position);
+			var actualByteCount = (int) Math.Min(count, m_length - m_position);
 			if (actualByteCount <= 0)
 				return 0;
 
@@ -104,7 +104,7 @@ namespace Faithlife.Utility
 			if (offset + count > buffer.Length)
 				throw new ArgumentException("Offset and count extend past the end of the buffer.");
 
-			long newPosition = m_position + count;
+			var newPosition = m_position + count;
 			if (newPosition < 0)
 				throw new IOException("Stream exceeded the maximum length.");
 
@@ -123,7 +123,7 @@ namespace Faithlife.Utility
 		/// <returns>The new position within the current stream.</returns>
 		public override long Seek(long offset, SeekOrigin origin)
 		{
-			long newPosition = origin switch
+			var newPosition = origin switch
 			{
 				SeekOrigin.Begin => offset,
 				SeekOrigin.Current => m_position + offset,
@@ -163,7 +163,7 @@ namespace Faithlife.Utility
 				m_position = value;
 		}
 
-		long m_position;
-		long m_length;
+		private long m_position;
+		private long m_length;
 	}
 }

@@ -81,7 +81,7 @@ namespace Faithlife.Utility
 		{
 			foreach (var comparer in comparers)
 			{
-				int nCompare = comparer(left, right);
+				var nCompare = comparer(left, right);
 				if (nCompare != 0)
 					return nCompare;
 			}

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-
 using NUnit.Framework;
 
 namespace Faithlife.Utility.Tests
@@ -127,7 +126,7 @@ namespace Faithlife.Utility.Tests
 		// forces a sequence to be IEnumerable<T>, but not ICollection<T>
 		private static IEnumerable<T> ToEnumerable<T>(IEnumerable<T> seq)
 		{
-			foreach (T t in seq)
+			foreach (var t in seq)
 				yield return t;
 		}
 
@@ -205,7 +204,7 @@ namespace Faithlife.Utility.Tests
 			CollectionAssert.AreEqual(new double[] { 1, 2, 1, 3, 1 }.DistinctBy(d => Math.Floor(d), null), new double[] { 1, 2, 3 });
 
 			CollectionAssert.AreEqual(new[] { "a", "ab", "abc", "abcd" }.DistinctBy(s => s.Length), new[] { "a", "ab", "abc", "abcd" });
-			CollectionAssert.AreEqual(new[] { "a", "b", "c", "ab", "abc", "abcd", "bcd", }.DistinctBy(s => s.Length), new[] { "a", "ab", "abc", "abcd" });
+			CollectionAssert.AreEqual(new[] { "a", "b", "c", "ab", "abc", "abcd", "bcd" }.DistinctBy(s => s.Length), new[] { "a", "ab", "abc", "abcd" });
 		}
 
 		[Test]
@@ -221,7 +220,7 @@ namespace Faithlife.Utility.Tests
 			CollectionAssert.AreEqual(new[] { "a", "ab" },
 				new[] { "a", "ab", "abc", "abcd" }.DistinctBy(s => s.Length, new OddEvenEqualityComparer()));
 			CollectionAssert.AreEqual(new[] { "a", "ab" },
-				new[] { "a", "b", "c", "ab", "abc", "abcd", "bcd", }.DistinctBy(s => s.Length, new OddEvenEqualityComparer()));
+				new[] { "a", "b", "c", "ab", "abc", "abcd", "bcd" }.DistinctBy(s => s.Length, new OddEvenEqualityComparer()));
 		}
 
 		private class OddEvenEqualityComparer : EqualityComparer<int>
@@ -262,13 +261,13 @@ namespace Faithlife.Utility.Tests
 			int[] coll = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 			EnumerableMonitor<int> seq = new EnumerableMonitor<int>(coll);
 
-			int nCurrentIndex = 0;
+			var nCurrentIndex = 0;
 			foreach (IEnumerable<int> batch in EnumerableUtility.EnumerateBatches(seq, nBatchSize))
 			{
-				foreach (int nValue in batch)
+				foreach (var nValue in batch)
 				{
 					Assert.AreEqual(coll[nCurrentIndex], nValue);
-					int requestCount = Math.Min(((nCurrentIndex / nBatchSize) + 1) * nBatchSize, coll.Length);
+					var requestCount = Math.Min(((nCurrentIndex / nBatchSize) + 1) * nBatchSize, coll.Length);
 					Assert.AreEqual(requestCount, seq.RequestCount);
 					nCurrentIndex++;
 				}
@@ -302,7 +301,7 @@ namespace Faithlife.Utility.Tests
 			Assert.AreEqual(3, innerToList.Count());
 
 			// enumerating innerToList yields the correct values
-			int counter = 0;
+			var counter = 0;
 			foreach (List<string> batch in innerToList)
 				foreach (string actualString in batch)
 					Assert.AreEqual(testStrings[counter++], actualString);
@@ -319,11 +318,11 @@ namespace Faithlife.Utility.Tests
 			}
 
 			// what if we just want the first two items from each batch?
-			int batchCount = 0;
+			var batchCount = 0;
 			foreach (IEnumerable<string> batch in batches)
 			{
 				batchCount++;
-				for (int i = 0; i < 2; i++)
+				for (var i = 0; i < 2; i++)
 					Assert.AreEqual(1, batch.ElementAt(i).Length);
 			}
 			Assert.AreEqual(3, batchCount);
@@ -377,14 +376,14 @@ namespace Faithlife.Utility.Tests
 			const int nBinCount = 5;
 			int[] expectedBinSizes = { 3, 3, 2, 2, 2 };
 			EnumerableMonitor<int> seq = new EnumerableMonitor<int>(coll);
-			int baseRequestCount = coll.Length; // SplitIntoBins calls Count(), which enumerates the sequence
+			var baseRequestCount = coll.Length; // SplitIntoBins calls Count(), which enumerates the sequence
 
-			int nCurrentIndex = 0;
-			int nCurrentBin = 0;
+			var nCurrentIndex = 0;
+			var nCurrentBin = 0;
 			foreach (IEnumerable<int> bin in EnumerableUtility.SplitIntoBins<int>(seq, nBinCount))
 			{
-				int nBinSize = 0;
-				foreach (int nValue in bin)
+				var nBinSize = 0;
+				foreach (var nValue in bin)
 				{
 					Assert.AreEqual(coll[nCurrentIndex], nValue);
 					nCurrentIndex++;
@@ -412,10 +411,10 @@ namespace Faithlife.Utility.Tests
 			const int nBinCount = 5;
 			CollectionMonitor<int> seq = new CollectionMonitor<int>(coll);
 
-			int nCurrentIndex = 0;
+			var nCurrentIndex = 0;
 			foreach (IEnumerable<int> batch in EnumerableUtility.SplitIntoBins<int>(seq, nBinCount))
 			{
-				foreach (int nValue in batch)
+				foreach (var nValue in batch)
 				{
 					Assert.AreEqual(coll[nCurrentIndex], nValue);
 					nCurrentIndex++;
@@ -447,7 +446,7 @@ namespace Faithlife.Utility.Tests
 			Assert.AreEqual(3, innerToList.Count());
 
 			// enumerating innerToList yields the correct values
-			int counter = 0;
+			var counter = 0;
 			foreach (List<string> batch in innerToList)
 				foreach (string actualString in batch)
 					Assert.AreEqual(testStrings[counter++], actualString);
@@ -464,11 +463,11 @@ namespace Faithlife.Utility.Tests
 			}
 
 			// what if we just want the first two items from each batch?
-			int batchCount = 0;
+			var batchCount = 0;
 			foreach (IEnumerable<string> batch in batches)
 			{
 				batchCount++;
-				for (int i = 0; i < 2; i++)
+				for (var i = 0; i < 2; i++)
 					Assert.AreEqual(1, batch.ElementAt(i).Length);
 			}
 			Assert.AreEqual(3, batchCount);
@@ -485,8 +484,8 @@ namespace Faithlife.Utility.Tests
 		[TestCase(new[] { 5, 4, 3, 2, 1 }, -1)]
 		public void Intersperse(int[] anNumbers, int nInterspersed)
 		{
-			int nItems = 0;
-			foreach (int nCurrent in anNumbers.Intersperse(nInterspersed))
+			var nItems = 0;
+			foreach (var nCurrent in anNumbers.Intersperse(nInterspersed))
 			{
 				nItems++;
 
@@ -641,7 +640,7 @@ namespace Faithlife.Utility.Tests
 		{
 			IEnumerable<int> seq = InfiniteInts();
 			IEnumerable<IGrouping<int, int>> groups = seq.GroupConsecutiveBy(n => n / 3);
-			int nExpectedKey = 0;
+			var nExpectedKey = 0;
 			foreach (IGrouping<int, int> grouping in groups)
 			{
 				Assert.IsTrue(grouping.Key == nExpectedKey);
@@ -656,10 +655,10 @@ namespace Faithlife.Utility.Tests
 		{
 			IEnumerable<int> seq = InfiniteInts();
 			IEnumerable<IGrouping<int, int>> groups = seq.GroupConsecutiveBy(n => (n / 4) % 3).Take(10);
-			int nCountDistinct = groups.DistinctBy(g => g.Key).Count();
+			var nCountDistinct = groups.DistinctBy(g => g.Key).Count();
 			Assert.AreEqual(3, nCountDistinct);
-			int nTotalCount1 = groups.Sum(g => g.Count());
-			int nTotalCount2 = groups.SelectMany(g => g).Count();
+			var nTotalCount1 = groups.Sum(g => g.Count());
+			var nTotalCount2 = groups.SelectMany(g => g).Count();
 			Assert.AreEqual(40, nTotalCount1);
 			Assert.AreEqual(40, nTotalCount2);
 		}
@@ -696,7 +695,7 @@ namespace Faithlife.Utility.Tests
 
 		private static IEnumerable<int> InfiniteInts()
 		{
-			int n = 0;
+			var n = 0;
 			for (; ; )
 				yield return n++;
 		}
@@ -708,7 +707,7 @@ namespace Faithlife.Utility.Tests
 
 		private static IEnumerable EnumerateInts(int count)
 		{
-			for (int i = 0; i < count; i++)
+			for (var i = 0; i < count; i++)
 				yield return i;
 		}
 
@@ -740,7 +739,7 @@ namespace Faithlife.Utility.Tests
 			}
 
 			protected readonly IEnumerable<T> m_seq;
-			int m_nRequested;
+			private int m_nRequested;
 		}
 
 		/// <summary>

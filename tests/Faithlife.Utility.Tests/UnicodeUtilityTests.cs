@@ -81,7 +81,7 @@ namespace Faithlife.Utility.Tests
 		{
 			string s1 = "1!a $\uE000";
 			StringBuilder sb1 = new StringBuilder(s1);
-			for (int nIndex = 0; nIndex < s1.Length; ++nIndex)
+			for (var nIndex = 0; nIndex < s1.Length; ++nIndex)
 			{
 				Assert.AreEqual(1, UnicodeUtility.GetCharacterLength(s1, nIndex));
 				Assert.AreEqual(1, UnicodeUtility.GetCharacterLength(s1, nIndex));
@@ -91,7 +91,7 @@ namespace Faithlife.Utility.Tests
 
 			string s2 = "\uDF80\uD800";
 			StringBuilder sb2 = new StringBuilder(s2);
-			for (int nIndex = 0; nIndex < s2.Length; ++nIndex)
+			for (var nIndex = 0; nIndex < s2.Length; ++nIndex)
 			{
 				Assert.AreEqual(1, UnicodeUtility.GetCharacterLength(s2, nIndex));
 				Assert.AreEqual(1, UnicodeUtility.GetCharacterLength(sb2, nIndex));

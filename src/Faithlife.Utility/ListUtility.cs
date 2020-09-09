@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace Faithlife.Utility
 {
@@ -37,14 +38,14 @@ namespace Faithlife.Utility
 			if (compare is null)
 				throw new ArgumentNullException(nameof(compare));
 
-			int l = 0;
-			int r = list.Count;
+			var l = 0;
+			var r = list.Count;
 
 			while (r > l)
 			{
-				int m = l + (r - l) / 2;
-				TItem middleItem = list[m];
-				int comp = compare(middleItem, key);
+				var m = l + (r - l) / 2;
+				var middleItem = list[m];
+				var comp = compare(middleItem, key);
 				if (comp < 0)
 				{
 					// middleItem < key
@@ -77,7 +78,7 @@ namespace Faithlife.Utility
 							r = m;
 						}
 					}
-					System.Diagnostics.Debug.Assert(l == r, "l == r");
+					Debug.Assert(l == r, "l == r");
 					index = l;
 
 					// Find the end of the run.
@@ -98,13 +99,13 @@ namespace Faithlife.Utility
 							r = m;
 						}
 					}
-					System.Diagnostics.Debug.Assert(l == r, "l == r");
+					Debug.Assert(l == r, "l == r");
 					return l - index;
 				}
 			}
 
 			// We did not find the key. l and r must be equal. 
-			System.Diagnostics.Debug.Assert(l == r, "l == r");
+			Debug.Assert(l == r, "l == r");
 			index = l;
 			return 0;
 		}
@@ -133,8 +134,8 @@ namespace Faithlife.Utility
 			if (startIndex < 0 || startIndex > list.Count)
 				throw new ArgumentOutOfRangeException(nameof(startIndex));
 
-			int count = list.Count;
-			for (int index = startIndex; index < count; index++)
+			var count = list.Count;
+			for (var index = startIndex; index < count; index++)
 				if (match(list[index]))
 					return index;
 			return -1;
@@ -156,9 +157,9 @@ namespace Faithlife.Utility
 				throw new ArgumentNullException(nameof(predicate));
 
 			// remove items that match
-			int originalCount = list.Count;
-			int count = originalCount;
-			int index = 0;
+			var originalCount = list.Count;
+			var count = originalCount;
+			var index = 0;
 			while (index < count)
 			{
 				if (predicate(list[index]))

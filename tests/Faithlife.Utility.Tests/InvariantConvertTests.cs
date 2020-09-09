@@ -26,7 +26,7 @@ namespace Faithlife.Utility.Tests
 
 			try
 			{
-				bool parsed = InvariantConvert.ParseBoolean(before);
+				var parsed = InvariantConvert.ParseBoolean(before);
 				Assert.AreEqual((bool) value, parsed);
 			}
 			catch (FormatException)
@@ -71,7 +71,7 @@ namespace Faithlife.Utility.Tests
 
 			try
 			{
-				double parsed = InvariantConvert.ParseDouble(before);
+				var parsed = InvariantConvert.ParseDouble(before);
 				Assert.AreEqual((double) value, parsed);
 			}
 			catch (FormatException)
@@ -105,7 +105,7 @@ namespace Faithlife.Utility.Tests
 
 			try
 			{
-				int parsed = InvariantConvert.ParseInt32(before);
+				var parsed = InvariantConvert.ParseInt32(before);
 				Assert.AreEqual((int) value, parsed);
 			}
 			catch (FormatException)
@@ -139,7 +139,7 @@ namespace Faithlife.Utility.Tests
 
 			try
 			{
-				long parsed = InvariantConvert.ParseInt64(before);
+				var parsed = InvariantConvert.ParseInt64(before);
 				Assert.AreEqual((long) value, parsed);
 			}
 			catch (FormatException)
@@ -176,13 +176,13 @@ namespace Faithlife.Utility.Tests
 		[TestCase("-10675199.02:48:05.4775809", null)]
 		public void TestTimeSpan(string before, string after)
 		{
-			TimeSpan? value = after != null ? TimeSpan.Parse(after) : default(TimeSpan?);
+			var value = after != null ? TimeSpan.Parse(after) : default(TimeSpan?);
 
 			Assert.AreEqual(value, InvariantConvert.TryParseTimeSpan(before));
 
 			try
 			{
-				TimeSpan parsed = InvariantConvert.ParseTimeSpan(before);
+				var parsed = InvariantConvert.ParseTimeSpan(before);
 				Assert.AreEqual(value!.Value, parsed);
 			}
 			catch (FormatException)

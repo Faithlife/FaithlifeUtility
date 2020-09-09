@@ -39,7 +39,7 @@ namespace Faithlife.Utility.Tests
 		public void DictionaryContains()
 		{
 			Dictionary<string, bool> dict = new Dictionary<string, bool>();
-			KeyValuePair<string, bool> keyvalue = new KeyValuePair<string, bool>("LLS:1.0.3", true);
+			var keyvalue = new KeyValuePair<string, bool>("LLS:1.0.3", true);
 			dict.Add(keyvalue.Key, keyvalue.Value);
 
 			ReadOnlyDictionary<string, bool> dictReadOnly = new ReadOnlyDictionary<string, bool>(dict);
@@ -61,7 +61,7 @@ namespace Faithlife.Utility.Tests
 
 			ReadOnlyDictionary<string, bool> dictReadOnly = new ReadOnlyDictionary<string, bool>(dict);
 
-			bool bGotValue = false;
+			var bGotValue = false;
 			bool bValue;
 			bGotValue = dictReadOnly.TryGetValue("LLS:1.0.3", out bValue);
 			Assert.IsTrue(bGotValue);
@@ -73,8 +73,8 @@ namespace Faithlife.Utility.Tests
 		{
 			ReadOnlyDictionary<string, bool> dictReadOnly = new ReadOnlyDictionary<string, bool>(new Dictionary<string, bool>());
 
-			bool bGotValue = false;
-			bool bValue = false;
+			var bGotValue = false;
+			var bValue = false;
 			bGotValue = dictReadOnly.TryGetValue("LLS:1.0.3", out bValue);
 			Assert.IsFalse(bGotValue);
 			Assert.IsFalse(bValue);
@@ -90,7 +90,7 @@ namespace Faithlife.Utility.Tests
 
 			ReadOnlyDictionary<string, bool> dictReadOnly = new ReadOnlyDictionary<string, bool>(dict);
 
-			foreach (KeyValuePair<string, bool> pair in dictReadOnly)
+			foreach (var pair in dictReadOnly)
 				Assert.IsTrue(pair.Value);
 		}
 	}

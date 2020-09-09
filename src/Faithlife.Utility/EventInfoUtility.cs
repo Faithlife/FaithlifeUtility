@@ -20,7 +20,7 @@ namespace Faithlife.Utility
 		public static Scope WeakSubscribe<TSource, TTarget>(
 			this EventInfo<TSource, EventHandler> info,
 			TSource source, TTarget target, Action<TTarget, object, EventArgs> action)
-				where TTarget : class
+			where TTarget : class
 		{
 			WeakReference weakTarget = new WeakReference(target, false);
 
@@ -52,8 +52,8 @@ namespace Faithlife.Utility
 			this EventInfo<TSource, EventHandler<TEventArgs>> info,
 			TSource source, TTarget target,
 			Action<TTarget, object, TEventArgs> action)
-				where TTarget : class
-				where TEventArgs : EventArgs
+			where TTarget : class
+			where TEventArgs : EventArgs
 		{
 			WeakReference weakTarget = new WeakReference(target, false);
 

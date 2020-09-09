@@ -39,6 +39,6 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Indicates that the character is a control, format, private use, surrogate, or unassigned code point; this class includes the Unicode categories "Cc", "Cf", "Cs", "Co", "Cn".
 		/// </summary>
-		Other
+		Other,
 	}
 }

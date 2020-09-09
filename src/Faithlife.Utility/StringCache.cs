@@ -46,6 +46,6 @@ namespace Faithlife.Utility
 			return value;
 		}
 
-		readonly Dictionary<string, string> m_cache;
+		private readonly Dictionary<string, string> m_cache;
 	}
 }

@@ -87,7 +87,7 @@ namespace Faithlife.Utility
 				throw new ArgumentOutOfRangeException(nameof(index));
 
 			// convert surrogate pair to supplementary codepoint, or simply return BMP codepoint
-			char ch = stringBuilder[index];
+			var ch = stringBuilder[index];
 			if (char.IsSurrogate(ch))
 				return char.ConvertToUtf32(ch, index < stringBuilder.Length - 1 ? stringBuilder[index + 1] : '\0');
 			else

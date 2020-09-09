@@ -46,7 +46,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		public override int Read(byte[] buffer, int offset, int count)
 		{
-			int byteCount = WrappedStream.Read(buffer, offset, TruncateCount(count));
+			var byteCount = WrappedStream.Read(buffer, offset, TruncateCount(count));
 			m_offset += byteCount;
 			return byteCount;
 		}
@@ -56,7 +56,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		public override async Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
 		{
-			int byteCount = await WrappedStream.ReadAsync(buffer, offset, TruncateCount(count), cancellationToken).ConfigureAwait(false);
+			var byteCount = await WrappedStream.ReadAsync(buffer, offset, TruncateCount(count), cancellationToken).ConfigureAwait(false);
 			m_offset += byteCount;
 			return byteCount;
 		}
@@ -69,7 +69,7 @@ namespace Faithlife.Utility
 			if (m_offset >= m_length)
 				return -1;
 
-			int ch = base.ReadByte();
+			var ch = base.ReadByte();
 			if (ch != -1)
 				m_offset++;
 			return ch;
@@ -108,13 +108,13 @@ namespace Faithlife.Utility
 
 		private int TruncateCount(int count)
 		{
-			int maxCount = (int) Math.Min(int.MaxValue, m_length - m_offset);
+			var maxCount = (int) Math.Min(int.MaxValue, m_length - m_offset);
 			return Math.Max(Math.Min(count, maxCount), 0);
 		}
 
 		private static Exception CreateWriteNotSupportedException() => new NotSupportedException("Write not supported.");
 
-		readonly long m_length;
-		long m_offset;
+		private readonly long m_length;
+		private long m_offset;
 	}
 }

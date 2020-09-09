@@ -89,14 +89,14 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestGetHashCodeReturnsZeroForNoValue()
 		{
-			int actual = new Optional<string>().GetHashCode();
+			var actual = new Optional<string>().GetHashCode();
 			Assert.AreEqual(0, actual);
 		}
 
 		[Test]
 		public void TestGetHashCodeReturnsZeroForNull()
 		{
-			int actual = new Optional<string?>(null).GetHashCode();
+			var actual = new Optional<string?>(null).GetHashCode();
 			Assert.AreEqual(0, actual);
 		}
 
@@ -131,7 +131,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestHasValueIsFalseForNoValue()
 		{
-			bool actual = new Optional<string>().HasValue;
+			var actual = new Optional<string>().HasValue;
 			Assert.AreEqual(false, actual);
 		}
 
@@ -152,8 +152,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestGetHashCodeReturnsValue()
 		{
-			int actual = new Optional<string>(c_expectedValue).GetHashCode();
-			int expected = c_expectedValue.GetHashCode();
+			var actual = new Optional<string>(c_expectedValue).GetHashCode();
+			var expected = c_expectedValue.GetHashCode();
 			Assert.AreEqual(expected, actual);
 		}
 
@@ -183,14 +183,14 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestHasValueIsTrueForValue()
 		{
-			bool actual = new Optional<string>(c_expectedValue).HasValue;
+			var actual = new Optional<string>(c_expectedValue).HasValue;
 			Assert.AreEqual(true, actual);
 		}
 
 		[Test]
 		public void TestImplicitCastIsEqualToNewOptional()
 		{
-			Optional<string> left = new Optional<string>(c_expectedValue);
+			var left = new Optional<string>(c_expectedValue);
 			Optional<string> right = c_expectedValue;
 
 			DoTestEquals(left, right, true);
@@ -199,8 +199,8 @@ namespace Faithlife.Utility.Tests
 		private static void DoTestEquals<T>(T left, T right, bool expected)
 		{
 			// Ensure that .Equals is symmetric
-			bool actualLeftToRight = EqualityComparer<T>.Default.Equals(left, right);
-			bool actualRightToLeft = EqualityComparer<T>.Default.Equals(right, left);
+			var actualLeftToRight = EqualityComparer<T>.Default.Equals(left, right);
+			var actualRightToLeft = EqualityComparer<T>.Default.Equals(right, left);
 
 			Assert.AreEqual(expected, actualLeftToRight);
 			Assert.AreEqual(expected, actualRightToLeft);
@@ -211,14 +211,14 @@ namespace Faithlife.Utility.Tests
 		private static void DoTestObjectEquals(object? left, object? right, bool expected)
 		{
 			// Ensure that .Equals is symmetric
-			bool actualLeftToRight = object.Equals(left, right);
-			bool actualRightToLeft = object.Equals(right, left);
+			var actualLeftToRight = Equals(left, right);
+			var actualRightToLeft = Equals(right, left);
 
 			Assert.AreEqual(expected, actualLeftToRight);
 			Assert.AreEqual(expected, actualRightToLeft);
 		}
 
-		const string c_expectedValue = "Test Value";
-		const string c_expectedDefault = "Test Default";
+		private const string c_expectedValue = "Test Value";
+		private const string c_expectedDefault = "Test Default";
 	}
 }

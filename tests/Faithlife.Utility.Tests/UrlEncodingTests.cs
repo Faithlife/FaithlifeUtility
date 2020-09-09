@@ -1,6 +1,5 @@
 using System;
 using System.Text;
-using System.Web;
 using NUnit.Framework;
 
 namespace Faithlife.Utility.Tests
@@ -175,7 +174,7 @@ namespace Faithlife.Utility.Tests
 				PreventDoubleEncoding = true,
 				UppercaseHexDigits = true,
 				ShouldEncodeChar = ch => ch == '@',
-				TextEncoding = Encoding.UTF32
+				TextEncoding = Encoding.UTF32,
 			};
 			UrlEncodingSettings settingsClone = settings.Clone();
 

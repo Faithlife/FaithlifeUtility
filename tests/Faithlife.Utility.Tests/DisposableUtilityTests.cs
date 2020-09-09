@@ -9,7 +9,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void Dispose()
 		{
-			DisposableClass? d = new DisposableClass();
+			var d = new DisposableClass();
 			DisposableClass dCopy = d;
 
 			Assert.IsFalse(d.IsDisposed);
@@ -32,7 +32,7 @@ namespace Faithlife.Utility.Tests
 		{
 			DisposableClass d = new DisposableClass();
 
-			DisposableClass? d2 = d;
+			var d2 = d;
 			DisposableUtility.DisposeObject(ref d2);
 			Assert.IsNull(d2);
 			Assert.IsTrue(d.IsDisposed);
@@ -41,7 +41,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void DisposeNonDisposableObject()
 		{
-			object? obj = new object();
+			var obj = new object();
 			DisposableUtility.DisposeObject(ref obj);
 			Assert.IsNull(obj);
 		}
@@ -49,8 +49,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void DisposeStruct()
 		{
-			int count = 0;
-			DisposableStruct ds = new DisposableStruct(() => count++);
+			var count = 0;
+			var ds = new DisposableStruct(() => count++);
 
 			// disposing should invoke the action
 			DisposableUtility.DisposeObject(ref ds);
@@ -63,7 +63,6 @@ namespace Faithlife.Utility.Tests
 
 		private class DisposableClass : IDisposable
 		{
-
 			public void Dispose()
 			{
 				IsDisposed = true;
@@ -85,7 +84,7 @@ namespace Faithlife.Utility.Tests
 					m_disposeCallback();
 			}
 
-			readonly Action m_disposeCallback;
+			private readonly Action m_disposeCallback;
 		}
 	}
 }

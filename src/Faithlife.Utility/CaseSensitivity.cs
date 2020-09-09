@@ -13,6 +13,6 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// The operation should be insensitive to case.
 		/// </summary>
-		IgnoreCase
+		IgnoreCase,
 	}
 }

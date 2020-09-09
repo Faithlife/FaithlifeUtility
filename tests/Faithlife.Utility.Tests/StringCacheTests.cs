@@ -21,13 +21,13 @@ namespace Faithlife.Utility.Tests
 			StringCache stringCache = new StringCache();
 			string test = "test";
 			string added = stringCache.GetOrAdd(test);
-			Assert.IsTrue(object.ReferenceEquals(added, test));
+			Assert.IsTrue(ReferenceEquals(added, test));
 
 			// build the same string using a StringBuilder, so that it's a different string object
 			StringBuilder sb = new StringBuilder("te");
 			sb.Append("st");
 			string added2 = stringCache.GetOrAdd(sb.ToString());
-			Assert.IsTrue(object.ReferenceEquals(added, added2));
+			Assert.IsTrue(ReferenceEquals(added, added2));
 		}
 	}
 }

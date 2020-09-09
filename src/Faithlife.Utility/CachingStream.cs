@@ -72,10 +72,10 @@ namespace Faithlife.Utility
 		/// </summary>
 		public override int Read(byte[] buffer, int offset, int count)
 		{
-			int blockIndex = (int) (Position / c_blockSize);
+			var blockIndex = (int) (Position / c_blockSize);
 			byte[] data = LoadData(blockIndex);
-			int blockOffset = Math.Min(data.Length, (int) (Position % c_blockSize));
-			int bytesToCopy = Math.Max(Math.Min(count, data.Length - blockOffset), 0);
+			var blockOffset = Math.Min(data.Length, (int) (Position % c_blockSize));
+			var bytesToCopy = Math.Max(Math.Min(count, data.Length - blockOffset), 0);
 			Array.Copy(data, blockOffset, buffer, offset, bytesToCopy);
 			Position += bytesToCopy;
 			return bytesToCopy;
@@ -87,10 +87,10 @@ namespace Faithlife.Utility
 		/// </summary>
 		public override async Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
 		{
-			int blockIndex = (int) (Position / c_blockSize);
+			var blockIndex = (int) (Position / c_blockSize);
 			byte[] data = await LoadDataAsync(blockIndex).ConfigureAwait(false);
-			int blockOffset = Math.Min(data.Length, (int) (Position % c_blockSize));
-			int bytesToCopy = Math.Max(Math.Min(count, data.Length - blockOffset), 0);
+			var blockOffset = Math.Min(data.Length, (int) (Position % c_blockSize));
+			var bytesToCopy = Math.Max(Math.Min(count, data.Length - blockOffset), 0);
 			Array.Copy(data, blockOffset, buffer, offset, bytesToCopy);
 			Position += bytesToCopy;
 			return bytesToCopy;
@@ -101,8 +101,8 @@ namespace Faithlife.Utility
 		/// </summary>
 		public override int ReadByte()
 		{
-			int blockIndex = (int) (Position / c_blockSize);
-			int blockOffset = (int) (Position % c_blockSize);
+			var blockIndex = (int) (Position / c_blockSize);
+			var blockOffset = (int) (Position % c_blockSize);
 			byte[] data = LoadData(blockIndex);
 			if (blockOffset < data.Length)
 			{
@@ -158,7 +158,7 @@ namespace Faithlife.Utility
 			{
 				WrappedStream.Position = blockIndex * c_blockSize;
 				blockData = new byte[c_blockSize];
-				int bytesRead = WrappedStream.ReadBlock(blockData, 0, blockData.Length);
+				var bytesRead = WrappedStream.ReadBlock(blockData, 0, blockData.Length);
 				if (bytesRead != c_blockSize)
 					Array.Resize(ref blockData, bytesRead);
 				m_blocks[blockIndex] = blockData;
@@ -179,7 +179,7 @@ namespace Faithlife.Utility
 			{
 				WrappedStream.Position = blockIndex * c_blockSize;
 				blockData = new byte[c_blockSize];
-				int bytesRead = await WrappedStream.ReadBlockAsync(blockData, 0, blockData.Length).ConfigureAwait(false);
+				var bytesRead = await WrappedStream.ReadBlockAsync(blockData, 0, blockData.Length).ConfigureAwait(false);
 				if (bytesRead != c_blockSize)
 					Array.Resize(ref blockData, bytesRead);
 				m_blocks[blockIndex] = blockData;
@@ -188,9 +188,9 @@ namespace Faithlife.Utility
 			return blockData;
 		}
 
-		const int c_blockSize = 4096;
+		private const int c_blockSize = 4096;
 
-		List<byte[]>? m_blocks;
-		long m_position;
+		private List<byte[]>? m_blocks;
+		private long m_position;
 	}
 }

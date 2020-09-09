@@ -1,1 +1,3 @@
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Faithlife.Utility.Tests")]
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("Faithlife.Utility.Tests")]

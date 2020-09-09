@@ -1,6 +1,4 @@
 using System;
-using System.Text.RegularExpressions;
-
 using NUnit.Framework;
 
 namespace Faithlife.Utility.Tests

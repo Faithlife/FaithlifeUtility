@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-
+using MyLib;
 using NUnit.Framework;
 
 namespace Faithlife.Utility.Tests
@@ -166,7 +165,10 @@ namespace Faithlife.Utility.Tests
 		public void GetOrAddItemProblem()
 		{
 			Dictionary<int, List<int>> dict = new Dictionary<int, List<int>>();
-			Assert.Throws<KeyNotFoundException>(() => { var value = dict[1]; });
+			Assert.Throws<KeyNotFoundException>(() =>
+			{
+				var value = dict[1];
+			});
 		}
 
 		[Test]
@@ -226,8 +228,8 @@ namespace Faithlife.Utility.Tests
 		public void GetValueOrDefaultViaNetStandard()
 		{
 			Dictionary<int, int> dict = new Dictionary<int, int> { { 2, 4 }, { 3, 6 } };
-			Assert.AreEqual(4, MyLib.MyClass.DoGetValueOrDefault(dict, 2));
-			Assert.AreEqual(0, MyLib.MyClass.DoGetValueOrDefault(dict, 1));
+			Assert.AreEqual(4, MyClass.DoGetValueOrDefault(dict, 2));
+			Assert.AreEqual(0, MyClass.DoGetValueOrDefault(dict, 1));
 		}
 
 		[Test]
@@ -266,10 +268,10 @@ namespace Faithlife.Utility.Tests
 		{
 			// use IDictionary<int, int> to force extension method
 			IDictionary<int, int> dict = new Dictionary<int, int>();
-			Assert.IsTrue(MyLib.MyClass.DoTryAdd(dict, 1, 2));
-			Assert.IsFalse(MyLib.MyClass.DoTryAdd(dict, 1, 3));
-			Assert.IsFalse(MyLib.MyClass.DoTryAdd(dict, 1, 4));
-			Assert.IsTrue(MyLib.MyClass.DoTryAdd(dict, 2, 1));
+			Assert.IsTrue(MyClass.DoTryAdd(dict, 1, 2));
+			Assert.IsFalse(MyClass.DoTryAdd(dict, 1, 3));
+			Assert.IsFalse(MyClass.DoTryAdd(dict, 1, 4));
+			Assert.IsTrue(MyClass.DoTryAdd(dict, 2, 1));
 			Assert.AreEqual(new Dictionary<int, int> { { 1, 2 }, { 2, 1 } }, dict);
 		}
 	}

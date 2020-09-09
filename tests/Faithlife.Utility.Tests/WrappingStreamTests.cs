@@ -54,8 +54,14 @@ namespace Faithlife.Utility.Tests
 			Assert.IsFalse(m_stream.CanSeek);
 			Assert.IsFalse(m_stream.CanWrite);
 
-			Assert.Throws<ObjectDisposedException>(() => { long i = m_stream.Length; });
-			Assert.Throws<ObjectDisposedException>(() => { long i = m_stream.Position; });
+			Assert.Throws<ObjectDisposedException>(() =>
+			{
+				var i = m_stream.Length;
+			});
+			Assert.Throws<ObjectDisposedException>(() =>
+			{
+				var i = m_stream.Position;
+			});
 			Assert.Throws<ObjectDisposedException>(() => { m_stream.Position = 0; });
 			Assert.Throws<ObjectDisposedException>(() => { m_stream.BeginRead(new byte[1], 0, 1, null!, null); });
 			Assert.Throws<ObjectDisposedException>(() => { m_stream.EndRead(null!); });
@@ -196,10 +202,10 @@ namespace Faithlife.Utility.Tests
 		}
 
 #pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
-		Stream m_memStream;
-		Stream m_stream;
+		private Stream m_memStream;
+		private Stream m_stream;
 #pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 
-		static readonly byte[] s_abyStreamData = { 0, 1, 2, 3, 4, 5, 6, 7 };
+		private static readonly byte[] s_abyStreamData = { 0, 1, 2, 3, 4, 5, 6, 7 };
 	}
 }

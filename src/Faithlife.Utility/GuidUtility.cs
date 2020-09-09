@@ -140,7 +140,7 @@ namespace Faithlife.Utility
 
 		private static void SwapBytes(byte[] guid, int left, int right)
 		{
-			byte temp = guid[left];
+			var temp = guid[left];
 			guid[left] = guid[right];
 			guid[right] = temp;
 		}

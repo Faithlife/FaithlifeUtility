@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace Faithlife.Utility.Tests
 {
 	[TestFixture]
-	class EquivalenceTests
+	internal class EquivalenceTests
 	{
 		[Test]
 		public void SimpleTest()

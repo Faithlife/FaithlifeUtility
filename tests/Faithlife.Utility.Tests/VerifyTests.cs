@@ -39,7 +39,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestIsNullObject()
 		{
-			Assert.Throws<InvalidOperationException>(() => Verify.IsNull(new Object()));
+			Assert.Throws<InvalidOperationException>(() => Verify.IsNull(new object()));
 		}
 
 		[Test]
@@ -51,7 +51,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestIsNotNullObject()
 		{
-			Verify.IsNotNull(new Object());
+			Verify.IsNotNull(new object());
 		}
 
 		[Test]

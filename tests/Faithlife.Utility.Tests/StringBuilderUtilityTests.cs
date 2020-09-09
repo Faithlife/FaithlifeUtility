@@ -1,4 +1,3 @@
-using System;
 using System.Text;
 using NUnit.Framework;
 
@@ -9,7 +8,7 @@ namespace Faithlife.Utility.Tests
 	{
 		[TestCase("False, True", "{0}, {1}", new object[] { false, true })]
 		[TestCase("0, 255", "{0}, {1}", new object[] { 0, 255 })]
-		[TestCase("-32768, 32767", "{0}, {1}", new object[] { Int16.MinValue, Int16.MaxValue })]
+		[TestCase("-32768, 32767", "{0}, {1}", new object[] { short.MinValue, short.MaxValue })]
 		public void AppendFormatInvariant(string strExpected, string strFormat, object[] values)
 		{
 			Assert.AreEqual(strExpected, new StringBuilder().AppendFormatInvariant(strFormat, values).ToString());
@@ -24,8 +23,8 @@ namespace Faithlife.Utility.Tests
 			Assert.AreEqual(strExpected, sb.ToString());
 		}
 
-		[TestCase(Byte.MinValue, "0")]
-		[TestCase(Byte.MaxValue, "255")]
+		[TestCase(byte.MinValue, "0")]
+		[TestCase(byte.MaxValue, "255")]
 		[TestCase(0, "0")]
 		[TestCase(1, "1")]
 		public void AppendInvariantByte(byte value, string strExpected)
@@ -35,8 +34,8 @@ namespace Faithlife.Utility.Tests
 			Assert.AreEqual(strExpected, sb.ToString());
 		}
 
-		[TestCase(Int16.MinValue, "-32768")]
-		[TestCase(Int16.MaxValue, "32767")]
+		[TestCase(short.MinValue, "-32768")]
+		[TestCase(short.MaxValue, "32767")]
 		[TestCase(-1, "-1")]
 		[TestCase(0, "0")]
 		[TestCase(1, "1")]
@@ -47,8 +46,8 @@ namespace Faithlife.Utility.Tests
 			Assert.AreEqual(strExpected, sb.ToString());
 		}
 
-		[TestCase(Int32.MinValue, "-2147483648")]
-		[TestCase(Int32.MaxValue, "2147483647")]
+		[TestCase(int.MinValue, "-2147483648")]
+		[TestCase(int.MaxValue, "2147483647")]
 		[TestCase(-1, "-1")]
 		[TestCase(0, "0")]
 		[TestCase(1, "1")]
@@ -59,8 +58,8 @@ namespace Faithlife.Utility.Tests
 			Assert.AreEqual(strExpected, sb.ToString());
 		}
 
-		[TestCase(Int64.MinValue, "-9223372036854775808")]
-		[TestCase(Int64.MaxValue, "9223372036854775807")]
+		[TestCase(long.MinValue, "-9223372036854775808")]
+		[TestCase(long.MaxValue, "9223372036854775807")]
 		[TestCase(-1, "-1")]
 		[TestCase(0L, "0")]
 		[TestCase(1L, "1")]
@@ -71,7 +70,7 @@ namespace Faithlife.Utility.Tests
 			Assert.AreEqual(strExpected, sb.ToString());
 		}
 
-		[TestCase(Single.Epsilon, "1E-45")]
+		[TestCase(float.Epsilon, "1E-45")]
 		[TestCase(1.5f, "1.5")]
 		[TestCase(-1, "-1")]
 		[TestCase(0f, "0")]
@@ -83,7 +82,7 @@ namespace Faithlife.Utility.Tests
 			Assert.AreEqual(strExpected, sb.ToString());
 		}
 
-		[TestCase(Double.Epsilon, "5E-324")]
+		[TestCase(double.Epsilon, "5E-324")]
 		[TestCase(1.5, "1.5")]
 		[TestCase(-1, "-1")]
 		[TestCase(0, "0")]
@@ -110,16 +109,16 @@ namespace Faithlife.Utility.Tests
 		public void AppendInvariantDecimalMinMax()
 		{
 			StringBuilder sb = new StringBuilder();
-			StringBuilderUtility.AppendInvariant(sb, Decimal.MaxValue);
+			StringBuilderUtility.AppendInvariant(sb, decimal.MaxValue);
 			Assert.AreEqual("79228162514264337593543950335", sb.ToString());
 
 			sb = new StringBuilder();
-			StringBuilderUtility.AppendInvariant(sb, Decimal.MinValue);
+			StringBuilderUtility.AppendInvariant(sb, decimal.MinValue);
 			Assert.AreEqual("-79228162514264337593543950335", sb.ToString());
 		}
 
-		[TestCase(SByte.MinValue, "-128")]
-		[TestCase(SByte.MaxValue, "127")]
+		[TestCase(sbyte.MinValue, "-128")]
+		[TestCase(sbyte.MaxValue, "127")]
 		[TestCase(-1, "-1")]
 		[TestCase(0, "0")]
 		[TestCase(1, "1")]
@@ -130,8 +129,8 @@ namespace Faithlife.Utility.Tests
 			Assert.AreEqual(strExpected, sb.ToString());
 		}
 
-		[TestCase(UInt16.MinValue, "0")]
-		[TestCase(UInt16.MaxValue, "65535")]
+		[TestCase(ushort.MinValue, "0")]
+		[TestCase(ushort.MaxValue, "65535")]
 		[TestCase((ushort) 1, "1")]
 		public void AppendInvariantUInt16(ushort value, string strExpected)
 		{
@@ -140,8 +139,8 @@ namespace Faithlife.Utility.Tests
 			Assert.AreEqual(strExpected, sb.ToString());
 		}
 
-		[TestCase(UInt32.MinValue, "0")]
-		[TestCase(UInt32.MaxValue, "4294967295")]
+		[TestCase(uint.MinValue, "0")]
+		[TestCase(uint.MaxValue, "4294967295")]
 		[TestCase(1u, "1")]
 		public void AppendInvariantUInt32(uint value, string strExpected)
 		{
@@ -150,8 +149,8 @@ namespace Faithlife.Utility.Tests
 			Assert.AreEqual(strExpected, sb.ToString());
 		}
 
-		[TestCase(UInt64.MinValue, "0")]
-		[TestCase(UInt64.MaxValue, "18446744073709551615")]
+		[TestCase(ulong.MinValue, "0")]
+		[TestCase(ulong.MaxValue, "18446744073709551615")]
 		[TestCase(1ul, "1")]
 		public void AppendInvariantUInt64(ulong value, string strExpected)
 		{

@@ -32,7 +32,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase("ffffffffffffffffffffffffffffffff", "FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF")]
 		public void RoundTripLowerNoDash(string shortString, string longString)
 		{
-			Guid guid = new Guid(longString);
+			var guid = new Guid(longString);
 			Assert.AreEqual(shortString, guid.ToLowerNoDashString());
 			Assert.AreEqual(guid, GuidUtility.FromLowerNoDashString(shortString));
 		}
@@ -50,7 +50,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void ToNetworkOrder()
 		{
-			Guid guid = new Guid(0x01020304, 0x0506, 0x0708, 9, 10, 11, 12, 13, 14, 15, 16);
+			var guid = new Guid(0x01020304, 0x0506, 0x0708, 9, 10, 11, 12, 13, 14, 15, 16);
 			byte[] bytes = guid.ToByteArray();
 			CollectionAssert.AreEqual(new byte[] { 4, 3, 2, 1, 6, 5, 8, 7, 9, 10, 11, 12, 13, 14, 15, 16 }, bytes);
 
@@ -65,7 +65,7 @@ namespace Faithlife.Utility.Tests
 		public void CreateVersion3FromWidgetsCom()
 		{
 			// run the test case from RFC 4122 Appendix B, as updated by http://www.rfc-editor.org/errata_search.php?rfc=4122
-			Guid guid = GuidUtility.Create(GuidUtility.DnsNamespace, "www.widgets.com", 3);
+			var guid = GuidUtility.Create(GuidUtility.DnsNamespace, "www.widgets.com", 3);
 			Assert.AreEqual(new Guid("3d813cbb-47fb-32ba-91df-831e1593ac29"), guid);
 		}
 
@@ -76,7 +76,7 @@ namespace Faithlife.Utility.Tests
 		public void CreateVersion3FromPythonOrg()
 		{
 			// run the test case from the Python implementation (http://docs.python.org/library/uuid.html#uuid-example)
-			Guid guid = GuidUtility.Create(GuidUtility.DnsNamespace, "python.org", 3);
+			var guid = GuidUtility.Create(GuidUtility.DnsNamespace, "python.org", 3);
 			Assert.AreEqual(new Guid("6fa459ea-ee8a-3ca4-894e-db77e160355e"), guid);
 		}
 
@@ -87,7 +87,7 @@ namespace Faithlife.Utility.Tests
 		public void CreateVersion5FromPythonOrg()
 		{
 			// run the test case from the Python implementation (http://docs.python.org/library/uuid.html#uuid-example)
-			Guid guid = GuidUtility.Create(GuidUtility.DnsNamespace, "python.org", 5);
+			var guid = GuidUtility.Create(GuidUtility.DnsNamespace, "python.org", 5);
 			Assert.AreEqual(new Guid("886313e1-3b8a-5372-9b90-0c9aee199e5d"), guid);
 		}
 

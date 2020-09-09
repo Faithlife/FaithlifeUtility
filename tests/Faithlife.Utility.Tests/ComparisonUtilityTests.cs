@@ -30,13 +30,13 @@ namespace Faithlife.Utility.Tests
 
 			var verExpectedMax = verFirst == null ? verSecond :
 				verSecond == null ? verFirst :
-					verFirst >= verSecond ? verFirst : verSecond;
+				verFirst >= verSecond ? verFirst : verSecond;
 			var verMax = ComparisonUtility.Max(verFirst, verSecond);
 			Assert.AreEqual(verExpectedMax, verMax);
 
 			var verExpectedMin = verFirst == null ? verFirst :
 				verSecond == null ? verSecond :
-					verFirst <= verSecond ? verFirst : verSecond;
+				verFirst <= verSecond ? verFirst : verSecond;
 			var verMin = ComparisonUtility.Min(verFirst, verSecond);
 			Assert.AreEqual(verExpectedMin, verMin);
 

@@ -60,6 +60,6 @@ namespace Faithlife.Utility
 
 		private Scope(Action? dispose) => m_dispose = dispose;
 
-		Action? m_dispose;
+		private Action? m_dispose;
 	}
 }

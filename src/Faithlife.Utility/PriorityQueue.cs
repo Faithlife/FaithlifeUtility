@@ -93,7 +93,7 @@ namespace Faithlife.Utility
 				throw new InvalidOperationException("The queue is empty.");
 
 			// remove the first item and return it
-			T item = m_array[0];
+			var item = m_array[0];
 			RemoveAt(0);
 			return item;
 		}
@@ -133,7 +133,7 @@ namespace Faithlife.Utility
 		/// <param name="item">The item to remove.</param>
 		public void Remove(T item)
 		{
-			for (int index = 0; index < m_size; index++)
+			for (var index = 0; index < m_size; index++)
 			{
 				if (m_comparer.Compare(m_array[index], item) == 0)
 				{
@@ -155,7 +155,7 @@ namespace Faithlife.Utility
 			CollectionImpl.CheckCopyToParameters(array, index, m_size);
 
 			// copy each item to the destination array
-			foreach (T item in this)
+			foreach (var item in this)
 				array[index++] = item;
 		}
 
@@ -205,7 +205,7 @@ namespace Faithlife.Utility
 			try
 			{
 				// copy each item to the destination array
-				foreach (T item in this)
+				foreach (var item in this)
 					array.SetValue(item, index++);
 			}
 			catch (InvalidCastException)
@@ -280,7 +280,7 @@ namespace Faithlife.Utility
 			if (desiredSize > m_array.Length)
 			{
 				// not big enough; resize (to either two times the current size or the current size plus four, whichever is larger)
-				int newCapacity = Math.Max(m_array.Length * 2, m_array.Length + 4);
+				var newCapacity = Math.Max(m_array.Length * 2, m_array.Length + 4);
 				SetCapacity(newCapacity);
 			}
 		}
@@ -322,10 +322,10 @@ namespace Faithlife.Utility
 			if (index > 0)
 			{
 				// get the item to be moved
-				T item = m_array[index];
+				var item = m_array[index];
 
 				// keep replacing the item's parent with it (while it is less than the parent)
-				int parentIndex = (index - 1) / 2;
+				var parentIndex = (index - 1) / 2;
 				while (index > 0 && m_comparer.Compare(m_array[parentIndex], item) > 0)
 				{
 					m_array[index] = m_array[parentIndex];
@@ -342,17 +342,17 @@ namespace Faithlife.Utility
 		private void SiftDownHeap(int index)
 		{
 			// we can't move items at the bottom of the heap down any further
-			int maxIndex = m_size / 2 - 1;
+			var maxIndex = m_size / 2 - 1;
 			if (index <= maxIndex)
 			{
 				// get the item to be moved
-				T item = m_array[index];
+				var item = m_array[index];
 
 				// walk down the heap until we get to the bottom level
 				while (index <= maxIndex)
 				{
 					// find the smaller child
-					int childIndex = index * 2 + 1;
+					var childIndex = index * 2 + 1;
 					if (childIndex < m_size - 1 && m_comparer.Compare(m_array[childIndex], m_array[childIndex + 1]) > 0)
 						childIndex++;
 
@@ -370,11 +370,11 @@ namespace Faithlife.Utility
 			}
 		}
 
-		readonly IComparer<T> m_comparer;
-		T[] m_array;
-		int m_size;
-		object? m_syncRoot;
+		private readonly IComparer<T> m_comparer;
+		private T[] m_array;
+		private int m_size;
+		private object? m_syncRoot;
 
-		static readonly T[] s_emptyArray = new T[0];
+		private static readonly T[] s_emptyArray = new T[0];
 	}
 }

@@ -61,7 +61,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void FormatInvariant()
 		{
-			DateTime dtNow = DateTime.Now;
+			var dtNow = DateTime.Now;
 			Assert.AreEqual(string.Format(CultureInfo.InvariantCulture, "{0}!", dtNow),
 				StringUtility.FormatInvariant("{0}!", dtNow));
 		}
@@ -168,7 +168,7 @@ namespace Faithlife.Utility.Tests
 
 			StringBuilder sbForward = new StringBuilder();
 			StringBuilder sbReversed = new StringBuilder();
-			for (int nIndex = 0; nIndex < anCodePoints.Length; ++nIndex)
+			for (var nIndex = 0; nIndex < anCodePoints.Length; ++nIndex)
 			{
 				sbForward.Append(char.ConvertFromUtf32(anCodePoints[nIndex]));
 				sbReversed.Append(char.ConvertFromUtf32(anCodePoints[anCodePoints.Length - nIndex - 1]));
@@ -206,8 +206,8 @@ namespace Faithlife.Utility.Tests
 		[TestCase("\uE001", "\uD800\uDF80", -1)]
 		public void CompareByCodePoint(string strOne, string strTwo, int nExpectedResult)
 		{
-			int nActual12 = StringUtility.CompareByCodePoint(strOne, strTwo);
-			int nActual21 = StringUtility.CompareByCodePoint(strTwo, strOne);
+			var nActual12 = StringUtility.CompareByCodePoint(strOne, strTwo);
+			var nActual21 = StringUtility.CompareByCodePoint(strTwo, strOne);
 
 			if (nExpectedResult < 0)
 			{
@@ -360,7 +360,7 @@ namespace Faithlife.Utility.Tests
 		public void CompressAndDecompressLongString()
 		{
 			StringBuilder textBuilder = new StringBuilder();
-			for (int i = 0; i < 100000; i++)
+			for (var i = 0; i < 100000; i++)
 				textBuilder.AppendLine(Guid.NewGuid().ToString());
 			string text = textBuilder.ToString();
 			var bytes = StringUtility.Compress(text);
