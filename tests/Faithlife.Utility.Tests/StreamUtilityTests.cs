@@ -39,12 +39,12 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void ReadExactly()
 		{
-			byte[] abySource = new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+			var abySource = new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
 			using (Stream streamSource = new MemoryStream(abySource))
 			using (Stream stream = new SlowStream(streamSource))
 			{
-				byte[] read = stream.ReadExactly(5);
+				var read = stream.ReadExactly(5);
 				CollectionAssert.AreEqual(abySource.Take(5), read);
 
 				read = stream.ReadExactly(6);
@@ -56,7 +56,7 @@ namespace Faithlife.Utility.Tests
 			using (Stream streamSource = new MemoryStream(abySource))
 			using (Stream stream = new SlowStream(streamSource))
 			{
-				byte[] read = stream.ReadExactly(11);
+				var read = stream.ReadExactly(11);
 				CollectionAssert.AreEqual(abySource, read);
 			}
 
@@ -70,12 +70,12 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public async Task ReadExactlyAsync()
 		{
-			byte[] abySource = new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+			var abySource = new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
 			using (Stream streamSource = new MemoryStream(abySource))
 			using (Stream stream = new SlowStream(streamSource))
 			{
-				byte[] read = await stream.ReadExactlyAsync(5);
+				var read = await stream.ReadExactlyAsync(5);
 				CollectionAssert.AreEqual(abySource.Take(5), read);
 
 				read = await stream.ReadExactlyAsync(6);
@@ -87,7 +87,7 @@ namespace Faithlife.Utility.Tests
 			using (Stream streamSource = new MemoryStream(abySource))
 			using (Stream stream = new SlowStream(streamSource))
 			{
-				byte[] read = await stream.ReadExactlyAsync(11);
+				var read = await stream.ReadExactlyAsync(11);
 				CollectionAssert.AreEqual(abySource, read);
 			}
 
@@ -101,12 +101,12 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void ReadExactlyArray()
 		{
-			byte[] abySource = new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+			var abySource = new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
 			using (Stream streamSource = new MemoryStream(abySource))
 			using (Stream stream = new SlowStream(streamSource))
 			{
-				byte[] buffer = new byte[20];
+				var buffer = new byte[20];
 				stream.ReadExactly(buffer, 3, 8);
 				CollectionAssert.AreEqual(new byte[3].Concat(abySource.Take(8)).Concat(new byte[9]), buffer);
 			}
@@ -114,7 +114,7 @@ namespace Faithlife.Utility.Tests
 			using (Stream streamSource = new MemoryStream(abySource))
 			using (Stream stream = new SlowStream(streamSource))
 			{
-				byte[] buffer = new byte[20];
+				var buffer = new byte[20];
 				stream.ReadExactly(buffer, 5, 11);
 				CollectionAssert.AreEqual(new byte[5].Concat(abySource).Concat(new byte[4]), buffer);
 			}
@@ -122,7 +122,7 @@ namespace Faithlife.Utility.Tests
 			using (Stream streamSource = new MemoryStream(abySource))
 			using (Stream stream = new SlowStream(streamSource))
 			{
-				byte[] buffer = new byte[20];
+				var buffer = new byte[20];
 				Assert.Throws<EndOfStreamException>(() => stream.ReadExactly(buffer, 5, 12));
 			}
 		}
@@ -131,14 +131,14 @@ namespace Faithlife.Utility.Tests
 		public void PartialStream()
 		{
 			byte[] bytes = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-			using (MemoryStream memoryStream = new MemoryStream())
+			using (var memoryStream = new MemoryStream())
 			{
 				memoryStream.Write(bytes, 0, bytes.Length);
 
-				Stream partialStream1 = StreamUtility.CreatePartialStream(memoryStream, 3, 4, Ownership.None);
+				var partialStream1 = StreamUtility.CreatePartialStream(memoryStream, 3, 4, Ownership.None);
 				CollectionAssert.AreEqual(new byte[] { 3, 4, 5, 6 }, partialStream1.ReadAllBytes());
 
-				Stream partialStream2 = StreamUtility.CreatePartialStream(memoryStream, 6, null, Ownership.None);
+				var partialStream2 = StreamUtility.CreatePartialStream(memoryStream, 6, null, Ownership.None);
 				CollectionAssert.AreEqual(new byte[] { 6, 7, 8, 9, 10 }, partialStream2.ReadAllBytes());
 			}
 		}
@@ -147,18 +147,18 @@ namespace Faithlife.Utility.Tests
 		public void PartialStreamCopyTo()
 		{
 			byte[] bytes = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-			using (MemoryStream memoryStream = new MemoryStream())
+			using (var memoryStream = new MemoryStream())
 			{
 				memoryStream.Write(bytes, 0, bytes.Length);
 
-				Stream partialStream1 = StreamUtility.CreatePartialStream(memoryStream, 3, 4, Ownership.None);
+				var partialStream1 = StreamUtility.CreatePartialStream(memoryStream, 3, 4, Ownership.None);
 				using (var destination = new MemoryStream())
 				{
 					partialStream1.CopyTo(destination);
 					CollectionAssert.AreEqual(new byte[] { 3, 4, 5, 6 }, destination.ToArray());
 				}
 
-				Stream partialStream2 = StreamUtility.CreatePartialStream(memoryStream, 6, null, Ownership.None);
+				var partialStream2 = StreamUtility.CreatePartialStream(memoryStream, 6, null, Ownership.None);
 				using (var destination = new MemoryStream())
 				{
 					partialStream2.CopyTo(destination);
@@ -171,18 +171,18 @@ namespace Faithlife.Utility.Tests
 		public async Task PartialStreamCopyToAsync()
 		{
 			byte[] bytes = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-			using (MemoryStream memoryStream = new MemoryStream())
+			using (var memoryStream = new MemoryStream())
 			{
 				memoryStream.Write(bytes, 0, bytes.Length);
 
-				Stream partialStream1 = StreamUtility.CreatePartialStream(memoryStream, 3, 4, Ownership.None);
+				var partialStream1 = StreamUtility.CreatePartialStream(memoryStream, 3, 4, Ownership.None);
 				using (var destination = new MemoryStream())
 				{
 					await partialStream1.CopyToAsync(destination);
 					CollectionAssert.AreEqual(new byte[] { 3, 4, 5, 6 }, destination.ToArray());
 				}
 
-				Stream partialStream2 = StreamUtility.CreatePartialStream(memoryStream, 6, null, Ownership.None);
+				var partialStream2 = StreamUtility.CreatePartialStream(memoryStream, 6, null, Ownership.None);
 				using (var destination = new MemoryStream())
 				{
 					await partialStream2.CopyToAsync(destination);

@@ -9,8 +9,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void CompareToTest()
 		{
-			MyComparable left = new MyComparable(1);
-			MyComparable right = new MyComparable(2);
+			var left = new MyComparable(1);
+			var right = new MyComparable(2);
 			Assert.IsTrue(left.CompareTo(right) < 0);
 			Assert.IsTrue(left.CompareTo(left) == 0);
 			Assert.IsTrue(right.CompareTo(left) > 0);
@@ -25,9 +25,9 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void EqualsTest()
 		{
-			MyComparable left = new MyComparable(1);
-			MyComparable right = new MyComparable(2);
-			MyComparable left2 = new MyComparable(1);
+			var left = new MyComparable(1);
+			var right = new MyComparable(2);
+			var left2 = new MyComparable(1);
 			Assert.IsFalse(left.Equals(right));
 			Assert.IsTrue(left.Equals(left));
 			Assert.IsFalse(right.Equals(left));

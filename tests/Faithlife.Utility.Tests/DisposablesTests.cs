@@ -10,7 +10,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void DisposeEmptyDoesNothing()
 		{
-			Disposables disposables = new Disposables();
+			var disposables = new Disposables();
 			disposables.Dispose();
 		}
 
@@ -18,7 +18,7 @@ namespace Faithlife.Utility.Tests
 		public void DisposeSingleItem()
 		{
 			var disposed = false;
-			using (Disposables disposables = new Disposables())
+			using (var disposables = new Disposables())
 			{
 				disposables.Add(Scope.Create(() => disposed = true));
 				Assert.IsFalse(disposed);
@@ -29,8 +29,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void DisposeInReverseOrder()
 		{
-			string test = "";
-			using (Disposables disposables = new Disposables())
+			var test = "";
+			using (var disposables = new Disposables())
 			{
 				disposables.Add(Scope.Create(() => test += "a"));
 				disposables.Add(Scope.Create(() => test += "b"));
@@ -42,8 +42,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void AddRangeEnumerable()
 		{
-			string test = "";
-			using (Disposables disposables = new Disposables())
+			var test = "";
+			using (var disposables = new Disposables())
 			{
 				disposables.AddRange(
 					new List<IDisposable>
@@ -59,8 +59,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void CtorEnumerable()
 		{
-			string test = "";
-			Disposables disposables = new Disposables(new List<IDisposable>
+			var test = "";
+			var disposables = new Disposables(new List<IDisposable>
 			{
 				Scope.Create(() => test += "a"),
 				Scope.Create(() => test += "b"),
@@ -73,8 +73,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void CollectionInitialization()
 		{
-			string test = "";
-			Disposables disposables = new Disposables
+			var test = "";
+			var disposables = new Disposables
 			{
 				Scope.Create(() => test += "a"),
 				Scope.Create(() => test += "b"),
@@ -87,8 +87,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void IgnoreNull()
 		{
-			string test = "";
-			using (Disposables disposables = new Disposables())
+			var test = "";
+			using (var disposables = new Disposables())
 			{
 				disposables.Add(Scope.Create(() => test += "a"));
 				disposables.Add(null);
@@ -100,8 +100,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void OnlyDisposeOnce()
 		{
-			DisposeCounter counter = new DisposeCounter();
-			Disposables disposables = new Disposables();
+			var counter = new DisposeCounter();
+			var disposables = new Disposables();
 			disposables.Add(counter);
 			Assert.AreEqual(0, counter.DisposeCount);
 			disposables.Dispose();
@@ -113,7 +113,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void NoAddAfterDispose()
 		{
-			Disposables disposables = new Disposables();
+			var disposables = new Disposables();
 			disposables.Dispose();
 			Assert.Throws<ObjectDisposedException>(() => disposables.Add(Scope.Create(() => { })));
 		}

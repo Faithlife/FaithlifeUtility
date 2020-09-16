@@ -10,7 +10,7 @@ namespace Faithlife.Utility.Tests
 		public void Dispose()
 		{
 			var d = new DisposableClass();
-			DisposableClass dCopy = d;
+			var dCopy = d;
 
 			Assert.IsFalse(d.IsDisposed);
 			DisposableUtility.Dispose(ref d);
@@ -21,7 +21,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void DisposeAfter()
 		{
-			DisposableClass d = new DisposableClass();
+			var d = new DisposableClass();
 			Assert.IsFalse(d.IsDisposed);
 			Assert.IsFalse(d.DisposeAfter(d2 => d2.IsDisposed));
 			Assert.IsTrue(d.IsDisposed);
@@ -30,7 +30,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void DisposeDisposableObject()
 		{
-			DisposableClass d = new DisposableClass();
+			var d = new DisposableClass();
 
 			var d2 = d;
 			DisposableUtility.DisposeObject(ref d2);

@@ -11,8 +11,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase("foobar", "00000000-0000-0000-0000-000000000000")]
 		public void TryParse_Failure(string strGuid, string strExpected)
 		{
-			Guid guid;
-			Assert.IsFalse(GuidUtility.TryParse(strGuid, out guid));
+			Assert.IsFalse(GuidUtility.TryParse(strGuid, out var guid));
 			Assert.AreEqual(new Guid(strExpected), guid);
 		}
 
@@ -21,8 +20,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase("19820C32CF0846848C3D843F188DAB12", "19820C32-CF08-4684-8C3D-843F188DAB12")]
 		public void TryParse_Success(string strGuid, string strExpected)
 		{
-			Guid guid;
-			Assert.IsTrue(GuidUtility.TryParse(strGuid, out guid));
+			Assert.IsTrue(GuidUtility.TryParse(strGuid, out var guid));
 			Assert.AreEqual(new Guid(strExpected), guid);
 		}
 
@@ -51,7 +49,7 @@ namespace Faithlife.Utility.Tests
 		public void ToNetworkOrder()
 		{
 			var guid = new Guid(0x01020304, 0x0506, 0x0708, 9, 10, 11, 12, 13, 14, 15, 16);
-			byte[] bytes = guid.ToByteArray();
+			var bytes = guid.ToByteArray();
 			CollectionAssert.AreEqual(new byte[] { 4, 3, 2, 1, 6, 5, 8, 7, 9, 10, 11, 12, 13, 14, 15, 16 }, bytes);
 
 			GuidUtility.SwapByteOrder(bytes);

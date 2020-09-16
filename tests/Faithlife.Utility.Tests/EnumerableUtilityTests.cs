@@ -21,10 +21,9 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TryFirstInt()
 		{
-			int found;
-			int[] list = new[] { 1, 2, 3, 4 };
+			var list = new[] { 1, 2, 3, 4 };
 
-			Assert.IsFalse(list.TryFirst(n => n == 10, out found));
+			Assert.IsFalse(list.TryFirst(n => n == 10, out var found));
 			Assert.AreEqual(default(int), found);
 
 			Assert.IsTrue(list.TryFirst(n => n > 2, out found));
@@ -34,14 +33,13 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TryFirstString()
 		{
-			string found;
-			string[] list = new[] { "test", "hello", "there", "more" };
+			var list = new[] { "test", "hello", "there", "more" };
 
-			Assert.IsFalse(list.TryFirst(n => n.Length == 10, out found));
-			Assert.AreEqual(default(string), found);
+			Assert.IsFalse(list.TryFirst(n => n.Length == 10, out var found1));
+			Assert.AreEqual(default(string), found1);
 
-			Assert.IsTrue(list.TryFirst(n => n.Length == 5, out found));
-			Assert.AreEqual("hello", found);
+			Assert.IsTrue(list.TryFirst(n => n.Length == 5, out var found2));
+			Assert.AreEqual("hello", found2);
 		}
 
 		[Test]
@@ -79,7 +77,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase(2, 4, false)]
 		public void CountIsExactly(int length, int count, bool expected)
 		{
-			int[] input = Enumerable.Range(1, length).ToArray();
+			var input = Enumerable.Range(1, length).ToArray();
 			Assert.AreEqual(expected, input.CountIsExactly(count));
 			Assert.AreEqual(expected, ToEnumerable(input).CountIsExactly(count));
 		}
@@ -100,7 +98,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase(2, 4, false)]
 		public void CountIsAtLeast(int length, int count, bool expected)
 		{
-			int[] input = Enumerable.Range(1, length).ToArray();
+			var input = Enumerable.Range(1, length).ToArray();
 			Assert.AreEqual(expected, input.CountIsAtLeast(count));
 			Assert.AreEqual(expected, ToEnumerable(input).CountIsAtLeast(count));
 		}
@@ -259,7 +257,7 @@ namespace Faithlife.Utility.Tests
 		{
 			const int nBatchSize = 3;
 			int[] coll = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-			EnumerableMonitor<int> seq = new EnumerableMonitor<int>(coll);
+			var seq = new EnumerableMonitor<int>(coll);
 
 			var nCurrentIndex = 0;
 			foreach (IEnumerable<int> batch in EnumerableUtility.EnumerateBatches(seq, nBatchSize))
@@ -287,30 +285,32 @@ namespace Faithlife.Utility.Tests
 			string[] testStrings = { "a", "b", "c", "d", "e", "f", "g", "h" };
 
 			// "should" yield 3 batches with counts (3, 3, 2)
-			IEnumerable<IReadOnlyList<string>> batches = testStrings.EnumerateBatches(3);
+			var batches = testStrings.EnumerateBatches(3);
 
 			// how many batches were returned? Count() should give us a definite answer
 			Assert.AreEqual(3, batches.Count());
 
 			// enumerating the outer sequence first shouldn't mess up the batches
-			List<IReadOnlyList<string>> outerToList = batches.ToList();
+			var outerToList = batches.ToList();
 			Assert.AreEqual(3, outerToList.Count());
 
 			// enumerating the inner sequence first should behave as expected (just like enumerating the nested sequence "in order")
-			IEnumerable<List<string>> innerToList = batches.Select(batch => batch.ToList());
+			var innerToList = batches.Select(batch => batch.ToList());
 			Assert.AreEqual(3, innerToList.Count());
 
 			// enumerating innerToList yields the correct values
 			var counter = 0;
-			foreach (List<string> batch in innerToList)
-				foreach (string actualString in batch)
+			foreach (var batch in innerToList)
+			{
+				foreach (var actualString in batch)
 					Assert.AreEqual(testStrings[counter++], actualString);
+			}
 
 			foreach (IEnumerable<string> batch in outerToList)
 			{
 				Assert.IsNotNull(batch);
 				Assert.IsTrue(batch.Any());
-				using (IEnumerator<string> enumerator = batch.GetEnumerator())
+				using (var enumerator = batch.GetEnumerator())
 				{
 					Assert.IsNotNull(enumerator);
 					Assert.IsTrue(enumerator.MoveNext());
@@ -333,7 +333,7 @@ namespace Faithlife.Utility.Tests
 		{
 			// test single batch with or without optimization
 			string[] testStrings = { "a", "b", "c", "d", "e", "f", "g", "h" };
-			IEnumerable<IReadOnlyList<string>> batches = testStrings.EnumerateBatches(testStrings.Length);
+			var batches = testStrings.EnumerateBatches(testStrings.Length);
 			CollectionAssert.AreEqual(testStrings, batches.Single());
 			batches = testStrings.Select(x => x).EnumerateBatches(testStrings.Length);
 			CollectionAssert.AreEqual(testStrings, batches.Single());
@@ -343,8 +343,8 @@ namespace Faithlife.Utility.Tests
 		public void EnumerateEmptyBatch()
 		{
 			// test empty batch with or without optimization
-			string[] testStrings = new string[0];
-			IEnumerable<IReadOnlyList<string>> batches = testStrings.EnumerateBatches(1);
+			var testStrings = new string[0];
+			var batches = testStrings.EnumerateBatches(1);
 			Assert.IsFalse(batches.Any());
 			batches = testStrings.Select(x => x).EnumerateBatches(1);
 			Assert.IsFalse(batches.Any());
@@ -375,7 +375,7 @@ namespace Faithlife.Utility.Tests
 			int[] coll = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
 			const int nBinCount = 5;
 			int[] expectedBinSizes = { 3, 3, 2, 2, 2 };
-			EnumerableMonitor<int> seq = new EnumerableMonitor<int>(coll);
+			var seq = new EnumerableMonitor<int>(coll);
 			var baseRequestCount = coll.Length; // SplitIntoBins calls Count(), which enumerates the sequence
 
 			var nCurrentIndex = 0;
@@ -409,7 +409,7 @@ namespace Faithlife.Utility.Tests
 		{
 			int[] coll = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
 			const int nBinCount = 5;
-			CollectionMonitor<int> seq = new CollectionMonitor<int>(coll);
+			var seq = new CollectionMonitor<int>(coll);
 
 			var nCurrentIndex = 0;
 			foreach (IEnumerable<int> batch in EnumerableUtility.SplitIntoBins<int>(seq, nBinCount))
@@ -432,30 +432,32 @@ namespace Faithlife.Utility.Tests
 			string[] testStrings = { "a", "b", "c", "d", "e", "f", "g", "h" };
 
 			// "should" yield 3 batches with counts (3, 3, 2)
-			IEnumerable<ReadOnlyCollection<string>> batches = testStrings.SplitIntoBins(3);
+			var batches = testStrings.SplitIntoBins(3);
 
 			// how many batches were returned? Count() should give us a definite answer
 			Assert.AreEqual(3, batches.Count());
 
 			// enumerating the outer sequence first shouldn't mess up the batches
-			List<ReadOnlyCollection<string>> outerToList = batches.ToList();
+			var outerToList = batches.ToList();
 			Assert.AreEqual(3, outerToList.Count());
 
 			// enumerating the inner sequence first should behave as expected (just like enumerating the nested sequence "in order")
-			IEnumerable<List<string>> innerToList = batches.Select(batch => batch.ToList());
+			var innerToList = batches.Select(batch => batch.ToList());
 			Assert.AreEqual(3, innerToList.Count());
 
 			// enumerating innerToList yields the correct values
 			var counter = 0;
-			foreach (List<string> batch in innerToList)
-				foreach (string actualString in batch)
+			foreach (var batch in innerToList)
+			{
+				foreach (var actualString in batch)
 					Assert.AreEqual(testStrings[counter++], actualString);
+			}
 
 			foreach (IEnumerable<string> batch in outerToList)
 			{
 				Assert.IsNotNull(batch);
 				Assert.IsTrue(batch.Any());
-				using (IEnumerator<string> enumerator = batch.GetEnumerator())
+				using (var enumerator = batch.GetEnumerator())
 				{
 					Assert.IsNotNull(enumerator);
 					Assert.IsTrue(enumerator.MoveNext());
@@ -583,7 +585,7 @@ namespace Faithlife.Utility.Tests
 		public void ListAsReadOnlyList()
 		{
 			// AsReadOnlyList should not rewrap a List
-			List<int> list = new List<int> { 1, 2 };
+			var list = new List<int> { 1, 2 };
 			Assert.AreSame(list, list.AsReadOnlyList());
 		}
 
@@ -611,7 +613,7 @@ namespace Faithlife.Utility.Tests
 		{
 			// AsReadOnlyList must duplicate a non-IList
 			var dictionary = new Dictionary<int, int> { { 2, 4 } };
-			IReadOnlyList<KeyValuePair<int, int>> readOnlyList = dictionary.AsReadOnlyList();
+			var readOnlyList = dictionary.AsReadOnlyList();
 			dictionary.Add(3, 9);
 			Assert.AreEqual(1, readOnlyList.Count);
 			Assert.AreEqual(new KeyValuePair<int, int>(2, 4), readOnlyList[0]);
@@ -638,10 +640,10 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void GroupConsecutiveByTest1()
 		{
-			IEnumerable<int> seq = InfiniteInts();
-			IEnumerable<IGrouping<int, int>> groups = seq.GroupConsecutiveBy(n => n / 3);
+			var seq = InfiniteInts();
+			var groups = seq.GroupConsecutiveBy(n => n / 3);
 			var nExpectedKey = 0;
-			foreach (IGrouping<int, int> grouping in groups)
+			foreach (var grouping in groups)
 			{
 				Assert.IsTrue(grouping.Key == nExpectedKey);
 				Assert.IsTrue(grouping.Count() == 3);
@@ -653,8 +655,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void GroupConsecutiveByTest2()
 		{
-			IEnumerable<int> seq = InfiniteInts();
-			IEnumerable<IGrouping<int, int>> groups = seq.GroupConsecutiveBy(n => (n / 4) % 3).Take(10);
+			var seq = InfiniteInts();
+			var groups = seq.GroupConsecutiveBy(n => (n / 4) % 3).Take(10);
 			var nCountDistinct = groups.DistinctBy(g => g.Key).Count();
 			Assert.AreEqual(3, nCountDistinct);
 			var nTotalCount1 = groups.Sum(g => g.Count());

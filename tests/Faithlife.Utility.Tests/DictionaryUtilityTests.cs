@@ -11,8 +11,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void DictionariesAreEqual()
 		{
-			Dictionary<int, int> dict1 = new Dictionary<int, int> { { 1, 1 }, { 2, 2 }, { 3, 3 } };
-			Dictionary<int, int> dict2 = new Dictionary<int, int> { { 1, 1 }, { 2, 2 }, { 3, 3 } };
+			var dict1 = new Dictionary<int, int> { { 1, 1 }, { 2, 2 }, { 3, 3 } };
+			var dict2 = new Dictionary<int, int> { { 1, 1 }, { 2, 2 }, { 3, 3 } };
 
 			Assert.IsTrue(DictionaryUtility.AreEqual(dict1, dict2));
 		}
@@ -20,8 +20,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void DictionariesAreEqualWhenItemsAreAddedOutOfOrder()
 		{
-			Dictionary<int, int> dict1 = new Dictionary<int, int> { { 1, 1 }, { 2, 2 }, { 3, 3 } };
-			Dictionary<int, int> dict2 = new Dictionary<int, int> { { 1, 1 }, { 3, 3 }, { 2, 2 } };
+			var dict1 = new Dictionary<int, int> { { 1, 1 }, { 2, 2 }, { 3, 3 } };
+			var dict2 = new Dictionary<int, int> { { 1, 1 }, { 3, 3 }, { 2, 2 } };
 
 			Assert.IsTrue(DictionaryUtility.AreEqual(dict1, dict2));
 		}
@@ -29,8 +29,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void DictionariesArNotEqualWhenValueIsdifferent()
 		{
-			Dictionary<int, int> dict1 = new Dictionary<int, int> { { 1, 1 }, { 2, 2 }, { 3, 3 } };
-			Dictionary<int, int> dict2 = new Dictionary<int, int> { { 1, 2 }, { 2, 2 }, { 3, 3 } };
+			var dict1 = new Dictionary<int, int> { { 1, 1 }, { 2, 2 }, { 3, 3 } };
+			var dict2 = new Dictionary<int, int> { { 1, 2 }, { 2, 2 }, { 3, 3 } };
 
 			Assert.IsFalse(DictionaryUtility.AreEqual(dict1, dict2));
 		}
@@ -38,8 +38,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void DictionariesAreNotEqualWhenSecondIsMissingItem()
 		{
-			Dictionary<int, int> dict1 = new Dictionary<int, int> { { 1, 1 }, { 2, 2 }, { 3, 3 } };
-			Dictionary<int, int> dict2 = new Dictionary<int, int> { { 1, 1 }, { 2, 2 } };
+			var dict1 = new Dictionary<int, int> { { 1, 1 }, { 2, 2 }, { 3, 3 } };
+			var dict2 = new Dictionary<int, int> { { 1, 1 }, { 2, 2 } };
 
 			Assert.IsFalse(DictionaryUtility.AreEqual(dict1, dict2));
 		}
@@ -47,8 +47,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void DictionariesAreNotEqualWhenFirstIsMissingItem()
 		{
-			Dictionary<int, int> dict1 = new Dictionary<int, int> { { 1, 1 }, { 2, 2 } };
-			Dictionary<int, int> dict2 = new Dictionary<int, int> { { 1, 1 }, { 2, 2 }, { 3, 3 } };
+			var dict1 = new Dictionary<int, int> { { 1, 1 }, { 2, 2 } };
+			var dict2 = new Dictionary<int, int> { { 1, 1 }, { 2, 2 }, { 3, 3 } };
 
 			Assert.IsFalse(DictionaryUtility.AreEqual(dict1, dict2));
 		}
@@ -56,8 +56,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void DictionariesAreEqualWhenBothAreEmpty()
 		{
-			Dictionary<int, int> dict1 = new Dictionary<int, int>();
-			Dictionary<int, int> dict2 = new Dictionary<int, int>();
+			var dict1 = new Dictionary<int, int>();
+			var dict2 = new Dictionary<int, int>();
 
 			Assert.IsTrue(DictionaryUtility.AreEqual(dict1, dict2));
 		}
@@ -65,7 +65,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void DictionariesAreEqualWhenSameInstance()
 		{
-			Dictionary<int, int> dict1 = new Dictionary<int, int> { { 1, 1 }, { 2, 2 }, { 3, 3 } };
+			var dict1 = new Dictionary<int, int> { { 1, 1 }, { 2, 2 }, { 3, 3 } };
 
 			Assert.IsTrue(DictionaryUtility.AreEqual(dict1, dict1));
 		}
@@ -73,8 +73,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void DictionariesAreEqualWhenUsingCustomComparer()
 		{
-			Dictionary<int, int> dict1 = new Dictionary<int, int> { { 1, 1 }, { 2, 2 }, { 3, 3 } };
-			Dictionary<int, int> dict2 = new Dictionary<int, int> { { 1, 1 }, { 2, 2 }, { 3, 3 } };
+			var dict1 = new Dictionary<int, int> { { 1, 1 }, { 2, 2 }, { 3, 3 } };
+			var dict2 = new Dictionary<int, int> { { 1, 1 }, { 2, 2 }, { 3, 3 } };
 
 			Assert.IsTrue(DictionaryUtility.AreEqual(dict1, dict2, new GenericEqualityComparer<int>((x, y) => x == y)));
 		}
@@ -83,8 +83,8 @@ namespace Faithlife.Utility.Tests
 		public void DictionariesAreEqualWhenUsingCustomKeyComparer()
 		{
 			var comparer = new GenericEqualityComparer<int>((x, y) => x == y, HashCodeUtility.GetPersistentHashCode);
-			Dictionary<int, int> dict1 = new Dictionary<int, int>(comparer) { { 1, 1 }, { 2, 2 }, { 3, 3 } };
-			Dictionary<int, int> dict2 = new Dictionary<int, int>(comparer) { { 1, 1 }, { 2, 2 }, { 3, 3 } };
+			var dict1 = new Dictionary<int, int>(comparer) { { 1, 1 }, { 2, 2 }, { 3, 3 } };
+			var dict2 = new Dictionary<int, int>(comparer) { { 1, 1 }, { 2, 2 }, { 3, 3 } };
 
 			Assert.IsTrue(DictionaryUtility.AreEqual(dict1, dict2));
 		}
@@ -92,8 +92,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void ReadOnlyDictionariesAreEqual()
 		{
-			ReadOnlyDictionary<int, int> dict1 = new Dictionary<int, int> { { 1, 1 }, { 2, 2 }, { 3, 3 } }.AsReadOnly();
-			ReadOnlyDictionary<int, int> dict2 = new Dictionary<int, int> { { 1, 1 }, { 2, 2 }, { 3, 3 } }.AsReadOnly();
+			var dict1 = new Dictionary<int, int> { { 1, 1 }, { 2, 2 }, { 3, 3 } }.AsReadOnly();
+			var dict2 = new Dictionary<int, int> { { 1, 1 }, { 2, 2 }, { 3, 3 } }.AsReadOnly();
 
 			Assert.IsTrue(DictionaryUtility.AreEqual(dict1, dict2));
 		}
@@ -101,8 +101,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void ReadOnlyDictionariesAreNotEqualWhenValueIsDifferent()
 		{
-			ReadOnlyDictionary<int, int> dict1 = new Dictionary<int, int> { { 1, 1 }, { 2, 2 }, { 3, 3 } }.AsReadOnly();
-			ReadOnlyDictionary<int, int> dict2 = new Dictionary<int, int> { { 1, 2 }, { 2, 2 }, { 3, 3 } }.AsReadOnly();
+			var dict1 = new Dictionary<int, int> { { 1, 1 }, { 2, 2 }, { 3, 3 } }.AsReadOnly();
+			var dict2 = new Dictionary<int, int> { { 1, 2 }, { 2, 2 }, { 3, 3 } }.AsReadOnly();
 
 			Assert.IsFalse(DictionaryUtility.AreEqual(dict1, dict2));
 		}
@@ -110,7 +110,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void AsReadOnly()
 		{
-			ReadOnlyDictionary<string, int> dict = new Dictionary<string, int>
+			var dict = new Dictionary<string, int>
 			{
 				{ "one", 1 },
 				{ "two", 2 },
@@ -164,7 +164,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void GetOrAddItemProblem()
 		{
-			Dictionary<int, List<int>> dict = new Dictionary<int, List<int>>();
+			var dict = new Dictionary<int, List<int>>();
 			Assert.Throws<KeyNotFoundException>(() =>
 			{
 				var value = dict[1];
@@ -174,7 +174,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void GetOrAddItemAdd()
 		{
-			Dictionary<int, List<int>> dict = new Dictionary<int, List<int>>();
+			var dict = new Dictionary<int, List<int>>();
 			Assert.AreEqual(0, DictionaryUtility.GetOrAddValue(dict, 1).Count);
 			Assert.AreEqual(0, dict[1].Count);
 		}
@@ -182,8 +182,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void GetOrAddItemExists()
 		{
-			Dictionary<int, List<int>> dict = new Dictionary<int, List<int>>();
-			List<int> list = new List<int>();
+			var dict = new Dictionary<int, List<int>>();
+			var list = new List<int>();
 			dict[2] = list;
 			Assert.AreSame(list, DictionaryUtility.GetOrAddValue(dict, 2));
 			Assert.AreSame(list, dict[2]);
@@ -192,7 +192,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void GetOrAddItemAddValue()
 		{
-			Dictionary<int, int> dict = new Dictionary<int, int>();
+			var dict = new Dictionary<int, int>();
 			Assert.AreEqual(0, DictionaryUtility.GetOrAddValue(dict, 0));
 			Assert.AreEqual(0, dict[0]);
 		}
@@ -200,7 +200,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void GetOrAddItemAddCustom()
 		{
-			Dictionary<int, int> dict = new Dictionary<int, int>();
+			var dict = new Dictionary<int, int>();
 			Assert.AreEqual(3, DictionaryUtility.GetOrAddValue(dict, 2, () => 3));
 			Assert.AreEqual(3, dict[2]);
 		}
@@ -208,7 +208,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void GetOrAddItemExistingCustom()
 		{
-			Dictionary<int, int> dict = new Dictionary<int, int>();
+			var dict = new Dictionary<int, int>();
 			dict[2] = 4;
 			Assert.AreEqual(4, DictionaryUtility.GetOrAddValue(dict, 2, () => 3));
 			Assert.AreEqual(4, dict[2]);
@@ -217,7 +217,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void GetValueOrDefault()
 		{
-			Dictionary<int, int> dict = new Dictionary<int, int> { { 2, 4 }, { 3, 6 } };
+			var dict = new Dictionary<int, int> { { 2, 4 }, { 3, 6 } };
 #pragma warning disable CS0618 // Type or member is obsolete
 			Assert.AreEqual(4, DictionaryUtility.GetValueOrDefault(dict, 2));
 			Assert.AreEqual(0, DictionaryUtility.GetValueOrDefault(dict, 1));
@@ -227,7 +227,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void GetValueOrDefaultViaNetStandard()
 		{
-			Dictionary<int, int> dict = new Dictionary<int, int> { { 2, 4 }, { 3, 6 } };
+			var dict = new Dictionary<int, int> { { 2, 4 }, { 3, 6 } };
 			Assert.AreEqual(4, MyClass.DoGetValueOrDefault(dict, 2));
 			Assert.AreEqual(0, MyClass.DoGetValueOrDefault(dict, 1));
 		}
@@ -235,7 +235,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void GetValueOrDefaultWithDefault()
 		{
-			Dictionary<int, int> dict = new Dictionary<int, int> { { 2, 4 }, { 3, 6 } };
+			var dict = new Dictionary<int, int> { { 2, 4 }, { 3, 6 } };
 #pragma warning disable CS0618 // Type or member is obsolete
 			Assert.AreEqual(4, DictionaryUtility.GetValueOrDefault(dict, 2, -1));
 			Assert.AreEqual(-1, DictionaryUtility.GetValueOrDefault(dict, 1, -1));
@@ -246,7 +246,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void GetValueOrDefaultWithFunc()
 		{
-			Dictionary<int, int> dict = new Dictionary<int, int> { { 2, 4 }, { 3, 6 } };
+			var dict = new Dictionary<int, int> { { 2, 4 }, { 3, 6 } };
 			Assert.AreEqual(4, DictionaryUtility.GetValueOrDefault(dict, 2, () => -2));
 			Assert.AreEqual(-2, DictionaryUtility.GetValueOrDefault(dict, 1, () => -2));
 		}

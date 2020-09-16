@@ -109,7 +109,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void SeekAndRead()
 		{
-			Random random = new Random(1);
+			var random = new Random(1);
 			var data = GenerateData(1234567);
 			using (var memoryStream = new MemoryStream(data, writable: false))
 			using (var cachingStream = new CachingStream(memoryStream, Ownership.Owns))
@@ -129,7 +129,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public async Task SeekAndReadAsync()
 		{
-			Random random = new Random(1);
+			var random = new Random(1);
 			var data = GenerateData(1234567);
 			using (var memoryStream = new MemoryStream(data, writable: false))
 			using (var cachingStream = new CachingStream(memoryStream, Ownership.Owns))
@@ -149,7 +149,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void SeekAndCopyTo()
 		{
-			Random random = new Random(1);
+			var random = new Random(1);
 			var data = GenerateData(54321);
 			using (var memoryStream = new MemoryStream(data, writable: false))
 			using (var cachingStream = new CachingStream(memoryStream, Ownership.Owns))
@@ -172,7 +172,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public async Task SeekAndCopyToAsync()
 		{
-			Random random = new Random(1);
+			var random = new Random(1);
 			var data = GenerateData(54321);
 			using (var memoryStream = new MemoryStream(data, writable: false))
 			using (var cachingStream = new CachingStream(memoryStream, Ownership.Owns))
@@ -204,7 +204,7 @@ namespace Faithlife.Utility.Tests
 			using (var cachingStream = new CachingStream(memoryStream, Ownership.Owns))
 			{
 				cachingStream.Position = position;
-				byte[] buffer = new byte[10];
+				var buffer = new byte[10];
 				Assert.AreEqual(0, cachingStream.Read(buffer, 0, buffer.Length));
 			}
 		}
@@ -212,7 +212,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void SeekAndReadByte()
 		{
-			Random random = new Random(2);
+			var random = new Random(2);
 			var data = GenerateData(123456);
 			using (var memoryStream = new MemoryStream(data, writable: false))
 			using (var cachingStream = new CachingStream(memoryStream, Ownership.Owns))
@@ -244,7 +244,7 @@ namespace Faithlife.Utility.Tests
 
 		private static byte[] GenerateData(int size)
 		{
-			byte[] results = new byte[size];
+			var results = new byte[size];
 			for (var index = 0; index < size; index++)
 			{
 				var value = index / 4;

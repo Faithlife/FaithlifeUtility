@@ -11,7 +11,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public async Task DefaultTimeout()
 		{
-			TimeoutTimer t = new TimeoutTimer();
+			var t = new TimeoutTimer();
 			Assert.AreEqual(t.RemainingMilliseconds, 0);
 			Assert.AreEqual(t.RemainingTimeSpan, TimeSpan.Zero);
 			Assert.IsTrue(t.TimedOut);
@@ -27,7 +27,7 @@ namespace Faithlife.Utility.Tests
 		public async Task TimeoutMilliseconds()
 		{
 			var nTime = 1000;
-			TimeoutTimer t = new TimeoutTimer(nTime);
+			var t = new TimeoutTimer(nTime);
 			Assert.GreaterOrEqual(t.RemainingMilliseconds, 0);
 			Assert.LessOrEqual(t.RemainingMilliseconds, nTime);
 			Assert.GreaterOrEqual(t.RemainingTimeSpan, TimeSpan.Zero);
@@ -52,7 +52,7 @@ namespace Faithlife.Utility.Tests
 		public void TimeoutTimespan()
 		{
 			var nTime = 1000;
-			TimeoutTimer t = new TimeoutTimer(TimeSpan.FromMilliseconds(nTime));
+			var t = new TimeoutTimer(TimeSpan.FromMilliseconds(nTime));
 			Assert.GreaterOrEqual(t.RemainingMilliseconds, 0);
 			Assert.LessOrEqual(t.RemainingMilliseconds, nTime);
 		}
@@ -60,7 +60,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public async Task TimeoutInfinite()
 		{
-			TimeoutTimer t = new TimeoutTimer(Timeout.Infinite);
+			var t = new TimeoutTimer(Timeout.Infinite);
 			Assert.AreEqual(int.MaxValue, t.RemainingMilliseconds);
 			await Task.Delay(50);
 			Assert.AreEqual(int.MaxValue, t.RemainingMilliseconds);
@@ -76,7 +76,7 @@ namespace Faithlife.Utility.Tests
 		public async Task TimeoutElapse()
 		{
 			var nTime = 50;
-			TimeoutTimer t = new TimeoutTimer(nTime);
+			var t = new TimeoutTimer(nTime);
 			Assert.GreaterOrEqual(t.RemainingMilliseconds, 0);
 			Assert.LessOrEqual(t.RemainingMilliseconds, nTime);
 

@@ -40,7 +40,7 @@ namespace Faithlife.Utility
 				return value;
 
 			// convert string to array of characters
-			char[] chars = value.ToCharArray();
+			var chars = value.ToCharArray();
 			var length = chars.Length;
 
 			// count characters that should be encoded and spaces
@@ -56,8 +56,8 @@ namespace Faithlife.Utility
 				return value;
 
 			// each byte becomes 3 characters
-			Encoding encoding = settings.TextEncoding;
-			char[] output = new char[length + 3 * settings.TextEncoding.GetMaxByteCount(charsToEncode)];
+			var encoding = settings.TextEncoding;
+			var output = new char[length + 3 * settings.TextEncoding.GetMaxByteCount(charsToEncode)];
 			var outputChar = 0;
 
 			// walk characters

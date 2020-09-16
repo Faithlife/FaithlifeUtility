@@ -9,7 +9,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void PeekOrDefault()
 		{
-			Stack<int> stack = new Stack<int>();
+			var stack = new Stack<int>();
 			Assert.AreEqual(0, StackUtility.PeekOrDefault(stack));
 			stack.Push(3);
 			Assert.AreEqual(3, StackUtility.PeekOrDefault(stack));
@@ -20,7 +20,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void PeekOrDefaultWithDefault()
 		{
-			Stack<int> stack = new Stack<int>();
+			var stack = new Stack<int>();
 			Assert.AreEqual(1, StackUtility.PeekOrDefault(stack, 1));
 			stack.Push(3);
 			Assert.AreEqual(3, StackUtility.PeekOrDefault(stack, 1));

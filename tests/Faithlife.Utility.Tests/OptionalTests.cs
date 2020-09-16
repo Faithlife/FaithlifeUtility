@@ -103,28 +103,28 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestToStringReturnsEmptyForNoValue()
 		{
-			string actual = new Optional<int>().ToString();
+			var actual = new Optional<int>().ToString();
 			Assert.AreEqual("", actual);
 		}
 
 		[Test]
 		public void TestToStringReturnsEmptyForNull()
 		{
-			string actual = new Optional<string?>(null).ToString();
+			var actual = new Optional<string?>(null).ToString();
 			Assert.AreEqual("", actual);
 		}
 
 		[Test]
 		public void TestGetDefaultReturnsDefaultForNoValue()
 		{
-			string actual = new Optional<string>().GetValueOrDefault();
+			var actual = new Optional<string>().GetValueOrDefault();
 			Assert.AreEqual(default(string), actual);
 		}
 
 		[Test]
 		public void TestGetDefaultReturnsProvidedDefaultForNoValue()
 		{
-			string actual = new Optional<string>().GetValueOrDefault(c_expectedDefault);
+			var actual = new Optional<string>().GetValueOrDefault(c_expectedDefault);
 			Assert.AreEqual(c_expectedDefault, actual);
 		}
 
@@ -138,14 +138,14 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestValueReturnsValue()
 		{
-			string actual = new Optional<string>(c_expectedValue).Value;
+			var actual = new Optional<string>(c_expectedValue).Value;
 			Assert.AreEqual(c_expectedValue, actual);
 		}
 
 		[Test]
 		public void TestCastReturnsValue()
 		{
-			string actual = (string) new Optional<string>(c_expectedValue);
+			var actual = (string) new Optional<string>(c_expectedValue);
 			Assert.AreEqual(c_expectedValue, actual);
 		}
 
@@ -161,22 +161,22 @@ namespace Faithlife.Utility.Tests
 		public void TestToStringReturnsValue()
 		{
 			const int value = 12;
-			string actual = new Optional<int>(value).ToString();
-			string expected = value.ToString();
+			var actual = new Optional<int>(value).ToString();
+			var expected = value.ToString();
 			Assert.AreEqual(expected, actual);
 		}
 
 		[Test]
 		public void TestGetDefaultReturnsValue()
 		{
-			string actual = new Optional<string>(c_expectedValue).GetValueOrDefault();
+			var actual = new Optional<string>(c_expectedValue).GetValueOrDefault();
 			Assert.AreEqual(c_expectedValue, actual);
 		}
 
 		[Test]
 		public void TestGetDefaultWithDefaultReturnsValue()
 		{
-			string actual = new Optional<string>(c_expectedValue).GetValueOrDefault(c_expectedDefault);
+			var actual = new Optional<string>(c_expectedValue).GetValueOrDefault(c_expectedDefault);
 			Assert.AreEqual(c_expectedValue, actual);
 		}
 

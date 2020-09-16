@@ -27,10 +27,10 @@ namespace Faithlife.Utility.Tests
 		[TestCase("00102030405060708090A0B0C0D0E0F0", new byte[] { 0, 16, 32, 48, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 224, 240 })]
 		public void RoundTrip(string input, byte[] expected)
 		{
-			byte[] actual = ByteUtility.ToBytes(input);
+			var actual = ByteUtility.ToBytes(input);
 			CollectionAssert.AreEqual(expected, actual);
 
-			string output = ByteUtility.ToString(actual);
+			var output = ByteUtility.ToString(actual);
 			Assert.AreEqual(input.ToUpperInvariant(), output);
 		}
 	}

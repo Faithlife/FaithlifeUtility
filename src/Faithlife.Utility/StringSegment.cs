@@ -97,7 +97,7 @@ namespace Faithlife.Utility
 		public int Length { get; }
 
 		/// <summary>
-		/// Gets the <see cref="Char"/> with the specified index.
+		/// Gets the <see cref="char"/> with the specified index.
 		/// </summary>
 		/// <value>The character at the specified index.</value>
 		[IndexerName("Chars")]
@@ -384,7 +384,7 @@ namespace Faithlife.Utility
 		public IEnumerable<StringSegment> Split(Regex regex)
 		{
 			// find first match
-			Match match = Match(regex);
+			var match = Match(regex);
 			if (!match.Success)
 			{
 				// match not found, so yield this and we're done
@@ -404,10 +404,10 @@ namespace Faithlife.Utility
 					resultOffset = match.Index + match.Length;
 
 					// yield captures
-					GroupCollection groups = match.Groups;
+					var groups = match.Groups;
 					for (var nGroup = 1; nGroup < groups.Count; nGroup++)
 					{
-						Group group = groups[nGroup];
+						var group = groups[nGroup];
 						if (group.Success)
 							yield return Redirect(group);
 					}
@@ -431,10 +431,10 @@ namespace Faithlife.Utility
 					resultOffset = match.Index;
 
 					// yield captures
-					GroupCollection groups = match.Groups;
+					var groups = match.Groups;
 					for (var index = 1; index < groups.Count; index++)
 					{
-						Group group = groups[index];
+						var group = groups[index];
 						if (group.Success)
 							yield return Redirect(group);
 					}
@@ -577,18 +577,26 @@ namespace Faithlife.Utility
 			var end = Offset + Length;
 
 			if (trimType != c_trimTypeEnd)
+			{
 				while (start < end)
+				{
 					if (char.IsWhiteSpace(Source[start]))
 						start++;
 					else
 						break;
+				}
+			}
 
 			if (trimType != c_trimTypeStart)
+			{
 				while (start < end)
+				{
 					if (char.IsWhiteSpace(Source[end - 1]))
 						end--;
 					else
 						break;
+				}
+			}
 
 			return Redirect(start, end - start);
 		}
@@ -599,18 +607,26 @@ namespace Faithlife.Utility
 			var end = Offset + Length;
 
 			if (trimType != c_trimTypeEnd)
+			{
 				while (start < end)
+				{
 					if (Array.IndexOf(trimChars, Source[start]) >= 0)
 						start++;
 					else
 						break;
+				}
+			}
 
 			if (trimType != c_trimTypeStart)
+			{
 				while (start < end)
+				{
 					if (Array.IndexOf(trimChars, Source[end - 1]) >= 0)
 						end--;
 					else
 						break;
+				}
+			}
 
 			return Redirect(start, end - start);
 		}

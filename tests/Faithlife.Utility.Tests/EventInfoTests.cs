@@ -11,7 +11,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void AddRemoveHandlerTest()
 		{
-			EventSource eventSource = new EventSource();
+			var eventSource = new EventSource();
 
 			var nRaiseCount = 0;
 			EventHandler fn = (sender, e) => { nRaiseCount++; };
@@ -37,7 +37,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void SubscribeTest()
 		{
-			EventSource eventSource = new EventSource();
+			var eventSource = new EventSource();
 
 			var nRaiseCount = 0;
 			using (EventSource.UpdatedEvent.Subscribe(eventSource, (sender, e) => { nRaiseCount++; }))
@@ -57,9 +57,9 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void WeakSubscribeDisposedTest()
 		{
-			EventSource eventSource = new EventSource();
+			var eventSource = new EventSource();
 
-			EventTarget target = new EventTarget(eventSource);
+			var target = new EventTarget(eventSource);
 			using (target)
 			{
 				Assert.AreEqual(0, EventTarget.RaiseCount);
@@ -78,7 +78,7 @@ namespace Faithlife.Utility.Tests
 #endif
 		public void WeakSubscribeCollectedTest()
 		{
-			EventSource eventSource = new EventSource();
+			var eventSource = new EventSource();
 
 			CreateEventTarget(eventSource);
 
@@ -93,7 +93,7 @@ namespace Faithlife.Utility.Tests
 
 		private static void CreateEventTarget(EventSource eventSource)
 		{
-			EventTarget target = new EventTarget(eventSource);
+			var target = new EventTarget(eventSource);
 
 			Assert.AreEqual(0, EventTarget.RaiseCount);
 			eventSource.RaiseEvents();

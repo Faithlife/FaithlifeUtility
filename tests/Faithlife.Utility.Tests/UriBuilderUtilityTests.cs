@@ -14,7 +14,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase("http://www.google.com/search?a=b%26c", "d=e&f=g", "http://www.google.com/search?a=b%26c&d=e&f=g")]
 		public void AppendQuery(string baseUri, string query, string expectedUri)
 		{
-			UriBuilder builder = new UriBuilder(baseUri);
+			var builder = new UriBuilder(baseUri);
 			builder.AppendQuery(query);
 			Assert.AreEqual(expectedUri, builder.Uri.AbsoluteUri);
 		}

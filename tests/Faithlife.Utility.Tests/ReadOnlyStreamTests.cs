@@ -71,7 +71,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void Read()
 		{
-			byte[] aby = new byte[m_abyStreamData.Length];
+			var aby = new byte[m_abyStreamData.Length];
 			Assert.AreEqual(aby.Length, m_stream.Read(aby, 0, aby.Length));
 			CollectionAssert.AreEqual(m_abyStreamData, aby);
 		}
@@ -95,7 +95,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public async Task ReadAsync()
 		{
-			byte[] aby = new byte[m_abyStreamData.Length];
+			var aby = new byte[m_abyStreamData.Length];
 			Assert.AreEqual(aby.Length, await m_stream.ReadAsync(aby, 0, aby.Length));
 			CollectionAssert.AreEqual(m_abyStreamData, aby);
 		}
@@ -103,7 +103,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void CopyTo()
 		{
-			byte[] aby = new byte[m_abyStreamData.Length];
+			var aby = new byte[m_abyStreamData.Length];
 			var destination = new MemoryStream(aby);
 			m_stream.CopyTo(destination);
 			CollectionAssert.AreEqual(m_abyStreamData, aby);
@@ -112,7 +112,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public async Task CopyToAsync()
 		{
-			byte[] aby = new byte[m_abyStreamData.Length];
+			var aby = new byte[m_abyStreamData.Length];
 			var destination = new MemoryStream(aby);
 			await m_stream.CopyToAsync(destination);
 			CollectionAssert.AreEqual(m_abyStreamData, aby);

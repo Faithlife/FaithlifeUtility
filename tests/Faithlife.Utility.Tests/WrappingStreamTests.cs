@@ -92,7 +92,7 @@ namespace Faithlife.Utility.Tests
 		public void Read()
 		{
 			m_stream.Position = 0;
-			byte[] aby = new byte[s_abyStreamData.Length];
+			var aby = new byte[s_abyStreamData.Length];
 			Assert.AreEqual(aby.Length, m_stream.Read(aby, 0, aby.Length));
 			CollectionAssert.AreEqual(s_abyStreamData, aby);
 		}
@@ -101,8 +101,8 @@ namespace Faithlife.Utility.Tests
 		public void BeginRead()
 		{
 			m_stream.Position = 0;
-			byte[] aby = new byte[s_abyStreamData.Length];
-			IAsyncResult ar = m_stream.BeginRead(aby, 0, 8, null!, null);
+			var aby = new byte[s_abyStreamData.Length];
+			var ar = m_stream.BeginRead(aby, 0, 8, null!, null);
 			Assert.AreEqual(aby.Length, m_stream.EndRead(ar));
 			CollectionAssert.AreEqual(s_abyStreamData, aby);
 		}
@@ -111,7 +111,7 @@ namespace Faithlife.Utility.Tests
 		public async Task ReadAsync()
 		{
 			m_stream.Position = 0;
-			byte[] aby = new byte[s_abyStreamData.Length];
+			var aby = new byte[s_abyStreamData.Length];
 			Assert.AreEqual(aby.Length, await m_stream.ReadAsync(aby, 0, 8, CancellationToken.None).ConfigureAwait(false));
 			CollectionAssert.AreEqual(s_abyStreamData, aby);
 		}
@@ -161,7 +161,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void BeginWrite()
 		{
-			IAsyncResult ar = m_stream.BeginWrite(s_abyStreamData, 0, s_abyStreamData.Length, null!, null);
+			var ar = m_stream.BeginWrite(s_abyStreamData, 0, s_abyStreamData.Length, null!, null);
 			m_stream.EndWrite(ar);
 			VerifyWrite();
 		}
@@ -195,7 +195,7 @@ namespace Faithlife.Utility.Tests
 
 			m_stream.Position = 0;
 
-			byte[] aby = new byte[s_abyStreamData.Length * 2];
+			var aby = new byte[s_abyStreamData.Length * 2];
 			m_stream.Read(aby, 0, aby.Length);
 			CollectionAssert.AreEqual(s_abyStreamData, aby.Take(s_abyStreamData.Length));
 			CollectionAssert.AreEqual(s_abyStreamData, aby.Skip(s_abyStreamData.Length));

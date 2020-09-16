@@ -57,8 +57,8 @@ namespace Faithlife.Utility
 		public static int LastIndexOfOrdinal(this string source, string value, int startIndex, int count) => source.LastIndexOf(value, startIndex, count, StringComparison.Ordinal);
 
 		/// <summary>
-		/// Compares two specified <see cref="String"/> objects by comparing successive Unicode code points. This method differs from
-		/// <see cref="String.CompareOrdinal(string, string)"/> in that this method considers supplementary characters (which are
+		/// Compares two specified <see cref="string"/> objects by comparing successive Unicode code points. This method differs from
+		/// <see cref="string.CompareOrdinal(string, string)"/> in that this method considers supplementary characters (which are
 		/// encoded as two surrogate code units) to be greater than characters in the base multilingual plane (because they have higher
 		/// Unicode code points). This method sorts strings in code point order, which is the same as a byte-wise comparison of UTF-8 or
 		/// UTF-32 encoded strings.
@@ -109,7 +109,7 @@ namespace Faithlife.Utility
 				return ignoreCase ? StringComparer.CurrentCultureIgnoreCase : StringComparer.CurrentCulture;
 
 			// use reflection in case we are running on a platform that supports StringComparer.Create
-			MethodInfo create = typeof(StringComparer)
+			var create = typeof(StringComparer)
 				.GetTypeInfo()
 				.GetDeclaredMethods("Create")
 				.FirstOrDefault(x => x.IsStatic && x.GetParameters().Select(p => p.ParameterType).SequenceEqual(new[] { typeof(CultureInfo), typeof(bool) }));
@@ -137,7 +137,7 @@ namespace Faithlife.Utility
 				throw new ArgumentNullException(nameof(value));
 
 			// process each character in the input string
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			foreach (var codeUnit in value)
 			{
 				if (codeUnit < 0x100)
@@ -796,7 +796,7 @@ namespace Faithlife.Utility
 		/// <param name="value">The string.</param>
 		/// <returns>The array of substrings.</returns>
 		/// <remarks>See the documentation for string.Split for the white-space characters recognized by this method.</remarks>
-		public static string[] SplitOnWhitespace(this string value) => value.Split((char[]?) null);
+		public static string[] SplitOnWhitespace(this string value) => value.Split(null);
 
 		/// <summary>
 		/// Splits the string on whitespace.
@@ -919,7 +919,7 @@ namespace Faithlife.Utility
 				while (count > 0)
 				{
 					// convert characters to UTF-8
-					byte[] bytes = new byte[m_encoding.GetMaxByteCount(count)];
+					var bytes = new byte[m_encoding.GetMaxByteCount(count)];
 					m_encoder.Convert(buffer, index, count, bytes, 0, bytes.Length, false, out var charsUsed, out var bytesUsed, out _);
 
 					// write UTF-8 to stream
@@ -944,7 +944,7 @@ namespace Faithlife.Utility
 						var completed = false;
 						while (!completed)
 						{
-							byte[] bytes = new byte[m_encoding.GetMaxByteCount(0)];
+							var bytes = new byte[m_encoding.GetMaxByteCount(0)];
 							m_encoder.Convert(new char[0], 0, 0, bytes, 0, bytes.Length, true, out _, out var bytesUsed, out completed);
 							WriteToStream(bytes, bytesUsed);
 						}
@@ -1133,7 +1133,7 @@ namespace Faithlife.Utility
 				else if (firstByte == c_compressedStringUsingGzip || firstByte == c_compressedStringUsingUtf8)
 				{
 					// read uncompressed byte count
-					byte[] uncompressedByteCountBuffer = new byte[4];
+					var uncompressedByteCountBuffer = new byte[4];
 					var bytesRead = m_stream.ReadBlock(uncompressedByteCountBuffer, 0, 4);
 					if (bytesRead != 4)
 						throw new InvalidDataException("The compressed string has a bad header.");
@@ -1166,7 +1166,7 @@ namespace Faithlife.Utility
 			{
 				// decompress some UTF-8
 				var byteCount = Math.Min(m_uncompressedByteCount - m_uncompressedByteIndex, 4096);
-				byte[] bytes = new byte[byteCount];
+				var bytes = new byte[byteCount];
 				(m_unzipStream ?? m_stream).ReadExactly(bytes, 0, byteCount);
 				m_uncompressedByteIndex += byteCount;
 

@@ -128,7 +128,7 @@ namespace Faithlife.Utility
 		{
 			if (count < 0)
 				throw new ArgumentOutOfRangeException(nameof(count));
-			byte[] buffer = new byte[count];
+			var buffer = new byte[count];
 			ReadExactly(stream, buffer, 0, count);
 			return buffer;
 		}
@@ -144,7 +144,7 @@ namespace Faithlife.Utility
 		{
 			if (count < 0)
 				throw new ArgumentOutOfRangeException(nameof(count));
-			byte[] buffer = new byte[count];
+			var buffer = new byte[count];
 			await ReadExactlyAsync(stream, buffer, 0, count, cancellationToken).ConfigureAwait(false);
 			return buffer;
 		}

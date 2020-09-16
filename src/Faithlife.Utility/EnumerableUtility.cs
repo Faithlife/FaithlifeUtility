@@ -232,7 +232,7 @@ namespace Faithlife.Utility
 			IEnumerable<ReadOnlyCollection<T>> doEnumerateBatches()
 			{
 				// prepare batches of the desired size
-				List<T> batch = new List<T>(batchSize);
+				var batch = new List<T>(batchSize);
 
 				foreach (var item in source)
 				{

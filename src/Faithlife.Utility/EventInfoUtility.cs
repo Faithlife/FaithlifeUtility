@@ -22,13 +22,13 @@ namespace Faithlife.Utility
 			TSource source, TTarget target, Action<TTarget, object, EventArgs> action)
 			where TTarget : class
 		{
-			WeakReference weakTarget = new WeakReference(target, false);
+			var weakTarget = new WeakReference(target, false);
 
 			EventHandler handler = null!;
 			handler =
 				(s, e) =>
 				{
-					TTarget t = (TTarget) weakTarget.Target;
+					var t = (TTarget) weakTarget.Target;
 					if (t is object)
 						action(t, s, e);
 					else
@@ -55,13 +55,13 @@ namespace Faithlife.Utility
 			where TTarget : class
 			where TEventArgs : EventArgs
 		{
-			WeakReference weakTarget = new WeakReference(target, false);
+			var weakTarget = new WeakReference(target, false);
 
 			EventHandler<TEventArgs> handler = null!;
 			handler =
 				(s, e) =>
 				{
-					TTarget t = (TTarget) weakTarget.Target;
+					var t = (TTarget) weakTarget.Target;
 					if (t is object)
 						action(t, s, e);
 					else

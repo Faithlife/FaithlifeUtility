@@ -104,15 +104,15 @@ namespace Faithlife.Utility
 			if (arrays is null)
 				throw new ArgumentNullException(nameof(arrays));
 			var totalLength = 0;
-			foreach (T[] array in arrays)
+			foreach (var array in arrays)
 			{
 				if (array is null)
 					throw new ArgumentOutOfRangeException(nameof(arrays));
 				totalLength += array.Length;
 			}
-			T[] arrayResult = new T[totalLength];
+			var arrayResult = new T[totalLength];
 			totalLength = 0;
-			foreach (T[] array in arrays)
+			foreach (var array in arrays)
 			{
 				array.CopyTo(arrayResult, totalLength);
 				totalLength += array.Length;

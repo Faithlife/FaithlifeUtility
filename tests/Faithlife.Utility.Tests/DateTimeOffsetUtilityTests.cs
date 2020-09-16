@@ -20,8 +20,7 @@ namespace Faithlife.Utility.Tests
 			Assert.Throws<ArgumentNullException>(() => DateTimeOffsetUtility.ParseIso8601(null!));
 			Assert.Throws<FormatException>(() => DateTimeOffsetUtility.ParseIso8601(""));
 
-			DateTimeOffset dt;
-			Assert.IsFalse(DateTimeOffsetUtility.TryParseIso8601(null, out dt));
+			Assert.IsFalse(DateTimeOffsetUtility.TryParseIso8601(null, out var dt));
 			Assert.IsFalse(DateTimeOffsetUtility.TryParseIso8601("", out dt));
 			Assert.IsNull(DateTimeOffsetUtility.TryParseIso8601(null));
 			Assert.IsNull(DateTimeOffsetUtility.TryParseIso8601(""));
@@ -67,8 +66,7 @@ namespace Faithlife.Utility.Tests
 		public void TryParseIso8601Good()
 		{
 			var dtExpected = new DateTimeOffset(2006, 1, 2, 3, 4, 5, 0, TimeSpan.FromHours(-8));
-			DateTimeOffset dtParsed;
-			Assert.IsTrue(DateTimeOffsetUtility.TryParseIso8601("2006-01-02T03:04:05-08:00", out dtParsed));
+			Assert.IsTrue(DateTimeOffsetUtility.TryParseIso8601("2006-01-02T03:04:05-08:00", out var dtParsed));
 			Assert.AreEqual(dtExpected, dtParsed);
 			Assert.AreEqual(dtExpected, DateTimeOffsetUtility.TryParseIso8601("2006-01-02T03:04:05-08:00"));
 		}
@@ -76,8 +74,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TryParseIso8601MissingTimezone()
 		{
-			DateTimeOffset dtParsed;
-			Assert.IsFalse(DateTimeOffsetUtility.TryParseIso8601("2006-01-02T03:04:05", out dtParsed));
+			Assert.IsFalse(DateTimeOffsetUtility.TryParseIso8601("2006-01-02T03:04:05", out var dtParsed));
 			Assert.IsNull(DateTimeOffsetUtility.TryParseIso8601("2006-01-02T03:04:05"));
 		}
 
@@ -92,7 +89,7 @@ namespace Faithlife.Utility.Tests
 		public void RoundTripLocal()
 		{
 			var dtNow = ClearMilliseconds(DateTimeOffset.Now);
-			string strRendered = dtNow.ToIso8601();
+			var strRendered = dtNow.ToIso8601();
 			var dtParsed = DateTimeOffsetUtility.ParseIso8601(strRendered);
 			Assert.AreEqual(dtNow, dtParsed);
 		}
@@ -101,7 +98,7 @@ namespace Faithlife.Utility.Tests
 		public void RoundTripUtc()
 		{
 			var dtNow = ClearMilliseconds(DateTimeOffset.UtcNow);
-			string strRendered = dtNow.ToIso8601();
+			var strRendered = dtNow.ToIso8601();
 			var dtParsed = DateTimeOffsetUtility.ParseIso8601(strRendered);
 			Assert.AreEqual(dtNow, dtParsed);
 		}
@@ -109,17 +106,16 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void ParseLegacyFormat()
 		{
-			string strDateTime = "2009-06-09T14:59:23Z";
+			var strDateTime = "2009-06-09T14:59:23Z";
 			var dtExpected = new DateTimeOffset(2009, 6, 9, 14, 59, 23, new TimeSpan());
 
 			var dt = DateTimeOffsetUtility.ParseIso8601(strDateTime);
 			Assert.AreEqual(dtExpected, dt);
 
-			DateTimeOffset dt2;
-			Assert.IsTrue(DateTimeOffsetUtility.TryParseIso8601(strDateTime, out dt2));
+			Assert.IsTrue(DateTimeOffsetUtility.TryParseIso8601(strDateTime, out var dt2));
 			Assert.AreEqual(dtExpected, dt2);
 
-			string strUtcNow = DateTime.UtcNow.ToIso8601();
+			var strUtcNow = DateTime.UtcNow.ToIso8601();
 			var dtUtcNow = DateTimeUtility.ParseIso8601(strUtcNow);
 			var dtoUtcNow = DateTimeOffsetUtility.ParseIso8601(strUtcNow);
 			Assert.AreEqual(dtoUtcNow.DateTime, dtUtcNow);

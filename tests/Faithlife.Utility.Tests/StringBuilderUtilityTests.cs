@@ -18,7 +18,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase(true, "True")]
 		public void AppendInvariantBoolean(bool value, string strExpected)
 		{
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			StringBuilderUtility.AppendInvariant(sb, value);
 			Assert.AreEqual(strExpected, sb.ToString());
 		}
@@ -29,7 +29,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase(1, "1")]
 		public void AppendInvariantByte(byte value, string strExpected)
 		{
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			StringBuilderUtility.AppendInvariant(sb, value);
 			Assert.AreEqual(strExpected, sb.ToString());
 		}
@@ -41,7 +41,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase(1, "1")]
 		public void AppendInvariantInt16(short value, string strExpected)
 		{
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			StringBuilderUtility.AppendInvariant(sb, value);
 			Assert.AreEqual(strExpected, sb.ToString());
 		}
@@ -53,7 +53,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase(1, "1")]
 		public void AppendInvariantInt32(int value, string strExpected)
 		{
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			StringBuilderUtility.AppendInvariant(sb, value);
 			Assert.AreEqual(strExpected, sb.ToString());
 		}
@@ -65,7 +65,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase(1L, "1")]
 		public void AppendInvariantInt64(long value, string strExpected)
 		{
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			StringBuilderUtility.AppendInvariant(sb, value);
 			Assert.AreEqual(strExpected, sb.ToString());
 		}
@@ -77,7 +77,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase(1f, "1")]
 		public void AppendInvariantSingle(float value, string strExpected)
 		{
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			StringBuilderUtility.AppendInvariant(sb, value);
 			Assert.AreEqual(strExpected, sb.ToString());
 		}
@@ -89,7 +89,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase(1, "1")]
 		public void AppendInvariantDouble(double value, string strExpected)
 		{
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			StringBuilderUtility.AppendInvariant(sb, value);
 			Assert.AreEqual(strExpected, sb.ToString());
 		}
@@ -100,7 +100,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase(1, "1")]
 		public void AppendInvariantDecimal(decimal value, string strExpected)
 		{
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			StringBuilderUtility.AppendInvariant(sb, value);
 			Assert.AreEqual(strExpected, sb.ToString());
 		}
@@ -108,7 +108,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void AppendInvariantDecimalMinMax()
 		{
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			StringBuilderUtility.AppendInvariant(sb, decimal.MaxValue);
 			Assert.AreEqual("79228162514264337593543950335", sb.ToString());
 
@@ -124,7 +124,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase(1, "1")]
 		public void AppendInvariantSByte(sbyte value, string strExpected)
 		{
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			StringBuilderUtility.AppendInvariant(sb, value);
 			Assert.AreEqual(strExpected, sb.ToString());
 		}
@@ -134,7 +134,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase((ushort) 1, "1")]
 		public void AppendInvariantUInt16(ushort value, string strExpected)
 		{
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			StringBuilderUtility.AppendInvariant(sb, value);
 			Assert.AreEqual(strExpected, sb.ToString());
 		}
@@ -144,7 +144,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase(1u, "1")]
 		public void AppendInvariantUInt32(uint value, string strExpected)
 		{
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			StringBuilderUtility.AppendInvariant(sb, value);
 			Assert.AreEqual(strExpected, sb.ToString());
 		}
@@ -154,7 +154,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase(1ul, "1")]
 		public void AppendInvariantUInt64(ulong value, string strExpected)
 		{
-			StringBuilder sb = new StringBuilder();
+			var sb = new StringBuilder();
 			StringBuilderUtility.AppendInvariant(sb, value);
 			Assert.AreEqual(strExpected, sb.ToString());
 		}

@@ -9,7 +9,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestArgumentException()
 		{
-			TestInt ti = new TestInt(1);
+			var ti = new TestInt(1);
 			object o = "test";
 			Assert.Throws<ArgumentException>(() => ti.CompareTo(o));
 		}
@@ -17,7 +17,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestLessThan()
 		{
-			TestInt ti = new TestInt(1);
+			var ti = new TestInt(1);
 			object o = new TestInt(2);
 			Assert.Less(ti.CompareTo(o), 0);
 		}
@@ -25,7 +25,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestEqual()
 		{
-			TestInt ti = new TestInt(1);
+			var ti = new TestInt(1);
 			object o = new TestInt(1);
 			Assert.AreEqual(0, ti.CompareTo(o));
 		}
@@ -33,7 +33,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestSame()
 		{
-			TestInt ti = new TestInt(1);
+			var ti = new TestInt(1);
 			object o = ti;
 			Assert.AreEqual(0, ti.CompareTo(o));
 		}
@@ -41,7 +41,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestNull()
 		{
-			TestInt ti = new TestInt(1);
+			var ti = new TestInt(1);
 			object? o = null;
 			Assert.Greater(ti.CompareTo(o), 0);
 		}
@@ -50,9 +50,9 @@ namespace Faithlife.Utility.Tests
 		public void OperatorLessThan()
 		{
 			TestInt? iNull = null;
-			TestInt i1 = new TestInt(1);
-			TestInt i1b = new TestInt(1);
-			TestInt i2 = new TestInt(2);
+			var i1 = new TestInt(1);
+			var i1b = new TestInt(1);
+			var i2 = new TestInt(2);
 
 			Assert.IsTrue(ComparableImpl.OperatorLessThan(iNull, i1));
 			Assert.IsFalse(ComparableImpl.OperatorLessThan(i1, iNull));
@@ -66,9 +66,9 @@ namespace Faithlife.Utility.Tests
 		public void OperatorLessThanOrEqual()
 		{
 			TestInt? iNull = null;
-			TestInt i1 = new TestInt(1);
-			TestInt i1b = new TestInt(1);
-			TestInt i2 = new TestInt(2);
+			var i1 = new TestInt(1);
+			var i1b = new TestInt(1);
+			var i2 = new TestInt(2);
 
 			Assert.IsTrue(ComparableImpl.OperatorLessThanOrEqual(iNull, i1));
 			Assert.IsFalse(ComparableImpl.OperatorLessThanOrEqual(i1, iNull));
@@ -82,9 +82,9 @@ namespace Faithlife.Utility.Tests
 		public void OperatorGreaterThan()
 		{
 			TestInt? iNull = null;
-			TestInt i1 = new TestInt(1);
-			TestInt i1b = new TestInt(1);
-			TestInt i2 = new TestInt(2);
+			var i1 = new TestInt(1);
+			var i1b = new TestInt(1);
+			var i2 = new TestInt(2);
 
 			Assert.IsTrue(ComparableImpl.OperatorGreaterThan(i1, iNull));
 			Assert.IsFalse(ComparableImpl.OperatorGreaterThan(iNull, i1));
@@ -98,9 +98,9 @@ namespace Faithlife.Utility.Tests
 		public void OperatorGreaterThanOrEqual()
 		{
 			TestInt? iNull = null;
-			TestInt i1 = new TestInt(1);
-			TestInt i1b = new TestInt(1);
-			TestInt i2 = new TestInt(2);
+			var i1 = new TestInt(1);
+			var i1b = new TestInt(1);
+			var i2 = new TestInt(2);
 
 			Assert.IsTrue(ComparableImpl.OperatorGreaterThanOrEqual(i1, iNull));
 			Assert.IsFalse(ComparableImpl.OperatorGreaterThanOrEqual(iNull, i1));

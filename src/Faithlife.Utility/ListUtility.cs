@@ -136,8 +136,11 @@ namespace Faithlife.Utility
 
 			var count = list.Count;
 			for (var index = startIndex; index < count; index++)
+			{
 				if (match(list[index]))
 					return index;
+			}
+
 			return -1;
 		}
 

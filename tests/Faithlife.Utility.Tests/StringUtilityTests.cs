@@ -90,7 +90,7 @@ namespace Faithlife.Utility.Tests
 		public void JoinStringsInEnumerable(int nIgnored, string?[] astrStrings)
 		{
 			const string strSeparator = ", ";
-			string strActual = ((IEnumerable<string?>) astrStrings).Join(strSeparator);
+			var strActual = ((IEnumerable<string?>) astrStrings).Join(strSeparator);
 			Assert.AreEqual(string.Join(strSeparator, astrStrings), strActual);
 			strActual = ((IEnumerable<string?>) astrStrings).Join();
 			Assert.AreEqual(string.Join(string.Empty, astrStrings), strActual);
@@ -110,7 +110,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void JoinFormat()
 		{
-			string[] strings = new[] { "one", "two", "three" };
+			var strings = new[] { "one", "two", "three" };
 			Assert.AreEqual("one, two, three", strings.JoinFormat("{0}, {1}"));
 			Assert.AreEqual("three, two, one", strings.JoinFormat("{1}, {0}"));
 			Assert.AreEqual("((one, two), three)", strings.JoinFormat("({0}, {1})"));
@@ -119,7 +119,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void JoinIntegers()
 		{
-			LinkedList<int> linked = new LinkedList<int>();
+			var linked = new LinkedList<int>();
 			linked.AddLast(1);
 			linked.AddLast(2);
 			linked.AddLast(3);
@@ -129,7 +129,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void JoinSquares()
 		{
-			LinkedList<int> linked = new LinkedList<int>();
+			var linked = new LinkedList<int>();
 			linked.AddLast(1);
 			linked.AddLast(2);
 			linked.AddLast(3);
@@ -164,10 +164,10 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void ReverseNonBmp()
 		{
-			int[] anCodePoints = new int[] { 0x10380, 0x10381, 0x10382, 0x1039F };
+			var anCodePoints = new int[] { 0x10380, 0x10381, 0x10382, 0x1039F };
 
-			StringBuilder sbForward = new StringBuilder();
-			StringBuilder sbReversed = new StringBuilder();
+			var sbForward = new StringBuilder();
+			var sbReversed = new StringBuilder();
 			for (var nIndex = 0; nIndex < anCodePoints.Length; ++nIndex)
 			{
 				sbForward.Append(char.ConvertFromUtf32(anCodePoints[nIndex]));
@@ -359,10 +359,10 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void CompressAndDecompressLongString()
 		{
-			StringBuilder textBuilder = new StringBuilder();
+			var textBuilder = new StringBuilder();
 			for (var i = 0; i < 100000; i++)
 				textBuilder.AppendLine(Guid.NewGuid().ToString());
-			string text = textBuilder.ToString();
+			var text = textBuilder.ToString();
 			var bytes = StringUtility.Compress(text);
 			Assert.AreEqual(bytes![0], (byte) 1);
 			Assert.AreEqual(StringUtility.Decompress(bytes), text);
@@ -394,9 +394,9 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void CompressionTextWriterAndTextReader()
 		{
-			using (MemoryStream stream = new MemoryStream())
+			using (var stream = new MemoryStream())
 			{
-				using (TextWriter textWriter = StringUtility.CreateCompressingTextWriter(stream, Ownership.None))
+				using (var textWriter = StringUtility.CreateCompressingTextWriter(stream, Ownership.None))
 				{
 					textWriter.Write('a');
 					textWriter.Write(new[] { 'b', 'c', 'd' });
@@ -408,9 +408,9 @@ namespace Faithlife.Utility.Tests
 				stream.Flush();
 				stream.Position = 0;
 
-				using (TextReader textReader = StringUtility.CreateDecompressingTextReader(stream, Ownership.None))
+				using (var textReader = StringUtility.CreateDecompressingTextReader(stream, Ownership.None))
 				{
-					char[] buffer = new char[5];
+					var buffer = new char[5];
 					textReader.ReadBlock(buffer, 1, 3);
 					CollectionAssert.AreEqual(buffer, new[] { default(char), 'a', 'b', 'c', default(char) });
 					Assert.AreEqual(textReader.Read(), 'd');

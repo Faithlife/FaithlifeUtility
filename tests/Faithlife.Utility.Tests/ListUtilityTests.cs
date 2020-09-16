@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using NUnit.Framework;
 
 namespace Faithlife.Utility.Tests
@@ -22,11 +21,11 @@ namespace Faithlife.Utility.Tests
 		[TestCase(1)]
 		public void MutateUnderlyingList(int initialCount)
 		{
-			List<int> original = new List<int>();
+			var original = new List<int>();
 			for (var i = 0; i < initialCount; i++)
 				original.Add(i);
 
-			ReadOnlyCollection<int> wrapper = ListUtility.AsReadOnly(original);
+			var wrapper = ListUtility.AsReadOnly(original);
 			CollectionAssert.AreEqual(original, wrapper);
 
 			original.Add(original.Count);
@@ -36,16 +35,14 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void BinarySearchNullList()
 		{
-			int nIndex;
-			Assert.Throws<ArgumentNullException>(() => ListUtility.BinarySearchForKey<SearchData, int>(null!, 1, CompareItemToKey, out nIndex));
+			Assert.Throws<ArgumentNullException>(() => ListUtility.BinarySearchForKey<SearchData, int>(null!, 1, CompareItemToKey, out var nIndex));
 		}
 
 		[Test]
 		public void BinarySearchNullCompare()
 		{
-			int nIndex;
-			List<SearchData> list = new List<SearchData>();
-			Assert.Throws<ArgumentNullException>(() => ListUtility.BinarySearchForKey(list, 1, null!, out nIndex));
+			var list = new List<SearchData>();
+			Assert.Throws<ArgumentNullException>(() => ListUtility.BinarySearchForKey(list, 1, null!, out var nIndex));
 		}
 
 		[Test]
@@ -57,9 +54,8 @@ namespace Faithlife.Utility.Tests
 
 		private static void DoSearchEmptyList(SearchFunction fnSearch)
 		{
-			int nIndex;
-			List<SearchData> list = new List<SearchData>();
-			var nCount = fnSearch(list, 10, CompareItemToKey, out nIndex);
+			var list = new List<SearchData>();
+			var nCount = fnSearch(list, 10, CompareItemToKey, out var nIndex);
 			Assert.AreEqual(0, nCount);
 			Assert.AreEqual(0, nIndex);
 		}
@@ -75,10 +71,9 @@ namespace Faithlife.Utility.Tests
 
 		private static void DoSearchOneItemList(SearchFunction fnSearch, int nKey, int nExpectedCount, int nExpectedIndex)
 		{
-			int nIndex;
-			List<SearchData> list = new List<SearchData>();
+			var list = new List<SearchData>();
 			list.Add(new SearchData(10, 2));
-			var nCount = fnSearch(list, nKey, CompareItemToKey, out nIndex);
+			var nCount = fnSearch(list, nKey, CompareItemToKey, out var nIndex);
 			Assert.AreEqual(nExpectedCount, nCount);
 			Assert.AreEqual(nExpectedIndex, nIndex);
 		}
@@ -92,8 +87,7 @@ namespace Faithlife.Utility.Tests
 
 		private static void DoSearchLargeListWithMultiple(SearchFunction fnSearch)
 		{
-			int nIndex;
-			List<SearchData> list = new List<SearchData>();
+			var list = new List<SearchData>();
 			list.Add(new SearchData(3, 1));
 			list.Add(new SearchData(6, 1));
 			list.Add(new SearchData(10, 1));
@@ -103,7 +97,7 @@ namespace Faithlife.Utility.Tests
 			list.Add(new SearchData(14, 1));
 			list.Add(new SearchData(17, 1));
 			list.Add(new SearchData(21, 1));
-			var nCount = fnSearch(list, 10, CompareItemToKey, out nIndex);
+			var nCount = fnSearch(list, 10, CompareItemToKey, out var nIndex);
 			Assert.AreEqual(4, nCount);
 			Assert.AreEqual(2, nIndex);
 
@@ -133,7 +127,7 @@ namespace Faithlife.Utility.Tests
 
 		private static void DoSearchLargeList(SearchFunction fnSearch, int nItems)
 		{
-			List<SearchData> list = new List<SearchData>();
+			var list = new List<SearchData>();
 			for (var nItem = 0; nItem < nItems; ++nItem)
 			{
 				list.Add(new SearchData(100 * nItem, 0));
@@ -141,9 +135,8 @@ namespace Faithlife.Utility.Tests
 
 			for (var i = 0; i < list.Count; ++i)
 			{
-				int nIndex;
 				var nKey = i * 100;
-				var nCount = fnSearch(list, nKey, CompareItemToKey, out nIndex);
+				var nCount = fnSearch(list, nKey, CompareItemToKey, out var nIndex);
 				Assert.AreEqual(1, nCount);
 				Assert.AreEqual(i, nIndex);
 
@@ -160,7 +153,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void RemoveWhere()
 		{
-			List<int> list = new List<int> { -2, 3, -5, 1, 5, -10 };
+			var list = new List<int> { -2, 3, -5, 1, 5, -10 };
 			list.RemoveWhere(x => x < 0);
 			CollectionAssert.AreEqual(new[] { 3, 1, 5 }, list);
 		}

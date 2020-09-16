@@ -33,7 +33,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void NonZeroBasedArray()
 		{
-			Array a = Array.CreateInstance(typeof(int), new int[] { 2 }, new int[] { 1 });
+			var a = Array.CreateInstance(typeof(int), new int[] { 2 }, new int[] { 1 });
 			Assert.Throws<ArgumentException>(() => CollectionImpl.CheckCopyToParameters(a, 1, 1));
 		}
 

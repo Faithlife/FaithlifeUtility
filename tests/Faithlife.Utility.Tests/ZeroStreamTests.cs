@@ -8,7 +8,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void Constructor()
 		{
-			ZeroStream stream = new ZeroStream();
+			var stream = new ZeroStream();
 			Assert.IsTrue(stream.CanRead);
 			Assert.IsTrue(stream.CanSeek);
 			Assert.IsTrue(stream.CanWrite);
@@ -19,7 +19,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void ConstructorWithLength()
 		{
-			ZeroStream stream = new ZeroStream(1234);
+			var stream = new ZeroStream(1234);
 			Assert.IsTrue(stream.CanRead);
 			Assert.IsTrue(stream.CanSeek);
 			Assert.IsTrue(stream.CanWrite);
@@ -30,8 +30,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void ReadEmpty()
 		{
-			byte[] buffer = new byte[16];
-			ZeroStream stream = new ZeroStream();
+			var buffer = new byte[16];
+			var stream = new ZeroStream();
 			Assert.AreEqual(0, stream.Read(buffer, 0, buffer.Length));
 			stream.SetLength(7);
 			buffer[0] = 1;
@@ -45,7 +45,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void WriteAndRead()
 		{
-			ZeroStream stream = new ZeroStream();
+			var stream = new ZeroStream();
 			Assert.AreEqual(-1, stream.ReadByte());
 			stream.WriteByte(1);
 			Assert.AreEqual(-1, stream.ReadByte());
@@ -59,7 +59,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void WriteAtPositionPastEnd()
 		{
-			ZeroStream stream = new ZeroStream();
+			var stream = new ZeroStream();
 			stream.Position = 100;
 			Assert.AreEqual(0, stream.Length);
 			stream.WriteByte(1);
@@ -69,7 +69,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void Truncate()
 		{
-			ZeroStream stream = new ZeroStream();
+			var stream = new ZeroStream();
 			stream.WriteByte(1);
 			Assert.AreEqual(1, stream.Length);
 			Assert.AreEqual(1, stream.Position);

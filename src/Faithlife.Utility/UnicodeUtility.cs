@@ -26,7 +26,9 @@ namespace Faithlife.Utility
 		{
 			if (category == UnicodeCategory.UppercaseLetter || category == UnicodeCategory.LowercaseLetter || category == UnicodeCategory.TitlecaseLetter ||
 				category == UnicodeCategory.ModifierLetter || category == UnicodeCategory.OtherLetter)
+			{
 				return UnicodeCharacterClass.Letter;
+			}
 			else if (category == UnicodeCategory.NonSpacingMark || category == UnicodeCategory.SpacingCombiningMark || category == UnicodeCategory.EnclosingMark)
 				return UnicodeCharacterClass.Mark;
 			else if (category == UnicodeCategory.DecimalDigitNumber || category == UnicodeCategory.LetterNumber || category == UnicodeCategory.OtherNumber)
@@ -36,10 +38,14 @@ namespace Faithlife.Utility
 			else if (category == UnicodeCategory.ConnectorPunctuation || category == UnicodeCategory.DashPunctuation || category == UnicodeCategory.OpenPunctuation ||
 				category == UnicodeCategory.ClosePunctuation || category == UnicodeCategory.InitialQuotePunctuation || category == UnicodeCategory.FinalQuotePunctuation ||
 				category == UnicodeCategory.OtherPunctuation)
+			{
 				return UnicodeCharacterClass.Punctuation;
+			}
 			else if (category == UnicodeCategory.MathSymbol || category == UnicodeCategory.CurrencySymbol || category == UnicodeCategory.ModifierSymbol ||
 				category == UnicodeCategory.OtherSymbol)
+			{
 				return UnicodeCharacterClass.Symbol;
+			}
 			else
 				return UnicodeCharacterClass.Other;
 		}

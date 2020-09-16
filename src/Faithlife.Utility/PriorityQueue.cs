@@ -257,7 +257,7 @@ namespace Faithlife.Utility
 		IEnumerator<T> IEnumerable<T>.GetEnumerator()
 		{
 			// make a copy of the current data
-			PriorityQueue<T> copy = new PriorityQueue<T>(this);
+			var copy = new PriorityQueue<T>(this);
 
 			// return each item, in order
 			while (copy.Count > 0)
@@ -291,7 +291,7 @@ namespace Faithlife.Utility
 			if (capacity > 0)
 			{
 				// allocate new array and copy any values across to it
-				T[] newData = new T[capacity];
+				var newData = new T[capacity];
 				if (m_size > 0)
 					Array.Copy(m_array, newData, m_size);
 				m_array = newData;

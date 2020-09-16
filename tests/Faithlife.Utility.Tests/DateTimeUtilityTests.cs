@@ -54,8 +54,7 @@ namespace Faithlife.Utility.Tests
 		public void TryParseIso8601Good()
 		{
 			var dtExpected = new DateTime(2006, 01, 02, 03, 04, 05, 0, DateTimeKind.Utc);
-			DateTime dtParsed;
-			Assert.IsTrue(DateTimeUtility.TryParseIso8601("2006-01-02T03:04:05Z", out dtParsed));
+			Assert.IsTrue(DateTimeUtility.TryParseIso8601("2006-01-02T03:04:05Z", out var dtParsed));
 			Assert.AreEqual(dtExpected, dtParsed);
 
 			var dtParsed2 = DateTimeUtility.TryParseIso8601("2006-01-02T03:04:05Z");
@@ -66,8 +65,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TryParseIso8601MissingTimezone()
 		{
-			DateTime dtParsed;
-			Assert.IsFalse(DateTimeUtility.TryParseIso8601("2006-01-02T03:04:05", out dtParsed));
+			Assert.IsFalse(DateTimeUtility.TryParseIso8601("2006-01-02T03:04:05", out var dtParsed));
 			Assert.IsFalse(DateTimeUtility.TryParseIso8601("2006-01-02T03:04:05").HasValue);
 		}
 
@@ -82,7 +80,7 @@ namespace Faithlife.Utility.Tests
 		public void RoundTripLocal()
 		{
 			var dtNow = ClearMilliseconds(DateTime.Now);
-			string strRendered = dtNow.ToIso8601();
+			var strRendered = dtNow.ToIso8601();
 			var dtParsed = DateTimeUtility.ParseIso8601(strRendered);
 			Assert.AreEqual(dtNow, dtParsed.ToLocalTime());
 		}
@@ -91,7 +89,7 @@ namespace Faithlife.Utility.Tests
 		public void RoundTripUtc()
 		{
 			var dtNow = ClearMilliseconds(DateTime.UtcNow);
-			string strRendered = dtNow.ToIso8601();
+			var strRendered = dtNow.ToIso8601();
 			var dtParsed = DateTimeUtility.ParseIso8601(strRendered);
 			Assert.AreEqual(dtNow, dtParsed);
 		}

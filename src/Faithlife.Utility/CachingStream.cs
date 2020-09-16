@@ -73,7 +73,7 @@ namespace Faithlife.Utility
 		public override int Read(byte[] buffer, int offset, int count)
 		{
 			var blockIndex = (int) (Position / c_blockSize);
-			byte[] data = LoadData(blockIndex);
+			var data = LoadData(blockIndex);
 			var blockOffset = Math.Min(data.Length, (int) (Position % c_blockSize));
 			var bytesToCopy = Math.Max(Math.Min(count, data.Length - blockOffset), 0);
 			Array.Copy(data, blockOffset, buffer, offset, bytesToCopy);
@@ -88,7 +88,7 @@ namespace Faithlife.Utility
 		public override async Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
 		{
 			var blockIndex = (int) (Position / c_blockSize);
-			byte[] data = await LoadDataAsync(blockIndex).ConfigureAwait(false);
+			var data = await LoadDataAsync(blockIndex).ConfigureAwait(false);
 			var blockOffset = Math.Min(data.Length, (int) (Position % c_blockSize));
 			var bytesToCopy = Math.Max(Math.Min(count, data.Length - blockOffset), 0);
 			Array.Copy(data, blockOffset, buffer, offset, bytesToCopy);
@@ -103,7 +103,7 @@ namespace Faithlife.Utility
 		{
 			var blockIndex = (int) (Position / c_blockSize);
 			var blockOffset = (int) (Position % c_blockSize);
-			byte[] data = LoadData(blockIndex);
+			var data = LoadData(blockIndex);
 			if (blockOffset < data.Length)
 			{
 				Position++;
@@ -153,7 +153,7 @@ namespace Faithlife.Utility
 			if (m_blocks!.Count <= blockIndex)
 				m_blocks.AddRange(new byte[blockIndex - m_blocks.Count + 1][]);
 
-			byte[] blockData = m_blocks[blockIndex];
+			var blockData = m_blocks[blockIndex];
 			if (blockData is null)
 			{
 				WrappedStream.Position = blockIndex * c_blockSize;
@@ -174,7 +174,7 @@ namespace Faithlife.Utility
 			if (m_blocks!.Count <= blockIndex)
 				m_blocks.AddRange(new byte[blockIndex - m_blocks.Count + 1][]);
 
-			byte[] blockData = m_blocks[blockIndex];
+			var blockData = m_blocks[blockIndex];
 			if (blockData is null)
 			{
 				WrappedStream.Position = blockIndex * c_blockSize;

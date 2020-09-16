@@ -19,11 +19,9 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TryParse()
 		{
-			DayOfWeek dow;
-			Assert.IsTrue(EnumUtility.TryParse("Thursday", out dow));
+			Assert.IsTrue(EnumUtility.TryParse("Thursday", out DayOfWeek dow));
 			Assert.AreEqual(DayOfWeek.Thursday, dow);
-			StringSplitOptions sso;
-			Assert.IsFalse(EnumUtility.TryParse("Thursday", out sso));
+			Assert.IsFalse(EnumUtility.TryParse("Thursday", out StringSplitOptions sso));
 			Assert.IsFalse(EnumUtility.TryParse("removeemptyentries", out sso));
 			Assert.IsFalse(EnumUtility.TryParse("removeemptyentries", CaseSensitivity.MatchCase, out sso));
 			Assert.IsTrue(EnumUtility.TryParse("removeemptyentries", CaseSensitivity.IgnoreCase, out sso));

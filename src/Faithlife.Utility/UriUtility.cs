@@ -47,7 +47,7 @@ namespace Faithlife.Utility
 			{
 				if (parameter.Key is object && parameter.Value is object)
 				{
-					string bracketedKey = "{" + parameter.Key + "}";
+					var bracketedKey = "{" + parameter.Key + "}";
 					var bracketedKeyIndex = uriPattern.IndexOf(bracketedKey, StringComparison.Ordinal);
 					if (bracketedKeyIndex != -1)
 					{
