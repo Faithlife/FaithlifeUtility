@@ -148,12 +148,12 @@ namespace Faithlife.Utility
 				{
 					// yield current permutation
 					var result = new T[indexes.Length];
-					for (int i = 0; i < indexes.Length; i++)
+					for (var i = 0; i < indexes.Length; i++)
 						result[i] = collections[i][indexes[i]];
 					yield return result;
 
 					// find the index of the next permutation
-					int index = indexes.Length - 1;
+					var index = indexes.Length - 1;
 					while (true)
 					{
 						indexes[index]++;
@@ -221,7 +221,7 @@ namespace Faithlife.Utility
 			// optimize for small lists
 			if (source is ICollection<T> sourceAsCollection)
 			{
-				int count = sourceAsCollection.Count;
+				var count = sourceAsCollection.Count;
 				if (count <= batchSize)
 					return count != 0 ? new[] { sourceAsCollection.AsReadOnlyList() } : Enumerable.Empty<IReadOnlyList<T>>();
 			}
@@ -232,9 +232,9 @@ namespace Faithlife.Utility
 			IEnumerable<ReadOnlyCollection<T>> doEnumerateBatches()
 			{
 				// prepare batches of the desired size
-				List<T> batch = new List<T>(batchSize);
+				var batch = new List<T>(batchSize);
 
-				foreach (T item in source)
+				foreach (var item in source)
 				{
 					// add to current batch
 					batch.Add(item);
@@ -332,11 +332,11 @@ namespace Faithlife.Utility
 			using var it = source.GetEnumerator();
 			if (it.MoveNext())
 			{
-				T last = it.Current;
+				var last = it.Current;
 
 				while (it.MoveNext())
 				{
-					T item = it.Current;
+					var item = it.Current;
 					if (comparer.Compare(last, item) > 0)
 						return false;
 					last = item;
@@ -393,7 +393,7 @@ namespace Faithlife.Utility
 				if (!secondEnumerator.MoveNext())
 					return 1;
 
-				int compare = comparer.Compare(firstEnumerator.Current, secondEnumerator.Current);
+				var compare = comparer.Compare(firstEnumerator.Current, secondEnumerator.Current);
 				if (compare != 0)
 					return compare;
 			}
@@ -453,7 +453,7 @@ namespace Faithlife.Utility
 			if (binCount < 1)
 				throw new ArgumentOutOfRangeException(nameof(binCount));
 
-			int sourceCount = source.Count();
+			var sourceCount = source.Count();
 
 			// iterator in a separate function causes arguments to be validated immediately
 			return doSplitIntoBins();
@@ -461,14 +461,14 @@ namespace Faithlife.Utility
 			IEnumerable<ReadOnlyCollection<T>> doSplitIntoBins()
 			{
 				// initial bin size is the sequence count divided by the number of bins, rounded up
-				int binSize = sourceCount / binCount;
-				int remainder = sourceCount % binCount;
+				var binSize = sourceCount / binCount;
+				var remainder = sourceCount % binCount;
 				if (remainder > 0)
 					binSize++;
 
 				var batch = new List<T>(binSize);
 
-				foreach (T item in source)
+				foreach (var item in source)
 				{
 					// add to current batch
 					batch.Add(item);
@@ -528,8 +528,8 @@ namespace Faithlife.Utility
 			{
 				using var enumerator1 = source1.GetEnumerator();
 				using var enumerator2 = source2.GetEnumerator();
-				bool hasMore1 = enumerator1.MoveNext();
-				bool hasMore2 = enumerator2.MoveNext();
+				var hasMore1 = enumerator1.MoveNext();
+				var hasMore2 = enumerator2.MoveNext();
 				while (hasMore1 && hasMore2)
 				{
 					if (comparer.Compare(enumerator1.Current, enumerator2.Current) <= 0)
@@ -574,7 +574,7 @@ namespace Faithlife.Utility
 				return new T[0];
 
 			var queue = new Queue<T>(count);
-			foreach (T item in source)
+			foreach (var item in source)
 			{
 				if (queue.Count >= count)
 					queue.Dequeue();
@@ -628,7 +628,7 @@ namespace Faithlife.Utility
 			if (source is null)
 				throw new ArgumentNullException(nameof(source));
 
-			foreach (T item in source)
+			foreach (var item in source)
 			{
 				found = item;
 				return true;
@@ -653,7 +653,7 @@ namespace Faithlife.Utility
 			if (predicate is null)
 				throw new ArgumentNullException(nameof(predicate));
 
-			foreach (T item in source)
+			foreach (var item in source)
 			{
 				if (predicate(item))
 				{
@@ -769,7 +769,7 @@ namespace Faithlife.Utility
 				var lastKey = keySelector(enumerator.Current);
 				var values = new List<TSource>
 				{
-					enumerator.Current
+					enumerator.Current,
 				};
 
 				while (enumerator.MoveNext())
@@ -785,7 +785,7 @@ namespace Faithlife.Utility
 						lastKey = currentKey;
 						values = new List<TSource>
 						{
-							enumerator.Current
+							enumerator.Current,
 						};
 					}
 				}
@@ -808,7 +808,7 @@ namespace Faithlife.Utility
 
 			IEnumerator IEnumerable.GetEnumerator() => m_source.GetEnumerator();
 
-			readonly ReadOnlyCollection<TSource> m_source;
+			private readonly ReadOnlyCollection<TSource> m_source;
 		}
 
 		private enum UnbalancedZipStrategy

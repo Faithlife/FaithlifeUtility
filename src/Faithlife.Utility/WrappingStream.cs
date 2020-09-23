@@ -207,7 +207,7 @@ namespace Faithlife.Utility
 			}
 		}
 
-		Stream? m_wrappedStream;
-		readonly Ownership m_ownership;
+		private Stream? m_wrappedStream;
+		private readonly Ownership m_ownership;
 	}
 }

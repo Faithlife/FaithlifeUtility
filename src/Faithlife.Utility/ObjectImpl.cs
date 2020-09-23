@@ -16,7 +16,7 @@ namespace Faithlife.Utility
 		public static bool OperatorEquality<T>(T? left, T? right)
 			where T : class, IEquatable<T>
 		{
-			if (object.ReferenceEquals(left, right))
+			if (ReferenceEquals(left, right))
 				return true;
 			else if (left is null || right is null)
 				return false;
@@ -33,7 +33,7 @@ namespace Faithlife.Utility
 		public static bool OperatorInequality<T>(T? left, T? right)
 			where T : class, IEquatable<T>
 		{
-			if (object.ReferenceEquals(left, right))
+			if (ReferenceEquals(left, right))
 				return false;
 			else if (left is null || right is null)
 				return true;

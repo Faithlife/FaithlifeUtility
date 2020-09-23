@@ -13,6 +13,6 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// The object owns this item, and is responsible for releasing it.
 		/// </summary>
-		Owns
+		Owns,
 	}
 }

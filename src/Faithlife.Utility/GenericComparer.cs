@@ -26,6 +26,6 @@ namespace Faithlife.Utility
 		/// <returns>Less than zero: x is less than y. Zero: x equals y. Greater than zero: x is greater than y.</returns>
 		public override int Compare(T x, T y) => m_comparer(x, y);
 
-		readonly Func<T, T, int> m_comparer;
+		private readonly Func<T, T, int> m_comparer;
 	}
 }

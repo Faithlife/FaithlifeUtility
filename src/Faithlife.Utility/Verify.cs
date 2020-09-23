@@ -16,7 +16,9 @@ namespace Faithlife.Utility
 		/// <exception cref="InvalidOperationException"><paramref name="value"/> is false.</exception>
 		[DebuggerNonUserCode]
 		[AssertionMethod]
-		public static void IsTrue([AssertionCondition(AssertionConditionType.IS_TRUE)] bool value)
+		public static void IsTrue(
+			[AssertionCondition(AssertionConditionType.IS_TRUE)]
+			bool value)
 		{
 			if (!value)
 				throw new InvalidOperationException();
@@ -29,7 +31,9 @@ namespace Faithlife.Utility
 		/// <exception cref="InvalidOperationException"><paramref name="value"/> is true.</exception>
 		[DebuggerNonUserCode]
 		[AssertionMethod]
-		public static void IsFalse([AssertionCondition(AssertionConditionType.IS_FALSE)] bool value)
+		public static void IsFalse(
+			[AssertionCondition(AssertionConditionType.IS_FALSE)]
+			bool value)
 		{
 			if (value)
 				throw new InvalidOperationException();
@@ -42,7 +46,9 @@ namespace Faithlife.Utility
 		/// <exception cref="InvalidOperationException"><paramref name="obj"/> is not null.</exception>
 		[DebuggerNonUserCode]
 		[AssertionMethod]
-		public static void IsNull([AssertionCondition(AssertionConditionType.IS_NULL)] object? obj)
+		public static void IsNull(
+			[AssertionCondition(AssertionConditionType.IS_NULL)]
+			object? obj)
 		{
 			if (obj is object)
 				throw new InvalidOperationException();
@@ -55,7 +61,9 @@ namespace Faithlife.Utility
 		/// <exception cref="InvalidOperationException"><paramref name="obj"/> is null.</exception>
 		[DebuggerNonUserCode]
 		[AssertionMethod]
-		public static void IsNotNull([AssertionCondition(AssertionConditionType.IS_NOT_NULL)] object? obj)
+		public static void IsNotNull(
+			[AssertionCondition(AssertionConditionType.IS_NOT_NULL)]
+			object? obj)
 		{
 			if (obj is null)
 				throw new InvalidOperationException();

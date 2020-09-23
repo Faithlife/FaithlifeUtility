@@ -29,7 +29,10 @@ namespace Faithlife.Utility.Tests
 			var list = new List<int> { 1, 2, 3 };
 			var readOnlyList = new ReadOnlyListAdapter<int>(list);
 			Assert.AreEqual(2, readOnlyList[1]);
-			Assert.Throws<ArgumentOutOfRangeException>(() => { var _ = readOnlyList[4]; });
+			Assert.Throws<ArgumentOutOfRangeException>(() =>
+			{
+				var _ = readOnlyList[4];
+			});
 		}
 
 		[Test]

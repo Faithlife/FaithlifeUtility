@@ -17,6 +17,6 @@ namespace Faithlife.Utility
 		public IEnumerator<T> GetEnumerator() => m_list.GetEnumerator();
 		IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable) m_list).GetEnumerator();
 
-		readonly IList<T> m_list;
+		private readonly IList<T> m_list;
 	}
 }

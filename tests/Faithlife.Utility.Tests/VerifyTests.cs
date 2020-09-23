@@ -39,7 +39,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestIsNullObject()
 		{
-			Assert.Throws<InvalidOperationException>(() => Verify.IsNull(new Object()));
+			Assert.Throws<InvalidOperationException>(() => Verify.IsNull(new object()));
 		}
 
 		[Test]
@@ -51,36 +51,36 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestIsNotNullObject()
 		{
-			Verify.IsNotNull(new Object());
+			Verify.IsNotNull(new object());
 		}
 
 		[Test]
 		public void TestAreSameSame()
 		{
-			string s = "test";
+			var s = "test";
 			Verify.AreSame(s, s);
 		}
 
 		[Test]
 		public void TestAreSameDifferent()
 		{
-			string s1 = "test";
-			string s2 = "test2";
+			var s1 = "test";
+			var s2 = "test2";
 			Assert.Throws<InvalidOperationException>(() => Verify.AreSame(s1, s2));
 		}
 
 		[Test]
 		public void TestAreNotSameSame()
 		{
-			string s = "test";
+			var s = "test";
 			Assert.Throws<InvalidOperationException>(() => Verify.AreNotSame(s, s));
 		}
 
 		[Test]
 		public void TestAreNotSameDifferent()
 		{
-			string s1 = "test";
-			string s2 = "test2";
+			var s1 = "test";
+			var s2 = "test2";
 			Verify.AreNotSame(s1, s2);
 		}
 	}

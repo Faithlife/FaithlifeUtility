@@ -32,7 +32,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void Length()
 		{
-			using (RebasedStream stream = CreateRebasedStream(2))
+			using (var stream = CreateRebasedStream(2))
 			{
 				Assert.AreEqual(m_buffer.Length - 2, stream.Length);
 			}
@@ -41,7 +41,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void Position()
 		{
-			using (RebasedStream stream = CreateRebasedStream(3))
+			using (var stream = CreateRebasedStream(3))
 			{
 				stream.Position = 4;
 				Assert.AreEqual(4, stream.Position);
@@ -56,7 +56,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void Seek()
 		{
-			using (RebasedStream stream = CreateRebasedStream(5))
+			using (var stream = CreateRebasedStream(5))
 			{
 				Assert.AreEqual(0, stream.Seek(0, SeekOrigin.Begin));
 				Assert.AreEqual(0, stream.Position);
@@ -79,7 +79,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void SetLengthShorter()
 		{
-			using (RebasedStream stream = CreateRebasedStream(4))
+			using (var stream = CreateRebasedStream(4))
 			{
 				stream.SetLength(5);
 				Assert.AreEqual(5, stream.Length);
@@ -90,7 +90,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void SetLengthLonger()
 		{
-			using (RebasedStream stream = CreateRebasedStream(4))
+			using (var stream = CreateRebasedStream(4))
 			{
 				stream.SetLength(15);
 				Assert.AreEqual(15, stream.Length);
@@ -101,9 +101,9 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void Read()
 		{
-			using (RebasedStream stream = CreateRebasedStream(3))
+			using (var stream = CreateRebasedStream(3))
 			{
-				byte[] buffer = new byte[16];
+				var buffer = new byte[16];
 				Assert.AreEqual(9, stream.Read(buffer, 0, buffer.Length));
 				CollectionAssert.AreEqual(new byte[] { 4, 5, 6, 7, 8, 9, 10, 11, 12, 0, 0, 0, 0, 0, 0, 0 }, buffer);
 			}
@@ -112,9 +112,9 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public async Task ReadAsync()
 		{
-			using (RebasedStream stream = CreateRebasedStream(3))
+			using (var stream = CreateRebasedStream(3))
 			{
-				byte[] buffer = new byte[16];
+				var buffer = new byte[16];
 				Assert.AreEqual(9, await stream.ReadAsync(buffer, 0, buffer.Length));
 				CollectionAssert.AreEqual(new byte[] { 4, 5, 6, 7, 8, 9, 10, 11, 12, 0, 0, 0, 0, 0, 0, 0 }, buffer);
 			}
@@ -123,9 +123,9 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void CopyTo()
 		{
-			using (RebasedStream stream = CreateRebasedStream(3))
+			using (var stream = CreateRebasedStream(3))
 			{
-				byte[] buffer = new byte[16];
+				var buffer = new byte[16];
 				var destination = new MemoryStream(buffer);
 				stream.CopyTo(destination);
 				CollectionAssert.AreEqual(new byte[] { 4, 5, 6, 7, 8, 9, 10, 11, 12, 0, 0, 0, 0, 0, 0, 0 }, buffer);
@@ -135,9 +135,9 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public async Task CopyToAsync()
 		{
-			using (RebasedStream stream = CreateRebasedStream(3))
+			using (var stream = CreateRebasedStream(3))
 			{
-				byte[] buffer = new byte[16];
+				var buffer = new byte[16];
 				var destination = new MemoryStream(buffer);
 				await stream.CopyToAsync(destination);
 				CollectionAssert.AreEqual(new byte[] { 4, 5, 6, 7, 8, 9, 10, 11, 12, 0, 0, 0, 0, 0, 0, 0 }, buffer);
@@ -147,15 +147,20 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void Dispose()
 		{
-			using (RebasedStream stream = CreateRebasedStream(3))
+			using (var stream = CreateRebasedStream(3))
 			{
 				stream.Dispose();
-				Assert.Throws<ObjectDisposedException>(() => { long p = stream.Position; });
+				Assert.Throws<ObjectDisposedException>(() =>
+				{
+					var p = stream.Position;
+				});
 				Assert.Throws<ObjectDisposedException>(() => stream.Position = 3);
-				Assert.Throws<ObjectDisposedException>(() => { long p = stream.Length; });
+				Assert.Throws<ObjectDisposedException>(() =>
+				{
+					var p = stream.Length;
+				});
 				Assert.Throws<ObjectDisposedException>(() => stream.SetLength(20));
 				Assert.Throws<ObjectDisposedException>(() => stream.Seek(0, SeekOrigin.Begin));
-
 			}
 		}
 
@@ -166,8 +171,8 @@ namespace Faithlife.Utility.Tests
 		}
 
 #pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
-		byte[] m_buffer;
-		Stream m_stream;
+		private byte[] m_buffer;
+		private Stream m_stream;
 #pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 	}
 }

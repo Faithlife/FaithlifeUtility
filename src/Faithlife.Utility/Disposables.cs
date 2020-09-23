@@ -73,8 +73,8 @@ namespace Faithlife.Utility
 
 			if (list is object)
 			{
-				int count = list.Count;
-				for (int index = count - 1; index >= 0; index--)
+				var count = list.Count;
+				for (var index = count - 1; index >= 0; index--)
 					list[index]?.Dispose();
 			}
 		}
@@ -84,7 +84,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		IEnumerator IEnumerable.GetEnumerator() => throw new NotSupportedException("IEnumerable.GetEnumerator implemented only for collection initialization syntax.");
 
-		readonly object m_lock;
-		List<IDisposable?>? m_list;
+		private readonly object m_lock;
+		private List<IDisposable?>? m_list;
 	}
 }

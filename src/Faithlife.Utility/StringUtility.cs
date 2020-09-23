@@ -57,8 +57,8 @@ namespace Faithlife.Utility
 		public static int LastIndexOfOrdinal(this string source, string value, int startIndex, int count) => source.LastIndexOf(value, startIndex, count, StringComparison.Ordinal);
 
 		/// <summary>
-		/// Compares two specified <see cref="String"/> objects by comparing successive Unicode code points. This method differs from
-		/// <see cref="String.CompareOrdinal(string, string)"/> in that this method considers supplementary characters (which are
+		/// Compares two specified <see cref="string"/> objects by comparing successive Unicode code points. This method differs from
+		/// <see cref="string.CompareOrdinal(string, string)"/> in that this method considers supplementary characters (which are
 		/// encoded as two surrogate code units) to be greater than characters in the base multilingual plane (because they have higher
 		/// Unicode code points). This method sorts strings in code point order, which is the same as a byte-wise comparison of UTF-8 or
 		/// UTF-32 encoded strings.
@@ -76,15 +76,15 @@ namespace Faithlife.Utility
 				return 1;
 
 			// get the length of both strings
-			int leftLength = left.Length;
-			int rightLength = right.Length;
+			var leftLength = left.Length;
+			var rightLength = right.Length;
 
 			// compare at most the number of characters the strings have in common
-			int maxIndex = Math.Min(leftLength, rightLength);
-			for (int index = 0; index < maxIndex; index++)
+			var maxIndex = Math.Min(leftLength, rightLength);
+			for (var index = 0; index < maxIndex; index++)
 			{
-				char leftChar = left[index];
-				char rightChar = right[index];
+				var leftChar = left[index];
+				var rightChar = right[index];
 
 				// algorithm from the Unicode Standard 5.0, Section 5.17 (Binary Order), page 183
 				if (leftChar != rightChar)
@@ -109,7 +109,7 @@ namespace Faithlife.Utility
 				return ignoreCase ? StringComparer.CurrentCultureIgnoreCase : StringComparer.CurrentCulture;
 
 			// use reflection in case we are running on a platform that supports StringComparer.Create
-			MethodInfo create = typeof(StringComparer)
+			var create = typeof(StringComparer)
 				.GetTypeInfo()
 				.GetDeclaredMethods("Create")
 				.FirstOrDefault(x => x.IsStatic && x.GetParameters().Select(p => p.ParameterType).SequenceEqual(new[] { typeof(CultureInfo), typeof(bool) }));
@@ -137,8 +137,8 @@ namespace Faithlife.Utility
 				throw new ArgumentNullException(nameof(value));
 
 			// process each character in the input string
-			StringBuilder sb = new StringBuilder();
-			foreach (char codeUnit in value)
+			var sb = new StringBuilder();
+			foreach (var codeUnit in value)
 			{
 				if (codeUnit < 0x100)
 				{
@@ -719,18 +719,18 @@ namespace Faithlife.Utility
 				if (value is null || value.Length == 0)
 					return 0;
 
-				int length = value.Length;
-				uint hash = (uint) length;
+				var length = value.Length;
+				var hash = (uint) length;
 
-				int nRemainder = length & 1;
+				var nRemainder = length & 1;
 				length >>= 1;
 
 				// main loop
-				int index = 0;
+				var index = 0;
 				for (; length > 0; length--)
 				{
 					hash += value[index];
-					uint temp = (uint) (value[index + 1] << 11) ^ hash;
+					var temp = (uint) (value[index + 1] << 11) ^ hash;
 					hash = (hash << 16) ^ temp;
 					index += 2;
 					hash += hash >> 11;
@@ -796,7 +796,7 @@ namespace Faithlife.Utility
 		/// <param name="value">The string.</param>
 		/// <returns>The array of substrings.</returns>
 		/// <remarks>See the documentation for string.Split for the white-space characters recognized by this method.</remarks>
-		public static string[] SplitOnWhitespace(this string value) => value.Split((char[]?) null);
+		public static string[] SplitOnWhitespace(this string value) => value.Split(null);
 
 		/// <summary>
 		/// Splits the string on whitespace.
@@ -919,7 +919,7 @@ namespace Faithlife.Utility
 				while (count > 0)
 				{
 					// convert characters to UTF-8
-					byte[] bytes = new byte[m_encoding.GetMaxByteCount(count)];
+					var bytes = new byte[m_encoding.GetMaxByteCount(count)];
 					m_encoder.Convert(buffer, index, count, bytes, 0, bytes.Length, false, out var charsUsed, out var bytesUsed, out _);
 
 					// write UTF-8 to stream
@@ -941,10 +941,10 @@ namespace Faithlife.Utility
 						m_isDisposed = true;
 
 						// flush encoder
-						bool completed = false;
+						var completed = false;
 						while (!completed)
 						{
-							byte[] bytes = new byte[m_encoding.GetMaxByteCount(0)];
+							var bytes = new byte[m_encoding.GetMaxByteCount(0)];
 							m_encoder.Convert(new char[0], 0, 0, bytes, 0, bytes.Length, true, out _, out var bytesUsed, out completed);
 							WriteToStream(bytes, bytesUsed);
 						}
@@ -952,7 +952,7 @@ namespace Faithlife.Utility
 						if (m_holdingStream is object)
 						{
 							// write holding stream without compression
-							int uncompressedByteCount = (int) m_holdingStream.Length;
+							var uncompressedByteCount = (int) m_holdingStream.Length;
 							m_stream.WriteByte(c_compressedStringUsingUtf8);
 							m_stream.Write(BitConverter.GetBytes(uncompressedByteCount), 0, 4);
 							m_stream.Write(m_holdingStream.ToArray(), 0, uncompressedByteCount);
@@ -964,7 +964,7 @@ namespace Faithlife.Utility
 							DisposableUtility.Dispose(ref m_zipStream);
 
 							// write uncompressed byte count to the header
-							long endPosition = m_stream.Position;
+							var endPosition = m_stream.Position;
 							m_stream.Position = m_uncompressedByteCountSeekPosition;
 							m_stream.Write(BitConverter.GetBytes(m_uncompressedByteCount), 0, 4);
 							m_stream.Position = endPosition;
@@ -1026,17 +1026,17 @@ namespace Faithlife.Utility
 					throw new ObjectDisposedException("CompressingTextWriter");
 			}
 
-			const int c_minimumByteCountToCompress = 512;
+			private const int c_minimumByteCountToCompress = 512;
 
-			readonly Stream m_stream;
-			readonly Ownership m_ownership;
-			readonly Encoding m_encoding;
-			readonly Encoder m_encoder;
-			MemoryStream? m_holdingStream;
-			Stream? m_zipStream;
-			long m_uncompressedByteCountSeekPosition;
-			int m_uncompressedByteCount;
-			bool m_isDisposed;
+			private readonly Stream m_stream;
+			private readonly Ownership m_ownership;
+			private readonly Encoding m_encoding;
+			private readonly Encoder m_encoder;
+			private MemoryStream? m_holdingStream;
+			private Stream? m_zipStream;
+			private long m_uncompressedByteCountSeekPosition;
+			private int m_uncompressedByteCount;
+			private bool m_isDisposed;
 		}
 
 		private sealed class DecompressingTextReader : TextReader
@@ -1087,7 +1087,7 @@ namespace Faithlife.Utility
 					return 0;
 
 				// limit count to characters remaining in buffer
-				int maxCount = m_bufferLength - m_bufferIndex;
+				var maxCount = m_bufferLength - m_bufferIndex;
 				if (count > maxCount)
 					count = maxCount;
 
@@ -1125,7 +1125,7 @@ namespace Faithlife.Utility
 			private void ReadHeader()
 			{
 				// check the first byte
-				int firstByte = m_stream.ReadByte();
+				var firstByte = m_stream.ReadByte();
 				if (firstByte == -1)
 				{
 					// the stream is empty, which represents the empty string
@@ -1133,8 +1133,8 @@ namespace Faithlife.Utility
 				else if (firstByte == c_compressedStringUsingGzip || firstByte == c_compressedStringUsingUtf8)
 				{
 					// read uncompressed byte count
-					byte[] uncompressedByteCountBuffer = new byte[4];
-					int bytesRead = m_stream.ReadBlock(uncompressedByteCountBuffer, 0, 4);
+					var uncompressedByteCountBuffer = new byte[4];
+					var bytesRead = m_stream.ReadBlock(uncompressedByteCountBuffer, 0, 4);
 					if (bytesRead != 4)
 						throw new InvalidDataException("The compressed string has a bad header.");
 					m_uncompressedByteCount = BitConverter.ToInt32(uncompressedByteCountBuffer, 0);
@@ -1165,8 +1165,8 @@ namespace Faithlife.Utility
 			private void ReadNextBuffer()
 			{
 				// decompress some UTF-8
-				int byteCount = Math.Min(m_uncompressedByteCount - m_uncompressedByteIndex, 4096);
-				byte[] bytes = new byte[byteCount];
+				var byteCount = Math.Min(m_uncompressedByteCount - m_uncompressedByteIndex, 4096);
+				var bytes = new byte[byteCount];
 				(m_unzipStream ?? m_stream).ReadExactly(bytes, 0, byteCount);
 				m_uncompressedByteIndex += byteCount;
 
@@ -1176,11 +1176,11 @@ namespace Faithlife.Utility
 				m_bufferLength = 0;
 
 				// loop over bytes
-				int byteIndex = 0;
+				var byteIndex = 0;
 				while (byteCount > 0)
 				{
 					// convert UTF-8 to characters
-					bool flush = m_uncompressedByteIndex == m_uncompressedByteCount;
+					var flush = m_uncompressedByteIndex == m_uncompressedByteCount;
 					m_decoder.Convert(bytes, byteIndex, byteCount, m_buffer, m_bufferLength, m_buffer.Length - m_bufferLength, flush, out var bytesUsed, out var charsUsed, out _);
 					byteIndex += bytesUsed;
 					byteCount -= bytesUsed;
@@ -1198,28 +1198,28 @@ namespace Faithlife.Utility
 					throw new ObjectDisposedException("CompressingTextWriter");
 			}
 
-			readonly Stream m_stream;
-			readonly Ownership m_ownership;
-			readonly Encoding m_encoding;
-			readonly Decoder m_decoder;
-			Stream? m_unzipStream;
-			int m_uncompressedByteCount;
-			int m_uncompressedByteIndex;
-			char[]? m_buffer;
-			int m_bufferIndex;
-			int m_bufferLength;
-			bool m_isDisposed;
+			private readonly Stream m_stream;
+			private readonly Ownership m_ownership;
+			private readonly Encoding m_encoding;
+			private readonly Decoder m_decoder;
+			private Stream? m_unzipStream;
+			private int m_uncompressedByteCount;
+			private int m_uncompressedByteIndex;
+			private char[]? m_buffer;
+			private int m_bufferIndex;
+			private int m_bufferLength;
+			private bool m_isDisposed;
 		}
 
-		const int c_compressedStringUsingGzip = 1;
-		const int c_compressedStringUsingUtf8 = 2;
+		private const int c_compressedStringUsingGzip = 1;
+		private const int c_compressedStringUsingUtf8 = 2;
 
-		static readonly ReadOnlyCollection<int> s_mapUtf16FixUp = new ReadOnlyCollection<int>(new[]
+		private static readonly ReadOnlyCollection<int> s_mapUtf16FixUp = new ReadOnlyCollection<int>(new[]
 		{
 			0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0x2000, 0xf800, 0xf800, 0xf800, 0xf800
+			0, 0, 0, 0x2000, 0xf800, 0xf800, 0xf800, 0xf800,
 		});
 	}
 
@@ -1272,7 +1272,7 @@ namespace Faithlife.Utility
 			throw new NotSupportedException("StringComparer.GetHashCode only supported for current culture.");
 		}
 
-		readonly CultureInfo m_cultureInfo;
-		readonly bool m_ignoreCase;
+		private readonly CultureInfo m_cultureInfo;
+		private readonly bool m_ignoreCase;
 	}
 }

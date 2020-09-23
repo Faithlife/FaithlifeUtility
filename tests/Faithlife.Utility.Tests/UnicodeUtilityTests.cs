@@ -79,9 +79,9 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void CharacterLength()
 		{
-			string s1 = "1!a $\uE000";
-			StringBuilder sb1 = new StringBuilder(s1);
-			for (int nIndex = 0; nIndex < s1.Length; ++nIndex)
+			var s1 = "1!a $\uE000";
+			var sb1 = new StringBuilder(s1);
+			for (var nIndex = 0; nIndex < s1.Length; ++nIndex)
 			{
 				Assert.AreEqual(1, UnicodeUtility.GetCharacterLength(s1, nIndex));
 				Assert.AreEqual(1, UnicodeUtility.GetCharacterLength(s1, nIndex));
@@ -89,16 +89,16 @@ namespace Faithlife.Utility.Tests
 				Assert.AreEqual(1, UnicodeUtility.GetCharacterLength(sb1, nIndex));
 			}
 
-			string s2 = "\uDF80\uD800";
-			StringBuilder sb2 = new StringBuilder(s2);
-			for (int nIndex = 0; nIndex < s2.Length; ++nIndex)
+			var s2 = "\uDF80\uD800";
+			var sb2 = new StringBuilder(s2);
+			for (var nIndex = 0; nIndex < s2.Length; ++nIndex)
 			{
 				Assert.AreEqual(1, UnicodeUtility.GetCharacterLength(s2, nIndex));
 				Assert.AreEqual(1, UnicodeUtility.GetCharacterLength(sb2, nIndex));
 			}
 
-			string s3 = "\uD800\uDF80";
-			StringBuilder sb3 = new StringBuilder(s3);
+			var s3 = "\uD800\uDF80";
+			var sb3 = new StringBuilder(s3);
 			Assert.AreEqual(2, UnicodeUtility.GetCharacterLength(s3, 0));
 			Assert.AreEqual(1, UnicodeUtility.GetCharacterLength(s3, 1));
 			Assert.AreEqual(2, UnicodeUtility.GetCharacterLength(sb3, 0));
@@ -132,7 +132,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase("a\U0010FFFFc", 1, 0x10FFFF)]
 		public void GetCodePoint(string s, int index, int expected)
 		{
-			StringBuilder sb = new StringBuilder(s);
+			var sb = new StringBuilder(s);
 			Assert.AreEqual(expected, UnicodeUtility.GetCodePoint(sb, index));
 			Assert.AreEqual(char.ConvertToUtf32(s, index), UnicodeUtility.GetCodePoint(sb, index));
 		}

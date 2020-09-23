@@ -39,7 +39,7 @@ namespace Faithlife.Utility
 		/// <exception cref="T:System.ArgumentNullException">The type of <paramref name="obj"/> is a reference type and <paramref name="obj"/> is null.</exception>
 		public override int GetHashCode(TSource obj) => obj is null ? 0 : m_keyComparer.GetHashCode(m_keySelector(obj));
 
-		readonly Func<TSource, TKey> m_keySelector;
-		readonly IEqualityComparer<TKey> m_keyComparer;
+		private readonly Func<TSource, TKey> m_keySelector;
+		private readonly IEqualityComparer<TKey> m_keyComparer;
 	}
 }

@@ -18,7 +18,7 @@ namespace Faithlife.Utility.Tests
 		public void TestCompare(int x, int y)
 		{
 			Func<int, int, int> compare = DoCompare;
-			GenericComparer<int> gc = new GenericComparer<int>(compare);
+			var gc = new GenericComparer<int>(compare);
 
 			m_bCompareCalled = false;
 			Assert.AreEqual(x - y, gc.Compare(x, y));
@@ -31,6 +31,6 @@ namespace Faithlife.Utility.Tests
 			return x - y;
 		}
 
-		bool m_bCompareCalled;
+		private bool m_bCompareCalled;
 	}
 }

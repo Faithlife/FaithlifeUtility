@@ -41,7 +41,7 @@ namespace Faithlife.Utility
 		/// </exception>
 		public override int GetHashCode(T obj) => m_getHashCode(obj);
 
-		readonly Func<T, T, bool> m_equals;
-		readonly Func<T, int> m_getHashCode;
+		private readonly Func<T, T, bool> m_equals;
+		private readonly Func<T, int> m_getHashCode;
 	}
 }

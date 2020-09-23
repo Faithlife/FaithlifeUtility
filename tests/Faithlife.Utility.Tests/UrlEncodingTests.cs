@@ -1,6 +1,5 @@
 using System;
 using System.Text;
-using System.Web;
 using NUnit.Framework;
 
 namespace Faithlife.Utility.Tests
@@ -36,7 +35,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase("NoEncoding", "NoEncoding")]
 		public void DecodeStringWithSpaceSetting(string? strEncoded, string? strDecoded)
 		{
-			UrlEncodingSettings settings = new UrlEncodingSettings();
+			var settings = new UrlEncodingSettings();
 			settings.EncodedSpaceChar = '+';
 			Assert.AreEqual(strDecoded, UrlEncoding.Decode(strEncoded, settings));
 		}
@@ -53,7 +52,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase("NoEncoding", "NoEncoding")]
 		public void EncodeStringWithSpaceSetting(string? strEncoded, string? strDecoded)
 		{
-			UrlEncodingSettings settings = new UrlEncodingSettings();
+			var settings = new UrlEncodingSettings();
 			settings.EncodedSpaceChar = '+';
 			Assert.AreEqual(strEncoded, UrlEncoding.Encode(strDecoded, settings));
 		}
@@ -65,7 +64,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase("%2b+=+%25", "+ = %")]
 		public void EncodeStringWithSpaceCustomShouldEncode(string? strEncoded, string? strDecoded)
 		{
-			UrlEncodingSettings settings = new UrlEncodingSettings
+			var settings = new UrlEncodingSettings
 			{
 				EncodedSpaceChar = '+',
 				ShouldEncodeChar = ch => ch == 'e',
@@ -89,7 +88,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void ChangeBytePrefixCharEncode()
 		{
-			UrlEncodingSettings settings = new UrlEncodingSettings();
+			var settings = new UrlEncodingSettings();
 			settings.EncodedBytePrefixChar = '+';
 			Assert.AreEqual("Hi+2c+20there", UrlEncoding.Encode("Hi, there", settings));
 			Assert.AreEqual("Hi+2c+20there+20Ed+2e", UrlEncoding.Encode("Hi, there Ed.", settings));
@@ -98,7 +97,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void ChangeBytePrefixCharToBackslashEncode()
 		{
-			UrlEncodingSettings settings = new UrlEncodingSettings();
+			var settings = new UrlEncodingSettings();
 			settings.EncodedBytePrefixChar = '\\';
 			Assert.AreEqual("Hi\\2c\\20there", UrlEncoding.Encode("Hi, there", settings));
 			Assert.AreEqual("Hi\\2c\\20there\\20Ed\\2e", UrlEncoding.Encode("Hi, there Ed.", settings));
@@ -107,7 +106,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void ChangeBytePrefixCharDecode()
 		{
-			UrlEncodingSettings settings = new UrlEncodingSettings();
+			var settings = new UrlEncodingSettings();
 			settings.EncodedBytePrefixChar = '+';
 			Assert.AreEqual("Hi, there", UrlEncoding.Decode("Hi+2c+20there", settings));
 			Assert.AreEqual("Hi, there Ed.", UrlEncoding.Decode("Hi+2c+20there+20Ed+2e", settings));
@@ -116,7 +115,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void OnlyEncodeSpaces()
 		{
-			UrlEncodingSettings settings = new UrlEncodingSettings();
+			var settings = new UrlEncodingSettings();
 			settings.ShouldEncodeChar = ch => ch == ' ';
 			Assert.AreEqual("Hi,%20there", UrlEncoding.Encode("Hi, there", settings));
 			Assert.AreEqual("Hi,%20there%20Ed.", UrlEncoding.Encode("Hi, there Ed.", settings));
@@ -125,7 +124,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void ChangeEncoding()
 		{
-			UrlEncodingSettings settings = new UrlEncodingSettings();
+			var settings = new UrlEncodingSettings();
 			settings.TextEncoding = Encoding.UTF32;
 			Assert.AreEqual("Hi%2c%00%00%00%20%00%00%00there", UrlEncoding.Encode("Hi, there", settings));
 			Assert.AreEqual("Hi%2c%00%00%00%20%00%00%00there%20%00%00%00Ed%2e%00%00%00", UrlEncoding.Encode("Hi, there Ed.", settings));
@@ -134,7 +133,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void UppercaseHexDigits()
 		{
-			UrlEncodingSettings settings = new UrlEncodingSettings();
+			var settings = new UrlEncodingSettings();
 			Assert.AreEqual("Hi, there", UrlEncoding.Decode("Hi%2c%20there", settings));
 			settings.UppercaseHexDigits = true;
 			Assert.AreEqual("Hi, there", UrlEncoding.Decode("Hi%2C%20there", settings));
@@ -143,10 +142,10 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void SettingsFromSettings()
 		{
-			UrlEncodingSettings settings = new UrlEncodingSettings();
+			var settings = new UrlEncodingSettings();
 			settings.TextEncoding = Encoding.UTF32;
 
-			UrlEncodingSettings settingsNew = settings.Clone();
+			var settingsNew = settings.Clone();
 			settingsNew.EncodedBytePrefixChar = '+';
 
 			Assert.AreEqual("Hi+2c+00+00+00+20+00+00+00there", UrlEncoding.Encode("Hi, there", settingsNew));
@@ -168,16 +167,16 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void SettingsClone()
 		{
-			UrlEncodingSettings settings = new UrlEncodingSettings
+			var settings = new UrlEncodingSettings
 			{
 				EncodedBytePrefixChar = '!',
 				EncodedSpaceChar = '$',
 				PreventDoubleEncoding = true,
 				UppercaseHexDigits = true,
 				ShouldEncodeChar = ch => ch == '@',
-				TextEncoding = Encoding.UTF32
+				TextEncoding = Encoding.UTF32,
 			};
-			UrlEncodingSettings settingsClone = settings.Clone();
+			var settingsClone = settings.Clone();
 
 			Assert.AreEqual(settings.EncodedBytePrefixChar, settingsClone.EncodedBytePrefixChar);
 			Assert.AreEqual(settings.EncodedSpaceChar, settingsClone.EncodedSpaceChar);

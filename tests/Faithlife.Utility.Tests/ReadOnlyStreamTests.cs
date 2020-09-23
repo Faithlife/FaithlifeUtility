@@ -47,8 +47,14 @@ namespace Faithlife.Utility.Tests
 			Assert.IsFalse(m_stream.CanRead);
 			Assert.IsFalse(m_stream.CanSeek);
 
-			Assert.Throws<ObjectDisposedException>(() => { long i = m_stream.Length; });
-			Assert.Throws<ObjectDisposedException>(() => { long i = m_stream.Position; });
+			Assert.Throws<ObjectDisposedException>(() =>
+			{
+				var i = m_stream.Length;
+			});
+			Assert.Throws<ObjectDisposedException>(() =>
+			{
+				var i = m_stream.Position;
+			});
 			Assert.Throws<ObjectDisposedException>(() => { m_stream.Position = 0; });
 			Assert.Throws<ObjectDisposedException>(() => { m_stream.Flush(); });
 			Assert.Throws<ObjectDisposedException>(() => { m_stream.Read(new byte[1], 0, 1); });
@@ -65,7 +71,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void Read()
 		{
-			byte[] aby = new byte[m_abyStreamData.Length];
+			var aby = new byte[m_abyStreamData.Length];
 			Assert.AreEqual(aby.Length, m_stream.Read(aby, 0, aby.Length));
 			CollectionAssert.AreEqual(m_abyStreamData, aby);
 		}
@@ -89,7 +95,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public async Task ReadAsync()
 		{
-			byte[] aby = new byte[m_abyStreamData.Length];
+			var aby = new byte[m_abyStreamData.Length];
 			Assert.AreEqual(aby.Length, await m_stream.ReadAsync(aby, 0, aby.Length));
 			CollectionAssert.AreEqual(m_abyStreamData, aby);
 		}
@@ -97,7 +103,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void CopyTo()
 		{
-			byte[] aby = new byte[m_abyStreamData.Length];
+			var aby = new byte[m_abyStreamData.Length];
 			var destination = new MemoryStream(aby);
 			m_stream.CopyTo(destination);
 			CollectionAssert.AreEqual(m_abyStreamData, aby);
@@ -106,7 +112,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public async Task CopyToAsync()
 		{
-			byte[] aby = new byte[m_abyStreamData.Length];
+			var aby = new byte[m_abyStreamData.Length];
 			var destination = new MemoryStream(aby);
 			await m_stream.CopyToAsync(destination);
 			CollectionAssert.AreEqual(m_abyStreamData, aby);
@@ -126,6 +132,6 @@ namespace Faithlife.Utility.Tests
 		private Stream m_memStream;
 		private Stream m_stream;
 #pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
-		private byte[] m_abyStreamData = new byte[] { 0, 1, 2, 3, 4, 5, 6, 7 };
+		private readonly byte[] m_abyStreamData = new byte[] { 0, 1, 2, 3, 4, 5, 6, 7 };
 	}
 }

@@ -9,8 +9,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void CloneTest()
 		{
-			int[] anFirst = new int[] { 1, 2, 4, 8 };
-			int[] anSecond = ArrayUtility.Clone(anFirst);
+			var anFirst = new int[] { 1, 2, 4, 8 };
+			var anSecond = ArrayUtility.Clone(anFirst);
 			Assert.AreEqual(anFirst.Length, anSecond.Length);
 			Assert.AreNotSame(anFirst, anSecond);
 		}
@@ -18,7 +18,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void ConcatenateOne()
 		{
-			int[] anFirst = new int[] { 1, 2, 4, 8 };
+			var anFirst = new int[] { 1, 2, 4, 8 };
 			Assert.AreEqual(0, ArrayUtility.Compare(ArrayUtility.Concatenate<int>(anFirst),
 				new int[] { 1, 2, 4, 8 }));
 		}
@@ -26,9 +26,9 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void ConcatenateThree()
 		{
-			int[] anFirst = new int[] { 1, 2, 4, 8 };
-			int[] anSecond = new int[] { 8, 4, 2, 1 };
-			int[] anThird = new int[] { 3, 5, 6, 7 };
+			var anFirst = new int[] { 1, 2, 4, 8 };
+			var anSecond = new int[] { 8, 4, 2, 1 };
+			var anThird = new int[] { 3, 5, 6, 7 };
 			Assert.AreEqual(0, ArrayUtility.Compare(ArrayUtility.Concatenate(anFirst, anSecond, anThird),
 				new int[] { 1, 2, 4, 8, 8, 4, 2, 1, 3, 5, 6, 7 }));
 		}
@@ -60,16 +60,16 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void ArraysEqual()
 		{
-			int[] anFirst = new int[] { 1, 2, 3, 4, 5 };
-			int[] anSecond = new int[] { 1, 2, 3, 4, 5 };
+			var anFirst = new int[] { 1, 2, 3, 4, 5 };
+			var anSecond = new int[] { 1, 2, 3, 4, 5 };
 			Assert.IsTrue(ArrayUtility.AreEqual(anFirst, anSecond));
 		}
 
 		[Test]
 		public void ArraysNotEqual()
 		{
-			int[] anFirst = new int[] { 1, 2, 3, 4 };
-			int[] anSecond = new int[] { 1, 2, 3, 5 };
+			var anFirst = new int[] { 1, 2, 3, 4 };
+			var anSecond = new int[] { 1, 2, 3, 5 };
 			Assert.IsFalse(ArrayUtility.AreEqual(anFirst, anSecond));
 		}
 
@@ -90,22 +90,22 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void ArrayNotEqualNullArray()
 		{
-			int[] anFirst = new int[] { 1, 2, 3, 4 };
+			var anFirst = new int[] { 1, 2, 3, 4 };
 			Assert.IsFalse(ArrayUtility.AreEqual(anFirst, null));
 		}
 
 		[Test]
 		public void EmptyArrayNotEqualNullArray()
 		{
-			int[] anFirst = new int[] { };
+			var anFirst = new int[] { };
 			Assert.IsFalse(ArrayUtility.AreEqual(anFirst, null));
 		}
 
 		[Test]
 		public void TwoSizedArraysNotEqual()
 		{
-			int[] anFirst = new int[] { 1, 2, 3, 4 };
-			int[] anSecond = new int[] { 1, 2, 3 };
+			var anFirst = new int[] { 1, 2, 3, 4 };
+			var anSecond = new int[] { 1, 2, 3 };
 			Assert.IsFalse(ArrayUtility.AreEqual(anFirst, anSecond));
 		}
 
@@ -128,8 +128,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void ArraysCompareEqual()
 		{
-			int[] anFirst = new int[] { 1, 2, 3, 4, 5 };
-			int[] anSecond = new int[] { 1, 2, 3, 4, 5 };
+			var anFirst = new int[] { 1, 2, 3, 4, 5 };
+			var anSecond = new int[] { 1, 2, 3, 4, 5 };
 			Assert.AreEqual(0, ArrayUtility.Compare(anFirst, anSecond));
 		}
 
@@ -150,30 +150,30 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void NullArrayLessThanArray()
 		{
-			int[] anSecond = new int[] { 1, 2, 3, 4 };
+			var anSecond = new int[] { 1, 2, 3, 4 };
 			Assert.Less(ArrayUtility.Compare(null, anSecond), 0);
 		}
 
 		[Test]
 		public void ArrayGreaterThanNullArray()
 		{
-			int[] anFirst = new int[] { 1, 2, 3, 4 };
+			var anFirst = new int[] { 1, 2, 3, 4 };
 			Assert.Greater(ArrayUtility.Compare(anFirst, null), 0);
 		}
 
 		[Test]
 		public void ShorterArrayLessThanLongerArray()
 		{
-			int[] anFirst = new int[] { 1, 2, 3, 4 };
-			int[] anSecond = new int[] { 1, 2, 3, 4, 5 };
+			var anFirst = new int[] { 1, 2, 3, 4 };
+			var anSecond = new int[] { 1, 2, 3, 4, 5 };
 			Assert.Less(ArrayUtility.Compare(anFirst, anSecond), 0);
 		}
 
 		[Test]
 		public void LongerArrayGreaterThanShorterArray()
 		{
-			int[] anFirst = new int[] { 1, 2, 3, 4, 5 };
-			int[] anSecond = new int[] { 1, 2, 3, 4 };
+			var anFirst = new int[] { 1, 2, 3, 4, 5 };
+			var anSecond = new int[] { 1, 2, 3, 4 };
 			Assert.Greater(ArrayUtility.Compare(anFirst, anSecond), 0);
 		}
 
@@ -196,16 +196,16 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void LesserItemLesserThanGreaterItem()
 		{
-			int[] anFirst = new int[] { 1, 2, 3, 4 };
-			int[] anSecond = new int[] { 1, 2, 3, 5 };
+			var anFirst = new int[] { 1, 2, 3, 4 };
+			var anSecond = new int[] { 1, 2, 3, 5 };
 			Assert.Less(ArrayUtility.Compare(anFirst, anSecond), 0);
 		}
 
 		[Test]
 		public void GreaterItemGreaterThanLesserItem()
 		{
-			int[] anFirst = new int[] { 1, 2, 3, 5 };
-			int[] anSecond = new int[] { 1, 2, 3, 4 };
+			var anFirst = new int[] { 1, 2, 3, 5 };
+			var anSecond = new int[] { 1, 2, 3, 4 };
 			Assert.Greater(ArrayUtility.Compare(anFirst, anSecond), 0);
 		}
 

@@ -1,4 +1,3 @@
-using System;
 using NUnit.Framework;
 
 namespace Faithlife.Utility.Tests
@@ -9,7 +8,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void SimpleTest()
 		{
-			bool bDone = false;
+			var bDone = false;
 			using (Scope.Create(() => { bDone = true; }))
 				Assert.IsFalse(bDone);
 			Assert.IsTrue(bDone);
@@ -18,9 +17,9 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void Transfer()
 		{
-			bool bDone = false;
+			var bDone = false;
 			Scope scope2;
-			using (Scope scope = Scope.Create(() => { bDone = true; }))
+			using (var scope = Scope.Create(() => { bDone = true; }))
 			{
 				Assert.IsFalse(bDone);
 				scope2 = scope.Transfer();
@@ -34,7 +33,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void ClosableTest()
 		{
-			MyClosable x = new MyClosable();
+			var x = new MyClosable();
 			using (Scope.Create(x.Close))
 				Assert.IsFalse(x.IsClosed);
 			Assert.IsTrue(x.IsClosed);
@@ -51,8 +50,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void ScopeDoubleDispose()
 		{
-			MyClosable x = new MyClosable();
-			Scope scope = Scope.Create(x.Close);
+			var x = new MyClosable();
+			var scope = Scope.Create(x.Close);
 			Assert.IsFalse(x.IsClosed);
 			scope.Dispose();
 			Assert.IsTrue(x.IsClosed);
@@ -60,12 +59,12 @@ namespace Faithlife.Utility.Tests
 			Assert.IsTrue(x.IsClosed);
 		}
 
-		class MyClosable
+		private class MyClosable
 		{
 			public bool IsClosed { get { return m_bClosed; } }
 			public void Close() { m_bClosed = true; }
 			public void AnotherClose() { m_bClosed = true; }
-			bool m_bClosed;
+			private bool m_bClosed;
 		}
 	}
 }

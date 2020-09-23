@@ -125,6 +125,6 @@ namespace Faithlife.Utility
 
 		private static NotSupportedException CreateReadOnlyException() => new NotSupportedException("ReadOnlySet<T> may not be modified.");
 
-		readonly ISet<T> m_set;
+		private readonly ISet<T> m_set;
 	}
 }

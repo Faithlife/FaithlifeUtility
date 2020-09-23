@@ -58,11 +58,11 @@ namespace Faithlife.Utility
 				throw new ArgumentOutOfRangeException(nameof(count));
 
 			// track total bytes read
-			int totalBytesRead = 0;
+			var totalBytesRead = 0;
 			while (count > 0)
 			{
 				// read data
-				int bytesRead = stream.Read(buffer, offset, count);
+				var bytesRead = stream.Read(buffer, offset, count);
 
 				// check for end of stream
 				if (bytesRead == 0)
@@ -100,11 +100,11 @@ namespace Faithlife.Utility
 				throw new ArgumentOutOfRangeException(nameof(count));
 
 			// track total bytes read
-			int totalBytesRead = 0;
+			var totalBytesRead = 0;
 			while (count > 0)
 			{
 				// read data
-				int bytesRead = await stream.ReadAsync(buffer, offset, count, cancellationToken).ConfigureAwait(false);
+				var bytesRead = await stream.ReadAsync(buffer, offset, count, cancellationToken).ConfigureAwait(false);
 
 				// check for end of stream
 				if (bytesRead == 0)
@@ -128,7 +128,7 @@ namespace Faithlife.Utility
 		{
 			if (count < 0)
 				throw new ArgumentOutOfRangeException(nameof(count));
-			byte[] buffer = new byte[count];
+			var buffer = new byte[count];
 			ReadExactly(stream, buffer, 0, count);
 			return buffer;
 		}
@@ -144,7 +144,7 @@ namespace Faithlife.Utility
 		{
 			if (count < 0)
 				throw new ArgumentOutOfRangeException(nameof(count));
-			byte[] buffer = new byte[count];
+			var buffer = new byte[count];
 			await ReadExactlyAsync(stream, buffer, 0, count, cancellationToken).ConfigureAwait(false);
 			return buffer;
 		}

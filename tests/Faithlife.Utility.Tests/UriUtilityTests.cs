@@ -51,14 +51,14 @@ namespace Faithlife.Utility.Tests
 		[TestCase("maps.google.com", "someplace.com")]
 		public void MatchesDomainArgumentException(string uristring, string domain)
 		{
-			Uri uri = new Uri(uristring, UriKind.Relative);
+			var uri = new Uri(uristring, UriKind.Relative);
 			Assert.Throws<ArgumentException>(() => UriUtility.MatchesDomain(uri, domain));
 		}
 
 		[Test]
 		public void MatchesDomain()
 		{
-			Uri uri = new Uri("http://maps.google.com");
+			var uri = new Uri("http://maps.google.com");
 			Assert.IsFalse(UriUtility.MatchesDomain(uri, "amaps.google.com"));
 			Assert.IsTrue(UriUtility.MatchesDomain(uri, "maps.google.com"));
 			Assert.IsTrue(UriUtility.MatchesDomain(uri, "maps.GOOGLE.com"));

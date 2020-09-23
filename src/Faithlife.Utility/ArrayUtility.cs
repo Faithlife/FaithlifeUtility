@@ -38,7 +38,7 @@ namespace Faithlife.Utility
 				return false;
 			if (array1.Length != array2.Length)
 				return false;
-			for (int nIndex = 0; nIndex < array1.Length; nIndex++)
+			for (var nIndex = 0; nIndex < array1.Length; nIndex++)
 			{
 				if (!comparer.Equals(array1[nIndex], array2[nIndex]))
 					return false;
@@ -76,18 +76,18 @@ namespace Faithlife.Utility
 				return array2 is null ? 0 : -1;
 			if (array2 is null)
 				return 1;
-			int length1 = array1.Length;
-			int length2 = array2.Length;
-			int index = 0;
+			var length1 = array1.Length;
+			var length2 = array2.Length;
+			var index = 0;
 			while (true)
 			{
 				if (length1 == index)
 					return length2 == index ? 0 : -1;
 				if (length2 == index)
 					return 1;
-				T item1 = array1[index];
-				T item2 = array2[index];
-				int compare = comparer.Compare(item1, item2);
+				var item1 = array1[index];
+				var item2 = array2[index];
+				var compare = comparer.Compare(item1, item2);
 				if (compare != 0)
 					return compare;
 				index++;
@@ -103,16 +103,16 @@ namespace Faithlife.Utility
 		{
 			if (arrays is null)
 				throw new ArgumentNullException(nameof(arrays));
-			int totalLength = 0;
-			foreach (T[] array in arrays)
+			var totalLength = 0;
+			foreach (var array in arrays)
 			{
 				if (array is null)
 					throw new ArgumentOutOfRangeException(nameof(arrays));
 				totalLength += array.Length;
 			}
-			T[] arrayResult = new T[totalLength];
+			var arrayResult = new T[totalLength];
 			totalLength = 0;
-			foreach (T[] array in arrays)
+			foreach (var array in arrays)
 			{
 				array.CopyTo(arrayResult, totalLength);
 				totalLength += array.Length;

@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
 using NUnit.Framework;
 
 namespace Faithlife.Utility.Tests
@@ -24,14 +23,14 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void NegativeCapacity()
 		{
-			PriorityQueue<int> pq = new PriorityQueue<int>();
+			var pq = new PriorityQueue<int>();
 			Assert.Throws<ArgumentOutOfRangeException>(() => pq.Capacity = -1);
 		}
 
 		[Test]
 		public void SmallCapacity()
 		{
-			PriorityQueue<int> pq = new PriorityQueue<int>();
+			var pq = new PriorityQueue<int>();
 			pq.Enqueue(1);
 			Assert.Greater(pq.Capacity, 0);
 			Assert.Throws<ArgumentOutOfRangeException>(() => pq.Capacity = 0);
@@ -40,7 +39,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void Capacity()
 		{
-			PriorityQueue<int> pq = new PriorityQueue<int>(3);
+			var pq = new PriorityQueue<int>(3);
 			Assert.AreEqual(3, pq.Capacity);
 			Assert.AreEqual(0, pq.Count);
 			pq.Enqueue(1);
@@ -65,8 +64,8 @@ namespace Faithlife.Utility.Tests
 		public void EnqueueDequeueOrdered()
 		{
 			// add numbers in order
-			PriorityQueue<int> pq = new PriorityQueue<int>();
-			for (int i = 1; i <= 100; ++i)
+			var pq = new PriorityQueue<int>();
+			for (var i = 1; i <= 100; ++i)
 				pq.Enqueue(i);
 
 			TestDequeueOrder(pq, 100);
@@ -81,7 +80,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void EnqueueDequeueUnordered()
 		{
-			PriorityQueue<int> pq = new PriorityQueue<int>();
+			var pq = new PriorityQueue<int>();
 
 			// add numbers out of order
 			pq.Enqueue(9);
@@ -101,39 +100,39 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void DequeueEmpty()
 		{
-			PriorityQueue<int> pq = new PriorityQueue<int>();
+			var pq = new PriorityQueue<int>();
 			Assert.Throws<InvalidOperationException>(() => pq.Dequeue());
 		}
 
 		[Test]
 		public void PeekEmpty()
 		{
-			PriorityQueue<int> pq = new PriorityQueue<int>();
+			var pq = new PriorityQueue<int>();
 			Assert.Throws<InvalidOperationException>(() => pq.Peek());
 		}
 
 		[Test]
 		public void RepositionHeadEmpty()
 		{
-			PriorityQueue<int> pq = new PriorityQueue<int>();
+			var pq = new PriorityQueue<int>();
 			Assert.Throws<InvalidOperationException>(() => pq.RepositionHead());
 		}
 
 		[Test]
 		public void Enumerate()
 		{
-			PriorityQueue<int> pq = CreateReversed(100);
+			var pq = CreateReversed(100);
 
 			// enumerate through items (default)
-			int nExpected = 1;
-			foreach (int item in pq)
+			var nExpected = 1;
+			foreach (var item in pq)
 				Assert.AreEqual(nExpected++, item);
 			Assert.AreEqual(101, nExpected);
 
 			// enumerate through items (IEnumerable<T>)
 			nExpected = 1;
 			IEnumerable<int> ie = pq;
-			foreach (int item in ie)
+			foreach (var item in ie)
 				Assert.AreEqual(nExpected++, item);
 			Assert.AreEqual(101, nExpected);
 
@@ -156,8 +155,8 @@ namespace Faithlife.Utility.Tests
 			ICollection c = new PriorityQueue<int>();
 			Assert.IsFalse(c.IsSynchronized);
 
-			object sr1 = c.SyncRoot;
-			object sr2 = c.SyncRoot;
+			var sr1 = c.SyncRoot;
+			var sr2 = c.SyncRoot;
 			Assert.AreEqual(sr1, sr2);
 
 			Assert.AreEqual(0, c.Count);
@@ -166,12 +165,12 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void CopyTo()
 		{
-			PriorityQueue<int> pq = CreateReversed(25);
-			int[] aExpected = new int[25];
-			for (int i = 0; i < aExpected.Length; ++i)
+			var pq = CreateReversed(25);
+			var aExpected = new int[25];
+			for (var i = 0; i < aExpected.Length; ++i)
 				aExpected[i] = i + 1;
 
-			int[] aOutput1 = new int[25];
+			var aOutput1 = new int[25];
 			pq.CopyTo(aOutput1, 0);
 			CollectionAssert.AreEqual(aExpected, aOutput1);
 
@@ -187,7 +186,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void Remove()
 		{
-			PriorityQueue<int> queue = CreateReversed(10);
+			var queue = CreateReversed(10);
 			Assert.AreEqual(1, queue.Peek());
 			queue.Remove(1);
 			Assert.AreEqual(2, queue.Peek());
@@ -207,7 +206,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void RemoveAll()
 		{
-			PriorityQueue<int> queue = CreateReversed(5);
+			var queue = CreateReversed(5);
 			Assert.AreEqual(5, queue.Count);
 			Assert.AreEqual(1, queue.Peek());
 			queue.Remove(1);
@@ -230,8 +229,8 @@ namespace Faithlife.Utility.Tests
 		private static PriorityQueue<int> CreateReversed(int nCount)
 		{
 			// add numbers in reverse order
-			PriorityQueue<int> pq = new PriorityQueue<int>(null);
-			for (int i = 0; i < nCount; ++i)
+			var pq = new PriorityQueue<int>(null);
+			for (var i = 0; i < nCount; ++i)
 				pq.Enqueue(nCount - i);
 			return pq;
 		}
@@ -240,7 +239,7 @@ namespace Faithlife.Utility.Tests
 		{
 			// check that everything comes out in the correct order
 			Assert.AreEqual(nMaxItem, pq.Count);
-			for (int nItem = 1; nItem <= nMaxItem; ++nItem)
+			for (var nItem = 1; nItem <= nMaxItem; ++nItem)
 			{
 				Assert.AreEqual(nItem, pq.Peek());
 				Assert.AreEqual(nItem, pq.Dequeue());
@@ -261,9 +260,9 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void EnqueueDequeueOrdered()
 		{
-			PriorityQueue<string> pq = new PriorityQueue<string>(m_comparer);
-			char[] startChar = "abcdefghijk".ToCharArray();
-			for (int i = 1; i <= 100; ++i)
+			var pq = new PriorityQueue<string>(m_comparer);
+			var startChar = "abcdefghijk".ToCharArray();
+			for (var i = 1; i <= 100; ++i)
 				pq.Enqueue(new string(startChar[i % 10], i));
 			TestDequeueOrder(pq, 100);
 		}
@@ -271,7 +270,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void EnqueueDequeueUnordered()
 		{
-			PriorityQueue<string> pq = new PriorityQueue<string>(m_comparer);
+			var pq = new PriorityQueue<string>(m_comparer);
 			pq.Enqueue("a");
 			pq.Enqueue("complete");
 			pq.Enqueue("bunch");
@@ -287,9 +286,9 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void EnqueueDequeueReverse()
 		{
-			PriorityQueue<string> pq = new PriorityQueue<string>(m_comparer);
-			char[] startChar = "kjihgfedbca".ToCharArray();
-			for (int i = 1; i <= 100; ++i)
+			var pq = new PriorityQueue<string>(m_comparer);
+			var startChar = "kjihgfedbca".ToCharArray();
+			for (var i = 1; i <= 100; ++i)
 				pq.Enqueue(new string(startChar[i % 10], 101 - i));
 			TestDequeueOrder(pq, 100);
 		}
@@ -298,7 +297,7 @@ namespace Faithlife.Utility.Tests
 		{
 			// check that everything comes out in the correct order
 			Assert.AreEqual(nMaxItem, pq.Count);
-			for (int nItem = 1; nItem <= nMaxItem; ++nItem)
+			for (var nItem = 1; nItem <= nMaxItem; ++nItem)
 			{
 				Assert.AreEqual(nItem, pq.Peek().Length);
 				Assert.AreEqual(nItem, pq.Dequeue().Length);
@@ -311,7 +310,7 @@ namespace Faithlife.Utility.Tests
 	}
 
 	// compare strings by length
-	class StringLengthComparer : IComparer<string>
+	internal class StringLengthComparer : IComparer<string>
 	{
 		public int Compare(string? x, string? y)
 		{
@@ -331,8 +330,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void EnqueueDequeueOrdered()
 		{
-			PriorityQueue<IntHolder> pq = new PriorityQueue<IntHolder>(m_comparer);
-			for (int i = 1; i <= 100; ++i)
+			var pq = new PriorityQueue<IntHolder>(m_comparer);
+			for (var i = 1; i <= 100; ++i)
 				pq.Enqueue(new IntHolder(i));
 			TestDequeueOrder(pq, 1, 100);
 		}
@@ -340,8 +339,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void EnqueueDequeueChange()
 		{
-			PriorityQueue<IntHolder> pq = new PriorityQueue<IntHolder>(m_comparer);
-			for (int i = 100; i >= 1; --i)
+			var pq = new PriorityQueue<IntHolder>(m_comparer);
+			for (var i = 100; i >= 1; --i)
 				pq.Enqueue(new IntHolder(i));
 			Assert.AreEqual(1, pq.Peek().Value);
 			pq.RepositionHead();
@@ -361,7 +360,7 @@ namespace Faithlife.Utility.Tests
 		{
 			// check that everything comes out in the correct order
 			Assert.AreEqual(nMaxItem - nMinItem + 1, pq.Count);
-			for (int nItem = nMinItem; nItem <= nMaxItem; ++nItem)
+			for (var nItem = nMinItem; nItem <= nMaxItem; ++nItem)
 			{
 				Assert.AreEqual(nItem, pq.Peek().Value);
 				Assert.AreEqual(nItem, pq.Dequeue().Value);
@@ -374,7 +373,7 @@ namespace Faithlife.Utility.Tests
 #pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 	}
 
-	class IntHolder
+	internal class IntHolder
 	{
 		public IntHolder(int i)
 		{
@@ -385,7 +384,7 @@ namespace Faithlife.Utility.Tests
 	}
 
 	// compare objects by value
-	class IntHolderComparer : IComparer<IntHolder>
+	internal class IntHolderComparer : IComparer<IntHolder>
 	{
 		public int Compare(IntHolder? x, IntHolder? y)
 		{

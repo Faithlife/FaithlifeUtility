@@ -18,8 +18,14 @@ namespace Faithlife.Utility.Tests
 				cachingStream.Dispose();
 
 				Assert.Throws<ObjectDisposedException>(() => { cachingStream.Flush(); });
-				Assert.Throws<ObjectDisposedException>(() => { var temp = cachingStream.Length; });
-				Assert.Throws<ObjectDisposedException>(() => { var temp = cachingStream.Position; });
+				Assert.Throws<ObjectDisposedException>(() =>
+				{
+					var temp = cachingStream.Length;
+				});
+				Assert.Throws<ObjectDisposedException>(() =>
+				{
+					var temp = cachingStream.Position;
+				});
 				Assert.Throws<ObjectDisposedException>(() => { cachingStream.Position = 1; });
 				Assert.Throws<ObjectDisposedException>(() => cachingStream.ReadByte());
 				Assert.Throws<ObjectDisposedException>(() => cachingStream.Read(new byte[10], 0, 1));
@@ -91,7 +97,7 @@ namespace Faithlife.Utility.Tests
 			using (var memoryStream = new MemoryStream(data, writable: false))
 			using (var cachingStream = new CachingStream(memoryStream, Ownership.Owns))
 			{
-				for (int i = 0; i < size; i++)
+				for (var i = 0; i < size; i++)
 					Assert.AreEqual(data[i], cachingStream.ReadByte());
 				Assert.AreEqual(size, (int) cachingStream.Position);
 
@@ -103,15 +109,15 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void SeekAndRead()
 		{
-			Random random = new Random(1);
+			var random = new Random(1);
 			var data = GenerateData(1234567);
 			using (var memoryStream = new MemoryStream(data, writable: false))
 			using (var cachingStream = new CachingStream(memoryStream, Ownership.Owns))
 			{
-				for (int i = 0; i < 100; i++)
+				for (var i = 0; i < 100; i++)
 				{
-					int offset = random.Next(data.Length - 100);
-					int length = random.Next(1, data.Length - offset);
+					var offset = random.Next(data.Length - 100);
+					var length = random.Next(1, data.Length - offset);
 
 					Assert.AreEqual(offset, cachingStream.Seek(offset, SeekOrigin.Begin));
 					var read = cachingStream.ReadExactly(length);
@@ -123,15 +129,15 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public async Task SeekAndReadAsync()
 		{
-			Random random = new Random(1);
+			var random = new Random(1);
 			var data = GenerateData(1234567);
 			using (var memoryStream = new MemoryStream(data, writable: false))
 			using (var cachingStream = new CachingStream(memoryStream, Ownership.Owns))
 			{
-				for (int i = 0; i < 100; i++)
+				for (var i = 0; i < 100; i++)
 				{
-					int offset = random.Next(data.Length - 100);
-					int length = random.Next(1, data.Length - offset);
+					var offset = random.Next(data.Length - 100);
+					var length = random.Next(1, data.Length - offset);
 
 					Assert.AreEqual(offset, cachingStream.Seek(offset, SeekOrigin.Begin));
 					var read = await cachingStream.ReadExactlyAsync(length);
@@ -143,14 +149,14 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void SeekAndCopyTo()
 		{
-			Random random = new Random(1);
+			var random = new Random(1);
 			var data = GenerateData(54321);
 			using (var memoryStream = new MemoryStream(data, writable: false))
 			using (var cachingStream = new CachingStream(memoryStream, Ownership.Owns))
 			{
-				for (int i = 0; i < 100; i++)
+				for (var i = 0; i < 100; i++)
 				{
-					int offset = random.Next(data.Length - 100);
+					var offset = random.Next(data.Length - 100);
 
 					Assert.AreEqual(offset, cachingStream.Seek(offset, SeekOrigin.Begin));
 
@@ -166,14 +172,14 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public async Task SeekAndCopyToAsync()
 		{
-			Random random = new Random(1);
+			var random = new Random(1);
 			var data = GenerateData(54321);
 			using (var memoryStream = new MemoryStream(data, writable: false))
 			using (var cachingStream = new CachingStream(memoryStream, Ownership.Owns))
 			{
-				for (int i = 0; i < 100; i++)
+				for (var i = 0; i < 100; i++)
 				{
-					int offset = random.Next(data.Length - 100);
+					var offset = random.Next(data.Length - 100);
 
 					Assert.AreEqual(offset, cachingStream.Seek(offset, SeekOrigin.Begin));
 
@@ -198,7 +204,7 @@ namespace Faithlife.Utility.Tests
 			using (var cachingStream = new CachingStream(memoryStream, Ownership.Owns))
 			{
 				cachingStream.Position = position;
-				byte[] buffer = new byte[10];
+				var buffer = new byte[10];
 				Assert.AreEqual(0, cachingStream.Read(buffer, 0, buffer.Length));
 			}
 		}
@@ -206,14 +212,14 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void SeekAndReadByte()
 		{
-			Random random = new Random(2);
+			var random = new Random(2);
 			var data = GenerateData(123456);
 			using (var memoryStream = new MemoryStream(data, writable: false))
 			using (var cachingStream = new CachingStream(memoryStream, Ownership.Owns))
 			{
-				for (int i = 0; i < 100; i++)
+				for (var i = 0; i < 100; i++)
 				{
-					int offset = random.Next(data.Length - 1);
+					var offset = random.Next(data.Length - 1);
 					cachingStream.Position = offset;
 					Assert.AreEqual(data[offset], cachingStream.ReadByte());
 				}
@@ -238,10 +244,10 @@ namespace Faithlife.Utility.Tests
 
 		private static byte[] GenerateData(int size)
 		{
-			byte[] results = new byte[size];
-			for (int index = 0; index < size; index++)
+			var results = new byte[size];
+			for (var index = 0; index < size; index++)
 			{
-				int value = index / 4;
+				var value = index / 4;
 				var temp = BitConverter.GetBytes(value);
 				results[index] = temp[index % 4];
 			}

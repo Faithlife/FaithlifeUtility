@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 
 namespace Faithlife.Utility
@@ -42,14 +41,14 @@ namespace Faithlife.Utility
 		/// the list of parameters (the behavior is undefined). If the key or value is null, the pair is ignored.</returns>
 		public static Uri FromPattern(string uriPattern, IEnumerable<KeyValuePair<string, string?>> parameters)
 		{
-			bool hasQuery = uriPattern.IndexOf('?') != -1;
+			var hasQuery = uriPattern.IndexOf('?') != -1;
 
 			foreach (var parameter in parameters)
 			{
 				if (parameter.Key is object && parameter.Value is object)
 				{
-					string bracketedKey = "{" + parameter.Key + "}";
-					int bracketedKeyIndex = uriPattern.IndexOf(bracketedKey, StringComparison.Ordinal);
+					var bracketedKey = "{" + parameter.Key + "}";
+					var bracketedKeyIndex = uriPattern.IndexOf(bracketedKey, StringComparison.Ordinal);
 					if (bracketedKeyIndex != -1)
 					{
 						uriPattern = uriPattern.Substring(0, bracketedKeyIndex) +
@@ -87,11 +86,11 @@ namespace Faithlife.Utility
 
 		private static IEnumerable<KeyValuePair<string, string?>> CreatePairsFromStrings(string[] strings)
 		{
-			int stringCount = strings.Length;
+			var stringCount = strings.Length;
 			if (stringCount % 2 == 1)
 				throw new ArgumentException("The number of strings must be even.");
 
-			for (int stringIndex = 0; stringIndex < stringCount; stringIndex += 2)
+			for (var stringIndex = 0; stringIndex < stringCount; stringIndex += 2)
 				yield return new KeyValuePair<string, string?>(strings[stringIndex], strings[stringIndex + 1]);
 		}
 	}

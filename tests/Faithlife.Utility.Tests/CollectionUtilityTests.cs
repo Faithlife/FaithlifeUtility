@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-
 using NUnit.Framework;
 
 namespace Faithlife.Utility.Tests
@@ -42,7 +41,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestAddIfNotNullToListOfStructs()
 		{
-			List<DateTime> listOfDates = new List<DateTime>();
+			var listOfDates = new List<DateTime>();
 
 			DateTime? undefined = null;
 			DateTime? today = DateTime.Now;
@@ -56,7 +55,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestAddIfNotNullToListOfObjects()
 		{
-			List<object> listOfObjects = new List<object>();
+			var listOfObjects = new List<object>();
 
 			listOfObjects.AddIfNotNull(null);
 			Assert.AreEqual(0, listOfObjects.Count);
@@ -67,7 +66,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestAddIfNotNullToListOfInts()
 		{
-			List<int> listOfInts = new List<int>();
+			var listOfInts = new List<int>();
 
 			int? undefined = null;
 			int? five = 5;
