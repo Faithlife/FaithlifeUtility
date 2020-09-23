@@ -31,7 +31,7 @@ namespace Faithlife.Utility
 		public static async Task<byte[]> ReadAllBytesAsync(this Stream stream, CancellationToken cancellationToken = default)
 		{
 			using var streamMemory = new MemoryStream();
-			await stream.CopyToAsync(streamMemory, 81920, cancellationToken);
+			await stream.CopyToAsync(streamMemory, 81920, cancellationToken).ConfigureAwait(false);
 			return streamMemory.ToArray();
 		}
 
