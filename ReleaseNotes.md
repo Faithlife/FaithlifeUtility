@@ -1,5 +1,9 @@
 # Release Notes
 
+## 0.10.1
+
+* Add missing `ConfigureAwait`.
+
 ## 0.10.0
 
 * Remove dependency on `JetBrains.Annotations`. Use source code copied from ReSharper » Options » Code Inspection » Code Annotations. (This allows the annotations to be seen by ReSharper where the library is used.)
@@ -27,9 +31,9 @@
 
 ## 0.5.0
 
-* [major] Remove `EnumerableUtility.ToHashSet()`.
-* [major] Seal `WrappingStream`.
-* [major] Introduce `WrappingStreamBase` and make it the base class of `CachingStream`, `ReadOnlyStream`, `RebasedStream`, and `TruncatedStream`. This fixes `CopyToAsync` for `RebasedStream` and `TruncatedStream`.
+* **Breaking**Remove `EnumerableUtility.ToHashSet()`.
+* **Breaking**Seal `WrappingStream`.
+* **Breaking**Introduce `WrappingStreamBase` and make it the base class of `CachingStream`, `ReadOnlyStream`, `RebasedStream`, and `TruncatedStream`. This fixes `CopyToAsync` for `RebasedStream` and `TruncatedStream`.
 
 ## 0.4.2
 
