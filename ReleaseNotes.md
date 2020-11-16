@@ -31,9 +31,9 @@
 
 ## 0.5.0
 
-* **Breaking**Remove `EnumerableUtility.ToHashSet()`.
-* **Breaking**Seal `WrappingStream`.
-* **Breaking**Introduce `WrappingStreamBase` and make it the base class of `CachingStream`, `ReadOnlyStream`, `RebasedStream`, and `TruncatedStream`. This fixes `CopyToAsync` for `RebasedStream` and `TruncatedStream`.
+* **Breaking** Remove `EnumerableUtility.ToHashSet()`.
+* **Breaking** Seal `WrappingStream`.
+* **Breaking** Introduce `WrappingStreamBase` and make it the base class of `CachingStream`, `ReadOnlyStream`, `RebasedStream`, and `TruncatedStream`. This fixes `CopyToAsync` for `RebasedStream` and `TruncatedStream`.
 
 ## 0.4.2
 
