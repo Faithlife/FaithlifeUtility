@@ -5,15 +5,18 @@ using System.Collections.Generic;
 namespace Faithlife.Utility
 {
 	/// <summary>
-	/// Implements a read-only wrapper around a <see cref="HashSet{T}"/>.
+	/// Implements a read-only wrapper around a <see cref="ISet{T}"/>.
 	/// </summary>
 	/// <typeparam name="T">The type of item in the ReadOnlySet.</typeparam>
 	public sealed class ReadOnlySet<T> : ISet<T>, IReadOnlyCollection<T>
+#if NET5
+		, IReadOnlySet<T>
+#endif
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ReadOnlySet{T}"/> class.
 		/// </summary>
-		/// <param name="set">The <see cref="HashSet{T}"/> to wrap.</param>
+		/// <param name="set">The <see cref="ISet{T}"/> to wrap.</param>
 		public ReadOnlySet(ISet<T> set)
 		{
 			m_set = set ?? throw new ArgumentNullException(nameof(set));
