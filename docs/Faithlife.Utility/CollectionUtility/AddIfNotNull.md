@@ -4,7 +4,6 @@ Adds the specified value to the collection if the value is not null.
 
 ```csharp
 public static void AddIfNotNull<T>(this ICollection<T> collection, T value)
-    where T : class
 ```
 
 | parameter | description |

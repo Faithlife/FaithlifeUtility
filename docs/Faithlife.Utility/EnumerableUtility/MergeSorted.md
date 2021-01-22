@@ -7,16 +7,6 @@ public static IEnumerable<T> MergeSorted<T>(IEnumerable<T> source1, IEnumerable<
     IComparer<T> comparer)
 ```
 
-| parameter | description |
-| --- | --- |
-| source1 | a sorted sequence |
-| source2 | a sorted sequence |
-| comparer | a comparer by which both input sequences must already be sorted, and by which the result will be sorted |
-
-## Return Value
-
-a sorted sequence
-
 ## See Also
 
 * class [EnumerableUtility](../EnumerableUtility.md)

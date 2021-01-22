@@ -6,10 +6,6 @@ Event arguments that contain a single value.
 public class GenericEventArgs<T> : EventArgs
 ```
 
-| parameter | description |
-| --- | --- |
-| T |  |
-
 ## Public Members
 
 | name | description |

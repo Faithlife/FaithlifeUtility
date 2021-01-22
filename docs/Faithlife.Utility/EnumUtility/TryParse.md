@@ -97,8 +97,8 @@ public static bool TryParse<T>(string value, CaseSensitivity caseSensitivity, ou
 | --- | --- |
 | T | The enumerated value type. |
 | value | The string. |
-| result | The resulting enumerated value. |
 | caseSensitivity | The case sensitivity. |
+| result | The resulting enumerated value. |
 
 ## Return Value
 

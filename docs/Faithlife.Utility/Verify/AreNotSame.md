@@ -6,17 +6,6 @@ Throws InvalidOperationException if the parameters are the same object.
 public static void AreNotSame(object objA, object objB)
 ```
 
-| parameter | description |
-| --- | --- |
-| objA | A parameter to check. |
-| objB | A parameter to check. |
-
-## Exceptions
-
-| exception | condition |
-| --- | --- |
-| InvalidOperationException | The parameters are the same object. |
-
 ## See Also
 
 * class [Verify](../Verify.md)

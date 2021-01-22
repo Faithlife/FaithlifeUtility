@@ -13,10 +13,6 @@ public static bool AreEquivalent<T>(T left, T right)
 | left | The left object. |
 | right | The right object. |
 
-## Return Value
-
-True if the objects are equivalent.
-
 ## See Also
 
 * interface [IHasEquivalence&lt;T&gt;](../IHasEquivalence-1.md)

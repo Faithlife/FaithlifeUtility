@@ -6,10 +6,6 @@ True if the encoder should prevent double-encoding.
 public bool PreventDoubleEncoding { get; set; }
 ```
 
-## Property Value
-
-True if the encoder should prevent double-encoding.
-
 ## Remarks
 
 The default value for this property is false. If set to true, the encoder will avoid encoding the byte prefix character if it looks like it is already being used to encode a byte.

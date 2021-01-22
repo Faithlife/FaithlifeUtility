@@ -13,10 +13,6 @@ public static bool SequenceEquivalent<T>(this IEnumerable<T> source, IEnumerable
 | source | The sequence. |
 | other | The other sequence. |
 
-## Return Value
-
-True if the sequences are equivalent.
-
 ## See Also
 
 * interface [IHasEquivalence&lt;T&gt;](../IHasEquivalence-1.md)
