@@ -113,7 +113,7 @@ namespace Faithlife.Utility
 				.GetTypeInfo()
 				.GetDeclaredMethods("Create")
 				.FirstOrDefault(x => x.IsStatic && x.GetParameters().Select(p => p.ParameterType).SequenceEqual(new[] { typeof(CultureInfo), typeof(bool) }));
-			if (create is object)
+			if (create is not null)
 				return (StringComparer) create.Invoke(null, new object[] { cultureInfo, ignoreCase });
 
 			// return comparer that implements Compare and Equals but not GetHashCode
@@ -949,7 +949,7 @@ namespace Faithlife.Utility
 							WriteToStream(bytes, bytesUsed);
 						}
 
-						if (m_holdingStream is object)
+						if (m_holdingStream is not null)
 						{
 							// write holding stream without compression
 							var uncompressedByteCount = (int) m_holdingStream.Length;
@@ -958,7 +958,7 @@ namespace Faithlife.Utility
 							m_stream.Write(m_holdingStream.ToArray(), 0, uncompressedByteCount);
 							DisposableUtility.Dispose(ref m_holdingStream);
 						}
-						else if (m_zipStream is object)
+						else if (m_zipStream is not null)
 						{
 							// flush and dispose compression stream
 							DisposableUtility.Dispose(ref m_zipStream);
@@ -1008,7 +1008,7 @@ namespace Faithlife.Utility
 							m_zipStream = GzipUtility.CreateCompressingWriteStream(m_stream, Ownership.None);
 
 							// write any held bytes
-							if (m_holdingStream is object)
+							if (m_holdingStream is not null)
 							{
 								m_zipStream.Write(m_holdingStream.ToArray(), 0, (int) m_holdingStream.Length);
 								DisposableUtility.Dispose(ref m_holdingStream);

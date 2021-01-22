@@ -19,7 +19,7 @@ namespace Faithlife.Utility
 		/// <param name="second">The second sequence.</param>
 		/// <returns><c>True</c> if the sequences are equal.</returns>
 		public static bool AreEqual<T>(IEnumerable<T>? first, IEnumerable<T>? second)
-			=> first is object ? second is object && first.SequenceEqual(second) : second is null;
+			=> first is not null ? second is not null && first.SequenceEqual(second) : second is null;
 
 		/// <summary>
 		/// Returns a value indicating whether the specified sequences are equal using the specified equality comparer. Supports one or both sequences being null.
@@ -29,7 +29,7 @@ namespace Faithlife.Utility
 		/// <param name="comparer">The comparer.</param>
 		/// <returns><c>True</c> if the sequences are equal.</returns>
 		public static bool AreEqual<T>(IEnumerable<T>? first, IEnumerable<T>? second, IEqualityComparer<T>? comparer)
-			=> first is object ? second is object && first.SequenceEqual(second, comparer) : second is null;
+			=> first is not null ? second is not null && first.SequenceEqual(second, comparer) : second is null;
 
 		/// <summary>
 		/// Returns a value indicating whether the specified sequences are equal using the specified equality comparer. Supports one or both sequences being null.
@@ -677,7 +677,7 @@ namespace Faithlife.Utility
 			{
 				foreach (var t in source)
 				{
-					if (t is object)
+					if (t is not null)
 						yield return t;
 				}
 			}

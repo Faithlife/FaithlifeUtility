@@ -29,7 +29,7 @@ namespace Faithlife.Utility
 				(s, e) =>
 				{
 					var t = (TTarget) weakTarget.Target;
-					if (t is object)
+					if (t is not null)
 						action(t, s, e);
 					else
 						info.RemoveHandler(source, handler);
@@ -62,7 +62,7 @@ namespace Faithlife.Utility
 				(s, e) =>
 				{
 					var t = (TTarget) weakTarget.Target;
-					if (t is object)
+					if (t is not null)
 						action(t, s, e);
 					else
 						info.RemoveHandler(source, handler);

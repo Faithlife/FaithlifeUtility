@@ -50,7 +50,7 @@ namespace Faithlife.Utility
 			[AssertionCondition(AssertionConditionType.IS_NULL)]
 			object? obj)
 		{
-			if (obj is object)
+			if (obj is not null)
 				throw new InvalidOperationException();
 		}
 

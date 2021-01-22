@@ -15,7 +15,7 @@ namespace Faithlife.Utility
 		public static void Dispose<T>(ref T? obj)
 			where T : class, IDisposable
 		{
-			if (obj is object)
+			if (obj is not null)
 			{
 				obj.Dispose();
 				obj = null;

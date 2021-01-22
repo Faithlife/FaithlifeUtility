@@ -52,7 +52,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		public void Dispose()
 		{
-			if (m_dispose is object)
+			if (m_dispose is not null)
 			{
 				m_dispose();
 				m_dispose = null;

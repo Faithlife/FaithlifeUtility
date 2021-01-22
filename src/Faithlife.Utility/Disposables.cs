@@ -71,7 +71,7 @@ namespace Faithlife.Utility
 				m_list = null;
 			}
 
-			if (list is object)
+			if (list is not null)
 			{
 				var count = list.Count;
 				for (var index = count - 1; index >= 0; index--)

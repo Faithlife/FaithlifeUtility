@@ -45,7 +45,7 @@ namespace Faithlife.Utility
 
 			foreach (var parameter in parameters)
 			{
-				if (parameter.Key is object && parameter.Value is object)
+				if (parameter.Key is not null && parameter.Value is not null)
 				{
 					var bracketedKey = "{" + parameter.Key + "}";
 					var bracketedKeyIndex = uriPattern.IndexOf(bracketedKey, StringComparison.Ordinal);

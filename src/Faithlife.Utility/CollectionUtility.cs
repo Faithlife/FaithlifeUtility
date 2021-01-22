@@ -43,7 +43,7 @@ namespace Faithlife.Utility
 		/// <param name="value">The value to add. May be null.</param>
 		public static void AddIfNotNull<T>(this ICollection<T> collection, T? value)
 		{
-			if (value is object)
+			if (value is not null)
 				collection.Add(value);
 		}
 

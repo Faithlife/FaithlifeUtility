@@ -22,7 +22,7 @@ namespace Faithlife.Utility
 				// NOTE: From http://msdn.microsoft.com/en-us/library/system.uribuilder.query.aspx:
 				// Do not append a string directly to this property. If the length of Query is greater than 1, retrieve the property value as a string,
 				// remove the leading question mark, append the new query string, and set the property with the combined string.
-				if (builder.Query is object && builder.Query.Length > 1)
+				if (builder.Query is not null && builder.Query.Length > 1)
 					builder.Query = builder.Query.Substring(1) + "&" + query;
 				else
 					builder.Query = query;

@@ -72,7 +72,7 @@ namespace Faithlife.Utility
 		/// Retrieves the hash code of the object returned by the Value property.
 		/// </summary>
 		/// <returns>The hash code of the object returned by the Value property if the HasValue property is true and the Value is not null; otherwise zero.</returns>
-		public override int GetHashCode() => HasValue && m_value is object ? EqualityComparer<T>.Default.GetHashCode(m_value) : 0;
+		public override int GetHashCode() => HasValue && m_value is not null ? EqualityComparer<T>.Default.GetHashCode(m_value) : 0;
 
 		/// <summary>
 		/// Retrieves the value of the current Optional{T} object, or the object's default value.
@@ -91,7 +91,7 @@ namespace Faithlife.Utility
 		/// Returns the text representation of the value of the current Optional{T} object.
 		/// </summary>
 		/// <returns>The text representation of the object returned by the Value property if the HasValue property is true and the Value is not null; otherwise the empty string.</returns>
-		public override string ToString() => HasValue && m_value is object ? m_value.ToString() : "";
+		public override string ToString() => HasValue && m_value is not null ? m_value.ToString() : "";
 
 		/// <summary>
 		/// Creates a new Optional{T} object initialized to a specified value.

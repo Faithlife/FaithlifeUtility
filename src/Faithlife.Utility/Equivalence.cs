@@ -29,7 +29,7 @@ namespace Faithlife.Utility
 		/// <returns>True if the sequence are equivalent.</returns>
 		public static bool AreSequencesEquivalent<T>(IEnumerable<T>? left, IEnumerable<T>? right)
 			where T : IHasEquivalence<T>
-			=> left is null ? right is null : right is object && left.SequenceEquivalent(right);
+			=> left is null ? right is null : right is not null && left.SequenceEquivalent(right);
 
 		/// <summary>
 		/// Returns an equality comparer that calls IHasEquivalence.IsEquivalentTo.
@@ -93,7 +93,7 @@ namespace Faithlife.Utility
 						return (IEqualityComparer<T>) Activator.CreateInstance(typeof(EquivalenceComparer<,>).MakeGenericType(typeof(T), type));
 					type = type.GetBaseType();
 				}
-				while (type is object);
+				while (type is not null);
 
 				return null;
 			}
