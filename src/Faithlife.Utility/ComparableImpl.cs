@@ -17,7 +17,8 @@ namespace Faithlife.Utility
 		/// instance of T.</exception>
 		/// <remarks>Does not check whether <paramref name="that"/> is null,
 		/// since <c>this</c> should always be used.</remarks>
-		public static int CompareToObject<T>(T that, object? obj) where T : IComparable<T> =>
+		public static int CompareToObject<T>(T that, object? obj)
+			where T : IComparable<T> =>
 			obj switch
 			{
 				null => 1,

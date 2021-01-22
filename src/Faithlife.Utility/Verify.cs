@@ -72,9 +72,6 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Throws <see cref="InvalidOperationException" /> if the parameters are not the same object.
 		/// </summary>
-		/// <param name="objA">A parameter to check.</param>
-		/// <param name="objB">A parameter to check.</param>
-		/// <exception cref="InvalidOperationException">The parameters are not the same object.</exception>
 		[DebuggerNonUserCode]
 		public static void AreSame(object? objA, object? objB)
 		{
@@ -85,9 +82,6 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Throws <see cref="InvalidOperationException" /> if the parameters are the same object.
 		/// </summary>
-		/// <param name="objA">A parameter to check.</param>
-		/// <param name="objB">A parameter to check.</param>
-		/// <exception cref="InvalidOperationException">The parameters are the same object.</exception>
 		[DebuggerNonUserCode]
 		public static void AreNotSame(object? objA, object? objB)
 		{

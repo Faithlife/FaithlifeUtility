@@ -104,7 +104,7 @@ namespace Faithlife.Utility
 				}
 			}
 
-			// We did not find the key. l and r must be equal. 
+			// We did not find the key. l and r must be equal.
 			Debug.Assert(l == r, "l == r");
 			index = l;
 			return 0;

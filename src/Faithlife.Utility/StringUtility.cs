@@ -1211,6 +1211,38 @@ namespace Faithlife.Utility
 			private bool m_isDisposed;
 		}
 
+		private sealed class PortableStringComparer : StringComparer
+		{
+			public PortableStringComparer(CultureInfo cultureInfo, bool ignoreCase)
+			{
+				m_cultureInfo = cultureInfo;
+				m_ignoreCase = ignoreCase;
+			}
+
+			public override int Compare(string x, string y) =>
+				(x, y) switch
+				{
+					(_, _) when ReferenceEquals(x, y) => 0,
+					(null, _) => -1,
+					(_, null) => 1,
+					(_, _) => m_cultureInfo.CompareInfo.Compare(x, y, m_ignoreCase ? CompareOptions.IgnoreCase : CompareOptions.None),
+				};
+
+			public override bool Equals(string x, string y) => Compare(x, y) == 0;
+
+			public override int GetHashCode(string obj)
+			{
+				if (m_cultureInfo == CultureInfo.CurrentCulture)
+					return m_ignoreCase ? obj.ToLower().GetHashCode() : obj.GetHashCode();
+
+				// PCL doesn't support StringComparer.Create or any other way to get the hash code of a string for an arbitrary culture
+				throw new NotSupportedException("StringComparer.GetHashCode only supported for current culture.");
+			}
+
+			private readonly CultureInfo m_cultureInfo;
+			private readonly bool m_ignoreCase;
+		}
+
 		private const int c_compressedStringUsingGzip = 1;
 		private const int c_compressedStringUsingUtf8 = 2;
 
@@ -1221,58 +1253,5 @@ namespace Faithlife.Utility
 			0, 0, 0, 0, 0, 0, 0, 0,
 			0, 0, 0, 0x2000, 0xf800, 0xf800, 0xf800, 0xf800,
 		});
-	}
-
-	/// <summary>
-	/// Culture-aware string comparer.
-	/// </summary>
-	internal sealed class PortableStringComparer : StringComparer
-	{
-		/// <summary>
-		/// Initializes a new instance of the <see cref="Faithlife.Utility.PortableStringComparer"/> class.
-		/// </summary>
-		/// <param name="cultureInfo">Culture info.</param>
-		/// <param name="ignoreCase">If set to <c>true</c> ignore case.</param>
-		public PortableStringComparer(CultureInfo cultureInfo, bool ignoreCase)
-		{
-			m_cultureInfo = cultureInfo;
-			m_ignoreCase = ignoreCase;
-		}
-
-		/// <summary>
-		/// Compare the specified strings.
-		/// </summary>
-		public override int Compare(string x, string y) =>
-			(x, y) switch
-			{
-				(_, _) when ReferenceEquals(x, y) => 0,
-				(null, _) => -1,
-				(_, null) => 1,
-				(_, _) => m_cultureInfo.CompareInfo.Compare(x, y, m_ignoreCase ? CompareOptions.IgnoreCase : CompareOptions.None),
-			};
-
-		/// <summary>
-		/// Check the specified strings for equality.
-		/// </summary>
-		public override bool Equals(string x, string y) => Compare(x, y) == 0;
-
-		/// <Docs>The object for which the hash code is to be returned.</Docs>
-		/// <para>Returns a hash code for the specified object.</para>
-		/// <returns>A hash code for the specified object.</returns>
-		/// <summary>
-		/// Gets the hash code.
-		/// </summary>
-		/// <param name="obj">Object.</param>
-		public override int GetHashCode(string obj)
-		{
-			if (m_cultureInfo == CultureInfo.CurrentCulture)
-				return m_ignoreCase ? obj.ToLower().GetHashCode() : obj.GetHashCode();
-
-			// PCL doesn't support StringComparer.Create or any other way to get the hash code of a string for an arbitrary culture
-			throw new NotSupportedException("StringComparer.GetHashCode only supported for current culture.");
-		}
-
-		private readonly CultureInfo m_cultureInfo;
-		private readonly bool m_ignoreCase;
 	}
 }

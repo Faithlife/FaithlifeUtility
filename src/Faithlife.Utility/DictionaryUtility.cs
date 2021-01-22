@@ -68,7 +68,8 @@ namespace Faithlife.Utility
 		/// <param name="dictionary">The dictionary.</param>
 		/// <param name="key">The key.</param>
 		/// <returns>The new or existing value.</returns>
-		public static TValue GetOrAddValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key) where TValue : new()
+		public static TValue GetOrAddValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
+			where TValue : new()
 		{
 			if (dictionary.TryGetValue(key, out var value))
 				return value;

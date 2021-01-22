@@ -5,7 +5,6 @@ namespace Faithlife.Utility
 	/// <summary>
 	/// Event arguments that contain a single value.
 	/// </summary>
-	/// <typeparam name="T"></typeparam>
 	public class GenericEventArgs<T> : EventArgs
 	{
 		/// <summary>

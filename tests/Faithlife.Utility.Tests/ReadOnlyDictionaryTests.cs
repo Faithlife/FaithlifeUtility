@@ -11,7 +11,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void ConstructorArgumentNullException()
 		{
-			Assert.Throws<ArgumentNullException>(() => new ReadOnlyDictionary<int, int>(null));
+			Assert.Throws<ArgumentNullException>(() => new ReadOnlyDictionary<int, int>(null!));
 		}
 
 		[Test]

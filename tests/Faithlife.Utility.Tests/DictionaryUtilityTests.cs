@@ -242,7 +242,6 @@ namespace Faithlife.Utility.Tests
 #pragma warning restore CS0618 // Type or member is obsolete
 		}
 
-
 		[Test]
 		public void GetValueOrDefaultWithFunc()
 		{

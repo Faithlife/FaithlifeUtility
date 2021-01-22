@@ -2,7 +2,6 @@ using System;
 using NUnit.Framework;
 
 // ReSharper disable AccessToModifiedClosure
-
 namespace Faithlife.Utility.Tests
 {
 	[TestFixture]
@@ -175,92 +174,5 @@ namespace Faithlife.Utility.Tests
 
 			[ThreadStatic] private static int m_nRaiseCount;
 		}
-
-#if false
-		class Program
-		{
-			static void Main()
-			{
-				EventSource eventSource = new EventSource();
-
-
-		#region AddHandler/RemoveHandler
-
-				EventHandler fn = () => { Console.Write("Updated! "); };
-				EventSource.UpdatedEvent.AddHandler(eventSource, fn);
-				EventHandler<CancelEventArgs> fn2 = () => { Console.Write("Closed! "); };
-				EventSource.ClosedEvent.AddHandler(eventSource, fn2);
-				CancelEventHandler fn3 = () => { Console.Write("Terminated! "); };
-				EventSource.TerminatedEvent.AddHandler(eventSource, fn3);
-
-				Console.Write("\nYes: ");
-				eventSource.RaiseEvents();
-
-				EventSource.UpdatedEvent.RemoveHandler(eventSource, fn);
-				EventSource.ClosedEvent.RemoveHandler(eventSource, fn2);
-				EventSource.TerminatedEvent.RemoveHandler(eventSource, fn3);
-
-				Console.Write("\nNo: ");
-				eventSource.RaiseEvents();
-
-		#endregion
-
-
-		#region Subscribe
-
-				using (EventSource.UpdatedEvent.Subscribe(eventSource, () => { Console.Write("Updated! "); }))
-				using (EventSource.ClosedEvent.Subscribe(eventSource, () => { Console.Write("Closed! "); }))
-				using (EventSource.TerminatedEvent.Subscribe(eventSource, () => { Console.Write("Terminated!"); }))
-				{
-					Console.Write("\nYes: ");
-					eventSource.RaiseEvents();
-				}
-
-				Console.Write("\nNo: ");
-				eventSource.RaiseEvents();
-
-		#endregion
-
-
-		#region WeakSubscribe (disposed)
-
-				using (new EventTarget(eventSource))
-				{
-					Console.Write("\nYes: ");
-					eventSource.RaiseEvents();
-				}
-
-				Console.Write("\nNo: ");
-				eventSource.RaiseEvents();
-
-		#endregion
-
-
-		#region WeakSubscribe (collected)
-
-				CreateEventTarget(eventSource);
-
-				GC.Collect();
-
-				Console.Write("\nNo: ");
-				eventSource.RaiseEvents();
-
-		#endregion
-
-
-				Console.WriteLine();
-			}
-
-			private static void CreateEventTarget(EventSource eventSource)
-			{
-				EventTarget target = new EventTarget(eventSource);
-
-				Console.Write("\nYes: ");
-				eventSource.RaiseEvents();
-
-				GC.KeepAlive(target);
-			}
-		}
-#endif
 	}
 }

@@ -31,7 +31,7 @@ namespace Faithlife.Utility.Tests
 			Assert.AreEqual(2, readOnlyList[1]);
 			Assert.Throws<ArgumentOutOfRangeException>(() =>
 			{
-				var _ = readOnlyList[4];
+				_ = readOnlyList[4];
 			});
 		}
 

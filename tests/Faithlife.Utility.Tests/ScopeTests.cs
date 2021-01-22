@@ -61,9 +61,9 @@ namespace Faithlife.Utility.Tests
 
 		private class MyClosable
 		{
-			public bool IsClosed { get { return m_bClosed; } }
-			public void Close() { m_bClosed = true; }
-			public void AnotherClose() { m_bClosed = true; }
+			public bool IsClosed => m_bClosed;
+			public void Close() => m_bClosed = true;
+			public void AnotherClose() => m_bClosed = true;
 			private bool m_bClosed;
 		}
 	}

@@ -180,19 +180,19 @@ namespace Faithlife.Utility.Tests
 
 		private static int CompareItemToKey(SearchData bsd, int nKey)
 		{
-			return bsd.nKey - nKey;
+			return bsd.Key - nKey;
 		}
 
 		private struct SearchData
 		{
 			public SearchData(int k, int v)
 			{
-				nKey = k;
-				nValue = v;
+				Key = k;
+				Value = v;
 			}
 
-			public readonly int nKey;
-			public int nValue;
+			public readonly int Key;
+			public int Value;
 		}
 	}
 }

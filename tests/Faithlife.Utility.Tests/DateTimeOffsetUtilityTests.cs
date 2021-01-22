@@ -107,7 +107,7 @@ namespace Faithlife.Utility.Tests
 		public void ParseLegacyFormat()
 		{
 			var strDateTime = "2009-06-09T14:59:23Z";
-			var dtExpected = new DateTimeOffset(2009, 6, 9, 14, 59, 23, new TimeSpan());
+			var dtExpected = new DateTimeOffset(2009, 6, 9, 14, 59, 23, default);
 
 			var dt = DateTimeOffsetUtility.ParseIso8601(strDateTime);
 			Assert.AreEqual(dtExpected, dt);

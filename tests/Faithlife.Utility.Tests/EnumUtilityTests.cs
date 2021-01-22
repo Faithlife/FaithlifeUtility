@@ -44,7 +44,6 @@ namespace Faithlife.Utility.Tests
 			CollectionAssert.AreEqual(
 				new[] { DayOfWeek.Sunday, DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday },
 				EnumUtility.GetValues<DayOfWeek>());
-			CollectionAssert.AreEqual(new[] { StringSplitOptions.None, StringSplitOptions.RemoveEmptyEntries }, EnumUtility.GetValues<StringSplitOptions>());
 		}
 	}
 }

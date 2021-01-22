@@ -12,7 +12,8 @@ namespace Faithlife.Utility
 		/// Disposes and nulls the specified object.
 		/// </summary>
 		/// <param name="obj">The object to dispose and null.</param>
-		public static void Dispose<T>(ref T? obj) where T : class, IDisposable
+		public static void Dispose<T>(ref T? obj)
+			where T : class, IDisposable
 		{
 			if (obj is object)
 			{
@@ -42,7 +43,8 @@ namespace Faithlife.Utility
 		/// <param name="disposable">The object to dispose.</param>
 		/// <param name="action">The delegate to execute before disposing the object.</param>
 		/// <returns>The value returned by the delegate.</returns>
-		public static TOutput DisposeAfter<TInput, TOutput>(this TInput disposable, Func<TInput, TOutput> action) where TInput : IDisposable
+		public static TOutput DisposeAfter<TInput, TOutput>(this TInput disposable, Func<TInput, TOutput> action)
+			where TInput : IDisposable
 		{
 			using (disposable)
 				return action(disposable);
@@ -56,7 +58,8 @@ namespace Faithlife.Utility
 		/// <param name="disposable">The object to dispose.</param>
 		/// <param name="action">The delegate to execute before disposing the object.</param>
 		/// <returns>The value returned by the delegate.</returns>
-		public static TOutput DisposeAfter<TInput, TOutput>(this TInput disposable, Func<TOutput> action) where TInput : IDisposable
+		public static TOutput DisposeAfter<TInput, TOutput>(this TInput disposable, Func<TOutput> action)
+			where TInput : IDisposable
 		{
 			using (disposable)
 				return action();
@@ -68,7 +71,8 @@ namespace Faithlife.Utility
 		/// <typeparam name="T">The type of the input</typeparam>
 		/// <param name="disposable">The object to dispose.</param>
 		/// <param name="action">The delegate to execute before disposing the object.</param>
-		public static void DisposeAfter<T>(this T disposable, Action<T> action) where T : IDisposable
+		public static void DisposeAfter<T>(this T disposable, Action<T> action)
+			where T : IDisposable
 		{
 			using (disposable)
 				action(disposable);
@@ -80,7 +84,8 @@ namespace Faithlife.Utility
 		/// <typeparam name="T">The type of the input</typeparam>
 		/// <param name="disposable">The object to dispose.</param>
 		/// <param name="action">The delegate to execute before disposing the object.</param>
-		public static void DisposeAfter<T>(this T disposable, Action action) where T : IDisposable
+		public static void DisposeAfter<T>(this T disposable, Action action)
+			where T : IDisposable
 		{
 			using (disposable)
 				action();

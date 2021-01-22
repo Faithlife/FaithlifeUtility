@@ -14,9 +14,10 @@ namespace Faithlife.Utility
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="PriorityQueue{T}"/> class that is empty, has the default initial capacity,
-		/// and is sorted according to the default <see cref="Comparer{T}"/> for the type of the data. 
+		/// and is sorted according to the default <see cref="Comparer{T}"/> for the type of the data.
 		/// </summary>
-		public PriorityQueue() : this(0, null)
+		public PriorityQueue()
+			: this(0, null)
 		{
 		}
 
@@ -25,18 +26,20 @@ namespace Faithlife.Utility
 		/// and is sorted according to the default <see cref="Comparer{T}"/> for the type of the data.
 		/// </summary>
 		/// <param name="capacity">The initial capacity.</param>
-		public PriorityQueue(int capacity) : this(capacity, null)
+		public PriorityQueue(int capacity)
+			: this(capacity, null)
 		{
 		}
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="PriorityQueue{T}"/> class that is empty, has the default initial capacity,
-		/// and is sorted according to the specified <see cref="IComparer{T}"/>. 
+		/// and is sorted according to the specified <see cref="IComparer{T}"/>.
 		/// </summary>
 		/// <param name="comparer">The <see cref="IComparer{T}"/> implementation to use when comparing items.<br/>
 		/// -or-<br/>
 		/// a null reference to use the default <see cref="Comparer{T}"/> for the type of the data.</param>
-		public PriorityQueue(IComparer<T>? comparer) : this(0, comparer)
+		public PriorityQueue(IComparer<T>? comparer)
+			: this(0, comparer)
 		{
 		}
 

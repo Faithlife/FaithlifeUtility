@@ -51,7 +51,6 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// True if the encoder should prevent double-encoding.
 		/// </summary>
-		/// <value>True if the encoder should prevent double-encoding.</value>
 		/// <remarks>The default value for this property is false. If set to true, the encoder
 		/// will avoid encoding the byte prefix character if it looks like it is already being used
 		/// to encode a byte.</remarks>

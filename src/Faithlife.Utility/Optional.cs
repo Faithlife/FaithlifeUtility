@@ -13,7 +13,7 @@ namespace Faithlife.Utility
 	public readonly struct Optional<T> : IEquatable<Optional<T>>, IOptional
 	{
 		/// <summary>
-		/// Initializes a new instance of the Optional{T} structure to the specified value. 
+		/// Initializes a new instance of the Optional{T} structure to the specified value.
 		/// </summary>
 		/// <param name="value">The value.</param>
 		public Optional(T value)
@@ -94,7 +94,7 @@ namespace Faithlife.Utility
 		public override string ToString() => HasValue && m_value is object ? m_value.ToString() : "";
 
 		/// <summary>
-		/// Creates a new Optional{T} object initialized to a specified value. 
+		/// Creates a new Optional{T} object initialized to a specified value.
 		/// </summary>
 		/// <param name="value">A value type.</param>
 		/// <returns>An Optional{T} object whose Value property is initialized with the value parameter.</returns>

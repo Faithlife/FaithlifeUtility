@@ -177,22 +177,6 @@ namespace Faithlife.Utility.Tests
 			Assert.AreEqual(sbReversed.ToString(), StringUtility.Reverse(sbForward.ToString()));
 		}
 
-		// TODO: is this a valid test?
-		//#if !__MOBILE__
-		//		// The Mono C# compiler has a fit with these strings for reasons
-		//		// that have yet to be investigated.
-		//		[TestCase("\uD800", "\uD800")]
-		//		[TestCase("Z\uD800", "\uD800Z")]
-		//		[TestCase("Z\uD800\uD801", "\uD801\uD800Z")]
-		//		[TestCase("Z\uD800\uDC00\uDC01", "\uDC01\uD800\uDC00Z")]
-		//		public void ReverseMalformed(string strInput, string strReversed)
-		//		{
-		//			Assert.AreEqual(strReversed, StringUtility.Reverse(strInput));
-		//			Assert.AreEqual(strInput, StringUtility.Reverse(strReversed));
-		//			Assert.AreEqual(strInput, StringUtility.Reverse(StringUtility.Reverse(strInput)));
-		//		}
-		//#endif
-
 		[TestCase(null, "", -1)]
 		[TestCase(null, null, 0)]
 		[TestCase("", "", 0)]
@@ -226,21 +210,21 @@ namespace Faithlife.Utility.Tests
 			}
 		}
 
-		// Latin
+		//// Latin
 		[TestCase("ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")]
 		[TestCase("ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏ", "àáâãäåæçèéêëìíîï")]
 		[TestCase("ÐÑÒÓÔÕÖØÙÚÛÜÝÞ", "ðñòóôõöøùúûüýþ")]
 		[TestCase("SSßss", "ssssss")]
 		[TestCase("µ", "μ")]
 		[TestCase("ſ", "s")]
-		// Latin ligatures
+		//// Latin ligatures
 		[TestCase("ﬀﬁﬂﬃﬄﬅﬆ", "fffiflffifflstst")]
 		[TestCase("Ǆǅǆ", "ǆǆǆ")]
 		[TestCase("Ǳǲǳ", "ǳǳǳ")]
 		[TestCase("Ǉǈǉ", "ǉǉǉ")]
 		[TestCase("Ǌǋǌ", "ǌǌǌ")]
 		[TestCase("J̌ǰǰ", "ǰǰǰ")]
-		// extended Latin and IPA
+		//// extended Latin and IPA
 		[TestCase("ĀĂĄĆĈĊČĎĐĒĔĖĘĚĜĞĠĢĤĦĨĪĬĮİĲĴĶĹĻĽĿŁ", "āăąćĉċčďđēĕėęěĝğġģĥħĩīĭįi̇ĳĵķĺļľŀł")]
 		[TestCase("ŃŅŇŊŌŎŐŒŔŖŘŚŜŞŠŢŤŦŨŪŬŮŰŲŴŶŸŹŻŽ", "ńņňŋōŏőœŕŗřśŝşšţťŧũūŭůűųŵŷÿźżž")]
 		[TestCase("ŉ", "ʼn")]
@@ -260,7 +244,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase("ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫⅬⅭⅮⅯↃ", "ⅰⅱⅲⅳⅴⅵⅶⅷⅸⅹⅺⅻⅼⅽⅾⅿↄ")]
 		[TestCase("ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏ", "ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ")]
 		[TestCase("ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ", "ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ")]
-		// Greek
+		//// Greek
 		[TestCase("ᾼᾼΑιᾳᾳαι", "αιαιαιαιαιαι")]
 		[TestCase("ΆΈΉΊΌΎΏΪΫ", "άέήίόύώϊϋ")]
 		[TestCase("ΐΰΐΰ", "ΐΰΐΰ")]
@@ -286,26 +270,26 @@ namespace Faithlife.Utility.Tests
 		[TestCase("ῒΐῖῗῘῙῚΊ", "ῒΐῖῗῐῑὶί")]
 		[TestCase("ῢΰῤῦῧῨῩῪΎῬ", "ῢΰῤῦῧῠῡὺύῥ")]
 		[TestCase("ῲῳῴῶῷῸΌῺΏῼ", "ὼιωιώιῶῶιὸόὼώωι")]
-		// Coptic
+		//// Coptic
 		[TestCase("ϢϤϦϨϪϬϮ", "ϣϥϧϩϫϭϯ")]
 		[TestCase("ⲀⲂⲄⲆⲈⲊⲌⲎⲐⲒⲔⲖⲘⲚⲜⲞⲠⲢⲤⲦⲨⲪⲬⲮⲰⲲⲴⲶⲸⲺⲼⲾⳀⳂⳄⳆⳈⳊⳌⳎⳐⳒⳔⳖⳘⳚⳜⳞⳠⳢ", "ⲁⲃⲅⲇⲉⲋⲍⲏⲑⲓⲕⲗⲙⲛⲝⲟⲡⲣⲥⲧⲩⲫⲭⲯⲱⲳⲵⲷⲹⲻⲽⲿⳁⳃⳅⳇⳉⳋⳍⳏⳑⳓⳕⳗⳙⳛⳝⳟⳡⳣ")]
-		// Cyrillic
+		//// Cyrillic
 		[TestCase("АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ", "абвгдежзийклмнопрстуфхцчшщъыьэюя")]
 		[TestCase("ЀЁЂЃЄЅІЇЈЉЊЋЌЍЎЏ", "ѐёђѓєѕіїјљњћќѝўџ")]
 		[TestCase("ѠѢѤѦѨѪѬѮѰѲѴѶѸѺѼѾҀ", "ѡѣѥѧѩѫѭѯѱѳѵѷѹѻѽѿҁ")]
 		[TestCase("ҊҌҎҐҒҔҖҘҚҜҞҠҢҤҦҨҪҬҮҰҲҴҶҸҺҼҾ", "ҋҍҏґғҕҗҙқҝҟҡңҥҧҩҫҭүұҳҵҷҹһҽҿ")]
 		[TestCase("ӀӁӃӅӇӉӋӍӐӒӔӖӘӚӜӞӠӢӤӦӨӪӬӮӰӲӴӶӸӺӼӾԀԂԄԆԈԊԌԎԐԒ", "ӏӂӄӆӈӊӌӎӑӓӕӗәӛӝӟӡӣӥӧөӫӭӯӱӳӵӷӹӻӽӿԁԃԅԇԉԋԍԏԑԓ")]
-		// Armenian
+		//// Armenian
 		[TestCase("ԱԲԳԴԵԶԷԸԹԺԻԼԽԾԿՀՁՂՃՄՅՆՇՈՉՊՋՌՍՎՏՐՑՒՓՔՕՖ", "աբգդեզէըթժիլխծկհձղճմյնշոչպջռսվտրցւփքօֆ")]
 		[TestCase("և", "եւ")]
 		[TestCase("ﬓﬔﬕﬖﬗ", "մնմեմիվնմխ")]
-		// Georgian
+		//// Georgian
 		[TestCase("ႠႡႢႣႤႥႦႧႨႩႪႫႬႭႮႯႰႱႲႳႴႵႶႷႸႹႺႻႼႽႾႿჀჁჂჃჄჅ", "ⴀⴁⴂⴃⴄⴅⴆⴇⴈⴉⴊⴋⴌⴍⴎⴏⴐⴑⴒⴓⴔⴕⴖⴗⴘⴙⴚⴛⴜⴝⴞⴟⴠⴡⴢⴣⴤⴥ")]
-		// Glagolitic
+		//// Glagolitic
 		[TestCase("ⰀⰁⰂⰃⰄⰅⰆⰇⰈⰉⰊⰋⰌⰍⰎⰏⰐⰑⰒⰓⰔⰕⰖⰗⰘⰙⰚⰛⰜⰝⰞⰟⰠⰡⰢⰣⰤⰥⰦⰧⰨⰩⰪⰫⰬⰭⰮ", "ⰰⰱⰲⰳⰴⰵⰶⰷⰸⰹⰺⰻⰼⰽⰾⰿⱀⱁⱂⱃⱄⱅⱆⱇⱈⱉⱊⱋⱌⱍⱎⱏⱐⱑⱒⱓⱔⱕⱖⱗⱘⱙⱚⱛⱜⱝⱞ")]
-		// Hebrew (uncased)
+		//// Hebrew (uncased)
 		[TestCase("אבגדהוזחטיךכלםמןנסעףפץצקרשת", "אבגדהוזחטיךכלםמןנסעףפץצקרשת")]
-		// Syriac (uncased)
+		//// Syriac (uncased)
 		[TestCase("ܐܑܒܓܔܕܖܗܘܙܚܛܜܝܞܟܠܡܢܣܤܥܦܧܨܩܪܫܬ", "ܐܑܒܓܔܕܖܗܘܙܚܛܜܝܞܟܠܡܢܣܤܥܦܧܨܩܪܫܬ")]
 		public void FoldCase(string strInput, string strExpected)
 		{

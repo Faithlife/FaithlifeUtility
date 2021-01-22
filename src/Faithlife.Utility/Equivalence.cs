@@ -16,8 +16,8 @@ namespace Faithlife.Utility
 		/// <typeparam name="T">The object type.</typeparam>
 		/// <param name="left">The left object.</param>
 		/// <param name="right">The right object.</param>
-		/// <returns>True if the objects are equivalent.</returns>
-		public static bool AreEquivalent<T>([AllowNull] T left, [AllowNull] T right) where T : IHasEquivalence<T>
+		public static bool AreEquivalent<T>([AllowNull] T left, [AllowNull] T right)
+			where T : IHasEquivalence<T>
 			=> left is null ? right is null : left.IsEquivalentTo(right);
 
 		/// <summary>
@@ -27,7 +27,8 @@ namespace Faithlife.Utility
 		/// <param name="left">The left sequence.</param>
 		/// <param name="right">The right sequence.</param>
 		/// <returns>True if the sequence are equivalent.</returns>
-		public static bool AreSequencesEquivalent<T>(IEnumerable<T>? left, IEnumerable<T>? right) where T : IHasEquivalence<T>
+		public static bool AreSequencesEquivalent<T>(IEnumerable<T>? left, IEnumerable<T>? right)
+			where T : IHasEquivalence<T>
 			=> left is null ? right is null : right is object && left.SequenceEquivalent(right);
 
 		/// <summary>
@@ -35,7 +36,8 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <typeparam name="T">The object type.</typeparam>
 		/// <returns>The equality comparer.</returns>
-		public static IEqualityComparer<T> GetEqualityComparer<T>() where T : IHasEquivalence<T>
+		public static IEqualityComparer<T> GetEqualityComparer<T>()
+			where T : IHasEquivalence<T>
 			=> new EquivalenceComparer<T, T>();
 
 		/// <summary>
@@ -44,7 +46,8 @@ namespace Faithlife.Utility
 		/// <typeparam name="TDerived">The object type.</typeparam>
 		/// <typeparam name="TBase">The base type that implements IHasEquivalence.</typeparam>
 		/// <returns>The equality comparer.</returns>
-		public static IEqualityComparer<TDerived> GetEqualityComparer<TDerived, TBase>() where TDerived : TBase, IHasEquivalence<TBase>
+		public static IEqualityComparer<TDerived> GetEqualityComparer<TDerived, TBase>()
+			where TDerived : TBase, IHasEquivalence<TBase>
 			=> new EquivalenceComparer<TDerived, TBase>();
 
 		/// <summary>
@@ -73,8 +76,8 @@ namespace Faithlife.Utility
 		/// <typeparam name="T">The object type.</typeparam>
 		/// <param name="source">The sequence.</param>
 		/// <param name="other">The other sequence.</param>
-		/// <returns>True if the sequences are equivalent.</returns>
-		public static bool SequenceEquivalent<T>(this IEnumerable<T> source, IEnumerable<T> other) where T : IHasEquivalence<T>
+		public static bool SequenceEquivalent<T>(this IEnumerable<T> source, IEnumerable<T> other)
+			where T : IHasEquivalence<T>
 			=> source.SequenceEqual(other, GetEqualityComparer<T>());
 
 		private static class EquivalenceComparerCache<T>

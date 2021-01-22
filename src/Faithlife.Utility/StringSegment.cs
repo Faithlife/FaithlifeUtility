@@ -506,7 +506,6 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Returns the array of characters represented by this string segment.
 		/// </summary>
-		/// <returns></returns>
 		public char[] ToCharArray() => Source.ToCharArray(Offset, Length);
 
 		/// <summary>

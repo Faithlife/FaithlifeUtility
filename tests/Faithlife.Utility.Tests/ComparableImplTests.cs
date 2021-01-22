@@ -109,31 +109,27 @@ namespace Faithlife.Utility.Tests
 			Assert.IsFalse(ComparableImpl.OperatorGreaterThanOrEqual(i1, i2));
 			Assert.IsTrue(ComparableImpl.OperatorGreaterThanOrEqual(i2, i1));
 		}
-	}
 
-
-	// TestInt: Simple class that exposes an implementation of IComparable, and is used to test ComparableCode's implementation
-	//   of IComparable<T>.
-
-	public class TestInt : IComparable, IComparable<TestInt>
-	{
-		public TestInt(int nValue)
+		private class TestInt : IComparable, IComparable<TestInt>
 		{
-			m_nValue = nValue;
-		}
+			public TestInt(int nValue)
+			{
+				m_nValue = nValue;
+			}
 
-		public int CompareTo(object? obj)
-		{
-			return ComparableImpl.CompareToObject(this, obj);
-		}
+			public int CompareTo(object? obj)
+			{
+				return ComparableImpl.CompareToObject(this, obj);
+			}
 
-		public int CompareTo(TestInt? other)
-		{
-			if (other == null)
-				return 1;
-			return m_nValue.CompareTo(other.m_nValue);
-		}
+			public int CompareTo(TestInt? other)
+			{
+				if (other == null)
+					return 1;
+				return m_nValue.CompareTo(other.m_nValue);
+			}
 
-		private readonly int m_nValue;
+			private readonly int m_nValue;
+		}
 	}
 }

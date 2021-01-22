@@ -30,11 +30,17 @@ namespace Faithlife.Utility
 				return UnicodeCharacterClass.Letter;
 			}
 			else if (category == UnicodeCategory.NonSpacingMark || category == UnicodeCategory.SpacingCombiningMark || category == UnicodeCategory.EnclosingMark)
+			{
 				return UnicodeCharacterClass.Mark;
+			}
 			else if (category == UnicodeCategory.DecimalDigitNumber || category == UnicodeCategory.LetterNumber || category == UnicodeCategory.OtherNumber)
+			{
 				return UnicodeCharacterClass.Number;
+			}
 			else if (category == UnicodeCategory.SpaceSeparator || category == UnicodeCategory.LineSeparator || category == UnicodeCategory.ParagraphSeparator)
+			{
 				return UnicodeCharacterClass.Separator;
+			}
 			else if (category == UnicodeCategory.ConnectorPunctuation || category == UnicodeCategory.DashPunctuation || category == UnicodeCategory.OpenPunctuation ||
 				category == UnicodeCategory.ClosePunctuation || category == UnicodeCategory.InitialQuotePunctuation || category == UnicodeCategory.FinalQuotePunctuation ||
 				category == UnicodeCategory.OtherPunctuation)
@@ -47,7 +53,9 @@ namespace Faithlife.Utility
 				return UnicodeCharacterClass.Symbol;
 			}
 			else
+			{
 				return UnicodeCharacterClass.Other;
+			}
 		}
 
 		/// <summary>

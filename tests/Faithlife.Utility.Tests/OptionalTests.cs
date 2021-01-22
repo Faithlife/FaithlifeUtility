@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace Faithlife.Utility.Tests
 {
 	[TestFixture]
-	public class OptionaTests
+	public class OptionalTests
 	{
 		[Test]
 		public void TestEqualsSameValue()
@@ -23,13 +23,13 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestEqualsNoValue()
 		{
-			DoTestEquals(new Optional<int>(), new Optional<int>(), true);
+			DoTestEquals(default(Optional<int>), default(Optional<int>), true);
 		}
 
 		[Test]
 		public void TestEqualsValueAndNone()
 		{
-			DoTestEquals(new Optional<int>(1), new Optional<int>(), false);
+			DoTestEquals(new Optional<int>(1), default(Optional<int>), false);
 		}
 
 		[Test]
@@ -48,7 +48,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestEqualsNoneAndNull()
 		{
-			DoTestEquals(new Optional<string>(), null, false);
+			DoTestEquals(default(Optional<string>), null, false);
 		}
 
 		[Test]
@@ -74,7 +74,7 @@ namespace Faithlife.Utility.Tests
 		public void TestValueThrowsForNoValue()
 		{
 			string? value = null;
-			Assert.Throws<InvalidOperationException>(() => value = new Optional<string?>().Value);
+			Assert.Throws<InvalidOperationException>(() => value = default(Optional<string?>).Value);
 			Assert.IsNull(value);
 		}
 
@@ -82,14 +82,14 @@ namespace Faithlife.Utility.Tests
 		public void TestCastThrowsForNoValue()
 		{
 			string? value = null;
-			Assert.Throws<InvalidOperationException>(() => value = (string?) new Optional<string?>());
+			Assert.Throws<InvalidOperationException>(() => value = (string?) default(Optional<string?>));
 			Assert.IsNull(value);
 		}
 
 		[Test]
 		public void TestGetHashCodeReturnsZeroForNoValue()
 		{
-			var actual = new Optional<string>().GetHashCode();
+			var actual = default(Optional<string>).GetHashCode();
 			Assert.AreEqual(0, actual);
 		}
 
@@ -103,7 +103,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestToStringReturnsEmptyForNoValue()
 		{
-			var actual = new Optional<int>().ToString();
+			var actual = default(Optional<int>).ToString();
 			Assert.AreEqual("", actual);
 		}
 
@@ -117,21 +117,21 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestGetDefaultReturnsDefaultForNoValue()
 		{
-			var actual = new Optional<string>().GetValueOrDefault();
+			var actual = default(Optional<string>).GetValueOrDefault();
 			Assert.AreEqual(default(string), actual);
 		}
 
 		[Test]
 		public void TestGetDefaultReturnsProvidedDefaultForNoValue()
 		{
-			var actual = new Optional<string>().GetValueOrDefault(c_expectedDefault);
+			var actual = default(Optional<string>).GetValueOrDefault(c_expectedDefault);
 			Assert.AreEqual(c_expectedDefault, actual);
 		}
 
 		[Test]
 		public void TestHasValueIsFalseForNoValue()
 		{
-			var actual = new Optional<string>().HasValue;
+			var actual = default(Optional<string>).HasValue;
 			Assert.AreEqual(false, actual);
 		}
 

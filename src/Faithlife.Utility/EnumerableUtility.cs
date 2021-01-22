@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Faithlife.Utility
@@ -507,12 +508,8 @@ namespace Faithlife.Utility
 		public static IEnumerable<T> Order<T>(this IEnumerable<T> source, IComparer<T> comparer) => source.OrderBy(x => x, comparer);
 
 		/// <summary>
-		/// Lazily merges two sorted sequences, maintaining sort order.  Does not remove duplicates.
+		/// Lazily merges two sorted sequences, maintaining sort order. Does not remove duplicates.
 		/// </summary>
-		/// <param name="source1">a sorted sequence</param>
-		/// <param name="source2">a sorted sequence</param>
-		/// <param name="comparer">a comparer by which both input sequences must already be sorted, and by which the result will be sorted</param>
-		/// <returns>a sorted sequence</returns>
 		public static IEnumerable<T> MergeSorted<T>(IEnumerable<T> source1, IEnumerable<T> source2, IComparer<T> comparer)
 		{
 			if (source1 is null)
@@ -712,7 +709,8 @@ namespace Faithlife.Utility
 		/// <param name="first">An IEnumerable whos elements will be returned as ValueTuple.First.</param>
 		/// <param name="second">An IEnumerable whos elements will be returned as ValueTuple.Second.</param>
 		/// <returns>A sequence of tuples combining the input items. Throws if the sequences don't have the same number of items.</returns>
-		public static IEnumerable<ValueTuple<T1, T2>> Zip<T1, T2>(this IEnumerable<T1> first, IEnumerable<T2> second) =>
+		[SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1414:Tuple types in signatures should have element names", Justification = "By design.")]
+		public static IEnumerable<(T1, T2)> Zip<T1, T2>(this IEnumerable<T1> first, IEnumerable<T2> second) =>
 			ZipImpl(first ?? throw new ArgumentNullException(nameof(first)), second ?? throw new ArgumentNullException(nameof(second)), UnbalancedZipStrategy.Throw);
 
 		/// <summary>
@@ -721,7 +719,8 @@ namespace Faithlife.Utility
 		/// <param name="first">An IEnumerable whos elements will be returned as ValueTuple.First.</param>
 		/// <param name="second">An IEnumerable whos elements will be returned as ValueTuple.Second.</param>
 		/// <returns>A sequence of tuples combining the input items. If the sequences don't have the same number of items, it stops at the end of the shorter sequence.</returns>
-		public static IEnumerable<ValueTuple<T1, T2>> ZipTruncate<T1, T2>(this IEnumerable<T1> first, IEnumerable<T2> second) =>
+		[SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1414:Tuple types in signatures should have element names", Justification = "By design.")]
+		public static IEnumerable<(T1, T2)> ZipTruncate<T1, T2>(this IEnumerable<T1> first, IEnumerable<T2> second) =>
 			ZipImpl(first ?? throw new ArgumentNullException(nameof(first)), second ?? throw new ArgumentNullException(nameof(second)), UnbalancedZipStrategy.Truncate);
 
 		/// <summary>
@@ -817,14 +816,15 @@ namespace Faithlife.Utility
 			Truncate,
 		}
 
-		private static IEnumerable<ValueTuple<T1, T2>> ZipImpl<T1, T2>(IEnumerable<T1> first, IEnumerable<T2> second, UnbalancedZipStrategy strategy)
+		[SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1414:Tuple types in signatures should have element names", Justification = "By design.")]
+		private static IEnumerable<(T1, T2)> ZipImpl<T1, T2>(IEnumerable<T1> first, IEnumerable<T2> second, UnbalancedZipStrategy strategy)
 		{
 			using var firstEnumerator = first.GetEnumerator();
 			using var secondEnumerator = second.GetEnumerator();
 			while (firstEnumerator.MoveNext())
 			{
 				if (secondEnumerator.MoveNext())
-					yield return ValueTuple.Create(firstEnumerator.Current, secondEnumerator.Current);
+					yield return (firstEnumerator.Current, secondEnumerator.Current);
 				else if (strategy == UnbalancedZipStrategy.Truncate)
 					yield break;
 				else

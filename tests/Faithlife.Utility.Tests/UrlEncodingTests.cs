@@ -152,18 +152,6 @@ namespace Faithlife.Utility.Tests
 			Assert.AreEqual("Hi+2c+00+00+00+20+00+00+00there+20+00+00+00Ed+2e+00+00+00", UrlEncoding.Encode("Hi, there Ed.", settingsNew));
 		}
 
-		// TODO: fix reference to HttpUtility
-		//[Test]
-		//public void HttpUtilityUrlEncode()
-		//{
-		//	UrlEncodingSettings settings = UrlEncodingSettings.HttpUtilitySettings;
-		//	for (int x = 0x20; x <= 0x4FF; x++)
-		//	{
-		//		string str = char.ConvertFromUtf32(x);
-		//		Assert.AreEqual(HttpUtility.UrlEncode(str), UrlEncoding.Encode(str, settings));
-		//	}
-		//}
-
 		[Test]
 		public void SettingsClone()
 		{

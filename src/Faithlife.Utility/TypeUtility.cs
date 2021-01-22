@@ -21,8 +21,8 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="type">The type.</param>
 		/// <param name="parentType">The parent type.</param>
-		/// <returns>true if parentType and type represent the same type, or if type is in the inheritance hierarchy of parent type, 
-		/// or if type is an interface that parentType implements, or if parent type is a generic type parameter and type represents 
+		/// <returns>true if parentType and type represent the same type, or if type is in the inheritance hierarchy of parent type,
+		/// or if type is an interface that parentType implements, or if parent type is a generic type parameter and type represents
 		/// one of the constraints of parent type. false if none of these conditions are true, or if parent type is null.</returns>
 		public static bool IsAssignableFrom(this Type type, Type parentType) => type.GetTypeInfo().IsAssignableFrom(parentType.GetTypeInfo());
 
@@ -65,7 +65,7 @@ namespace Faithlife.Utility
 		public static bool IsValueType(this Type type) => type.GetTypeInfo().IsValueType;
 
 		/// <summary>
-		/// Gets the System.Reflection.Assembly in which the specified type is declared. For generic types, 
+		/// Gets the System.Reflection.Assembly in which the specified type is declared. For generic types,
 		/// gets the System.Reflection.Assembly in which the generic type is defined.
 		/// </summary>
 		/// <returns>

@@ -21,7 +21,8 @@ namespace Faithlife.Utility
 		/// <param name="disposable">The object to dispose.</param>
 		/// <returns>An instance of <see cref="Scope" /> that disposes the object when disposed.</returns>
 		/// <remarks>If disposable is null, the instance does nothing when disposed.</remarks>
-		public static Scope Create<T>(T disposable) where T : IDisposable => disposable is null ? Empty : new Scope(disposable.Dispose);
+		public static Scope Create<T>(T disposable)
+			where T : IDisposable => disposable is null ? Empty : new Scope(disposable.Dispose);
 
 		/// <summary>
 		/// An empty scope, which does nothing when disposed.

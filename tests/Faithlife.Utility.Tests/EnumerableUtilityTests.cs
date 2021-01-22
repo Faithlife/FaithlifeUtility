@@ -108,7 +108,7 @@ namespace Faithlife.Utility.Tests
 		{
 			var seq1 = new[] { 1, 2 };
 			var seq2 = new[] { "a", "b" };
-			var expected = new[] { ValueTuple.Create(1, "a"), ValueTuple.Create(2, "b") };
+			var expected = new[] { (1, "a"), (2, "b") };
 			var zipped = seq1.Zip(seq2).ToArray();
 
 			Assert.AreEqual(expected[0], zipped[0]);
@@ -717,7 +717,7 @@ namespace Faithlife.Utility.Tests
 		{
 			public EnumerableMonitor(IEnumerable<T> seq)
 			{
-				m_seq = seq;
+				Seq = seq;
 				m_nRequested = 0;
 			}
 
@@ -728,7 +728,7 @@ namespace Faithlife.Utility.Tests
 
 			public IEnumerator<T> GetEnumerator()
 			{
-				foreach (var item in m_seq)
+				foreach (var item in Seq)
 				{
 					m_nRequested++;
 					yield return item;
@@ -740,7 +740,7 @@ namespace Faithlife.Utility.Tests
 				return GetEnumerator();
 			}
 
-			protected readonly IEnumerable<T> m_seq;
+			protected IEnumerable<T> Seq { get; }
 			private int m_nRequested;
 		}
 
@@ -759,10 +759,8 @@ namespace Faithlife.Utility.Tests
 
 			int ICollection<T>.Count
 			{
-				get { return ((ICollection<T>) m_seq).Count; }
+				get { return ((ICollection<T>) Seq).Count; }
 			}
-
-			#region not implemented ICollection members
 
 			public void Add(T item)
 			{
@@ -793,19 +791,6 @@ namespace Faithlife.Utility.Tests
 			{
 				get { throw new NotImplementedException(); }
 			}
-
-			#endregion
-		}
-
-		private class Base
-		{
-			public Base(int value) { Value = value; }
-			public int Value;
-		}
-
-		private class Derived : Base
-		{
-			public Derived(int value) : base(value) { }
 		}
 	}
 }
