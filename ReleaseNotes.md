@@ -1,5 +1,10 @@
 # Release Notes
 
+## 0.10.2
+
+* Allow `AddIfNotNull` to work with `List<Nullable<T>>`.
+* Support .NET Core App 2.1 instead of .NET Core App 2.0.
+
 ## 0.10.1
 
 * Add missing `ConfigureAwait`.
