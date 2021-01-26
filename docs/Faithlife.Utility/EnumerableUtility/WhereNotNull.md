@@ -3,7 +3,7 @@
 Enumerates the specified collection, returning all the elements that are not null.
 
 ```csharp
-public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T> source)
+public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T?> source)
     where T : class
 ```
 

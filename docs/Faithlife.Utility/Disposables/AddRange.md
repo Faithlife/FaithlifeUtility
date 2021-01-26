@@ -3,7 +3,7 @@
 Adds the specified disposables.
 
 ```csharp
-public void AddRange(IEnumerable<IDisposable> disposables)
+public void AddRange(IEnumerable<IDisposable?> disposables)
 ```
 
 | parameter | description |

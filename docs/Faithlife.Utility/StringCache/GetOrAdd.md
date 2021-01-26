@@ -3,7 +3,7 @@
 Gets an existing string from the cache, or adds it if it's not currently in the cache.
 
 ```csharp
-public string GetOrAdd(string value)
+public string? GetOrAdd(string? value)
 ```
 
 | parameter | description |

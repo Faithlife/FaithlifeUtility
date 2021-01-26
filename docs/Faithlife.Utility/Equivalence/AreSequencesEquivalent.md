@@ -3,7 +3,7 @@
 True if the sequences are equivalent.
 
 ```csharp
-public static bool AreSequencesEquivalent<T>(IEnumerable<T> left, IEnumerable<T> right)
+public static bool AreSequencesEquivalent<T>(IEnumerable<T>? left, IEnumerable<T>? right)
     where T : IHasEquivalence<T>
 ```
 

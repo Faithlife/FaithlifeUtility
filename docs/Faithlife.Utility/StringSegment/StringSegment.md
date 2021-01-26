@@ -3,7 +3,7 @@
 Initializes a new instance of the [`StringSegment`](../StringSegment.md) class.
 
 ```csharp
-public StringSegment(string source)
+public StringSegment(string? source)
 ```
 
 | parameter | description |
@@ -46,7 +46,7 @@ public StringSegment(string source, Capture capture)
 Initializes a new instance of the [`StringSegment`](../StringSegment.md) class.
 
 ```csharp
-public StringSegment(string source, int offset)
+public StringSegment(string? source, int offset)
 ```
 
 | parameter | description |
@@ -76,7 +76,7 @@ Creates a segment that starts at the specified offset and continues to the end o
 Initializes a new instance of the [`StringSegment`](../StringSegment.md) class.
 
 ```csharp
-public StringSegment(string source, int offset, int length)
+public StringSegment(string? source, int offset, int length)
 ```
 
 | parameter | description |

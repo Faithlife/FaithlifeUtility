@@ -3,7 +3,7 @@
 Adds the specified value to the collection if the value is not null.
 
 ```csharp
-public static void AddIfNotNull<T>(this ICollection<T> collection, T value)
+public static void AddIfNotNull<T>(this ICollection<T> collection, T? value)
 ```
 
 | parameter | description |

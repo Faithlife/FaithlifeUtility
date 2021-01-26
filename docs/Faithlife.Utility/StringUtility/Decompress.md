@@ -3,7 +3,7 @@
 Decompresses a compressed string.
 
 ```csharp
-public static string Decompress(byte[] compressedText)
+public static string? Decompress(byte[]? compressedText)
 ```
 
 | parameter | description |

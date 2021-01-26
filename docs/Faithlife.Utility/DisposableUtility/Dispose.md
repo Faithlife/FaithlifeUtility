@@ -3,7 +3,7 @@
 Disposes and nulls the specified object.
 
 ```csharp
-public static void Dispose<T>(ref T obj)
+public static void Dispose<T>(ref T? obj)
     where T : class, IDisposable
 ```
 

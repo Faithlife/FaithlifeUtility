@@ -3,7 +3,7 @@
 Throws InvalidOperationException if the parameter is not null.
 
 ```csharp
-public static void IsNull(object obj)
+public static void IsNull(object? obj)
 ```
 
 | parameter | description |

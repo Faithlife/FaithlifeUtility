@@ -3,7 +3,7 @@
 Standard implementation of the equality operator.
 
 ```csharp
-public static bool OperatorEquality<T>(T left, T right)
+public static bool OperatorEquality<T>(T? left, T? right)
     where T : class, IEquatable<T>
 ```
 

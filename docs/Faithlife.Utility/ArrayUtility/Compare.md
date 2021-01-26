@@ -3,7 +3,7 @@
 Compares the two arrays.
 
 ```csharp
-public static int Compare<T>(T[] array1, T[] array2)
+public static int Compare<T>(T[]? array1, T[]? array2)
 ```
 
 | parameter | description |
@@ -27,7 +27,7 @@ The result of a lexicographical comparison of the array items.
 Compares the two arrays.
 
 ```csharp
-public static int Compare<T>(T[] array1, T[] array2, IComparer<T> comparer)
+public static int Compare<T>(T[]? array1, T[]? array2, IComparer<T> comparer)
 ```
 
 | parameter | description |

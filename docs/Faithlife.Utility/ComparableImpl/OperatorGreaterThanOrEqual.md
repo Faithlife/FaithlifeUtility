@@ -3,7 +3,7 @@
 Standard implementation of the greater than or equal to operator.
 
 ```csharp
-public static bool OperatorGreaterThanOrEqual<T>(T left, T right)
+public static bool OperatorGreaterThanOrEqual<T>(T? left, T? right)
     where T : class, IComparable<T>
 ```
 

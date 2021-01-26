@@ -3,7 +3,7 @@
 Gets the hash code for a sequence.
 
 ```csharp
-public static int SequenceHashCode<T>(this IEnumerable<T> source)
+public static int SequenceHashCode<T>(this IEnumerable<T>? source)
 ```
 
 | parameter | description |
@@ -31,7 +31,7 @@ If the sequence is null, zero is returned.
 Gets the hash code for a sequence.
 
 ```csharp
-public static int SequenceHashCode<T>(this IEnumerable<T> source, IEqualityComparer<T> comparer)
+public static int SequenceHashCode<T>(this IEnumerable<T>? source, IEqualityComparer<T>? comparer)
 ```
 
 | parameter | description |

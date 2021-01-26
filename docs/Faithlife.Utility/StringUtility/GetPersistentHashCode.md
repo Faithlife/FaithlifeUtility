@@ -3,7 +3,7 @@
 Gets a hash code for the specified string; this hash code is guaranteed not to change in future.
 
 ```csharp
-public static int GetPersistentHashCode(this string value)
+public static int GetPersistentHashCode(this string? value)
 ```
 
 | parameter | description |

@@ -18,7 +18,7 @@ public PriorityQueue()
 Initializes a new instance of the [`PriorityQueue`](../PriorityQueue-1.md) class that is empty, has the default initial capacity, and is sorted according to the specified IComparer.
 
 ```csharp
-public PriorityQueue(IComparer<T> comparer)
+public PriorityQueue(IComparer<T>? comparer)
 ```
 
 | parameter | description |
@@ -56,7 +56,7 @@ public PriorityQueue(int capacity)
 Initializes a new instance of the [`PriorityQueue`](../PriorityQueue-1.md) class that is empty, has the specified initial capacity, and is sorted according to the specified IComparer.
 
 ```csharp
-public PriorityQueue(int capacity, IComparer<T> comparer)
+public PriorityQueue(int capacity, IComparer<T>? comparer)
 ```
 
 | parameter | description |

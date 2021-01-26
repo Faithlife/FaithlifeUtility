@@ -29,7 +29,7 @@ Compares two sequences.
 
 ```csharp
 public static int SequenceCompare<T>(this IEnumerable<T> first, IEnumerable<T> second, 
-    IComparer<T> comparer)
+    IComparer<T>? comparer)
 ```
 
 | parameter | description |

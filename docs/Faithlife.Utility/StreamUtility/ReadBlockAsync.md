@@ -4,7 +4,7 @@ Reads *count* bytes from *stream* into *buffer*, starting at the byte given by *
 
 ```csharp
 public static Task<int> ReadBlockAsync(this Stream stream, byte[] buffer, int offset, int count, 
-    CancellationToken cancellationToken = default(CancellationToken))
+    CancellationToken cancellationToken = default)
 ```
 
 | parameter | description |

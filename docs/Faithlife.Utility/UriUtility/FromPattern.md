@@ -4,7 +4,7 @@ Builds a URI from a pattern and an object containing parameters.
 
 ```csharp
 public static Uri FromPattern(string uriPattern, 
-    IEnumerable<KeyValuePair<string, object>> parameters)
+    IEnumerable<KeyValuePair<string, object?>> parameters)
 ```
 
 | parameter | description |
@@ -29,7 +29,7 @@ Builds a URI from a pattern and parameters.
 
 ```csharp
 public static Uri FromPattern(string uriPattern, 
-    IEnumerable<KeyValuePair<string, string>> parameters)
+    IEnumerable<KeyValuePair<string, string?>> parameters)
 ```
 
 | parameter | description |

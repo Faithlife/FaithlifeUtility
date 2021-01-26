@@ -3,7 +3,7 @@
 Returns true if the arrays are equal.
 
 ```csharp
-public static bool AreEqual<T>(T[] array1, T[] array2)
+public static bool AreEqual<T>(T[]? array1, T[]? array2)
 ```
 
 | parameter | description |
@@ -27,7 +27,7 @@ true if the arrays are both null, or if they both have equal length and the firs
 Returns true if the arrays are equal.
 
 ```csharp
-public static bool AreEqual<T>(T[] array1, T[] array2, IEqualityComparer<T> comparer)
+public static bool AreEqual<T>(T[]? array1, T[]? array2, IEqualityComparer<T> comparer)
 ```
 
 | parameter | description |

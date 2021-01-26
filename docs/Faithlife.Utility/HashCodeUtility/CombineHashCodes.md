@@ -30,7 +30,7 @@ This is a specialization of [`CombineHashCodes`](CombineHashCodes.md) for effici
 Combines the specified hash codes.
 
 ```csharp
-public static int CombineHashCodes(params int[] hashCodes)
+public static int CombineHashCodes(params int[]? hashCodes)
 ```
 
 | parameter | description |

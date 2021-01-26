@@ -4,7 +4,7 @@ Reads exactly *count* bytes from *stream*.
 
 ```csharp
 public static Task<byte[]> ReadExactlyAsync(this Stream stream, int count, 
-    CancellationToken cancellationToken = default(CancellationToken))
+    CancellationToken cancellationToken = default)
 ```
 
 | parameter | description |
@@ -30,7 +30,7 @@ Reads exactly *count* bytes from *stream* into *buffer*, starting at the byte gi
 
 ```csharp
 public static Task ReadExactlyAsync(this Stream stream, byte[] buffer, int offset, int count, 
-    CancellationToken cancellationToken = default(CancellationToken))
+    CancellationToken cancellationToken = default)
 ```
 
 | parameter | description |

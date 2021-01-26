@@ -3,7 +3,7 @@
 Throws InvalidOperationException if the parameters are the same object.
 
 ```csharp
-public static void AreNotSame(object objA, object objB)
+public static void AreNotSame(object? objA, object? objB)
 ```
 
 ## See Also

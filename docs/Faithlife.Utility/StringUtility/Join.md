@@ -3,7 +3,7 @@
 Joins the specified strings into one string.
 
 ```csharp
-public static string Join(this IEnumerable<string> strings)
+public static string Join(this IEnumerable<string?> strings)
 ```
 
 | parameter | description |
@@ -49,7 +49,7 @@ All of the strings concatenated with no separator.
 Joins the specified strings using the specified separator.
 
 ```csharp
-public static string Join(this IEnumerable<string> strings, string separator)
+public static string Join(this IEnumerable<string?> strings, string? separator)
 ```
 
 | parameter | description |

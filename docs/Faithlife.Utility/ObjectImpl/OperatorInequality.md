@@ -3,7 +3,7 @@
 Standard implementation of the inequality operator.
 
 ```csharp
-public static bool OperatorInequality<T>(T left, T right)
+public static bool OperatorInequality<T>(T? left, T? right)
     where T : class, IEquatable<T>
 ```
 

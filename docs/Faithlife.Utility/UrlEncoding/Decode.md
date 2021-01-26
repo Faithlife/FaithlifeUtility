@@ -3,7 +3,7 @@
 Decodes a string with the default settings.
 
 ```csharp
-public static string Decode(string value)
+public static string? Decode(string? value)
 ```
 
 | parameter | description |
@@ -26,7 +26,7 @@ The decoded string.
 Decodes a string with the specified settings.
 
 ```csharp
-public static string Decode(string value, UrlEncodingSettings settings)
+public static string? Decode(string? value, UrlEncodingSettings settings)
 ```
 
 | parameter | description |

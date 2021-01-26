@@ -3,7 +3,7 @@
 Implements IComparable.CompareTo using IComparable{T}.CompareTo.
 
 ```csharp
-public static int CompareToObject<T>(T that, object obj)
+public static int CompareToObject<T>(T that, object? obj)
     where T : IComparable<T>
 ```
 

@@ -27,7 +27,7 @@ public static bool IsSorted<T>(this IEnumerable<T> source)
 Determines whether the specified sequence is sorted.
 
 ```csharp
-public static bool IsSorted<T>(this IEnumerable<T> source, IComparer<T> comparer)
+public static bool IsSorted<T>(this IEnumerable<T> source, IComparer<T>? comparer)
 ```
 
 | parameter | description |

@@ -3,7 +3,7 @@
 Adds the specified disposable.
 
 ```csharp
-public void Add(IDisposable disposable)
+public void Add(IDisposable? disposable)
 ```
 
 | parameter | description |

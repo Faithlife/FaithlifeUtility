@@ -3,7 +3,7 @@
 Compresses a string.
 
 ```csharp
-public static byte[] Compress(string text)
+public static byte[]? Compress(string? text)
 ```
 
 | parameter | description |

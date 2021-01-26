@@ -3,7 +3,7 @@
 Encodes a string with the default settings.
 
 ```csharp
-public static string Encode(string value)
+public static string? Encode(string? value)
 ```
 
 | parameter | description |
@@ -26,7 +26,7 @@ The encoded string.
 Encodes a string with the specified settings.
 
 ```csharp
-public static string Encode(string value, UrlEncodingSettings settings)
+public static string? Encode(string? value, UrlEncodingSettings settings)
 ```
 
 | parameter | description |

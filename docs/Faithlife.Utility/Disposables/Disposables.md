@@ -18,7 +18,7 @@ public Disposables()
 Initializes a new instance of the [`Disposables`](../Disposables.md) class.
 
 ```csharp
-public Disposables(IEnumerable<IDisposable> disposables)
+public Disposables(IEnumerable<IDisposable?> disposables)
 ```
 
 | parameter | description |

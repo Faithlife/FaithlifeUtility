@@ -3,7 +3,7 @@
 Creates a [`Scope`](../Scope.md) for the specified delegate.
 
 ```csharp
-public static Scope Create(Action dispose)
+public static Scope Create(Action? dispose)
 ```
 
 | parameter | description |

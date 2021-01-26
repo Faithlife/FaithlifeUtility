@@ -3,7 +3,7 @@
 Converts the specified ISO 8601 representation of a date and time to its DateTimeOffset equivalent.
 
 ```csharp
-public static DateTimeOffset? TryParseIso8601(string value)
+public static DateTimeOffset? TryParseIso8601(string? value)
 ```
 
 | parameter | description |
@@ -26,7 +26,7 @@ Non-null if successful.
 Converts the specified ISO 8601 representation of a date and time to its DateTimeOffset equivalent.
 
 ```csharp
-public static bool TryParseIso8601(string value, out DateTimeOffset date)
+public static bool TryParseIso8601(string? value, out DateTimeOffset date)
 ```
 
 | parameter | description |

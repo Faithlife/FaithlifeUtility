@@ -3,7 +3,7 @@
 Tries to parse the specified string as a Guid. A return value indicates whether the operation succeeded.
 
 ```csharp
-public static bool TryParse(string value, out Guid guid)
+public static bool TryParse(string? value, out Guid guid)
 ```
 
 | parameter | description |

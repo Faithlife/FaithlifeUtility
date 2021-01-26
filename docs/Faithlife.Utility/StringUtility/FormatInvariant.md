@@ -3,7 +3,7 @@
 Formats the string using the invariant culture.
 
 ```csharp
-public static string FormatInvariant(this string format, params object[] args)
+public static string FormatInvariant(this string format, params object?[] args)
 ```
 
 | parameter | description |

@@ -3,7 +3,7 @@
 Attempts to parse the specified string.
 
 ```csharp
-public static T? TryParse<T>(string value)
+public static T? TryParse<T>(string? value)
     where T : struct
 ```
 
@@ -32,7 +32,7 @@ This method matches case.
 Attempts to parse the specified string.
 
 ```csharp
-public static T? TryParse<T>(string value, CaseSensitivity caseSensitivity)
+public static T? TryParse<T>(string? value, CaseSensitivity caseSensitivity)
     where T : struct
 ```
 
@@ -59,7 +59,7 @@ A strongly typed enumerated value; null if the string could not be successfully 
 Attempts to parse the specified string.
 
 ```csharp
-public static bool TryParse<T>(string value, out T result)
+public static bool TryParse<T>(string? value, out T result)
     where T : struct
 ```
 
@@ -89,7 +89,7 @@ This method matches case.
 Attempts to parse the specified string.
 
 ```csharp
-public static bool TryParse<T>(string value, CaseSensitivity caseSensitivity, out T result)
+public static bool TryParse<T>(string? value, CaseSensitivity caseSensitivity, out T result)
     where T : struct
 ```
 

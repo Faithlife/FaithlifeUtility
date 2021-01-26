@@ -3,7 +3,7 @@
 Returns a value indicating whether the specified sequences are equal. Supports one or both sequences being null.
 
 ```csharp
-public static bool AreEqual<T>(IEnumerable<T> first, IEnumerable<T> second)
+public static bool AreEqual<T>(IEnumerable<T>? first, IEnumerable<T>? second)
 ```
 
 | parameter | description |
@@ -27,7 +27,8 @@ public static bool AreEqual<T>(IEnumerable<T> first, IEnumerable<T> second)
 Returns a value indicating whether the specified sequences are equal using the specified equality comparer. Supports one or both sequences being null.
 
 ```csharp
-public static bool AreEqual<T>(IEnumerable<T> first, IEnumerable<T> second, Func<T, T, bool> equals)
+public static bool AreEqual<T>(IEnumerable<T>? first, IEnumerable<T>? second, 
+    Func<T, T, bool>? equals)
 ```
 
 | parameter | description |
@@ -52,8 +53,8 @@ public static bool AreEqual<T>(IEnumerable<T> first, IEnumerable<T> second, Func
 Returns a value indicating whether the specified sequences are equal using the specified equality comparer. Supports one or both sequences being null.
 
 ```csharp
-public static bool AreEqual<T>(IEnumerable<T> first, IEnumerable<T> second, 
-    IEqualityComparer<T> comparer)
+public static bool AreEqual<T>(IEnumerable<T>? first, IEnumerable<T>? second, 
+    IEqualityComparer<T>? comparer)
 ```
 
 | parameter | description |

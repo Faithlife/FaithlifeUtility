@@ -3,7 +3,7 @@
 Standard implementation of the less than operator.
 
 ```csharp
-public static bool OperatorLessThan<T>(T left, T right)
+public static bool OperatorLessThan<T>(T? left, T? right)
     where T : class, IComparable<T>
 ```
 
