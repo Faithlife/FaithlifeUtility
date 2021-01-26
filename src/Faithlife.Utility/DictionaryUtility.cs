@@ -40,7 +40,7 @@ namespace Faithlife.Utility
 		/// <typeparam name="TValue">The type of the value.</typeparam>
 		/// <param name="dictionary">The dictionary to wrap.</param>
 		/// <returns>The read-only dictionary.</returns>
-		public static ReadOnlyDictionary<TKey, TValue> AsReadOnly<TKey, TValue>(this IDictionary<TKey, TValue> dictionary) => new ReadOnlyDictionary<TKey, TValue>(dictionary);
+		public static ReadOnlyDictionary<TKey, TValue> AsReadOnly<TKey, TValue>(this IDictionary<TKey, TValue> dictionary) => new(dictionary);
 
 		/// <summary>
 		/// Represents the sequence of key-value pairs as a <see cref="IReadOnlyDictionary{TKey,TValue}"/>.
@@ -157,7 +157,7 @@ namespace Faithlife.Utility
 		/// <param name="key">The key.</param>
 		/// <param name="value">The value.</param>
 		/// <returns>The key value pair.</returns>
-		public static KeyValuePair<TKey, TValue> CreateKeyValuePair<TKey, TValue>(TKey key, TValue value) => new KeyValuePair<TKey, TValue>(key, value);
+		public static KeyValuePair<TKey, TValue> CreateKeyValuePair<TKey, TValue>(TKey key, TValue value) => new(key, value);
 
 		/// <summary>
 		/// Tries to add a value to the dictionary.

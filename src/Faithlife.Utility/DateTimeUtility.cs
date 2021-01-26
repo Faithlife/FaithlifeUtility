@@ -99,6 +99,6 @@ namespace Faithlife.Utility
 		/// </summary>
 		public static DateTime? SpecifyUtc(this DateTime? dateTime) => dateTime?.SpecifyUtc();
 
-		private static readonly DateTime s_epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+		private static readonly DateTime s_epoch = new(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 	}
 }
