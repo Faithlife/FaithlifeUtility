@@ -5,7 +5,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using JetBrains.Annotations;
 
@@ -14,6 +13,7 @@ namespace Faithlife.Utility
 	/// <summary>
 	/// Provides methods for manipulating strings.
 	/// </summary>
+	[SuppressMessage("Usage", "CA2213:Disposable fields should be disposed", Justification = "Uses DisposableUtility.")]
 	public static class StringUtility
 	{
 		/// <summary>
@@ -40,6 +40,16 @@ namespace Faithlife.Utility
 		/// Calls string.IndexOf with StringComparison.Ordinal.
 		/// </summary>
 		public static int IndexOfOrdinal(this string source, string value, int startIndex, int count) => source.IndexOf(value, startIndex, count, StringComparison.Ordinal);
+
+		/// <summary>
+		/// Calls string.IndexOf with StringComparison.Ordinal.
+		/// </summary>
+		[SuppressMessage("Usage", "FL0002:Use StringComparison overload", Justification = "Analyzer bug.")]
+#if NETSTANDARD2_0
+		public static int IndexOfOrdinal(this string source, char value) => source.IndexOf(value);
+#else
+		public static int IndexOfOrdinal(this string source, char value) => source.IndexOf(value, StringComparison.Ordinal);
+#endif
 
 		/// <summary>
 		/// Calls string.LastIndexOf with StringComparison.Ordinal.
@@ -102,23 +112,8 @@ namespace Faithlife.Utility
 		/// <returns>The comparer.</returns>
 		/// <param name="cultureInfo">Culture info.</param>
 		/// <param name="ignoreCase">If set to <c>true</c> ignore case.</param>
-		public static StringComparer CreateComparer(CultureInfo cultureInfo, bool ignoreCase)
-		{
-			// PCL only supports culture-aware string comparers for the current culture
-			if (cultureInfo == CultureInfo.CurrentCulture)
-				return ignoreCase ? StringComparer.CurrentCultureIgnoreCase : StringComparer.CurrentCulture;
-
-			// use reflection in case we are running on a platform that supports StringComparer.Create
-			var create = typeof(StringComparer)
-				.GetTypeInfo()
-				.GetDeclaredMethods("Create")
-				.FirstOrDefault(x => x.IsStatic && x.GetParameters().Select(p => p.ParameterType).SequenceEqual(new[] { typeof(CultureInfo), typeof(bool) }));
-			if (create is not null)
-				return (StringComparer) create.Invoke(null, new object[] { cultureInfo, ignoreCase });
-
-			// return comparer that implements Compare and Equals but not GetHashCode
-			return new PortableStringComparer(cultureInfo, ignoreCase);
-		}
+		public static StringComparer CreateComparer(CultureInfo cultureInfo, bool ignoreCase) =>
+			StringComparer.Create(cultureInfo, ignoreCase);
 
 		/// <summary>
 		/// Performs a full case folding as defined by Section 5.18 of the Unicode Standard 5.0.
@@ -819,7 +814,7 @@ namespace Faithlife.Utility
 				return null;
 
 			if (text.Length == 0)
-				return new byte[0];
+				return Array.Empty<byte>();
 
 			using var stream = new MemoryStream();
 			using (var textWriter = CreateCompressingTextWriter(stream, Ownership.None))
@@ -899,7 +894,7 @@ namespace Faithlife.Utility
 				if (!stream.CanWrite)
 					throw new ArgumentException("Stream must support writing.", nameof(stream));
 				if (!stream.CanSeek)
-					throw new ArgumentException("Stream must support seeking.", "stream");
+					throw new ArgumentException("Stream must support seeking.", nameof(stream));
 
 				m_stream = stream;
 				m_ownership = ownership;
@@ -945,7 +940,7 @@ namespace Faithlife.Utility
 						while (!completed)
 						{
 							var bytes = new byte[m_encoding.GetMaxByteCount(0)];
-							m_encoder.Convert(new char[0], 0, 0, bytes, 0, bytes.Length, true, out _, out var bytesUsed, out completed);
+							m_encoder.Convert(Array.Empty<char>(), 0, 0, bytes, 0, bytes.Length, true, out _, out var bytesUsed, out completed);
 							WriteToStream(bytes, bytesUsed);
 						}
 
@@ -1209,38 +1204,6 @@ namespace Faithlife.Utility
 			private int m_bufferIndex;
 			private int m_bufferLength;
 			private bool m_isDisposed;
-		}
-
-		private sealed class PortableStringComparer : StringComparer
-		{
-			public PortableStringComparer(CultureInfo cultureInfo, bool ignoreCase)
-			{
-				m_cultureInfo = cultureInfo;
-				m_ignoreCase = ignoreCase;
-			}
-
-			public override int Compare(string x, string y) =>
-				(x, y) switch
-				{
-					(_, _) when ReferenceEquals(x, y) => 0,
-					(null, _) => -1,
-					(_, null) => 1,
-					(_, _) => m_cultureInfo.CompareInfo.Compare(x, y, m_ignoreCase ? CompareOptions.IgnoreCase : CompareOptions.None),
-				};
-
-			public override bool Equals(string x, string y) => Compare(x, y) == 0;
-
-			public override int GetHashCode(string obj)
-			{
-				if (m_cultureInfo == CultureInfo.CurrentCulture)
-					return m_ignoreCase ? obj.ToLower().GetHashCode() : obj.GetHashCode();
-
-				// PCL doesn't support StringComparer.Create or any other way to get the hash code of a string for an arbitrary culture
-				throw new NotSupportedException("StringComparer.GetHashCode only supported for current culture.");
-			}
-
-			private readonly CultureInfo m_cultureInfo;
-			private readonly bool m_ignoreCase;
 		}
 
 		private const int c_compressedStringUsingGzip = 1;

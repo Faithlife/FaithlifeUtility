@@ -24,7 +24,7 @@ namespace Faithlife.Utility
 		/// <param name="stringBuilder">The <see cref="StringBuilder"/> instance to which the string representation will be appended.</param>
 		/// <param name="value">The value to append.</param>
 		public static StringBuilder AppendInvariant(this StringBuilder stringBuilder, bool value)
-			=> stringBuilder.Append(value.ToString());
+			=> stringBuilder.Append(value);
 
 		/// <summary>
 		/// Appends the invariant representation of a specified 8-bit unsigned integer to the end of <paramref name="stringBuilder"/>.

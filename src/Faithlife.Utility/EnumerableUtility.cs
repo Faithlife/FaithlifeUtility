@@ -38,7 +38,7 @@ namespace Faithlife.Utility
 		/// <param name="second">The second sequence.</param>
 		/// <param name="equals">Returns true if two items are equal.</param>
 		/// <returns><c>True</c> if the sequences are equal.</returns>
-		public static bool AreEqual<T>(IEnumerable<T>? first, IEnumerable<T>? second, Func<T, T, bool>? equals)
+		public static bool AreEqual<T>(IEnumerable<T>? first, IEnumerable<T>? second, Func<T?, T?, bool>? equals)
 			=> AreEqual(first, second, equals is null ? null : ObjectUtility.CreateEqualityComparer(equals));
 
 		/// <summary>
@@ -179,7 +179,7 @@ namespace Faithlife.Utility
 		/// <param name="source">The sequence to remove duplicate objects from.</param>
 		/// <param name="keySelector">The function that determines the key.</param>
 		/// <returns>An <see cref="IEnumerable{T}"/> that contains distinct elements from the source sequence.</returns>
-		public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
+		public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey?> keySelector)
 		{
 			return DistinctBy(source, keySelector, null);
 		}
@@ -193,14 +193,14 @@ namespace Faithlife.Utility
 		/// <param name="keySelector">The function that determines the key.</param>
 		/// <param name="equalityComparer">The <see cref="IEqualityComparer{T}"/> used to compare keys; if <c>null</c>, the default comparer will be used.</param>
 		/// <returns>An <see cref="IEnumerable{T}"/> that contains distinct elements from the source sequence.</returns>
-		public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? equalityComparer)
+		public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey?> keySelector, IEqualityComparer<TKey>? equalityComparer)
 		{
 			if (source is null)
 				throw new ArgumentNullException(nameof(source));
 			if (keySelector is null)
 				throw new ArgumentNullException(nameof(keySelector));
 
-			return source.Distinct(new KeyEqualityComparer<TSource, TKey>(keySelector, equalityComparer ?? EqualityComparer<TKey>.Default));
+			return source.Distinct(new KeyEqualityComparer<TSource, TKey>(keySelector!, equalityComparer ?? EqualityComparer<TKey>.Default));
 		}
 
 		/// <summary>
@@ -429,7 +429,7 @@ namespace Faithlife.Utility
 
 			comparer ??= EqualityComparer<T>.Default;
 
-			return HashCodeUtility.CombineHashCodes(source.Select(x => comparer.GetHashCode(x)).ToArray());
+			return HashCodeUtility.CombineHashCodes(source.Select(x => comparer.GetHashCode(x!)).ToArray());
 		}
 
 		/// <summary>
@@ -568,7 +568,7 @@ namespace Faithlife.Utility
 			if (count < 0)
 				throw new ArgumentOutOfRangeException(nameof(count));
 			else if (count == 0)
-				return new T[0];
+				return Array.Empty<T>();
 
 			var queue = new Queue<T>(count);
 			foreach (var item in source)

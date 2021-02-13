@@ -90,7 +90,7 @@ namespace Faithlife.Utility
 				do
 				{
 					if (typeof(IHasEquivalence<>).MakeGenericType(type).IsAssignableFrom(typeof(T)))
-						return (IEqualityComparer<T>) Activator.CreateInstance(typeof(EquivalenceComparer<,>).MakeGenericType(typeof(T), type));
+						return (IEqualityComparer<T>) Activator.CreateInstance(typeof(EquivalenceComparer<,>).MakeGenericType(typeof(T), type))!;
 					type = type.GetBaseType();
 				}
 				while (type is not null);
@@ -102,7 +102,7 @@ namespace Faithlife.Utility
 		private sealed class EquivalenceComparer<TDerived, TBase> : EqualityComparer<TDerived>
 			where TDerived : TBase, IHasEquivalence<TBase>
 		{
-			public override bool Equals(TDerived left, TDerived right) => left?.IsEquivalentTo(right) ?? right is null;
+			public override bool Equals(TDerived? left, TDerived? right) => left?.IsEquivalentTo(right) ?? right is null;
 
 			public override int GetHashCode(TDerived value) => throw new NotImplementedException();
 		}

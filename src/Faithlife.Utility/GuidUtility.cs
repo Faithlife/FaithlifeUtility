@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -84,6 +85,8 @@ namespace Faithlife.Utility
 		/// <param name="version">The version number of the UUID to create; this value must be either
 		/// 3 (for MD5 hashing) or 5 (for SHA-1 hashing).</param>
 		/// <returns>A UUID derived from the namespace and name.</returns>
+		[SuppressMessage("Security", "CA5350:Do Not Use Weak Cryptographic Algorithms", Justification = "Per spec.")]
+		[SuppressMessage("Security", "CA5351:Do Not Use Broken Cryptographic Algorithms", Justification = "Per spec.")]
 		public static Guid Create(Guid namespaceId, byte[] nameBytes, int version)
 		{
 			if (version != 3 && version != 5)

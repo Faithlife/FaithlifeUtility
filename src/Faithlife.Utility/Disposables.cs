@@ -11,6 +11,7 @@ namespace Faithlife.Utility
 	/// <remarks>This class is thread-safe. Null disposables are legal and ignored. Objects cannot be
 	/// added to the collection after it has been disposed. The collection cannot be enumerated.</remarks>
 	[SuppressMessage("Microsoft.Design", "CA1010:CollectionsShouldImplementGenericInterface", Justification = "Collection initialization syntax.")]
+	[SuppressMessage("Naming", "CA1710:Identifiers should have correct suffix", Justification = "Legacy.")]
 	public sealed class Disposables : IDisposable, IEnumerable
 	{
 		/// <summary>

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Faithlife.Utility
 {
@@ -16,7 +17,11 @@ namespace Faithlife.Utility
 		public int Count => m_dictionary.Count;
 		public TValue this[TKey key] => m_dictionary[key];
 		public bool ContainsKey(TKey key) => m_dictionary.ContainsKey(key);
-		public bool TryGetValue(TKey key, out TValue value) => m_dictionary.TryGetValue(key, out value);
+		public bool TryGetValue(TKey key,
+#if !NETSTANDARD && !NETCOREAPP2_1
+			[MaybeNullWhen(false)]
+#endif
+			out TValue value) => m_dictionary.TryGetValue(key, out value);
 		public IEnumerable<TKey> Keys => m_dictionary.Keys;
 		public IEnumerable<TValue> Values => m_dictionary.Values;
 		public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator() => m_dictionary.GetEnumerator();

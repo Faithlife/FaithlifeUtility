@@ -11,17 +11,6 @@ namespace Faithlife.Utility.Tests
 	[TestFixture]
 	public class StringUtilityTests
 	{
-		[TestCase("", 'a', false)]
-		[TestCase("", '\u0000', false)]
-		[TestCase("a", 'a', true)]
-		[TestCase("ab", 'a', false)]
-		[TestCase("aaaaaaaaaab", 'a', false)]
-		[TestCase("aaaaaaaaaab", 'b', true)]
-		public void EndsWith(string str, char ch, bool expected)
-		{
-			Assert.AreEqual(expected, str.EndsWith(ch));
-		}
-
 		[Test]
 		public void OrdinalStringComparisonExtensionMethods()
 		{

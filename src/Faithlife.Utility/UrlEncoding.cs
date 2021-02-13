@@ -156,7 +156,7 @@ namespace Faithlife.Utility
 				value = value.Replace(settings.EncodedSpaceChar.Value, ' ');
 
 			// decode hex-encoded characters
-			return value.IndexOf(settings.EncodedBytePrefixChar) == -1 ? value : DecodeHex(value, settings);
+			return value.IndexOfOrdinal(settings.EncodedBytePrefixChar) == -1 ? value : DecodeHex(value, settings);
 		}
 
 		private static string DecodeHex(string str, UrlEncodingSettings settings)

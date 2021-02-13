@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Faithlife.Utility
 {
 	/// <summary>
 	/// Provides implementations of common methods needed by an implementer of <see cref="ICollection"/>.
 	/// </summary>
+	[SuppressMessage("Naming", "CA1711:Identifiers should not have incorrect suffix", Justification = "Legacy.")]
 	public static class CollectionImpl
 	{
 		/// <summary>

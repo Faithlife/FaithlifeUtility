@@ -15,7 +15,7 @@ namespace Faithlife.Utility
 		/// <param name="equals">The equals delegate.</param>
 		/// <param name="getHashCode">The hash code delegate.</param>
 		/// <remarks>If getHashCode is null and GetHashCode is called, it will throw a NotImplementedException.</remarks>
-		public GenericEqualityComparer(Func<T, T, bool> equals, Func<T, int>? getHashCode = null)
+		public GenericEqualityComparer(Func<T?, T?, bool> equals, Func<T, int>? getHashCode = null)
 		{
 			m_equals = equals ?? throw new ArgumentNullException(nameof(equals));
 			m_getHashCode = getHashCode ?? (_ => throw new NotImplementedException());
@@ -29,19 +29,19 @@ namespace Faithlife.Utility
 		/// <returns>
 		/// true if the specified objects are equal; otherwise, false.
 		/// </returns>
-		public override bool Equals(T x, T y) => m_equals(x, y);
+		public override bool Equals(T? x, T? y) => m_equals(x, y);
 
 		/// <summary>
 		/// When overridden in a derived class, serves as a hash function for the specified object for hashing algorithms and data structures, such as a hash table.
 		/// </summary>
 		/// <param name="obj">The object for which to get a hash code.</param>
 		/// <returns>A hash code for the specified object.</returns>
-		/// <exception cref="T:System.ArgumentNullException">
+		/// <exception cref="ArgumentNullException">
 		/// The type of <paramref name="obj"/> is a reference type and <paramref name="obj"/> is null.
 		/// </exception>
 		public override int GetHashCode(T obj) => m_getHashCode(obj);
 
-		private readonly Func<T, T, bool> m_equals;
+		private readonly Func<T?, T?, bool> m_equals;
 		private readonly Func<T, int> m_getHashCode;
 	}
 }

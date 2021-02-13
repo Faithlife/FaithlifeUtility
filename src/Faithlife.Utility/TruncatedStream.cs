@@ -56,7 +56,11 @@ namespace Faithlife.Utility
 		/// </summary>
 		public override async Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
 		{
+#if NETSTANDARD2_0
 			var byteCount = await WrappedStream.ReadAsync(buffer, offset, TruncateCount(count), cancellationToken).ConfigureAwait(false);
+#else
+			var byteCount = await WrappedStream.ReadAsync(buffer.AsMemory(offset, TruncateCount(count)), cancellationToken).ConfigureAwait(false);
+#endif
 			m_offset += byteCount;
 			return byteCount;
 		}

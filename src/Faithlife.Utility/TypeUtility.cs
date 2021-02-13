@@ -79,17 +79,17 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Gets the type from which the specified Type directly inherits.
 		/// </summary>
-		public static Type GetBaseType(this Type type) => type.GetTypeInfo().BaseType;
+		public static Type? GetBaseType(this Type type) => type.GetTypeInfo().BaseType;
 
 		/// <summary>
 		/// Gets the default constructor, or null if there isn't one.
 		/// </summary>
-		public static ConstructorInfo GetDefaultConstructor(this Type type) => type.GetTypeInfo().DeclaredConstructors.FirstOrDefault(x => x.GetParameters().Length == 0);
+		public static ConstructorInfo? GetDefaultConstructor(this Type type) => type.GetTypeInfo().DeclaredConstructors.FirstOrDefault(x => x.GetParameters().Length == 0);
 
 		/// <summary>
 		/// Gets the constructor with the specified parameter types, or null if there isn't one.
 		/// </summary>
-		public static ConstructorInfo GetConstructor(this Type type, Type[] types)
+		public static ConstructorInfo? GetConstructor(this Type type, Type[] types)
 			=> type.GetTypeInfo().DeclaredConstructors.FirstOrDefault(x => x.IsPublic && EnumerableUtility.AreEqual(x.GetParameters().Select(p => p.ParameterType), types));
 
 		/// <summary>
@@ -107,7 +107,7 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Gets the property.
 		/// </summary>
-		public static PropertyInfo GetProperty(this Type type, string propertyName, bool ignoreCase = false)
+		public static PropertyInfo? GetProperty(this Type type, string propertyName, bool ignoreCase = false)
 			=> type.GetRuntimeProperties().FirstOrDefault(x => x.GetMethod is not null && string.Equals(x.Name, propertyName, ignoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal));
 
 		/// <summary>

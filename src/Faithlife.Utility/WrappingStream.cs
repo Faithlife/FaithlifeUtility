@@ -65,13 +65,13 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Begins an asynchronous read operation.
 		/// </summary>
-		public override IAsyncResult BeginRead(byte[] buffer, int offset, int count, AsyncCallback callback, object state) =>
+		public override IAsyncResult BeginRead(byte[] buffer, int offset, int count, AsyncCallback? callback, object? state) =>
 			WrappedStream.BeginRead(buffer, offset, count, callback, state);
 
 		/// <summary>
 		/// Begins an asynchronous write operation.
 		/// </summary>
-		public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback callback, object state) =>
+		public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback? callback, object? state) =>
 			WrappedStream.BeginWrite(buffer, offset, count, callback, state);
 
 		/// <summary>
@@ -132,7 +132,7 @@ namespace Faithlife.Utility
 		/// Sets the position within the current stream.
 		/// </summary>
 		/// <param name="offset">A byte offset relative to the <paramref name="origin"/> parameter.</param>
-		/// <param name="origin">A value of type <see cref="T:System.IO.SeekOrigin"/> indicating the reference point used to obtain the new position.</param>
+		/// <param name="origin">A value of type <see cref="SeekOrigin"/> indicating the reference point used to obtain the new position.</param>
 		/// <returns>The new position within the current stream.</returns>
 		public override long Seek(long offset, SeekOrigin origin) => WrappedStream.Seek(offset, origin);
 
