@@ -48,7 +48,7 @@ namespace Faithlife.Utility
 		/// <param name="stringBuilder">The <see cref="StringBuilder"/> instance to which the string representation will be appended.</param>
 		/// <param name="value">The value to append.</param>
 		public static StringBuilder AppendInvariant(this StringBuilder stringBuilder, double value)
-			=> stringBuilder.Append(value.ToString(CultureInfo.InvariantCulture));
+			=> stringBuilder.Append(value.ToString("G17", CultureInfo.InvariantCulture));
 
 		/// <summary>
 		/// Appends the invariant representation of a specified 16-bit signed integer to the end of <paramref name="stringBuilder"/>.
@@ -80,7 +80,7 @@ namespace Faithlife.Utility
 		/// <param name="stringBuilder">The <see cref="StringBuilder"/> instance to which the string representation will be appended.</param>
 		/// <param name="value">The value to append.</param>
 		public static StringBuilder AppendInvariant(this StringBuilder stringBuilder, float value)
-			=> stringBuilder.Append(value.ToString(CultureInfo.InvariantCulture));
+			=> stringBuilder.Append(value.ToString("G9", CultureInfo.InvariantCulture));
 
 		/// <summary>
 		/// Appends the invariant representation of a specified 8-bit signed integer to the end of <paramref name="stringBuilder"/>.
