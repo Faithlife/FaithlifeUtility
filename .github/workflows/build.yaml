@@ -23,10 +23,14 @@ jobs:
     steps:
     - name: Check out code
       uses: actions/checkout@v1
+    - name: Set up .NET Core 2.1
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '2.1.x'
     - name: Set up .NET 5
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.100
+        dotnet-version: '5.0.x'
     - name: Restore
       run: .\build.ps1 restore
     - name: Build
