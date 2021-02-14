@@ -180,9 +180,9 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestCompareTo()
 		{
-			var segA = new StringSegment("Aaa", 0, 2);
-			var segB = new StringSegment("Aaa", 1, 2);
-			Assert.Greater(segA.CompareTo(segB), 0);
+			var segA = new StringSegment("abc", 0, 2);
+			var segB = new StringSegment("abc", 1, 2);
+			Assert.Less(segA.CompareTo(segB), 0);
 		}
 
 		[Test]
