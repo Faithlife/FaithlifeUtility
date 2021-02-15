@@ -74,6 +74,13 @@ namespace Faithlife.Utility
 		public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback? callback, object? state) =>
 			WrappedStream.BeginWrite(buffer, offset, count, callback, state);
 
+#if !NETSTANDARD2_0
+		/// <summary>
+		/// Copies this stream to a destination stream.
+		/// </summary>
+		public override void CopyTo(Stream destination, int bufferSize) => WrappedStream.CopyTo(destination, bufferSize);
+#endif
+
 		/// <summary>
 		/// Waits for the pending asynchronous read to complete.
 		/// </summary>
@@ -100,6 +107,19 @@ namespace Faithlife.Utility
 		/// within the stream by the number of bytes read.
 		/// </summary>
 		public override int Read(byte[] buffer, int offset, int count) => WrappedStream.Read(buffer, offset, count);
+
+#if !NETSTANDARD2_0
+		/// <summary>
+		/// Reads a sequence of bytes from the current stream and advances the position
+		/// within the stream by the number of bytes read.
+		/// </summary>
+		public override int Read(Span<byte> buffer) => WrappedStream.Read(buffer);
+
+		/// <summary>
+		/// Asynchronously reads a sequence of bytes from the current stream, advances the position within the stream by the number of bytes read, and monitors cancellation requests.
+		/// </summary>
+		public override ValueTask<int> ReadAsync(Memory<byte> buffer, CancellationToken cancellationToken = default) => WrappedStream.ReadAsync(buffer, cancellationToken);
+#endif
 
 		/// <summary>
 		/// Reads a byte from the stream and advances the position within the stream by one byte, or returns -1 if at the end of the stream.
@@ -147,6 +167,20 @@ namespace Faithlife.Utility
 		/// within this stream by the number of bytes written.
 		/// </summary>
 		public override void Write(byte[] buffer, int offset, int count) => WrappedStream.Write(buffer, offset, count);
+
+#if !NETSTANDARD2_0
+		/// <summary>
+		/// Writes a sequence of bytes to the current stream and advances the current position
+		/// within this stream by the number of bytes written.
+		/// </summary>
+		public override void Write(ReadOnlySpan<byte> buffer) => WrappedStream.Write(buffer);
+
+		/// <summary>
+		/// Asynchronously writes a sequence of bytes to the current stream and advances the current position
+		/// within this stream by the number of bytes written.
+		/// </summary>
+		public override ValueTask WriteAsync(ReadOnlyMemory<byte> buffer, CancellationToken cancellationToken = default) => WrappedStream.WriteAsync(buffer, cancellationToken);
+#endif
 
 		/// <summary>
 		/// Writes a byte to the current position in the stream and advances the position within the stream by one byte.
