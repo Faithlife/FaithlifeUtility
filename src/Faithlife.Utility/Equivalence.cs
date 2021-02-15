@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Faithlife.Utility
@@ -16,7 +15,7 @@ namespace Faithlife.Utility
 		/// <typeparam name="T">The object type.</typeparam>
 		/// <param name="left">The left object.</param>
 		/// <param name="right">The right object.</param>
-		public static bool AreEquivalent<T>([AllowNull] T left, [AllowNull] T right)
+		public static bool AreEquivalent<T>(T? left, T? right)
 			where T : IHasEquivalence<T>
 			=> left is null ? right is null : left.IsEquivalentTo(right);
 

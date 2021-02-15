@@ -1,5 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
-
 namespace Faithlife.Utility
 {
 	/// <summary>
@@ -19,6 +17,6 @@ namespace Faithlife.Utility
 		/// <remarks>As with equality (Object.Equals), equivalence should be reflexive, symmetric,
 		/// transitive, and consistent (as long as the objects in question are not modified). An object
 		/// should never be equivalent to null.</remarks>
-		bool IsEquivalentTo([AllowNull] T other);
+		bool IsEquivalentTo(T? other);
 	}
 }
