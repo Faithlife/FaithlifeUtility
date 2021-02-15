@@ -56,9 +56,6 @@ namespace Faithlife.Utility.Tests
 			CollectionAssert.AreEqual(new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 }, bytes);
 		}
 
-#if PORTABLE
-		[Ignore("Requires platform-specific implementation not present in PORTABLE builds.")]
-#endif
 		[Test]
 		public void CreateVersion3FromWidgetsCom()
 		{
@@ -67,9 +64,6 @@ namespace Faithlife.Utility.Tests
 			Assert.AreEqual(new Guid("3d813cbb-47fb-32ba-91df-831e1593ac29"), guid);
 		}
 
-#if PORTABLE
-		[Ignore("Requires platform-specific implementation not present in PORTABLE builds.")]
-#endif
 		[Test]
 		public void CreateVersion3FromPythonOrg()
 		{
@@ -78,9 +72,6 @@ namespace Faithlife.Utility.Tests
 			Assert.AreEqual(new Guid("6fa459ea-ee8a-3ca4-894e-db77e160355e"), guid);
 		}
 
-#if PORTABLE
-		[Ignore("Requires platform-specific implementation not present in PORTABLE builds.")]
-#endif
 		[Test]
 		public void CreateVersion5FromPythonOrg()
 		{

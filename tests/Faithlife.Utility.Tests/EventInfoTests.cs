@@ -72,9 +72,6 @@ namespace Faithlife.Utility.Tests
 		}
 
 		[Test]
-#if __MOBILE__
-		[Ignore]
-#endif
 		public void WeakSubscribeCollectedTest()
 		{
 			var eventSource = new EventSource();

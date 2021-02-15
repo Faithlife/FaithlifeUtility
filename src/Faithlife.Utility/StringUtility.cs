@@ -71,7 +71,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		public static string ReplaceOrdinal(this string source, string oldValue, string newValue)
 		{
-#if NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP2_1
+#if NETSTANDARD || NETCOREAPP2_1
 			return source.Replace(oldValue, newValue);
 #else
 			return source.Replace(oldValue, newValue, StringComparison.Ordinal);
@@ -868,12 +868,6 @@ namespace Faithlife.Utility
 			{
 				throw new FormatException(invalidFormatMessage, x);
 			}
-#if __MOBILE__
-			catch (IOException x)
-			{
-				throw new FormatException(invalidFormatMessage, x);
-			}
-#endif
 		}
 
 		/// <summary>

@@ -61,7 +61,6 @@ namespace Faithlife.Utility
 			set => WrappedStream.Position = value;
 		}
 
-#if !NETSTANDARD1_4
 		/// <summary>
 		/// Begins an asynchronous read operation.
 		/// </summary>
@@ -90,7 +89,6 @@ namespace Faithlife.Utility
 		/// Ends an asynchronous write operation.
 		/// </summary>
 		public override void EndWrite(IAsyncResult asyncResult) => WrappedStream.EndWrite(asyncResult);
-#endif
 
 		/// <summary>
 		/// Clears all buffers for this stream and causes any buffered data to be written to the underlying device.
