@@ -671,11 +671,11 @@ namespace Faithlife.Utility
 		public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T?> source)
 			where T : class
 		{
-			return doWhereNotNull(source ?? throw new ArgumentNullException(nameof(source)));
+			return DoWhereNotNull(source ?? throw new ArgumentNullException(nameof(source)));
 
-			IEnumerable<T> doWhereNotNull(IEnumerable<T?> source)
+			static IEnumerable<T> DoWhereNotNull(IEnumerable<T?> s)
 			{
-				foreach (var t in source)
+				foreach (var t in s)
 				{
 					if (t is not null)
 						yield return t;
@@ -691,11 +691,11 @@ namespace Faithlife.Utility
 		public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T?> source)
 			where T : struct
 		{
-			return doWhereNotNull(source ?? throw new ArgumentNullException(nameof(source)));
+			return DoWhereNotNull(source ?? throw new ArgumentNullException(nameof(source)));
 
-			IEnumerable<T> doWhereNotNull(IEnumerable<T?> source)
+			static IEnumerable<T> DoWhereNotNull(IEnumerable<T?> s)
 			{
-				foreach (var t in source)
+				foreach (var t in s)
 				{
 					if (t.HasValue)
 						yield return t.Value;
