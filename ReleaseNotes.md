@@ -1,5 +1,16 @@
 # Release Notes
 
+## 0.11.0
+
+* **Potentially Breaking** `InvariantConvert` and `StringBuilderUtility.AppendInvariant` have different behavior for floating-point numbers.
+  * The `G17` (or `G9`) format is used (instead of `R`) to guarantee that floating-point numbers round-trip correctly. This may cause numbers to be serialized differently than in previous versions of Libronix.Utility.
+  * Lowercase variants of `-Infinity`, `Infinity`, and `NaN` are accepted in `InvariantConvert.(Try)ParseDouble`. Previously, only those extra strings were accepted.
+* Changes for `netstandard2.1` and `net5.0`:
+  * `StringCache` is implemented with `HashSet<string>`.
+  * `WrappingStream` supports the new `Read(Async)` and `Write(Async)` overloads for `Span<byte>` and `Memory<byte>`.
+* `EnumerableUtility.Zip` is no longer an extension method in .NET 5, to avoid conflict with `Enumerable.Zip`.
+* Add `StringUtility.ReplaceOrdinal`. (Useful to avoid StyleCop error without passing `StringComparison.Ordinal` to `string.Replace`, which doesn't build before .NET 5.)
+
 ## 0.10.2
 
 * Allow `AddIfNotNull` to work with `List<Nullable<T>>`.
