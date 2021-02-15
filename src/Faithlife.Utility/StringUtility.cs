@@ -67,6 +67,18 @@ namespace Faithlife.Utility
 		public static int LastIndexOfOrdinal(this string source, string value, int startIndex, int count) => source.LastIndexOf(value, startIndex, count, StringComparison.Ordinal);
 
 		/// <summary>
+		/// Calls string.Replace with StringComparison.Ordinal.
+		/// </summary>
+		public static string ReplaceOrdinal(this string source, string oldValue, string newValue)
+		{
+#if NETSTANDARD2_0 || NETSTANDARD2_1 || NETCOREAPP2_1
+			return source.Replace(oldValue, newValue);
+#else
+			return source.Replace(oldValue, newValue, StringComparison.Ordinal);
+#endif
+		}
+
+		/// <summary>
 		/// Compares two specified <see cref="string"/> objects by comparing successive Unicode code points. This method differs from
 		/// <see cref="string.CompareOrdinal(string, string)"/> in that this method considers supplementary characters (which are
 		/// encoded as two surrogate code units) to be greater than characters in the base multilingual plane (because they have higher

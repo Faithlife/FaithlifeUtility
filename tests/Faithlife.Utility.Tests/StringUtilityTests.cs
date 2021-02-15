@@ -48,6 +48,13 @@ namespace Faithlife.Utility.Tests
 		}
 
 		[Test]
+		public void ReplaceWithOrdinal()
+		{
+			Assert.AreEqual("abcde", "axe".ReplaceOrdinal("x", "bcd"));
+			Assert.AreEqual("axe", "axe".ReplaceOrdinal("X", "bcd"));
+		}
+
+		[Test]
 		public void FormatInvariant()
 		{
 			var dtNow = DateTime.Now;
