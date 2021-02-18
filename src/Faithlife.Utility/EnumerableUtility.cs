@@ -263,7 +263,8 @@ namespace Faithlife.Utility
 		/// <returns>
 		/// <paramref name="defaultValue"/> if <paramref name="source"/> is empty; otherwise, the first element in <paramref name="source"/>.
 		/// </returns>
-		public static T FirstOrDefault<T>(this IEnumerable<T> source, T defaultValue) => source.TryFirst(out var found) ? found : defaultValue;
+		[return: NotNullIfNotNull("defaultValue")]
+		public static T? FirstOrDefault<T>(this IEnumerable<T> source, T? defaultValue) => source.TryFirst(out var found) ? found : defaultValue;
 
 		/// <summary>
 		/// Returns the first element of a sequence that satisfies a condition or a default value if no such element is found.
@@ -277,7 +278,8 @@ namespace Faithlife.Utility
 		/// specified by <paramref name="predicate"/>; otherwise, the first element in <paramref name="source"/> that
 		/// passes the test specified by <paramref name="predicate"/>.
 		/// </returns>
-		public static T FirstOrDefault<T>(this IEnumerable<T> source, Func<T, bool> predicate, T defaultValue) => source.TryFirst(predicate, out var found) ? found : defaultValue;
+		[return: NotNullIfNotNull("defaultValue")]
+		public static T? FirstOrDefault<T>(this IEnumerable<T> source, Func<T, bool> predicate, T? defaultValue) => source.TryFirst(predicate, out var found) ? found : defaultValue;
 
 		/// <summary>
 		/// Intersperses the specified value between the elements of the source collection.
@@ -620,7 +622,7 @@ namespace Faithlife.Utility
 		/// <param name="source">The source sequence.</param>
 		/// <param name="found">The first item, if any.</param>
 		/// <returns><c>True</c> if the sequence is not empty; otherwise, <c>false</c>.</returns>
-		public static bool TryFirst<T>(this IEnumerable<T> source, out T found)
+		public static bool TryFirst<T>(this IEnumerable<T> source, [MaybeNullWhen(false)] out T? found)
 		{
 			if (source is null)
 				throw new ArgumentNullException(nameof(source));
@@ -643,7 +645,7 @@ namespace Faithlife.Utility
 		/// <param name="predicate">The predicate.</param>
 		/// <param name="found">The first item that satisfies the predicate, if any.</param>
 		/// <returns><c>True</c> if any elements in the source sequence pass the test in the specified predicate; otherwise, <c>false</c>.</returns>
-		public static bool TryFirst<T>(this IEnumerable<T> source, Func<T, bool> predicate, out T found)
+		public static bool TryFirst<T>(this IEnumerable<T> source, Func<T, bool> predicate, [MaybeNullWhen(false)] out T? found)
 		{
 			if (source is null)
 				throw new ArgumentNullException(nameof(source));
