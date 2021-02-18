@@ -1,5 +1,10 @@
 # Release Notes
 
+## 0.11.1
+
+* Restrict `EnumUtility` to `Enum`.
+* Improve nullability of `FirstOrDefault` and `TryFirst`.
+
 ## 0.11.0
 
 * **Potentially Breaking** `InvariantConvert` and `StringBuilderUtility.AppendInvariant` have different behavior for floating-point numbers.
