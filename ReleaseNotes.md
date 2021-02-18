@@ -3,7 +3,7 @@
 ## 0.11.0
 
 * **Potentially Breaking** `InvariantConvert` and `StringBuilderUtility.AppendInvariant` have different behavior for floating-point numbers.
-  * The `G17` (or `G9`) format is used (instead of `R`) to guarantee that floating-point numbers round-trip correctly. This may cause numbers to be serialized differently than in previous versions of Libronix.Utility.
+  * The `G17` (or `G9`) format is used (instead of `R`) to guarantee that floating-point numbers round-trip correctly. This may cause numbers to be serialized differently than in previous versions of Faithlife.Utility.
   * Lowercase variants of `-Infinity`, `Infinity`, and `NaN` are accepted in `InvariantConvert.(Try)ParseDouble`. Previously, only those extra strings were accepted.
 * Changes for `netstandard2.1` and `net5.0`:
   * `StringCache` is implemented with `HashSet<string>`.
