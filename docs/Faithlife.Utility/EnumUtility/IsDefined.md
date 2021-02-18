@@ -4,6 +4,7 @@ Determines whether the specified value is defined.
 
 ```csharp
 public static bool IsDefined<T>(T value)
+    where T : struct, Enum
 ```
 
 | parameter | description |

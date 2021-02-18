@@ -4,7 +4,7 @@ Attempts to parse the specified string.
 
 ```csharp
 public static T? TryParse<T>(string? value)
-    where T : struct
+    where T : struct, Enum
 ```
 
 | parameter | description |
@@ -33,7 +33,7 @@ Attempts to parse the specified string.
 
 ```csharp
 public static T? TryParse<T>(string? value, CaseSensitivity caseSensitivity)
-    where T : struct
+    where T : struct, Enum
 ```
 
 | parameter | description |
@@ -60,7 +60,7 @@ Attempts to parse the specified string.
 
 ```csharp
 public static bool TryParse<T>(string? value, out T result)
-    where T : struct
+    where T : struct, Enum
 ```
 
 | parameter | description |
@@ -90,7 +90,7 @@ Attempts to parse the specified string.
 
 ```csharp
 public static bool TryParse<T>(string? value, CaseSensitivity caseSensitivity, out T result)
-    where T : struct
+    where T : struct, Enum
 ```
 
 | parameter | description |

@@ -3,7 +3,7 @@
 Returns true if the sequence is not empty and provides the first element.
 
 ```csharp
-public static bool TryFirst<T>(this IEnumerable<T> source, out T found)
+public static bool TryFirst<T>(this IEnumerable<T> source, out T? found)
 ```
 
 | parameter | description |
@@ -28,7 +28,7 @@ public static bool TryFirst<T>(this IEnumerable<T> source, out T found)
 Determines whether any element of a sequence satisfies a condition.
 
 ```csharp
-public static bool TryFirst<T>(this IEnumerable<T> source, Func<T, bool> predicate, out T found)
+public static bool TryFirst<T>(this IEnumerable<T> source, Func<T, bool> predicate, out T? found)
 ```
 
 | parameter | description |

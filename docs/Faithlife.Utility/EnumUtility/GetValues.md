@@ -4,7 +4,7 @@ Gets the values defined by the enumerated type.
 
 ```csharp
 public static T[] GetValues<T>()
-    where T : struct
+    where T : struct, Enum
 ```
 
 | parameter | description |

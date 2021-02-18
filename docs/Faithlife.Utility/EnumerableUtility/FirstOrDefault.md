@@ -3,7 +3,7 @@
 Returns the first element of a sequence or a default value if no such element is found.
 
 ```csharp
-public static T FirstOrDefault<T>(this IEnumerable<T> source, T defaultValue)
+public static T? FirstOrDefault<T>(this IEnumerable<T> source, T? defaultValue)
 ```
 
 | parameter | description |
@@ -28,8 +28,8 @@ public static T FirstOrDefault<T>(this IEnumerable<T> source, T defaultValue)
 Returns the first element of a sequence that satisfies a condition or a default value if no such element is found.
 
 ```csharp
-public static T FirstOrDefault<T>(this IEnumerable<T> source, Func<T, bool> predicate, 
-    T defaultValue)
+public static T? FirstOrDefault<T>(this IEnumerable<T> source, Func<T, bool> predicate, 
+    T? defaultValue)
 ```
 
 | parameter | description |

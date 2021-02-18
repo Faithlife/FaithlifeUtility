@@ -4,7 +4,7 @@ Parses the specified string.
 
 ```csharp
 public static T Parse<T>(string value)
-    where T : struct
+    where T : struct, Enum
 ```
 
 | parameter | description |
@@ -33,7 +33,7 @@ Parses the specified string.
 
 ```csharp
 public static T Parse<T>(string value, CaseSensitivity caseSensitivity)
-    where T : struct
+    where T : struct, Enum
 ```
 
 | parameter | description |
