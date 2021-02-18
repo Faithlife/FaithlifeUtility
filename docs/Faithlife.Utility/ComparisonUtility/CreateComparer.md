@@ -3,7 +3,7 @@
 Creates a comparer from a delegate.
 
 ```csharp
-public static Comparer<T> CreateComparer<T>(Func<T, T, int> comparer)
+public static Comparer<T> CreateComparer<T>(Func<T?, T?, int> comparer)
 ```
 
 | parameter | description |
@@ -27,7 +27,7 @@ The comparer.
 Creates a comparer from a delegate.
 
 ```csharp
-public static Comparer<T> CreateComparer<T>(params Func<T, T, int>[] comparers)
+public static Comparer<T> CreateComparer<T>(params Func<T?, T?, int>[] comparers)
 ```
 
 | parameter | description |

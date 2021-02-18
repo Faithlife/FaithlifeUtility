@@ -1,4 +1,19 @@
-# WrappingStream.Write method
+# WrappingStream.Write method (1 of 2)
+
+Writes a sequence of bytes to the current stream and advances the current position within this stream by the number of bytes written.
+
+```csharp
+public override void Write(ReadOnlySpan<byte> buffer)
+```
+
+## See Also
+
+* class [WrappingStream](../WrappingStream.md)
+* namespace [Faithlife.Utility](../../Faithlife.Utility.md)
+
+---
+
+# WrappingStream.Write method (2 of 2)
 
 Writes a sequence of bytes to the current stream and advances the current position within this stream by the number of bytes written.
 

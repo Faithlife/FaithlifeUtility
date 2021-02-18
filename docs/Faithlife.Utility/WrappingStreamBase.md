@@ -18,7 +18,7 @@ public abstract class WrappingStreamBase : Stream
 | override [Position](WrappingStreamBase/Position.md) { get; set; } | Gets or sets the position within the current stream. |
 | override [ReadTimeout](WrappingStreamBase/ReadTimeout.md) { get; set; } | Gets or sets a value, in milliseconds, that determines how long the stream will attempt to read before timing out. |
 | override [WriteTimeout](WrappingStreamBase/WriteTimeout.md) { get; set; } | Gets or sets a value, in milliseconds, that determines how long the stream will attempt to write before timing out. |
-| [Close](WrappingStreamBase/Close.md)() |  |
+| [Close](WrappingStreamBase/Close.md)() | Closes the current stream and releases any resources (such as sockets and file handles) associated with the current stream. Instead of calling this method, ensure that the stream is properly disposed. |
 | override [Flush](WrappingStreamBase/Flush.md)() | Clears all buffers for this stream and causes any buffered data to be written to the underlying device. |
 | abstract [ReadAsync](WrappingStreamBase/ReadAsync.md)(…) | Asynchronously reads a sequence of bytes from the current stream, advances the position within the stream by the number of bytes read, and monitors cancellation requests. |
 | override [Seek](WrappingStreamBase/Seek.md)(…) | Sets the position within the current stream. |

@@ -3,7 +3,7 @@
 Determines whether two objects are equal.
 
 ```csharp
-public override bool Equals(TSource x, TSource y)
+public override bool Equals(TSource? x, TSource? y)
 ```
 
 | parameter | description |

@@ -3,7 +3,8 @@
 Gets the property.
 
 ```csharp
-public static PropertyInfo GetProperty(this Type type, string propertyName, bool ignoreCase = false)
+public static PropertyInfo? GetProperty(this Type type, string propertyName, 
+    bool ignoreCase = false)
 ```
 
 ## See Also

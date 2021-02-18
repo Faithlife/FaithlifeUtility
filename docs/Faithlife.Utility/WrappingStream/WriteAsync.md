@@ -1,4 +1,20 @@
-# WrappingStream.WriteAsync method
+# WrappingStream.WriteAsync method (1 of 2)
+
+Asynchronously writes a sequence of bytes to the current stream and advances the current position within this stream by the number of bytes written.
+
+```csharp
+public override ValueTask WriteAsync(ReadOnlyMemory<byte> buffer, 
+    CancellationToken cancellationToken = default)
+```
+
+## See Also
+
+* class [WrappingStream](../WrappingStream.md)
+* namespace [Faithlife.Utility](../../Faithlife.Utility.md)
+
+---
+
+# WrappingStream.WriteAsync method (2 of 2)
 
 Asynchronously writes a sequence of bytes to the current stream, advances the current position within this stream by the number of bytes written, and monitors cancellation requests.
 

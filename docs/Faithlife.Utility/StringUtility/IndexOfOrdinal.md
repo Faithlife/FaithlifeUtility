@@ -1,4 +1,19 @@
-# StringUtility.IndexOfOrdinal method (1 of 3)
+# StringUtility.IndexOfOrdinal method (1 of 4)
+
+Calls string.IndexOf with StringComparison.Ordinal.
+
+```csharp
+public static int IndexOfOrdinal(this string source, char value)
+```
+
+## See Also
+
+* class [StringUtility](../StringUtility.md)
+* namespace [Faithlife.Utility](../../Faithlife.Utility.md)
+
+---
+
+# StringUtility.IndexOfOrdinal method (2 of 4)
 
 Calls string.IndexOf with StringComparison.Ordinal.
 
@@ -13,7 +28,7 @@ public static int IndexOfOrdinal(this string source, string value)
 
 ---
 
-# StringUtility.IndexOfOrdinal method (2 of 3)
+# StringUtility.IndexOfOrdinal method (3 of 4)
 
 Calls string.IndexOf with StringComparison.Ordinal.
 
@@ -28,7 +43,7 @@ public static int IndexOfOrdinal(this string source, string value, int startInde
 
 ---
 
-# StringUtility.IndexOfOrdinal method (3 of 3)
+# StringUtility.IndexOfOrdinal method (4 of 4)
 
 Calls string.IndexOf with StringComparison.Ordinal.
 

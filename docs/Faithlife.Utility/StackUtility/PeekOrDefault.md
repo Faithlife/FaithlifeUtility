@@ -3,7 +3,7 @@
 Returns the object at the top of the stack without moving it, or a default value if the stack is empty.
 
 ```csharp
-public static T PeekOrDefault<T>(this Stack<T> stack)
+public static T? PeekOrDefault<T>(this Stack<T> stack)
 ```
 
 | parameter | description |
@@ -27,7 +27,7 @@ The object at the top of the stack without moving it, or a default value if the 
 Returns the object at the top of the stack without moving it, or a default value if the stack is empty.
 
 ```csharp
-public static T PeekOrDefault<T>(this Stack<T> stack, T defaultValue)
+public static T? PeekOrDefault<T>(this Stack<T> stack, T? defaultValue)
 ```
 
 | parameter | description |

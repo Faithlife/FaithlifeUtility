@@ -3,7 +3,7 @@
 Determines whether the object is equivalent to the specified object.
 
 ```csharp
-public bool IsEquivalentTo(T other)
+public bool IsEquivalentTo(T? other)
 ```
 
 | parameter | description |

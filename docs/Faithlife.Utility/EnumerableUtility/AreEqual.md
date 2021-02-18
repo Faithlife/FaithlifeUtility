@@ -28,7 +28,7 @@ Returns a value indicating whether the specified sequences are equal using the s
 
 ```csharp
 public static bool AreEqual<T>(IEnumerable<T>? first, IEnumerable<T>? second, 
-    Func<T, T, bool>? equals)
+    Func<T?, T?, bool>? equals)
 ```
 
 | parameter | description |

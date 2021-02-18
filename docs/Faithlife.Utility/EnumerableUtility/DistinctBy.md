@@ -4,7 +4,7 @@ Returns distinct elements from a sequence based on a key by using the default eq
 
 ```csharp
 public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, 
-    Func<TSource, TKey> keySelector)
+    Func<TSource, TKey?> keySelector)
 ```
 
 | parameter | description |
@@ -31,7 +31,7 @@ Returns distinct elements from a sequence based on a key by using a specified IE
 
 ```csharp
 public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, 
-    Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? equalityComparer)
+    Func<TSource, TKey?> keySelector, IEqualityComparer<TKey>? equalityComparer)
 ```
 
 | parameter | description |

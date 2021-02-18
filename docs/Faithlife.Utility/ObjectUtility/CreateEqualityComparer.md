@@ -3,7 +3,7 @@
 Creates an equality comparer from delegates.
 
 ```csharp
-public static EqualityComparer<T> CreateEqualityComparer<T>(Func<T, T, bool> equals)
+public static EqualityComparer<T> CreateEqualityComparer<T>(Func<T?, T?, bool> equals)
 ```
 
 | parameter | description |
@@ -31,7 +31,7 @@ If GetHashCode is called, it will throw a NotImplementedException.
 Creates an equality comparer from delegates.
 
 ```csharp
-public static EqualityComparer<T> CreateEqualityComparer<T>(Func<T, T, bool> equals, 
+public static EqualityComparer<T> CreateEqualityComparer<T>(Func<T?, T?, bool> equals, 
     Func<T, int> getHashCode)
 ```
 

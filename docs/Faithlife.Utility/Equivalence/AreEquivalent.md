@@ -3,7 +3,7 @@
 True if the objects are equivalent.
 
 ```csharp
-public static bool AreEquivalent<T>(T left, T right)
+public static bool AreEquivalent<T>(T? left, T? right)
     where T : IHasEquivalence<T>
 ```
 

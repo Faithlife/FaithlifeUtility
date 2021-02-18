@@ -1,4 +1,19 @@
-# WrappingStream.Read method
+# WrappingStream.Read method (1 of 2)
+
+Reads a sequence of bytes from the current stream and advances the position within the stream by the number of bytes read.
+
+```csharp
+public override int Read(Span<byte> buffer)
+```
+
+## See Also
+
+* class [WrappingStream](../WrappingStream.md)
+* namespace [Faithlife.Utility](../../Faithlife.Utility.md)
+
+---
+
+# WrappingStream.Read method (2 of 2)
 
 Reads a sequence of bytes from the current stream and advances the position within the stream by the number of bytes read.
 

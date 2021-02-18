@@ -21,18 +21,19 @@ public sealed class WrappingStream : Stream
 | override [WriteTimeout](WrappingStream/WriteTimeout.md) { get; set; } | Gets or sets a value, in milliseconds, that determines how long the stream will attempt to write before timing out. |
 | override [BeginRead](WrappingStream/BeginRead.md)(…) | Begins an asynchronous read operation. |
 | override [BeginWrite](WrappingStream/BeginWrite.md)(…) | Begins an asynchronous write operation. |
+| override [CopyTo](WrappingStream/CopyTo.md)(…) | Copies this stream to a destination stream. |
 | override [CopyToAsync](WrappingStream/CopyToAsync.md)(…) | Asynchronously reads the bytes from the current stream and writes them to another stream, using a specified buffer size and cancellation token. |
 | override [EndRead](WrappingStream/EndRead.md)(…) | Waits for the pending asynchronous read to complete. |
 | override [EndWrite](WrappingStream/EndWrite.md)(…) | Ends an asynchronous write operation. |
 | override [Flush](WrappingStream/Flush.md)() | Clears all buffers for this stream and causes any buffered data to be written to the underlying device. |
 | override [FlushAsync](WrappingStream/FlushAsync.md)(…) | Asynchronously clears all buffers for this stream, causes any buffered data to be written to the underlying device, and monitors cancellation requests. |
-| override [Read](WrappingStream/Read.md)(…) | Reads a sequence of bytes from the current stream and advances the position within the stream by the number of bytes read. |
-| override [ReadAsync](WrappingStream/ReadAsync.md)(…) | Asynchronously reads a sequence of bytes from the current stream, advances the position within the stream by the number of bytes read, and monitors cancellation requests. |
+| override [Read](WrappingStream/Read.md)(…) | Reads a sequence of bytes from the current stream and advances the position within the stream by the number of bytes read. (2 methods) |
+| override [ReadAsync](WrappingStream/ReadAsync.md)(…) | Asynchronously reads a sequence of bytes from the current stream, advances the position within the stream by the number of bytes read, and monitors cancellation requests. (2 methods) |
 | override [ReadByte](WrappingStream/ReadByte.md)() | Reads a byte from the stream and advances the position within the stream by one byte, or returns -1 if at the end of the stream. |
 | override [Seek](WrappingStream/Seek.md)(…) | Sets the position within the current stream. |
 | override [SetLength](WrappingStream/SetLength.md)(…) | Sets the length of the current stream. |
-| override [Write](WrappingStream/Write.md)(…) | Writes a sequence of bytes to the current stream and advances the current position within this stream by the number of bytes written. |
-| override [WriteAsync](WrappingStream/WriteAsync.md)(…) | Asynchronously writes a sequence of bytes to the current stream, advances the current position within this stream by the number of bytes written, and monitors cancellation requests. |
+| override [Write](WrappingStream/Write.md)(…) | Writes a sequence of bytes to the current stream and advances the current position within this stream by the number of bytes written. (2 methods) |
+| override [WriteAsync](WrappingStream/WriteAsync.md)(…) | Asynchronously writes a sequence of bytes to the current stream and advances the current position within this stream by the number of bytes written. (2 methods) |
 | override [WriteByte](WrappingStream/WriteByte.md)(…) | Writes a byte to the current position in the stream and advances the position within the stream by one byte. |
 
 ## Protected Members

@@ -3,7 +3,7 @@
 Gets the type from which the specified Type directly inherits.
 
 ```csharp
-public static Type GetBaseType(this Type type)
+public static Type? GetBaseType(this Type type)
 ```
 
 ## See Also

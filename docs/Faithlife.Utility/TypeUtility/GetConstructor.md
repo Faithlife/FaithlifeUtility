@@ -3,7 +3,7 @@
 Gets the constructor with the specified parameter types, or null if there isn't one.
 
 ```csharp
-public static ConstructorInfo GetConstructor(this Type type, Type[] types)
+public static ConstructorInfo? GetConstructor(this Type type, Type[] types)
 ```
 
 ## See Also

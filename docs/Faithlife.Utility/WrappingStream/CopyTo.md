@@ -1,10 +1,9 @@
-# WrappingStream.BeginWrite method
+# WrappingStream.CopyTo method
 
-Begins an asynchronous write operation.
+Copies this stream to a destination stream.
 
 ```csharp
-public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, 
-    AsyncCallback? callback, object? state)
+public override void CopyTo(Stream destination, int bufferSize)
 ```
 
 ## See Also

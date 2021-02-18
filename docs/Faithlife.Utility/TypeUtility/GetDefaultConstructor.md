@@ -3,7 +3,7 @@
 Gets the default constructor, or null if there isn't one.
 
 ```csharp
-public static ConstructorInfo GetDefaultConstructor(this Type type)
+public static ConstructorInfo? GetDefaultConstructor(this Type type)
 ```
 
 ## See Also

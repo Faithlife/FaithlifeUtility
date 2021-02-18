@@ -3,7 +3,7 @@
 Combines two same sized sequences.
 
 ```csharp
-public static IEnumerable<ValueTuple<T1, T2>> Zip<T1, T2>(this IEnumerable<T1> first, 
+public static IEnumerable<ValueTuple<T1, T2>> Zip<T1, T2>(IEnumerable<T1> first, 
     IEnumerable<T2> second)
 ```
 

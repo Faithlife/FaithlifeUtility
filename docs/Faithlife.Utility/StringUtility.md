@@ -20,10 +20,11 @@ public static class StringUtility
 | static [FoldCase](StringUtility/FoldCase.md)(…) | Performs a full case folding as defined by Section 5.18 of the Unicode Standard 5.0. |
 | static [FormatInvariant](StringUtility/FormatInvariant.md)(…) | Formats the string using the invariant culture. |
 | static [GetPersistentHashCode](StringUtility/GetPersistentHashCode.md)(…) | Gets a hash code for the specified string; this hash code is guaranteed not to change in future. |
-| static [IndexOfOrdinal](StringUtility/IndexOfOrdinal.md)(…) | Calls string.IndexOf with StringComparison.Ordinal. (3 methods) |
+| static [IndexOfOrdinal](StringUtility/IndexOfOrdinal.md)(…) | Calls string.IndexOf with StringComparison.Ordinal. (4 methods) |
 | static [Join](StringUtility/Join.md)(…) | Joins the specified strings into one string. (4 methods) |
 | static [JoinFormat](StringUtility/JoinFormat.md)(…) | Joins the specified strings using the specified separator format. |
 | static [LastIndexOfOrdinal](StringUtility/LastIndexOfOrdinal.md)(…) | Calls string.LastIndexOf with StringComparison.Ordinal. (3 methods) |
+| static [ReplaceOrdinal](StringUtility/ReplaceOrdinal.md)(…) | Calls string.Replace with StringComparison.Ordinal. |
 | static [Reverse](StringUtility/Reverse.md)(…) | Reverses the specified string. |
 | static [SplitOnWhitespace](StringUtility/SplitOnWhitespace.md)(…) | Splits the string on whitespace. (2 methods) |
 | static [StartsWithOrdinal](StringUtility/StartsWithOrdinal.md)(…) | Calls string.StartsWith with StringComparison.Ordinal. |
