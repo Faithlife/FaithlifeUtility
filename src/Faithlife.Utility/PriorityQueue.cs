@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 
 namespace Faithlife.Utility
@@ -10,6 +11,9 @@ namespace Faithlife.Utility
 	/// The priority queue is sorted so that the smallest item is removed from the queue first.
 	/// </summary>
 	/// <typeparam name="T">The type of data to be sorted in the priority queue.</typeparam>
+	[SuppressMessage("Design", "CA1010:Generic interface should also be implemented", Justification = "Legacy.")]
+	[SuppressMessage("Naming", "CA1710:Identifiers should have correct suffix", Justification = "Legacy.")]
+	[SuppressMessage("Naming", "CA1711:Identifiers should not have incorrect suffix", Justification = "Legacy.")]
 	public sealed class PriorityQueue<T> : ICollection, IEnumerable<T>
 	{
 		/// <summary>
@@ -57,7 +61,7 @@ namespace Faithlife.Utility
 				throw new ArgumentOutOfRangeException(nameof(capacity), "The parameter must be a non-negative number.");
 
 			m_comparer = comparer ?? Comparer<T>.Default;
-			m_array = s_emptyArray;
+			m_array = Array.Empty<T>();
 			if (capacity > 0)
 				SetCapacity(capacity);
 		}
@@ -302,7 +306,7 @@ namespace Faithlife.Utility
 			else
 			{
 				// use empty array
-				m_array = s_emptyArray;
+				m_array = Array.Empty<T>();
 			}
 		}
 
@@ -377,7 +381,5 @@ namespace Faithlife.Utility
 		private T[] m_array;
 		private int m_size;
 		private object? m_syncRoot;
-
-		private static readonly T[] s_emptyArray = new T[0];
 	}
 }

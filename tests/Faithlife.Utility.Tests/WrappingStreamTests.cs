@@ -42,6 +42,34 @@ namespace Faithlife.Utility.Tests
 		}
 
 		[Test]
+		public void Close()
+		{
+			Assert.IsTrue(m_stream.CanRead);
+			m_stream.Close();
+			Assert.IsFalse(m_stream.CanRead);
+		}
+
+		[Test]
+		public void CopyTo()
+		{
+			m_stream.Position = 0;
+			using var memoryStream = new MemoryStream();
+			m_stream.CopyTo(memoryStream);
+			Assert.AreEqual(s_abyStreamData.LongLength, m_stream.Position);
+			CollectionAssert.AreEqual(s_abyStreamData, memoryStream.ToArray());
+		}
+
+		[Test]
+		public async Task CopyToAsync()
+		{
+			m_stream.Position = 0;
+			using var memoryStream = new MemoryStream();
+			await m_stream.CopyToAsync(memoryStream).ConfigureAwait(false);
+			Assert.AreEqual(s_abyStreamData.LongLength, m_stream.Position);
+			CollectionAssert.AreEqual(s_abyStreamData, memoryStream.ToArray());
+		}
+
+		[Test]
 		public void Dispose()
 		{
 			m_stream.Dispose();

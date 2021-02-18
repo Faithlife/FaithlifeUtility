@@ -38,7 +38,7 @@ namespace Faithlife.Utility
 		/// <param name="second">The second sequence.</param>
 		/// <param name="equals">Returns true if two items are equal.</param>
 		/// <returns><c>True</c> if the sequences are equal.</returns>
-		public static bool AreEqual<T>(IEnumerable<T>? first, IEnumerable<T>? second, Func<T, T, bool>? equals)
+		public static bool AreEqual<T>(IEnumerable<T>? first, IEnumerable<T>? second, Func<T?, T?, bool>? equals)
 			=> AreEqual(first, second, equals is null ? null : ObjectUtility.CreateEqualityComparer(equals));
 
 		/// <summary>
@@ -179,7 +179,7 @@ namespace Faithlife.Utility
 		/// <param name="source">The sequence to remove duplicate objects from.</param>
 		/// <param name="keySelector">The function that determines the key.</param>
 		/// <returns>An <see cref="IEnumerable{T}"/> that contains distinct elements from the source sequence.</returns>
-		public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
+		public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey?> keySelector)
 		{
 			return DistinctBy(source, keySelector, null);
 		}
@@ -193,14 +193,14 @@ namespace Faithlife.Utility
 		/// <param name="keySelector">The function that determines the key.</param>
 		/// <param name="equalityComparer">The <see cref="IEqualityComparer{T}"/> used to compare keys; if <c>null</c>, the default comparer will be used.</param>
 		/// <returns>An <see cref="IEnumerable{T}"/> that contains distinct elements from the source sequence.</returns>
-		public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey>? equalityComparer)
+		public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey?> keySelector, IEqualityComparer<TKey>? equalityComparer)
 		{
 			if (source is null)
 				throw new ArgumentNullException(nameof(source));
 			if (keySelector is null)
 				throw new ArgumentNullException(nameof(keySelector));
 
-			return source.Distinct(new KeyEqualityComparer<TSource, TKey>(keySelector, equalityComparer ?? EqualityComparer<TKey>.Default));
+			return source.Distinct(new KeyEqualityComparer<TSource, TKey>(keySelector!, equalityComparer ?? EqualityComparer<TKey>.Default));
 		}
 
 		/// <summary>
@@ -429,7 +429,7 @@ namespace Faithlife.Utility
 
 			comparer ??= EqualityComparer<T>.Default;
 
-			return HashCodeUtility.CombineHashCodes(source.Select(x => comparer.GetHashCode(x)).ToArray());
+			return HashCodeUtility.CombineHashCodes(source.Select(x => comparer.GetHashCode(x!)).ToArray());
 		}
 
 		/// <summary>
@@ -568,7 +568,7 @@ namespace Faithlife.Utility
 			if (count < 0)
 				throw new ArgumentOutOfRangeException(nameof(count));
 			else if (count == 0)
-				return new T[0];
+				return Array.Empty<T>();
 
 			var queue = new Queue<T>(count);
 			foreach (var item in source)
@@ -671,11 +671,11 @@ namespace Faithlife.Utility
 		public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T?> source)
 			where T : class
 		{
-			return doWhereNotNull(source ?? throw new ArgumentNullException(nameof(source)));
+			return DoWhereNotNull(source ?? throw new ArgumentNullException(nameof(source)));
 
-			IEnumerable<T> doWhereNotNull(IEnumerable<T?> source)
+			static IEnumerable<T> DoWhereNotNull(IEnumerable<T?> s)
 			{
-				foreach (var t in source)
+				foreach (var t in s)
 				{
 					if (t is not null)
 						yield return t;
@@ -691,11 +691,11 @@ namespace Faithlife.Utility
 		public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T?> source)
 			where T : struct
 		{
-			return doWhereNotNull(source ?? throw new ArgumentNullException(nameof(source)));
+			return DoWhereNotNull(source ?? throw new ArgumentNullException(nameof(source)));
 
-			IEnumerable<T> doWhereNotNull(IEnumerable<T?> source)
+			static IEnumerable<T> DoWhereNotNull(IEnumerable<T?> s)
 			{
-				foreach (var t in source)
+				foreach (var t in s)
 				{
 					if (t.HasValue)
 						yield return t.Value;
@@ -710,7 +710,11 @@ namespace Faithlife.Utility
 		/// <param name="second">An IEnumerable whos elements will be returned as ValueTuple.Second.</param>
 		/// <returns>A sequence of tuples combining the input items. Throws if the sequences don't have the same number of items.</returns>
 		[SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1414:Tuple types in signatures should have element names", Justification = "By design.")]
-		public static IEnumerable<(T1, T2)> Zip<T1, T2>(this IEnumerable<T1> first, IEnumerable<T2> second) =>
+		public static IEnumerable<(T1, T2)> Zip<T1, T2>(
+#if NETSTANDARD || NETCOREAPP2_1
+			this
+#endif
+				IEnumerable<T1> first, IEnumerable<T2> second) =>
 			ZipImpl(first ?? throw new ArgumentNullException(nameof(first)), second ?? throw new ArgumentNullException(nameof(second)), UnbalancedZipStrategy.Throw);
 
 		/// <summary>

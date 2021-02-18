@@ -72,9 +72,6 @@ namespace Faithlife.Utility.Tests
 		}
 
 		[Test]
-#if __MOBILE__
-		[Ignore]
-#endif
 		public void WeakSubscribeCollectedTest()
 		{
 			var eventSource = new EventSource();
@@ -137,7 +134,7 @@ namespace Faithlife.Utility.Tests
 
 				m_scopeUpdate = EventSource.UpdatedEvent.WeakSubscribe(eventSource, this, (t, s, e) => t.OnUpdated(s, e));
 				m_scopeClose = EventSource.ClosedEvent.WeakSubscribe(eventSource, this, (t, s, e) => t.OnClosed(s, e));
-				m_scopeTerminate = EventSource.TerminatedEvent.WeakSubscribe(eventSource, this, (EventTarget t, object s, EventArgs e) => t.OnTerminated(s, e));
+				m_scopeTerminate = EventSource.TerminatedEvent.WeakSubscribe(eventSource, this, (t, s, e) => t.OnTerminated(s, e));
 			}
 
 			public static int RaiseCount
@@ -146,17 +143,17 @@ namespace Faithlife.Utility.Tests
 				set { m_nRaiseCount = value; }
 			}
 
-			public void OnUpdated(object source, EventArgs e)
+			public void OnUpdated(object? source, EventArgs e)
 			{
 				RaiseCount++;
 			}
 
-			public void OnClosed(object source, EventArgs e)
+			public void OnClosed(object? source, EventArgs e)
 			{
 				RaiseCount++;
 			}
 
-			public void OnTerminated(object source, EventArgs e)
+			public void OnTerminated(object? source, EventArgs e)
 			{
 				RaiseCount++;
 			}

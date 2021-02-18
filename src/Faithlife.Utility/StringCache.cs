@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
@@ -18,10 +19,7 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Constructs a new instance of the <see cref="StringCache"/> class.
 		/// </summary>
-		public StringCache()
-		{
-			m_cache = new Dictionary<string, string>();
-		}
+		public StringCache() => m_cache = new(StringComparer.Ordinal);
 
 		/// <summary>
 		/// Gets an existing string from the cache, or adds it if it's not currently in the cache.
@@ -42,10 +40,18 @@ namespace Faithlife.Utility
 				return cachedString;
 
 			// otherwise, cache this string (it becomes the canonical instance)
+#if NETSTANDARD2_0
 			m_cache.Add(value, value);
+#else
+			m_cache.Add(value);
+#endif
 			return value;
 		}
 
+#if NETSTANDARD2_0
 		private readonly Dictionary<string, string> m_cache;
+#else
+		private readonly HashSet<string> m_cache;
+#endif
 	}
 }

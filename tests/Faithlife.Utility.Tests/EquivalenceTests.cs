@@ -1,4 +1,5 @@
 using NUnit.Framework;
+#pragma warning disable CS8604 // Possible null reference argument.
 
 namespace Faithlife.Utility.Tests
 {
@@ -79,9 +80,9 @@ namespace Faithlife.Utility.Tests
 			var oneClone = new HasEquivalence { Value = 1 };
 			var two = new HasEquivalence { Value = 2 };
 
-			Assert.AreEqual(ec.Equals(null, null), true);
-			Assert.AreEqual(ec.Equals(one, null), false);
-			Assert.AreEqual(ec.Equals(null, one), false);
+			Assert.AreEqual(ec.Equals(null!, null!), true);
+			Assert.AreEqual(ec.Equals(one, null!), false);
+			Assert.AreEqual(ec.Equals(null!, one), false);
 
 			Assert.AreEqual(ec.Equals(one, one), true);
 			Assert.AreEqual(ec.Equals(one, oneClone), true);
@@ -105,9 +106,9 @@ namespace Faithlife.Utility.Tests
 			var oneClone = new HasEquivalence { Value = 1 };
 			var two = new HasEquivalence { Value = 2 };
 
-			Assert.AreEqual(ec.Equals(null, null), true);
-			Assert.AreEqual(ec.Equals(one, null), false);
-			Assert.AreEqual(ec.Equals(null, one), false);
+			Assert.AreEqual(ec.Equals(null!, null!), true);
+			Assert.AreEqual(ec.Equals(one, null!), false);
+			Assert.AreEqual(ec.Equals(null!, one), false);
 
 			Assert.AreEqual(ec.Equals(one, one), true);
 			Assert.AreEqual(ec.Equals(one, oneClone), true);
@@ -131,9 +132,9 @@ namespace Faithlife.Utility.Tests
 			var oneClone = new HasNotEquivalence { Value = 1 };
 			var two = new HasNotEquivalence { Value = 2 };
 
-			Assert.AreEqual(ec.Equals(null, null), true);
-			Assert.AreEqual(ec.Equals(one, null), false);
-			Assert.AreEqual(ec.Equals(null, one), false);
+			Assert.AreEqual(ec.Equals(null!, null!), true);
+			Assert.AreEqual(ec.Equals(one, null!), false);
+			Assert.AreEqual(ec.Equals(null!, one), false);
 
 			Assert.AreEqual(ec.Equals(one, one), true);
 			Assert.AreEqual(ec.Equals(one, oneClone), false);

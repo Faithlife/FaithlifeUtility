@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Faithlife.Utility
@@ -16,7 +15,7 @@ namespace Faithlife.Utility
 		/// <typeparam name="T">The object type.</typeparam>
 		/// <param name="left">The left object.</param>
 		/// <param name="right">The right object.</param>
-		public static bool AreEquivalent<T>([AllowNull] T left, [AllowNull] T right)
+		public static bool AreEquivalent<T>(T? left, T? right)
 			where T : IHasEquivalence<T>
 			=> left is null ? right is null : left.IsEquivalentTo(right);
 
@@ -90,7 +89,7 @@ namespace Faithlife.Utility
 				do
 				{
 					if (typeof(IHasEquivalence<>).MakeGenericType(type).IsAssignableFrom(typeof(T)))
-						return (IEqualityComparer<T>) Activator.CreateInstance(typeof(EquivalenceComparer<,>).MakeGenericType(typeof(T), type));
+						return (IEqualityComparer<T>) Activator.CreateInstance(typeof(EquivalenceComparer<,>).MakeGenericType(typeof(T), type))!;
 					type = type.GetBaseType();
 				}
 				while (type is not null);
@@ -102,7 +101,7 @@ namespace Faithlife.Utility
 		private sealed class EquivalenceComparer<TDerived, TBase> : EqualityComparer<TDerived>
 			where TDerived : TBase, IHasEquivalence<TBase>
 		{
-			public override bool Equals(TDerived left, TDerived right) => left?.IsEquivalentTo(right) ?? right is null;
+			public override bool Equals(TDerived? left, TDerived? right) => left?.IsEquivalentTo(right) ?? right is null;
 
 			public override int GetHashCode(TDerived value) => throw new NotImplementedException();
 		}

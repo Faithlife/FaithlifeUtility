@@ -115,9 +115,9 @@ namespace Faithlife.Utility.Tests
 			Assert.AreEqual(expected[1], zipped[1]);
 
 			var seqLong = new[] { 1, 2, 3 };
-			Assert.Throws<ArgumentException>(() => seq1.Zip(seqLong).ToList());
-			Assert.Throws<ArgumentException>(() => seqLong.Zip(seq2).ToList());
-			Assert.Throws<ArgumentNullException>(() => seq1.Zip((IEnumerable<int>) null!));
+			Assert.Throws<ArgumentException>(() => EnumerableUtility.Zip(seq1, seqLong).ToList());
+			Assert.Throws<ArgumentException>(() => EnumerableUtility.Zip(seqLong, seq2).ToList());
+			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.Zip(seq1, (IEnumerable<int>) null!));
 			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.Zip((IEnumerable<int>) null!, seq1));
 		}
 

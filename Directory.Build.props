@@ -1,11 +1,11 @@
 <Project>
 
   <PropertyGroup>
-    <VersionPrefix>0.10.2</VersionPrefix>
+    <VersionPrefix>0.11.0</VersionPrefix>
     <LangVersion>9.0</LangVersion>
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>$(NoWarn);1591;1998;NU5105;CA1014</NoWarn>
+    <NoWarn>$(NoWarn);1591;1998;NU5105;CA1014;CA1508</NoWarn>
     <DebugType>embedded</DebugType>
     <GitHubOrganization>Faithlife</GitHubOrganization>
     <RepositoryName>FaithlifeUtility</RepositoryName>

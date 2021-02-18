@@ -104,7 +104,11 @@ namespace Faithlife.Utility
 			while (count > 0)
 			{
 				// read data
+#if NETSTANDARD2_0
 				var bytesRead = await stream.ReadAsync(buffer, offset, count, cancellationToken).ConfigureAwait(false);
+#else
+				var bytesRead = await stream.ReadAsync(buffer.AsMemory(offset, count), cancellationToken).ConfigureAwait(false);
+#endif
 
 				// check for end of stream
 				if (bytesRead == 0)

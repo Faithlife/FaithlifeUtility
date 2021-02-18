@@ -21,7 +21,7 @@ namespace Faithlife.Utility
 		/// <typeparam name="T">The enumerated type.</typeparam>
 		/// <param name="value">The value.</param>
 		/// <returns><c>true</c> if the specified value is defined; otherwise, <c>false</c>.</returns>
-		public static bool IsDefined<T>(T value) => Enum.IsDefined(typeof(T), value);
+		public static bool IsDefined<T>(T value) => Enum.IsDefined(typeof(T), value!);
 
 		/// <summary>
 		/// Parses the specified string.

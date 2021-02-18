@@ -14,8 +14,7 @@ namespace Faithlife.Utility
 		/// <typeparam name="T">The type of element on the stack.</typeparam>
 		/// <param name="stack">The stack.</param>
 		/// <returns>The object at the top of the stack without moving it, or a default value if the stack is empty.</returns>
-		[return: MaybeNull]
-		public static T PeekOrDefault<T>(this Stack<T> stack) => stack.Count != 0 ? stack.Peek() : default!;
+		public static T? PeekOrDefault<T>(this Stack<T> stack) => stack.Count != 0 ? stack.Peek() : default;
 
 		/// <summary>
 		/// Returns the object at the top of the stack without moving it, or a default value if the stack is empty.
@@ -25,6 +24,6 @@ namespace Faithlife.Utility
 		/// <param name="defaultValue">The default value.</param>
 		/// <returns>The object at the top of the stack without moving it, or a default value if the stack is empty.</returns>
 		[return: NotNullIfNotNull("defaultValue")]
-		public static T PeekOrDefault<T>(this Stack<T> stack, [AllowNull] T defaultValue) => stack.Count != 0 ? stack.Peek() : defaultValue!;
+		public static T? PeekOrDefault<T>(this Stack<T> stack, T? defaultValue) => stack.Count != 0 ? stack.Peek() : defaultValue;
 	}
 }

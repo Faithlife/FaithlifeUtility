@@ -33,7 +33,7 @@ namespace Faithlife.Utility
 			if (value == 0.0 && BitConverter.DoubleToInt64Bits(value) == BitConverter.DoubleToInt64Bits(-0.0))
 				return "-0";
 
-			return value.ToString("R", CultureInfo.InvariantCulture);
+			return value.ToString("G17", CultureInfo.InvariantCulture);
 		}
 
 		/// <summary>
@@ -50,11 +50,13 @@ namespace Faithlife.Utility
 				return value;
 			}
 
-			// XmlConvert.ToString uses INF
-			if (text == "INF")
+			// XmlConvert.ToString uses INF; .NET 5.0 is case-insensitive
+			if (text == "INF" || string.Equals(text, "infinity", StringComparison.OrdinalIgnoreCase))
 				return double.PositiveInfinity;
-			if (text == "-INF")
+			if (text == "-INF" || string.Equals(text, "-infinity", StringComparison.OrdinalIgnoreCase))
 				return double.NegativeInfinity;
+			if (string.Equals(text, "nan", StringComparison.OrdinalIgnoreCase))
+				return double.NaN;
 
 			return default(double?);
 		}
@@ -124,7 +126,7 @@ namespace Faithlife.Utility
 				int val => val.ToInvariantString(),
 				long val => val.ToInvariantString(),
 				TimeSpan val => val.ToInvariantString(),
-				_ => Convert.ToString(value, CultureInfo.InvariantCulture),
+				_ => Convert.ToString(value, CultureInfo.InvariantCulture)!,
 			};
 
 		private static T ThrowFormatExceptionIfNull<T>(T? result, string text)

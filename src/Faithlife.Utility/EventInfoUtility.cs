@@ -19,7 +19,7 @@ namespace Faithlife.Utility
 		/// <returns>A Scope that unsubscribes from the event when disposed.</returns>
 		public static Scope WeakSubscribe<TSource, TTarget>(
 			this EventInfo<TSource, EventHandler> info,
-			TSource source, TTarget target, Action<TTarget, object, EventArgs> action)
+			TSource source, TTarget target, Action<TTarget, object?, EventArgs> action)
 			where TTarget : class
 		{
 			var weakTarget = new WeakReference(target, false);
@@ -28,7 +28,7 @@ namespace Faithlife.Utility
 			handler =
 				(s, e) =>
 				{
-					var t = (TTarget) weakTarget.Target;
+					var t = (TTarget?) weakTarget.Target;
 					if (t is not null)
 						action(t, s, e);
 					else
@@ -51,7 +51,7 @@ namespace Faithlife.Utility
 		public static Scope WeakSubscribe<TSource, TTarget, TEventArgs>(
 			this EventInfo<TSource, EventHandler<TEventArgs>> info,
 			TSource source, TTarget target,
-			Action<TTarget, object, TEventArgs> action)
+			Action<TTarget, object?, TEventArgs> action)
 			where TTarget : class
 			where TEventArgs : EventArgs
 		{
@@ -61,7 +61,7 @@ namespace Faithlife.Utility
 			handler =
 				(s, e) =>
 				{
-					var t = (TTarget) weakTarget.Target;
+					var t = (TTarget?) weakTarget.Target;
 					if (t is not null)
 						action(t, s, e);
 					else

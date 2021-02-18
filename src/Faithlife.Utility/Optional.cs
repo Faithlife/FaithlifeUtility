@@ -98,6 +98,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="value">A value type.</param>
 		/// <returns>An Optional{T} object whose Value property is initialized with the value parameter.</returns>
+		[SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "By design.")]
 		public static implicit operator Optional<T>(T value) => new Optional<T>(value);
 
 		/// <summary>
@@ -106,6 +107,7 @@ namespace Faithlife.Utility
 		/// <param name="optional">An Optional{T} value.</param>
 		/// <returns>The value of the Value property for the value parameter.</returns>
 		/// <exception cref="InvalidOperationException">The HasValue property is false.</exception>
+		[SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "By design.")]
 		public static explicit operator T(Optional<T> optional) => optional.Value;
 
 		/// <summary>

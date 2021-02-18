@@ -30,7 +30,7 @@ namespace Faithlife.Utility
 		/// <typeparam name="T">The type to compare.</typeparam>
 		/// <param name="comparer">The compare delegate.</param>
 		/// <returns>The comparer.</returns>
-		public static Comparer<T> CreateComparer<T>(Func<T, T, int> comparer) => new GenericComparer<T>(comparer);
+		public static Comparer<T> CreateComparer<T>(Func<T?, T?, int> comparer) => new GenericComparer<T>(comparer);
 
 		/// <summary>
 		/// Creates a comparer from a delegate.
@@ -38,7 +38,7 @@ namespace Faithlife.Utility
 		/// <typeparam name="T">The type to compare.</typeparam>
 		/// <param name="comparers">The compare delegates.</param>
 		/// <returns>The comparer.</returns>
-		public static Comparer<T> CreateComparer<T>(params Func<T, T, int>[] comparers) => new GenericComparer<T>(CreateChainedComparison(comparers));
+		public static Comparer<T> CreateComparer<T>(params Func<T?, T?, int>[] comparers) => new GenericComparer<T>(CreateChainedComparison(comparers));
 
 		/// <summary>
 		/// Executes a chained comparison between two objects.

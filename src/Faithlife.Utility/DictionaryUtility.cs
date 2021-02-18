@@ -40,7 +40,8 @@ namespace Faithlife.Utility
 		/// <typeparam name="TValue">The type of the value.</typeparam>
 		/// <param name="dictionary">The dictionary to wrap.</param>
 		/// <returns>The read-only dictionary.</returns>
-		public static ReadOnlyDictionary<TKey, TValue> AsReadOnly<TKey, TValue>(this IDictionary<TKey, TValue> dictionary) => new(dictionary);
+		public static ReadOnlyDictionary<TKey, TValue> AsReadOnly<TKey, TValue>(this IDictionary<TKey, TValue> dictionary)
+			where TKey : notnull => new(dictionary);
 
 		/// <summary>
 		/// Represents the sequence of key-value pairs as a <see cref="IReadOnlyDictionary{TKey,TValue}"/>.
@@ -55,6 +56,7 @@ namespace Faithlife.Utility
 		/// This method is useful for forcing evaluation of a potentially lazy sequence while retaining reasonable
 		/// performance for sequences that are already an <see cref="IReadOnlyDictionary{TKey,TValue}"/> or <see cref="IDictionary{TKey,TValue}"/>.</remarks>
 		public static IReadOnlyDictionary<TKey, TValue> AsReadOnlyDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> keyValuePairs)
+			where TKey : notnull
 		{
 			return keyValuePairs as IReadOnlyDictionary<TKey, TValue> ??
 				(keyValuePairs is IDictionary<TKey, TValue> dictionary ?
@@ -107,7 +109,7 @@ namespace Faithlife.Utility
 #if !NETSTANDARD2_0
 		[Obsolete("Use System.Collections.Generic.CollectionExtensions.GetValueOrDefault instead (available in netcoreapp2.0, netstandard2.1)")]
 #endif
-		public static TValue GetValueOrDefault<TKey, TValue>(
+		public static TValue? GetValueOrDefault<TKey, TValue>(
 #if NETSTANDARD2_0
 			this
 #endif
@@ -135,7 +137,7 @@ namespace Faithlife.Utility
 			this
 #endif
 			IReadOnlyDictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue)
-			=> dictionary.TryGetValue(key, out var value) ? value : defaultValue;
+				=> dictionary.TryGetValue(key, out var value) ? value : defaultValue;
 
 		/// <summary>
 		/// Gets a value from the dictionary, returning the generated default value if it is missing.

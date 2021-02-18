@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Faithlife.Utility
 {
 	/// <summary>
 	/// Provides methods for implementing <see cref="System.IComparable" />.
 	/// </summary>
+	[SuppressMessage("Naming", "CA1711:Identifiers should not have incorrect suffix", Justification = "Legacy.")]
 	public static class ComparableImpl
 	{
 		/// <summary>

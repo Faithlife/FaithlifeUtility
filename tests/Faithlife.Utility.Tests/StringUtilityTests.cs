@@ -11,17 +11,6 @@ namespace Faithlife.Utility.Tests
 	[TestFixture]
 	public class StringUtilityTests
 	{
-		[TestCase("", 'a', false)]
-		[TestCase("", '\u0000', false)]
-		[TestCase("a", 'a', true)]
-		[TestCase("ab", 'a', false)]
-		[TestCase("aaaaaaaaaab", 'a', false)]
-		[TestCase("aaaaaaaaaab", 'b', true)]
-		public void EndsWith(string str, char ch, bool expected)
-		{
-			Assert.AreEqual(expected, str.EndsWith(ch));
-		}
-
 		[Test]
 		public void OrdinalStringComparisonExtensionMethods()
 		{
@@ -56,6 +45,13 @@ namespace Faithlife.Utility.Tests
 			Assert.AreEqual(-1, "abcabc".LastIndexOfOrdinal("bc", 0));
 			Assert.AreEqual(1, "abcabc".LastIndexOfOrdinal("bc", 4, 4));
 			Assert.AreEqual(-1, "abcabc".LastIndexOfOrdinal("bc", 4, 3));
+		}
+
+		[Test]
+		public void ReplaceWithOrdinal()
+		{
+			Assert.AreEqual("abcde", "axe".ReplaceOrdinal("x", "bcd"));
+			Assert.AreEqual("axe", "axe".ReplaceOrdinal("X", "bcd"));
 		}
 
 		[Test]

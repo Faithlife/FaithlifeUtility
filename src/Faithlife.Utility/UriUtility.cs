@@ -41,7 +41,7 @@ namespace Faithlife.Utility
 		/// the list of parameters (the behavior is undefined). If the key or value is null, the pair is ignored.</returns>
 		public static Uri FromPattern(string uriPattern, IEnumerable<KeyValuePair<string, string?>> parameters)
 		{
-			var hasQuery = uriPattern.IndexOf('?') != -1;
+			var hasQuery = uriPattern.IndexOfOrdinal('?') != -1;
 
 			foreach (var parameter in parameters)
 			{

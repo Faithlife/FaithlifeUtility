@@ -185,7 +185,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="obj">Another object to compare to.</param>
 		/// <returns>true if obj and this instance are the same type and represent the same value; otherwise, false.</returns>
-		public override bool Equals(object obj) => obj is StringSegment && Equals((StringSegment) obj);
+		public override bool Equals(object? obj) => obj is StringSegment && Equals((StringSegment) obj);
 
 		/// <summary>
 		/// Indicates whether the current object is equal to another object of the same type.
@@ -206,7 +206,7 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Returns an enumerator that iterates through the characters of the string segment.
 		/// </summary>
-		/// <returns>A <see cref="T:System.Collections.Generic.IEnumerator`1"></see> that can be used to
+		/// <returns>A <see cref="IEnumerator{T}"></see> that can be used to
 		/// iterate through the characters of the string segment.</returns>
 		public IEnumerator<char> GetEnumerator()
 		{
@@ -220,7 +220,11 @@ namespace Faithlife.Utility
 		/// <returns>A 32-bit signed integer that is the hash code for this instance.</returns>
 		/// <remarks>This hash code is identical to the hash code that results from
 		/// calling <c>GetHashCode</c> on the result of <c>ToString</c>.</remarks>
+#if NETSTANDARD2_0
 		public override int GetHashCode() => ToString().GetHashCode();
+#else
+		public override int GetHashCode() => ToString().GetHashCode(StringComparison.Ordinal);
+#endif
 
 		/// <summary>
 		/// Returns the first index of the specified character in the string segment.
@@ -562,7 +566,7 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Returns an enumerator that iterates through the characters of the string segment.
 		/// </summary>
-		/// <returns>An <see cref="T:System.Collections.IEnumerator"></see> object that can be used to iterate
+		/// <returns>An <see cref="IEnumerator"></see> object that can be used to iterate
 		/// through the characters of the string segment.</returns>
 		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 

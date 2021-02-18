@@ -70,7 +70,7 @@ namespace Faithlife.Utility.Tests
 			Assert.AreEqual(strExpected, sb.ToString());
 		}
 
-		[TestCase(float.Epsilon, "1E-45")]
+		[TestCase(float.Epsilon, "1.40129846E-45")]
 		[TestCase(1.5f, "1.5")]
 		[TestCase(-1, "-1")]
 		[TestCase(0f, "0")]
@@ -82,7 +82,7 @@ namespace Faithlife.Utility.Tests
 			Assert.AreEqual(strExpected, sb.ToString());
 		}
 
-		[TestCase(double.Epsilon, "5E-324")]
+		[TestCase(double.Epsilon, "4.9406564584124654E-324")]
 		[TestCase(1.5, "1.5")]
 		[TestCase(-1, "-1")]
 		[TestCase(0, "0")]
