@@ -3,7 +3,7 @@
 Converts the string to a value using the invariant culture.
 
 ```csharp
-public static bool? TryParseBoolean(string text)
+public static bool? TryParseBoolean(string? text)
 ```
 
 ## See Also

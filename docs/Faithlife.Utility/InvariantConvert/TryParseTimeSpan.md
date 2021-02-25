@@ -3,7 +3,7 @@
 Converts the string to a value using the invariant culture.
 
 ```csharp
-public static TimeSpan? TryParseTimeSpan(string text)
+public static TimeSpan? TryParseTimeSpan(string? text)
 ```
 
 ## See Also
