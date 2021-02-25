@@ -1,5 +1,9 @@
 # Release Notes
 
+## 0.11.2
+
+* `InvariantConvert.TryParse` methods allow `null`.
+
 ## 0.11.1
 
 * Restrict `EnumUtility` to `Enum`.
