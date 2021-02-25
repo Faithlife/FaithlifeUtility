@@ -16,7 +16,7 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Converts the string to a value using the invariant culture.
 		/// </summary>
-		public static bool? TryParseBoolean(string text) => bool.TryParse(text, out var value) ? value : default(bool?);
+		public static bool? TryParseBoolean(string? text) => bool.TryParse(text, out var value) ? value : default(bool?);
 
 		/// <summary>
 		/// Converts the string to a value using the invariant culture.
@@ -39,12 +39,12 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Converts the string to a value using the invariant culture.
 		/// </summary>
-		public static double? TryParseDouble(string text)
+		public static double? TryParseDouble(string? text)
 		{
 			if (double.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out var value))
 			{
 				// XmlConvert.ToDouble supports negative zero
-				if (value == 0.0 && text.TrimStart()[0] == '-')
+				if (value == 0.0 && text!.TrimStart()[0] == '-')
 					return -0.0;
 
 				return value;
@@ -75,7 +75,7 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Converts the string to a value using the invariant culture.
 		/// </summary>
-		public static int? TryParseInt32(string text) => int.TryParse(text, NumberStyles.Integer, CultureInfo.InvariantCulture, out var value) ? value : default(int?);
+		public static int? TryParseInt32(string? text) => int.TryParse(text, NumberStyles.Integer, CultureInfo.InvariantCulture, out var value) ? value : default(int?);
 
 		/// <summary>
 		/// Converts the string to a value using the invariant culture.
@@ -91,7 +91,7 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Converts the string to a value using the invariant culture.
 		/// </summary>
-		public static long? TryParseInt64(string text) => long.TryParse(text, NumberStyles.Integer, CultureInfo.InvariantCulture, out var value) ? value : default(long?);
+		public static long? TryParseInt64(string? text) => long.TryParse(text, NumberStyles.Integer, CultureInfo.InvariantCulture, out var value) ? value : default(long?);
 
 		/// <summary>
 		/// Converts the string to a value using the invariant culture.
@@ -107,7 +107,7 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Converts the string to a value using the invariant culture.
 		/// </summary>
-		public static TimeSpan? TryParseTimeSpan(string text) => TimeSpan.TryParseExact(text, "c", CultureInfo.InvariantCulture, out var value) ? value : default(TimeSpan?);
+		public static TimeSpan? TryParseTimeSpan(string? text) => TimeSpan.TryParseExact(text, "c", CultureInfo.InvariantCulture, out var value) ? value : default(TimeSpan?);
 
 		/// <summary>
 		/// Converts the string to a value using the invariant culture.
