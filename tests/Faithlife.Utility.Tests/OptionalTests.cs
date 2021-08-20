@@ -48,7 +48,9 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestEqualsNoneAndNull()
 		{
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 			DoTestEquals(default(Optional<string>), null, false);
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 		}
 
 		[Test]
