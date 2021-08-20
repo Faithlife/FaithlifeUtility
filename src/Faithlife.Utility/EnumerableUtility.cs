@@ -563,7 +563,14 @@ namespace Faithlife.Utility
 		/// <param name="count">The number of items to take from the end of the sequence.</param>
 		/// <returns>A collection with at most <paramref name="count"/> items, taken from the end of the sequence.</returns>
 		/// <remarks>The source sequence is only evaluated once.</remarks>
-		public static IReadOnlyList<T> TakeLast<T>(this IEnumerable<T> source, int count)
+#if !NETSTANDARD2_0
+		[Obsolete("Use System.Linq.Enumerable.TakeLast instead (available in netcoreapp2.0, netstandard2.1)")]
+#endif
+		public static IReadOnlyList<T> TakeLast<T>(
+#if NETSTANDARD2_0
+			this
+#endif
+			IEnumerable<T> source, int count)
 		{
 			if (source is null)
 				throw new ArgumentNullException(nameof(source));
