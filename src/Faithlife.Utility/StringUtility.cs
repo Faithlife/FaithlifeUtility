@@ -71,7 +71,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		public static string ReplaceOrdinal(this string source, string oldValue, string newValue)
 		{
-#if NETSTANDARD || NETCOREAPP2_1
+#if NETSTANDARD2_0
 			return source.Replace(oldValue, newValue);
 #else
 			return source.Replace(oldValue, newValue, StringComparison.Ordinal);

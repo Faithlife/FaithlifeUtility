@@ -3,7 +3,7 @@ using Faithlife.Utility;
 
 namespace MyLib
 {
-	public class MyClass
+	public static class MyClass
 	{
 		public static TValue? DoGetValueOrDefault<TKey, TValue>(IReadOnlyDictionary<TKey, TValue> dict, TKey key) => dict.GetValueOrDefault(key);
 

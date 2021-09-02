@@ -48,7 +48,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TestEqualsNoneAndNull()
 		{
-			DoTestEquals(default(Optional<string>), null, false);
+			DoTestEquals(default(Optional<string>), null!, false);
 		}
 
 		[Test]
