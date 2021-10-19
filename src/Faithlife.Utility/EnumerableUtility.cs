@@ -715,8 +715,8 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Combines two same sized sequences.
 		/// </summary>
-		/// <param name="first">An IEnumerable whos elements will be returned as ValueTuple.First.</param>
-		/// <param name="second">An IEnumerable whos elements will be returned as ValueTuple.Second.</param>
+		/// <param name="first">An IEnumerable whose elements will be returned as ValueTuple.First.</param>
+		/// <param name="second">An IEnumerable whose elements will be returned as ValueTuple.Second.</param>
 		/// <returns>A sequence of tuples combining the input items. Throws if the sequences don't have the same number of items.</returns>
 		[SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1414:Tuple types in signatures should have element names", Justification = "By design.")]
 		public static IEnumerable<(T1, T2)> Zip<T1, T2>(
@@ -729,8 +729,8 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Combines two sequences.
 		/// </summary>
-		/// <param name="first">An IEnumerable whos elements will be returned as ValueTuple.First.</param>
-		/// <param name="second">An IEnumerable whos elements will be returned as ValueTuple.Second.</param>
+		/// <param name="first">An IEnumerable whose elements will be returned as ValueTuple.First.</param>
+		/// <param name="second">An IEnumerable whose elements will be returned as ValueTuple.Second.</param>
 		/// <returns>A sequence of tuples combining the input items. If the sequences don't have the same number of items, it stops at the end of the shorter sequence.</returns>
 		[SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1414:Tuple types in signatures should have element names", Justification = "By design.")]
 		public static IEnumerable<(T1, T2)> ZipTruncate<T1, T2>(this IEnumerable<T1> first, IEnumerable<T2> second) =>
