@@ -8,5 +8,7 @@ namespace MyLib
 		public static TValue? DoGetValueOrDefault<TKey, TValue>(IReadOnlyDictionary<TKey, TValue> dict, TKey key) => dict.GetValueOrDefault(key);
 
 		public static bool DoTryAdd<TKey, TValue>(IDictionary<TKey, TValue> dict, TKey key, TValue value) => dict.TryAdd(key, value);
+
+		public static IReadOnlyList<T> DoTakeLast<T>(IEnumerable<T> source, int count) => source.TakeLast(count);
 	}
 }

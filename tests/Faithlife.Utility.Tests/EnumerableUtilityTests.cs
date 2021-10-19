@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using MyLib;
 using NUnit.Framework;
 
 namespace Faithlife.Utility.Tests
@@ -549,36 +550,64 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TakeLastArguments()
 		{
-			Assert.Throws<ArgumentNullException>(() => ((IEnumerable<int>) null!).TakeLast(1));
-			Assert.Throws<ArgumentOutOfRangeException>(() => new[] { 1 }.TakeLast(-1));
+#pragma warning disable CS0618 // Type or member is obsolete
+			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.TakeLast((IEnumerable<int>) null!, 1));
+			Assert.Throws<ArgumentOutOfRangeException>(() => EnumerableUtility.TakeLast(new[] { 1 }, -1));
+#pragma warning restore CS0618 // Type or member is obsolete
+
+			// As .NET Standard 2.0
+			Assert.Throws<ArgumentNullException>(() => MyClass.DoTakeLast((IEnumerable<int>) null!, 1));
+			Assert.Throws<ArgumentOutOfRangeException>(() => MyClass.DoTakeLast(new[] { 1 }, -1));
 		}
 
 		[Test]
 		public void TakeLastZero()
 		{
-			CollectionAssert.AreEqual(new int[0], new[] { 1 }.TakeLast(0));
+#pragma warning disable CS0618 // Type or member is obsolete
+			CollectionAssert.AreEqual(new int[0], EnumerableUtility.TakeLast(new[] { 1 }, 0));
+#pragma warning restore CS0618 // Type or member is obsolete
+
+			// As .NET Standard 2.0
+			CollectionAssert.AreEqual(new int[0], MyClass.DoTakeLast(new[] { 1 }, 0));
 		}
 
 		[Test]
 		public void TakeLastEmpty()
 		{
-			CollectionAssert.AreEqual(new int[0], Enumerable.Empty<int>().TakeLast(100));
+#pragma warning disable CS0618 // Type or member is obsolete
+			CollectionAssert.AreEqual(new int[0], EnumerableUtility.TakeLast(Enumerable.Empty<int>(), 100));
+#pragma warning restore CS0618 // Type or member is obsolete
+
+			// As .NET Standard 2.0
+			CollectionAssert.AreEqual(new int[0], MyClass.DoTakeLast(Enumerable.Empty<int>(), 100));
 		}
 
 		[Test]
 		public void TakeLastPartialSequence()
 		{
 			var sequence = new EnumerableMonitor<int>(Enumerable.Range(1, 100));
-			CollectionAssert.AreEqual(new[] { 98, 99, 100 }, sequence.TakeLast(3));
+#pragma warning disable CS0618 // Type or member is obsolete
+			CollectionAssert.AreEqual(new[] { 98, 99, 100 }, EnumerableUtility.TakeLast(sequence, 3));
+#pragma warning restore CS0618 // Type or member is obsolete
 			Assert.AreEqual(100, sequence.RequestCount);
+
+			// As .NET Standard 2.0
+			CollectionAssert.AreEqual(new[] { 98, 99, 100 }, MyClass.DoTakeLast(sequence, 3));
+			Assert.AreEqual(200, sequence.RequestCount);
 		}
 
 		[Test]
 		public void TakeLastEntireSequence()
 		{
 			var sequence = new EnumerableMonitor<int>(Enumerable.Range(1, 3));
-			CollectionAssert.AreEqual(new[] { 1, 2, 3 }, sequence.TakeLast(5));
+#pragma warning disable CS0618 // Type or member is obsolete
+			CollectionAssert.AreEqual(new[] { 1, 2, 3 }, EnumerableUtility.TakeLast(sequence, 5));
+#pragma warning restore CS0618 // Type or member is obsolete
 			Assert.AreEqual(3, sequence.RequestCount);
+
+			// As .NET Standard 2.0
+			CollectionAssert.AreEqual(new[] { 1, 2, 3 }, MyClass.DoTakeLast(sequence, 5));
+			Assert.AreEqual(6, sequence.RequestCount);
 		}
 
 		[Test]
