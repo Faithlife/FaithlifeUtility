@@ -23,7 +23,11 @@ namespace Faithlife.Utility
 				// Do not append a string directly to this property. If the length of Query is greater than 1, retrieve the property value as a string,
 				// remove the leading question mark, append the new query string, and set the property with the combined string.
 				if (builder.Query is not null && builder.Query.Length > 1)
+#if NETCOREAPP3_1_OR_GREATER
+					builder.Query = string.Concat(builder.Query.AsSpan(1), "&", query);
+#else
 					builder.Query = builder.Query.Substring(1) + "&" + query;
+#endif
 				else
 					builder.Query = query;
 			}

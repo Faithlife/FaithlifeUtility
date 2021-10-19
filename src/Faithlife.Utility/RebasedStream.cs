@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -77,6 +78,14 @@ namespace Faithlife.Utility
 		public override Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken) =>
 			WrappedStream.ReadAsync(buffer, offset, count, cancellationToken);
 
+#if NET6_0
+		/// <summary>
+		/// Asynchronously reads a sequence of bytes from the current stream, advances the position within the stream by the number of bytes read, and monitors cancellation requests.
+		/// </summary>
+		public override ValueTask<int> ReadAsync(Memory<byte> buffer, CancellationToken cancellationToken) =>
+			WrappedStream.ReadAsync(buffer, cancellationToken);
+#endif
+
 		/// <summary>
 		/// Writes a sequence of bytes to the current stream and advances the current position
 		/// within this stream by the number of bytes written.
@@ -88,6 +97,14 @@ namespace Faithlife.Utility
 		/// </summary>
 		public override Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken) =>
 			WrappedStream.WriteAsync(buffer, offset, count, cancellationToken);
+
+#if NET6_0
+		/// <summary>
+		/// Asynchronously writes a sequence of bytes to the current stream, advances the current position within this stream by the number of bytes written, and monitors cancellation requests.
+		/// </summary>
+		public override ValueTask WriteAsync(ReadOnlyMemory<byte> buffer, CancellationToken cancellationToken) =>
+			WrappedStream.WriteAsync(buffer, cancellationToken);
+#endif
 
 		// the offset within the base stream where this stream begins
 		private readonly long m_baseOffset;

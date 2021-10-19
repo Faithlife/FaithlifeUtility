@@ -51,8 +51,11 @@ namespace Faithlife.Utility
 					var bracketedKeyIndex = uriPattern.IndexOf(bracketedKey, StringComparison.Ordinal);
 					if (bracketedKeyIndex != -1)
 					{
-						uriPattern = uriPattern.Substring(0, bracketedKeyIndex) +
-							Uri.EscapeDataString(parameter.Value) + uriPattern.Substring(bracketedKeyIndex + bracketedKey.Length);
+#if NETCOREAPP3_1_OR_GREATER
+						uriPattern = string.Concat(uriPattern.AsSpan(0, bracketedKeyIndex), Uri.EscapeDataString(parameter.Value), uriPattern.AsSpan(bracketedKeyIndex + bracketedKey.Length));
+#else
+						uriPattern = uriPattern.Substring(0, bracketedKeyIndex) + Uri.EscapeDataString(parameter.Value) + uriPattern.Substring(bracketedKeyIndex + bracketedKey.Length);
+#endif
 					}
 					else
 					{

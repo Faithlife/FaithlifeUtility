@@ -65,6 +65,18 @@ namespace Faithlife.Utility
 			return byteCount;
 		}
 
+#if NET6_0
+		/// <summary>
+		/// Reads from the stream asynchronously.
+		/// </summary>
+		public override async ValueTask<int> ReadAsync(Memory<byte> buffer, CancellationToken cancellationToken)
+		{
+			var byteCount = await WrappedStream.ReadAsync(buffer.Slice(0, TruncateCount(buffer.Length)), cancellationToken).ConfigureAwait(false);
+			m_offset += byteCount;
+			return byteCount;
+		}
+#endif
+
 		/// <summary>
 		/// Reads a byte from the stream.
 		/// </summary>
@@ -104,6 +116,13 @@ namespace Faithlife.Utility
 		/// Asynchronously writes a sequence of bytes to the current stream, advances the current position within this stream by the number of bytes written, and monitors cancellation requests.
 		/// </summary>
 		public override Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken) => throw CreateWriteNotSupportedException();
+
+#if NET6_0
+		/// <summary>
+		/// Asynchronously writes a sequence of bytes to the current stream, advances the current position within this stream by the number of bytes written, and monitors cancellation requests.
+		/// </summary>
+		public override ValueTask WriteAsync(ReadOnlyMemory<byte> buffer, CancellationToken cancellationToken) => throw CreateWriteNotSupportedException();
+#endif
 
 		/// <summary>
 		/// Throws an exception; writes are not supported.

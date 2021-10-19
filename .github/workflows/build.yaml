@@ -35,6 +35,10 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
+    - name: Set up .NET 6
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.100-rc.2.21505.57
     - name: Restore
       run: .\build.ps1 restore
     - name: Build

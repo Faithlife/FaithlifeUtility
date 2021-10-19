@@ -96,6 +96,23 @@ namespace Faithlife.Utility
 			return bytesToCopy;
 		}
 
+#if NET6_0
+		/// <summary>
+		/// Reads a sequence of bytes from the current stream and advances the position
+		/// within the stream by the number of bytes read.
+		/// </summary>
+		public override async ValueTask<int> ReadAsync(Memory<byte> buffer, CancellationToken cancellationToken)
+		{
+			var blockIndex = (int) (Position / c_blockSize);
+			var data = await LoadDataAsync(blockIndex).ConfigureAwait(false);
+			var blockOffset = Math.Min(data.Length, (int) (Position % c_blockSize));
+			var bytesToCopy = Math.Max(Math.Min(buffer.Length, data.Length - blockOffset), 0);
+			data.AsMemory(blockOffset, bytesToCopy).CopyTo(buffer);
+			Position += bytesToCopy;
+			return bytesToCopy;
+		}
+#endif
+
 		/// <summary>
 		/// Reads a byte from the stream and advances the position within the stream by one byte, or returns -1 if at the end of the stream.
 		/// </summary>
@@ -145,6 +162,13 @@ namespace Faithlife.Utility
 		/// Asynchronously writes a sequence of bytes to the current stream, advances the current position within this stream by the number of bytes written, and monitors cancellation requests.
 		/// </summary>
 		public override Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken) => throw new NotSupportedException();
+
+#if NET6_0
+		/// <summary>
+		/// Asynchronously writes a sequence of bytes to the current stream, advances the current position within this stream by the number of bytes written, and monitors cancellation requests.
+		/// </summary>
+		public override ValueTask WriteAsync(ReadOnlyMemory<byte> buffer, CancellationToken cancellationToken) => throw new NotSupportedException();
+#endif
 
 		private byte[] LoadData(int blockIndex)
 		{
