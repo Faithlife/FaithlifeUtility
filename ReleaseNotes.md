@@ -2,16 +2,16 @@
 
 ## Unreleased
 
-* Make `ReadOnlySet` implement `IReadOnlySet` on .NET 5.
-* Obsolete `EnumerableUtility.TakeLast`.
 * **Breaking** Drop support for .NET Core 2.1.
 * Support .NET 6.0.
+* Make `ReadOnlySet` implement `IReadOnlySet` on .NET 5.
 * `DictionaryUtility` key types must be `notnull`.
 * Add `Stream.ReadAsync`/`WriteAsync` overloads for `Memory<byte>` on .NET Standard 2.1 and .NET Core.
 * Obsolete `DictionaryUtility.CreateKeyValuePair` on .NET Standard 2.1 and .NET Core.
-* Obsolete `EnumerableUtility.EnumerateBatches` on .NET 6.
 * Obsolete `EnumerableUtility.DistinctBy` on .NET 6.
+* Obsolete `EnumerableUtility.EnumerateBatches` on .NET 6.
 * Obsolete `EnumerableUtility.FirstOrDefault` on .NET 6.
+* Obsolete `EnumerableUtility.TakeLast` on .NET Standard 2.1 and .NET Core.
 
 ## 0.11.2
 
