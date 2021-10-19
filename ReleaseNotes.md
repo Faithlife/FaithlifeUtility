@@ -1,5 +1,9 @@
 # Release Notes
 
+## Unreleased
+
+* Make `ReadOnlySet` implement `IReadOnlySet` on .NET 5.
+
 ## 0.11.2
 
 * `InvariantConvert.TryParse` methods allow `null`.
