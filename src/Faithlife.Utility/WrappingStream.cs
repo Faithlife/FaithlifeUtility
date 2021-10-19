@@ -65,13 +65,13 @@ namespace Faithlife.Utility
 		/// Begins an asynchronous read operation.
 		/// </summary>
 		public override IAsyncResult BeginRead(byte[] buffer, int offset, int count, AsyncCallback? callback, object? state) =>
-			WrappedStream.BeginRead(buffer, offset, count, callback, state);
+			WrappedStream.BeginRead(buffer, offset, count, callback!, state); // the nullability of callback is incorrect in netcoreapp3.1
 
 		/// <summary>
 		/// Begins an asynchronous write operation.
 		/// </summary>
 		public override IAsyncResult BeginWrite(byte[] buffer, int offset, int count, AsyncCallback? callback, object? state) =>
-			WrappedStream.BeginWrite(buffer, offset, count, callback, state);
+			WrappedStream.BeginWrite(buffer, offset, count, callback!, state); // the nullability of callback is incorrect in netcoreapp3.1
 
 #if !NETSTANDARD2_0
 		/// <summary>
