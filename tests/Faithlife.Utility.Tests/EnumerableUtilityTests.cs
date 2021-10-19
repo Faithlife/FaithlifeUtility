@@ -235,6 +235,9 @@ namespace Faithlife.Utility.Tests
 			}
 		}
 
+#if NET6_0_OR_GREATER
+#pragma warning disable CS0618 // EnumerableUtility.EnumerateBatches is obsolete on .NET 6+
+#endif
 		[Test]
 		public void EnumerateBatchesNull()
 		{
@@ -350,6 +353,7 @@ namespace Faithlife.Utility.Tests
 			batches = testStrings.Select(x => x).EnumerateBatches(1);
 			Assert.IsFalse(batches.Any());
 		}
+#pragma warning restore CS0618 // EnumerableUtility.EnumerateBatches is obsolete on .NET 6+
 
 		[Test]
 		public void SplitIntoBinsNull()

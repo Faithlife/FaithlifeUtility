@@ -212,6 +212,9 @@ namespace Faithlife.Utility
 		/// <returns>Batches of collections containing the elements from the source sequence.</returns>
 		/// <remarks>The contents of each batch are eagerly enumerated, to avoid potential errors caused by
 		/// not fully evaluating each batch (the inner enumerator) before advancing the outer enumerator.</remarks>
+#if NET6_0_OR_GREATER
+		[Obsolete("Use System.Linq.Enumerable.Chunk instead")]
+#endif
 		public static IEnumerable<IReadOnlyList<T>> EnumerateBatches<T>(this IEnumerable<T> source, int batchSize)
 		{
 			if (source is null)
