@@ -29,6 +29,8 @@ namespace AmbiguityCheck
 
 			enumerable.DistinctBy(x => x);
 			enumerable.DistinctBy(x => x, StringComparer.OrdinalIgnoreCase);
+
+			enumerable.FirstOrDefault("default");
 		}
 	}
 }

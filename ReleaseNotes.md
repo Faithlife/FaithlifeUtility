@@ -11,6 +11,7 @@
 * Obsolete `DictionaryUtility.CreateKeyValuePair` on .NET Standard 2.1 and .NET Core.
 * Obsolete `EnumerableUtility.EnumerateBatches` on .NET 6.
 * Obsolete `EnumerableUtility.DistinctBy` on .NET 6.
+* Obsolete `EnumerableUtility.FirstOrDefault` on .NET 6.
 
 ## 0.11.2
 

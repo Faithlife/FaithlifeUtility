@@ -280,8 +280,15 @@ namespace Faithlife.Utility
 		/// <returns>
 		/// <paramref name="defaultValue"/> if <paramref name="source"/> is empty; otherwise, the first element in <paramref name="source"/>.
 		/// </returns>
+#if NET6_0_OR_GREATER
+		[Obsolete("Use System.Linq.Enumerable.FirstOrDefault instead")]
+#endif
 		[return: NotNullIfNotNull("defaultValue")]
-		public static T? FirstOrDefault<T>(this IEnumerable<T> source, T? defaultValue) => source.TryFirst(out var found) ? found : defaultValue;
+		public static T? FirstOrDefault<T>(
+#if !NET6_0_OR_GREATER
+			this
+#endif
+			IEnumerable<T> source, T? defaultValue) => source.TryFirst(out var found) ? found : defaultValue;
 
 		/// <summary>
 		/// Returns the first element of a sequence that satisfies a condition or a default value if no such element is found.
@@ -295,8 +302,15 @@ namespace Faithlife.Utility
 		/// specified by <paramref name="predicate"/>; otherwise, the first element in <paramref name="source"/> that
 		/// passes the test specified by <paramref name="predicate"/>.
 		/// </returns>
+#if NET6_0_OR_GREATER
+		[Obsolete("Use System.Linq.Enumerable.FirstOrDefault instead")]
+#endif
 		[return: NotNullIfNotNull("defaultValue")]
-		public static T? FirstOrDefault<T>(this IEnumerable<T> source, Func<T, bool> predicate, T? defaultValue) => source.TryFirst(predicate, out var found) ? found : defaultValue;
+		public static T? FirstOrDefault<T>(
+#if !NET6_0_OR_GREATER
+			this
+#endif
+			IEnumerable<T> source, Func<T, bool> predicate, T? defaultValue) => source.TryFirst(predicate, out var found) ? found : defaultValue;
 
 		/// <summary>
 		/// Intersperses the specified value between the elements of the source collection.
