@@ -3,6 +3,7 @@
 ## Unreleased
 
 * Make `ReadOnlySet` implement `IReadOnlySet` on .NET 5.
+* Obsolete `EnumerableUtility.TakeLast`.
 
 ## 0.11.2
 
