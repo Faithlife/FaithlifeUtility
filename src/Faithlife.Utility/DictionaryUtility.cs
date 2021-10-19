@@ -165,6 +165,9 @@ namespace Faithlife.Utility
 		/// <param name="key">The key.</param>
 		/// <param name="value">The value.</param>
 		/// <returns>The key value pair.</returns>
+#if !NETSTANDARD2_0
+		[Obsolete("Use System.Collections.Generic.KeyValuePair.Create instead (available in netcoreapp2.0, netstandard2.1)")]
+#endif
 		public static KeyValuePair<TKey, TValue> CreateKeyValuePair<TKey, TValue>(TKey key, TValue value) => new(key, value);
 
 		/// <summary>
