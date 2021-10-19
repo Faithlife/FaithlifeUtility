@@ -202,7 +202,7 @@ namespace Faithlife.Utility.Tests
 
 			public override Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken) => WrappedStream.ReadAsync(buffer, offset, Math.Min(count, 2), cancellationToken);
 
-#if NET6_0
+#if NETCOREAPP3_1_OR_GREATER
 			public override ValueTask<int> ReadAsync(Memory<byte> buffer, CancellationToken cancellationToken) => WrappedStream.ReadAsync(buffer.Slice(0, Math.Min(buffer.Length, 2)), cancellationToken);
 #endif
 
@@ -210,7 +210,7 @@ namespace Faithlife.Utility.Tests
 
 			public override Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken) => throw new NotSupportedException();
 
-#if NET6_0
+#if NETCOREAPP3_1_OR_GREATER
 			public override ValueTask WriteAsync(ReadOnlyMemory<byte> buffer, CancellationToken cancellationToken) => throw new NotImplementedException();
 #endif
 		}

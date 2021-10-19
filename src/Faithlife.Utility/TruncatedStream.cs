@@ -65,7 +65,7 @@ namespace Faithlife.Utility
 			return byteCount;
 		}
 
-#if NET6_0
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 		/// <summary>
 		/// Reads from the stream asynchronously.
 		/// </summary>
@@ -117,7 +117,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		public override Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken) => throw CreateWriteNotSupportedException();
 
-#if NET6_0
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 		/// <summary>
 		/// Asynchronously writes a sequence of bytes to the current stream, advances the current position within this stream by the number of bytes written, and monitors cancellation requests.
 		/// </summary>

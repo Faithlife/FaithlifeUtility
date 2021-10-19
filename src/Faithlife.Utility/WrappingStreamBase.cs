@@ -75,7 +75,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		public abstract override Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken);
 
-#if NET6_0
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 		/// <summary>
 		/// Asynchronously reads a sequence of bytes from the current stream, advances the position within the stream by the number of bytes read, and monitors cancellation requests.
 		/// </summary>
@@ -112,7 +112,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		public abstract override Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken);
 
-#if NET6_0
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 		/// <summary>
 		/// Writes a sequence of bytes to the current stream and advances the current position
 		/// within this stream by the number of bytes written.

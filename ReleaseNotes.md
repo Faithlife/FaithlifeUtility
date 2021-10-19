@@ -7,6 +7,7 @@
 * **Breaking** Drop support for .NET Core 2.1.
 * Support .NET 6.0.
 * `DictionaryUtility` key types must be `notnull`.
+* Add `Stream.ReadAsync`/`WriteAsync` overloads for `Memory<byte>` on .NET Standard 2.1 and .NET Core.
 
 ## 0.11.2
 
