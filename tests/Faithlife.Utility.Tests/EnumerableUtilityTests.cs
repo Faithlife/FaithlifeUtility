@@ -6,6 +6,9 @@ using System.Linq;
 using MyLib;
 using NUnit.Framework;
 
+// Don't warn for testing obsolete methods
+#pragma warning disable CS0618
+
 namespace Faithlife.Utility.Tests
 {
 	[TestFixture]
@@ -235,9 +238,6 @@ namespace Faithlife.Utility.Tests
 			}
 		}
 
-#if NET6_0_OR_GREATER
-#pragma warning disable CS0618 // EnumerableUtility.EnumerateBatches is obsolete on .NET 6+
-#endif
 		[Test]
 		public void EnumerateBatchesNull()
 		{
@@ -353,7 +353,6 @@ namespace Faithlife.Utility.Tests
 			batches = testStrings.Select(x => x).EnumerateBatches(1);
 			Assert.IsFalse(batches.Any());
 		}
-#pragma warning restore CS0618 // EnumerableUtility.EnumerateBatches is obsolete on .NET 6+
 
 		[Test]
 		public void SplitIntoBinsNull()
@@ -554,10 +553,8 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TakeLastArguments()
 		{
-#pragma warning disable CS0618 // Type or member is obsolete
 			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.TakeLast((IEnumerable<int>) null!, 1));
 			Assert.Throws<ArgumentOutOfRangeException>(() => EnumerableUtility.TakeLast(new[] { 1 }, -1));
-#pragma warning restore CS0618 // Type or member is obsolete
 
 			// As .NET Standard 2.0
 			Assert.Throws<ArgumentNullException>(() => MyClass.DoTakeLast((IEnumerable<int>) null!, 1));
@@ -567,7 +564,6 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TakeLastZero()
 		{
-#pragma warning disable CS0618 // Type or member is obsolete
 			CollectionAssert.AreEqual(new int[0], EnumerableUtility.TakeLast(new[] { 1 }, 0));
 #pragma warning restore CS0618 // Type or member is obsolete
 
@@ -578,9 +574,7 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void TakeLastEmpty()
 		{
-#pragma warning disable CS0618 // Type or member is obsolete
 			CollectionAssert.AreEqual(new int[0], EnumerableUtility.TakeLast(Enumerable.Empty<int>(), 100));
-#pragma warning restore CS0618 // Type or member is obsolete
 
 			// As .NET Standard 2.0
 			CollectionAssert.AreEqual(new int[0], MyClass.DoTakeLast(Enumerable.Empty<int>(), 100));
@@ -590,9 +584,7 @@ namespace Faithlife.Utility.Tests
 		public void TakeLastPartialSequence()
 		{
 			var sequence = new EnumerableMonitor<int>(Enumerable.Range(1, 100));
-#pragma warning disable CS0618 // Type or member is obsolete
 			CollectionAssert.AreEqual(new[] { 98, 99, 100 }, EnumerableUtility.TakeLast(sequence, 3));
-#pragma warning restore CS0618 // Type or member is obsolete
 			Assert.AreEqual(100, sequence.RequestCount);
 
 			// As .NET Standard 2.0
@@ -604,9 +596,7 @@ namespace Faithlife.Utility.Tests
 		public void TakeLastEntireSequence()
 		{
 			var sequence = new EnumerableMonitor<int>(Enumerable.Range(1, 3));
-#pragma warning disable CS0618 // Type or member is obsolete
 			CollectionAssert.AreEqual(new[] { 1, 2, 3 }, EnumerableUtility.TakeLast(sequence, 5));
-#pragma warning restore CS0618 // Type or member is obsolete
 			Assert.AreEqual(3, sequence.RequestCount);
 
 			// As .NET Standard 2.0

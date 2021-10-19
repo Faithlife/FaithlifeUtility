@@ -3,6 +3,9 @@ using System.Collections.ObjectModel;
 using MyLib;
 using NUnit.Framework;
 
+// Don't warn for testing obsolete methods
+#pragma warning disable CS0618
+
 namespace Faithlife.Utility.Tests
 {
 	[TestFixture]
@@ -218,10 +221,8 @@ namespace Faithlife.Utility.Tests
 		public void GetValueOrDefault()
 		{
 			var dict = new Dictionary<int, int> { { 2, 4 }, { 3, 6 } };
-#pragma warning disable CS0618 // Type or member is obsolete
 			Assert.AreEqual(4, DictionaryUtility.GetValueOrDefault(dict, 2));
 			Assert.AreEqual(0, DictionaryUtility.GetValueOrDefault(dict, 1));
-#pragma warning restore CS0618 // Type or member is obsolete
 		}
 
 		[Test]
@@ -236,10 +237,8 @@ namespace Faithlife.Utility.Tests
 		public void GetValueOrDefaultWithDefault()
 		{
 			var dict = new Dictionary<int, int> { { 2, 4 }, { 3, 6 } };
-#pragma warning disable CS0618 // Type or member is obsolete
 			Assert.AreEqual(4, DictionaryUtility.GetValueOrDefault(dict, 2, -1));
 			Assert.AreEqual(-1, DictionaryUtility.GetValueOrDefault(dict, 1, -1));
-#pragma warning restore CS0618 // Type or member is obsolete
 		}
 
 		[Test]
