@@ -198,31 +198,31 @@ namespace Faithlife.Utility.Tests
 		[Test]
 		public void DistinctBy()
 		{
-			Assert.Throws<ArgumentNullException>(() => ((IEnumerable<int>) null!).DistinctBy(i => i));
-			Assert.Throws<ArgumentNullException>(() => new[] { 1 }.DistinctBy((Func<int, int>) null!));
+			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.DistinctBy((IEnumerable<int>) null!, i => i));
+			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.DistinctBy(new[] { 1 }, (Func<int, int>) null!));
 
-			CollectionAssert.AreEqual(new[] { 2.1, 1, 2, 3, 1.4 }.DistinctBy(d => Math.Floor(d)), new[] { 2.1, 1, 3 });
-			CollectionAssert.AreEqual(new double[] { 1, 2, 1, 3, 1 }.DistinctBy(d => Math.Floor(d)), new double[] { 1, 2, 3 });
-			CollectionAssert.AreEqual(new double[] { 1, 2, 1, 3, 1 }.DistinctBy(d => Math.Floor(d), null), new double[] { 1, 2, 3 });
+			CollectionAssert.AreEqual(EnumerableUtility.DistinctBy(new[] { 2.1, 1, 2, 3, 1.4 }, d => Math.Floor(d)), new[] { 2.1, 1, 3 });
+			CollectionAssert.AreEqual(EnumerableUtility.DistinctBy(new double[] { 1, 2, 1, 3, 1 }, d => Math.Floor(d)), new double[] { 1, 2, 3 });
+			CollectionAssert.AreEqual(EnumerableUtility.DistinctBy(new double[] { 1, 2, 1, 3, 1 }, d => Math.Floor(d), null), new double[] { 1, 2, 3 });
 
-			CollectionAssert.AreEqual(new[] { "a", "ab", "abc", "abcd" }.DistinctBy(s => s.Length), new[] { "a", "ab", "abc", "abcd" });
-			CollectionAssert.AreEqual(new[] { "a", "b", "c", "ab", "abc", "abcd", "bcd" }.DistinctBy(s => s.Length), new[] { "a", "ab", "abc", "abcd" });
+			CollectionAssert.AreEqual(EnumerableUtility.DistinctBy(new[] { "a", "ab", "abc", "abcd" }, s => s.Length), new[] { "a", "ab", "abc", "abcd" });
+			CollectionAssert.AreEqual(EnumerableUtility.DistinctBy(new[] { "a", "b", "c", "ab", "abc", "abcd", "bcd" }, s => s.Length), new[] { "a", "ab", "abc", "abcd" });
 		}
 
 		[Test]
 		public void DistinctByComparerArgumentNull()
 		{
-			Assert.Throws<ArgumentNullException>(() => ((IEnumerable<int>) null!).DistinctBy(i => i, EqualityComparer<int>.Default));
-			Assert.Throws<ArgumentNullException>(() => new[] { 1 }.DistinctBy(null!, EqualityComparer<int>.Default));
+			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.DistinctBy((IEnumerable<int>) null!, i => i, EqualityComparer<int>.Default));
+			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.DistinctBy(new[] { 1 }, null!, EqualityComparer<int>.Default));
 		}
 
 		[Test]
 		public void DistinctByComparer()
 		{
 			CollectionAssert.AreEqual(new[] { "a", "ab" },
-				new[] { "a", "ab", "abc", "abcd" }.DistinctBy(s => s.Length, new OddEvenEqualityComparer()));
+				EnumerableUtility.DistinctBy(new[] { "a", "ab", "abc", "abcd" }, s => s.Length, new OddEvenEqualityComparer()));
 			CollectionAssert.AreEqual(new[] { "a", "ab" },
-				new[] { "a", "b", "c", "ab", "abc", "abcd", "bcd" }.DistinctBy(s => s.Length, new OddEvenEqualityComparer()));
+				EnumerableUtility.DistinctBy(new[] { "a", "b", "c", "ab", "abc", "abcd", "bcd" }, s => s.Length, new OddEvenEqualityComparer()));
 		}
 
 		private class OddEvenEqualityComparer : EqualityComparer<int>
@@ -565,7 +565,6 @@ namespace Faithlife.Utility.Tests
 		public void TakeLastZero()
 		{
 			CollectionAssert.AreEqual(new int[0], EnumerableUtility.TakeLast(new[] { 1 }, 0));
-#pragma warning restore CS0618 // Type or member is obsolete
 
 			// As .NET Standard 2.0
 			CollectionAssert.AreEqual(new int[0], MyClass.DoTakeLast(new[] { 1 }, 0));

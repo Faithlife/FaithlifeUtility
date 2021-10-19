@@ -178,8 +178,15 @@ namespace Faithlife.Utility
 		/// <typeparam name="TKey">The type of the key used for equality comparison.</typeparam>
 		/// <param name="source">The sequence to remove duplicate objects from.</param>
 		/// <param name="keySelector">The function that determines the key.</param>
-		/// <returns>An <see cref="IEnumerable{T}"/> that contains distinct elements from the source sequence.</returns>
-		public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey?> keySelector)
+		/// <returns>An <see cref="IEnumerable{T}"/> that contains distinct elements from the source sequence.</returns>#if NET6_0_OR_GREATER
+#if NET6_0_OR_GREATER
+		[Obsolete("Use System.Linq.Enumerable.DistinctBy instead")]
+#endif
+		public static IEnumerable<TSource> DistinctBy<TSource, TKey>(
+#if !NET6_0_OR_GREATER
+			this
+#endif
+			IEnumerable<TSource> source, Func<TSource, TKey?> keySelector)
 		{
 			return DistinctBy(source, keySelector, null);
 		}
@@ -193,7 +200,14 @@ namespace Faithlife.Utility
 		/// <param name="keySelector">The function that determines the key.</param>
 		/// <param name="equalityComparer">The <see cref="IEqualityComparer{T}"/> used to compare keys; if <c>null</c>, the default comparer will be used.</param>
 		/// <returns>An <see cref="IEnumerable{T}"/> that contains distinct elements from the source sequence.</returns>
-		public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey?> keySelector, IEqualityComparer<TKey>? equalityComparer)
+#if NET6_0_OR_GREATER
+		[Obsolete("Use System.Linq.Enumerable.DistinctBy instead")]
+#endif
+		public static IEnumerable<TSource> DistinctBy<TSource, TKey>(
+#if !NET6_0_OR_GREATER
+			this
+#endif
+			IEnumerable<TSource> source, Func<TSource, TKey?> keySelector, IEqualityComparer<TKey>? equalityComparer)
 		{
 			if (source is null)
 				throw new ArgumentNullException(nameof(source));
