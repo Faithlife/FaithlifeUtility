@@ -1,16 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp3.1;net5.0;net6.0;net472</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <NoWarn>$(NoWarn);CA1806</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Faithlife.Utility\Faithlife.Utility.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="XmlDocMarkdown.Core" Version="2.7.0" />
   </ItemGroup>
 
 </Project>

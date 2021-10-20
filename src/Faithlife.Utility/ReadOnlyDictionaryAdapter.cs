@@ -11,6 +11,7 @@ namespace Faithlife.Utility
 	/// <typeparam name="TKey">The type of key in the dictionary.</typeparam>
 	/// <typeparam name="TValue">The type of value in the dictionary.</typeparam>
 	internal sealed class ReadOnlyDictionaryAdapter<TKey, TValue> : IReadOnlyDictionary<TKey, TValue>
+		where TKey : notnull
 	{
 		public ReadOnlyDictionaryAdapter(IDictionary<TKey, TValue> dictionary) => m_dictionary = dictionary ?? throw new ArgumentNullException(nameof(dictionary));
 

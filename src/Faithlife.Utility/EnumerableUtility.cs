@@ -178,8 +178,15 @@ namespace Faithlife.Utility
 		/// <typeparam name="TKey">The type of the key used for equality comparison.</typeparam>
 		/// <param name="source">The sequence to remove duplicate objects from.</param>
 		/// <param name="keySelector">The function that determines the key.</param>
-		/// <returns>An <see cref="IEnumerable{T}"/> that contains distinct elements from the source sequence.</returns>
-		public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey?> keySelector)
+		/// <returns>An <see cref="IEnumerable{T}"/> that contains distinct elements from the source sequence.</returns>#if NET6_0_OR_GREATER
+#if NET6_0_OR_GREATER
+		[Obsolete("Use System.Linq.Enumerable.DistinctBy instead")]
+#endif
+		public static IEnumerable<TSource> DistinctBy<TSource, TKey>(
+#if !NET6_0_OR_GREATER
+			this
+#endif
+			IEnumerable<TSource> source, Func<TSource, TKey?> keySelector)
 		{
 			return DistinctBy(source, keySelector, null);
 		}
@@ -193,7 +200,14 @@ namespace Faithlife.Utility
 		/// <param name="keySelector">The function that determines the key.</param>
 		/// <param name="equalityComparer">The <see cref="IEqualityComparer{T}"/> used to compare keys; if <c>null</c>, the default comparer will be used.</param>
 		/// <returns>An <see cref="IEnumerable{T}"/> that contains distinct elements from the source sequence.</returns>
-		public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey?> keySelector, IEqualityComparer<TKey>? equalityComparer)
+#if NET6_0_OR_GREATER
+		[Obsolete("Use System.Linq.Enumerable.DistinctBy instead")]
+#endif
+		public static IEnumerable<TSource> DistinctBy<TSource, TKey>(
+#if !NET6_0_OR_GREATER
+			this
+#endif
+			IEnumerable<TSource> source, Func<TSource, TKey?> keySelector, IEqualityComparer<TKey>? equalityComparer)
 		{
 			if (source is null)
 				throw new ArgumentNullException(nameof(source));
@@ -212,6 +226,9 @@ namespace Faithlife.Utility
 		/// <returns>Batches of collections containing the elements from the source sequence.</returns>
 		/// <remarks>The contents of each batch are eagerly enumerated, to avoid potential errors caused by
 		/// not fully evaluating each batch (the inner enumerator) before advancing the outer enumerator.</remarks>
+#if NET6_0_OR_GREATER
+		[Obsolete("Use System.Linq.Enumerable.Chunk instead")]
+#endif
 		public static IEnumerable<IReadOnlyList<T>> EnumerateBatches<T>(this IEnumerable<T> source, int batchSize)
 		{
 			if (source is null)
@@ -263,8 +280,15 @@ namespace Faithlife.Utility
 		/// <returns>
 		/// <paramref name="defaultValue"/> if <paramref name="source"/> is empty; otherwise, the first element in <paramref name="source"/>.
 		/// </returns>
+#if NET6_0_OR_GREATER
+		[Obsolete("Use System.Linq.Enumerable.FirstOrDefault instead")]
+#endif
 		[return: NotNullIfNotNull("defaultValue")]
-		public static T? FirstOrDefault<T>(this IEnumerable<T> source, T? defaultValue) => source.TryFirst(out var found) ? found : defaultValue;
+		public static T? FirstOrDefault<T>(
+#if !NET6_0_OR_GREATER
+			this
+#endif
+			IEnumerable<T> source, T? defaultValue) => source.TryFirst(out var found) ? found : defaultValue;
 
 		/// <summary>
 		/// Returns the first element of a sequence that satisfies a condition or a default value if no such element is found.
@@ -278,8 +302,15 @@ namespace Faithlife.Utility
 		/// specified by <paramref name="predicate"/>; otherwise, the first element in <paramref name="source"/> that
 		/// passes the test specified by <paramref name="predicate"/>.
 		/// </returns>
+#if NET6_0_OR_GREATER
+		[Obsolete("Use System.Linq.Enumerable.FirstOrDefault instead")]
+#endif
 		[return: NotNullIfNotNull("defaultValue")]
-		public static T? FirstOrDefault<T>(this IEnumerable<T> source, Func<T, bool> predicate, T? defaultValue) => source.TryFirst(predicate, out var found) ? found : defaultValue;
+		public static T? FirstOrDefault<T>(
+#if !NET6_0_OR_GREATER
+			this
+#endif
+			IEnumerable<T> source, Func<T, bool> predicate, T? defaultValue) => source.TryFirst(predicate, out var found) ? found : defaultValue;
 
 		/// <summary>
 		/// Intersperses the specified value between the elements of the source collection.
@@ -715,8 +746,8 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Combines two same sized sequences.
 		/// </summary>
-		/// <param name="first">An IEnumerable whos elements will be returned as ValueTuple.First.</param>
-		/// <param name="second">An IEnumerable whos elements will be returned as ValueTuple.Second.</param>
+		/// <param name="first">An IEnumerable whose elements will be returned as ValueTuple.First.</param>
+		/// <param name="second">An IEnumerable whose elements will be returned as ValueTuple.Second.</param>
 		/// <returns>A sequence of tuples combining the input items. Throws if the sequences don't have the same number of items.</returns>
 		[SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1414:Tuple types in signatures should have element names", Justification = "By design.")]
 		public static IEnumerable<(T1, T2)> Zip<T1, T2>(
@@ -729,8 +760,8 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// Combines two sequences.
 		/// </summary>
-		/// <param name="first">An IEnumerable whos elements will be returned as ValueTuple.First.</param>
-		/// <param name="second">An IEnumerable whos elements will be returned as ValueTuple.Second.</param>
+		/// <param name="first">An IEnumerable whose elements will be returned as ValueTuple.First.</param>
+		/// <param name="second">An IEnumerable whose elements will be returned as ValueTuple.Second.</param>
 		/// <returns>A sequence of tuples combining the input items. If the sequences don't have the same number of items, it stops at the end of the shorter sequence.</returns>
 		[SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1414:Tuple types in signatures should have element names", Justification = "By design.")]
 		public static IEnumerable<(T1, T2)> ZipTruncate<T1, T2>(this IEnumerable<T1> first, IEnumerable<T2> second) =>

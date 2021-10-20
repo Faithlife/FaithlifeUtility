@@ -15,6 +15,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <remarks>Uses the default equality comparer for TValue if none is specified.</remarks>
 		public static bool AreEqual<TKey, TValue>(IReadOnlyDictionary<TKey, TValue>? left, IReadOnlyDictionary<TKey, TValue>? right, IEqualityComparer<TValue>? comparer = null)
+			where TKey : notnull
 		{
 			comparer ??= EqualityComparer<TValue>.Default;
 
@@ -71,6 +72,7 @@ namespace Faithlife.Utility
 		/// <param name="key">The key.</param>
 		/// <returns>The new or existing value.</returns>
 		public static TValue GetOrAddValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
+			where TKey : notnull
 			where TValue : new()
 		{
 			if (dictionary.TryGetValue(key, out var value))
@@ -90,6 +92,7 @@ namespace Faithlife.Utility
 		/// <param name="creator">Used to create a new value if necessary</param>
 		/// <returns>The new or existing value.</returns>
 		public static TValue GetOrAddValue<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<TValue> creator)
+			where TKey : notnull
 		{
 			if (dictionary.TryGetValue(key, out var value))
 				return value;
@@ -114,6 +117,7 @@ namespace Faithlife.Utility
 			this
 #endif
 			IReadOnlyDictionary<TKey, TValue> dictionary, TKey key)
+			where TKey : notnull
 		{
 			// specification for IDictionary<> requires that the returned value be the default if it fails
 			dictionary.TryGetValue(key, out var value);
@@ -137,6 +141,7 @@ namespace Faithlife.Utility
 			this
 #endif
 			IReadOnlyDictionary<TKey, TValue> dictionary, TKey key, TValue defaultValue)
+			where TKey : notnull
 				=> dictionary.TryGetValue(key, out var value) ? value : defaultValue;
 
 		/// <summary>
@@ -149,6 +154,7 @@ namespace Faithlife.Utility
 		/// <param name="getDefaultValue">The default value generator.</param>
 		/// <returns>The value, or a default value.</returns>
 		public static TValue GetValueOrDefault<TKey, TValue>(this IReadOnlyDictionary<TKey, TValue> dictionary, TKey key, Func<TValue> getDefaultValue)
+			where TKey : notnull
 			=> dictionary.TryGetValue(key, out var value) ? value : getDefaultValue();
 
 		/// <summary>
@@ -159,6 +165,9 @@ namespace Faithlife.Utility
 		/// <param name="key">The key.</param>
 		/// <param name="value">The value.</param>
 		/// <returns>The key value pair.</returns>
+#if !NETSTANDARD2_0
+		[Obsolete("Use System.Collections.Generic.KeyValuePair.Create instead (available in netcoreapp2.0, netstandard2.1)")]
+#endif
 		public static KeyValuePair<TKey, TValue> CreateKeyValuePair<TKey, TValue>(TKey key, TValue value) => new(key, value);
 
 		/// <summary>
@@ -180,6 +189,7 @@ namespace Faithlife.Utility
 			this
 #endif
 			IDictionary<TKey, TValue> dictionary, TKey key, TValue value)
+			where TKey : notnull
 		{
 			if (dictionary.ContainsKey(key))
 				return false;
