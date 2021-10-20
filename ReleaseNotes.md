@@ -1,6 +1,6 @@
 # Release Notes
 
-## Unreleased
+## 0.12.0
 
 * **Breaking** Drop support for .NET Core 2.1.
 * Support .NET 6.0.
