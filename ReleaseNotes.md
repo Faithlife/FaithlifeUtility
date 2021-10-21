@@ -1,6 +1,6 @@
 # Release Notes
 
-## Unreleased
+## 0.12.1
 
 * Revert breaking abstract `WrappingStreamBase.ReadAsync`/`WriteAsync` overloads for `Memory<byte>`.
 
