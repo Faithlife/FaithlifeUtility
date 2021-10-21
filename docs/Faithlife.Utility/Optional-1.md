@@ -30,7 +30,7 @@ public struct Optional<T> : IEquatable<Optional>, IOptional
 
 ## See Also
 
-* interface [IOptional](IOptional.md)
+* interface [IOptional](./IOptional.md)
 * namespace [Faithlife.Utility](../Faithlife.Utility.md)
 * [Optional.cs](https://github.com/Faithlife/FaithlifeUtility/tree/master/src/Faithlife.Utility/Optional.cs)
 

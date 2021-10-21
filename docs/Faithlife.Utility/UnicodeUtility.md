@@ -10,7 +10,7 @@ public static class UnicodeUtility
 
 | name | description |
 | --- | --- |
-| static [GetCharacterClass](UnicodeUtility/GetCharacterClass.md)(…) | Returns the [`UnicodeCharacterClass`](UnicodeCharacterClass.md) of the character at the specified offset in the given string. |
+| static [GetCharacterClass](UnicodeUtility/GetCharacterClass.md)(…) | Returns the [`UnicodeCharacterClass`](./UnicodeCharacterClass.md) of the character at the specified offset in the given string. |
 | static [GetCharacterClassFromCategory](UnicodeUtility/GetCharacterClassFromCategory.md)(…) | Returns the major character class for the specified Unicode general category. |
 | static [GetCharacterLength](UnicodeUtility/GetCharacterLength.md)(…) | Gets the length (in chars) of the Unicode character at the specified offset in the given string. (2 methods) |
 | static [GetCodePoint](UnicodeUtility/GetCodePoint.md)(…) | Converts the value of a UTF-16 encoded character or surrogate pair at a specified position in a StringBuilder into a Unicode code point. |

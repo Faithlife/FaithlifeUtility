@@ -1,4 +1,19 @@
-# ReadOnlyStream.ReadAsync method
+# ReadOnlyStream.ReadAsync method (1 of 2)
+
+Asynchronously reads a sequence of bytes from the current stream, advances the position within the stream by the number of bytes read, and monitors cancellation requests.
+
+```csharp
+public override ValueTask<int> ReadAsync(Memory<byte> buffer, CancellationToken cancellationToken)
+```
+
+## See Also
+
+* class [ReadOnlyStream](../ReadOnlyStream.md)
+* namespace [Faithlife.Utility](../../Faithlife.Utility.md)
+
+---
+
+# ReadOnlyStream.ReadAsync method (2 of 2)
 
 Asynchronously reads a sequence of bytes from the current stream, advances the position within the stream by the number of bytes read, and monitors cancellation requests.
 

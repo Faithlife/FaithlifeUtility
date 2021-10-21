@@ -1,4 +1,19 @@
-# CachingStream.ReadAsync method
+# CachingStream.ReadAsync method (1 of 2)
+
+Reads a sequence of bytes from the current stream and advances the position within the stream by the number of bytes read.
+
+```csharp
+public override ValueTask<int> ReadAsync(Memory<byte> buffer, CancellationToken cancellationToken)
+```
+
+## See Also
+
+* class [CachingStream](../CachingStream.md)
+* namespace [Faithlife.Utility](../../Faithlife.Utility.md)
+
+---
+
+# CachingStream.ReadAsync method (2 of 2)
 
 Reads a sequence of bytes from the current stream and advances the position within the stream by the number of bytes read.
 

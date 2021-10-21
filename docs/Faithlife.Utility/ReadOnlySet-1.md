@@ -1,6 +1,6 @@
 # ReadOnlySet&lt;T&gt; class
 
-Implements a read-only wrapper around a HashSet.
+Implements a read-only wrapper around a ISet.
 
 ```csharp
 public sealed class ReadOnlySet<T> : IReadOnlyCollection<T>, ISet<T>
@@ -14,7 +14,7 @@ public sealed class ReadOnlySet<T> : IReadOnlyCollection<T>, ISet<T>
 
 | name | description |
 | --- | --- |
-| [ReadOnlySet](ReadOnlySet-1/ReadOnlySet.md)(…) | Initializes a new instance of the [`ReadOnlySet`](ReadOnlySet-1.md) class. |
+| [ReadOnlySet](ReadOnlySet-1/ReadOnlySet.md)(…) | Initializes a new instance of the [`ReadOnlySet`](./ReadOnlySet-1.md) class. |
 | [Count](ReadOnlySet-1/Count.md) { get; } | Gets the number of elements contained in the set. |
 | [IsReadOnly](ReadOnlySet-1/IsReadOnly.md) { get; } | Returns `true`; this collection is read-only. |
 | [Contains](ReadOnlySet-1/Contains.md)(…) | Determines whether the set contains a specific value. |

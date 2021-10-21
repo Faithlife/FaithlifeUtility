@@ -11,7 +11,7 @@ public struct StringSegment : IComparable<StringSegment>, IEnumerable<char>,
 
 | name | description |
 | --- | --- |
-| [StringSegment](StringSegment/StringSegment.md)(…) | Initializes a new instance of the [`StringSegment`](StringSegment.md) class. (4 constructors) |
+| [StringSegment](StringSegment/StringSegment.md)(…) | Initializes a new instance of the [`StringSegment`](./StringSegment.md) class. (4 constructors) |
 | static readonly [Empty](StringSegment/Empty.md) | An empty segment of the empty string. |
 | [Chars](StringSegment/Chars.md) { get; } | Gets the Char with the specified index. |
 | [Length](StringSegment/Length.md) { get; } | Gets the length of the segment. |
@@ -32,7 +32,7 @@ public struct StringSegment : IComparable<StringSegment>, IEnumerable<char>,
 | [LastIndexOf](StringSegment/LastIndexOf.md)(…) | Returns the last index of the specified character in the string segment. (2 methods) |
 | [LastIndexOfAny](StringSegment/LastIndexOfAny.md)(…) | Returns the last index of any of the specified characters in the string segment. |
 | [Match](StringSegment/Match.md)(…) | Matches the specified regex against the segment. |
-| [Redirect](StringSegment/Redirect.md)(…) | Returns a new [`StringSegment`](StringSegment.md) with the same owner string. (3 methods) |
+| [Redirect](StringSegment/Redirect.md)(…) | Returns a new [`StringSegment`](./StringSegment.md) with the same owner string. (3 methods) |
 | [Split](StringSegment/Split.md)(…) | Splits the string segment by the specified regular expression. |
 | [Substring](StringSegment/Substring.md)(…) | Returns a sub-segment of this segment. (2 methods) |
 | [ToCharArray](StringSegment/ToCharArray.md)() | Returns the array of characters represented by this string segment. |

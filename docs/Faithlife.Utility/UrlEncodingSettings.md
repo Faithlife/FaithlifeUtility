@@ -10,8 +10,8 @@ public sealed class UrlEncodingSettings
 
 | name | description |
 | --- | --- |
-| [UrlEncodingSettings](UrlEncodingSettings/UrlEncodingSettings.md)() | Initializes a new instance of the [`UrlEncodingSettings`](UrlEncodingSettings.md) class. |
-| static [HttpUtilitySettings](UrlEncodingSettings/HttpUtilitySettings.md) { get; } | Returns a [`UrlEncodingSettings`](UrlEncodingSettings.md) object that matches the behavior of `HttpUtility.UrlEncode(string)` in .NET 4. |
+| [UrlEncodingSettings](UrlEncodingSettings/UrlEncodingSettings.md)() | Initializes a new instance of the [`UrlEncodingSettings`](./UrlEncodingSettings.md) class. |
+| static [HttpUtilitySettings](UrlEncodingSettings/HttpUtilitySettings.md) { get; } | Returns a [`UrlEncodingSettings`](./UrlEncodingSettings.md) object that matches the behavior of `HttpUtility.UrlEncode(string)` in .NET 4. |
 | [EncodedBytePrefixChar](UrlEncodingSettings/EncodedBytePrefixChar.md) { get; set; } | Gets or sets the character used as the prefix for each encoded byte. |
 | [EncodedSpaceChar](UrlEncodingSettings/EncodedSpaceChar.md) { get; set; } | Gets or sets the character used when encoding a space. |
 | [PreventDoubleEncoding](UrlEncodingSettings/PreventDoubleEncoding.md) { get; set; } | True if the encoder should prevent double-encoding. |

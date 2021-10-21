@@ -16,7 +16,7 @@ The combined hash code.
 
 ## Remarks
 
-This is a specialization of [`CombineHashCodes`](CombineHashCodes.md) for efficiency.
+This is a specialization of [`CombineHashCodes`](./CombineHashCodes.md) for efficiency.
 
 ## See Also
 
@@ -71,7 +71,7 @@ The combined hash code.
 
 ## Remarks
 
-This is a specialization of [`CombineHashCodes`](CombineHashCodes.md) for efficiency.
+This is a specialization of [`CombineHashCodes`](./CombineHashCodes.md) for efficiency.
 
 ## See Also
 
@@ -100,7 +100,7 @@ The combined hash code.
 
 ## Remarks
 
-This is a specialization of [`CombineHashCodes`](CombineHashCodes.md) for efficiency.
+This is a specialization of [`CombineHashCodes`](./CombineHashCodes.md) for efficiency.
 
 ## See Also
 
@@ -130,7 +130,7 @@ The combined hash code.
 
 ## Remarks
 
-This is a specialization of [`CombineHashCodes`](CombineHashCodes.md) for efficiency.
+This is a specialization of [`CombineHashCodes`](./CombineHashCodes.md) for efficiency.
 
 ## See Also
 

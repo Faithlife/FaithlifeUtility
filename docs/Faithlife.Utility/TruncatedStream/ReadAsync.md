@@ -1,4 +1,19 @@
-# TruncatedStream.ReadAsync method
+# TruncatedStream.ReadAsync method (1 of 2)
+
+Reads from the stream asynchronously.
+
+```csharp
+public override ValueTask<int> ReadAsync(Memory<byte> buffer, CancellationToken cancellationToken)
+```
+
+## See Also
+
+* class [TruncatedStream](../TruncatedStream.md)
+* namespace [Faithlife.Utility](../../Faithlife.Utility.md)
+
+---
+
+# TruncatedStream.ReadAsync method (2 of 2)
 
 Reads from the stream asynchronously.
 

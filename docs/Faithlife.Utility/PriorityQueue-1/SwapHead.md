@@ -12,7 +12,7 @@ public void SwapHead(T item)
 
 ## Remarks
 
-This method is more efficient than calling [`Dequeue`](Dequeue.md) then [`Enqueue`](Enqueue.md).
+This method is more efficient than calling [`Dequeue`](./Dequeue.md) then [`Enqueue`](./Enqueue.md).
 
 ## See Also
 

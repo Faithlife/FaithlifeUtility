@@ -1,6 +1,6 @@
 # StringCache class
 
-[`StringCache`](StringCache.md) provides an append-only cache of strings that can be used to reuse the same string object instance when a string is being dynamically created at runtime (e.g., loaded from an XML file or database).
+[`StringCache`](./StringCache.md) provides an append-only cache of strings that can be used to reuse the same string object instance when a string is being dynamically created at runtime (e.g., loaded from an XML file or database).
 
 ```csharp
 public sealed class StringCache
@@ -10,12 +10,12 @@ public sealed class StringCache
 
 | name | description |
 | --- | --- |
-| [StringCache](StringCache/StringCache.md)() | Constructs a new instance of the [`StringCache`](StringCache.md) class. |
+| [StringCache](StringCache/StringCache.md)() | Constructs a new instance of the [`StringCache`](./StringCache.md) class. |
 | [GetOrAdd](StringCache/GetOrAdd.md)(…) | Gets an existing string from the cache, or adds it if it's not currently in the cache. |
 
 ## Remarks
 
-Using this class is similar to calling `string.Intern` except that all strings cached by [`StringCache`](StringCache.md) can be collected when this instance is GCed; interned strings never get freed.
+Using this class is similar to calling `string.Intern` except that all strings cached by [`StringCache`](./StringCache.md) can be collected when this instance is GCed; interned strings never get freed.
 
 To free the strings held by this string cache, release all references to this object, and to other objects that hold the strings in the cache.
 

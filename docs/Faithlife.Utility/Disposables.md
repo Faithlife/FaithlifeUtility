@@ -10,8 +10,8 @@ public sealed class Disposables : IDisposable, IEnumerable
 
 | name | description |
 | --- | --- |
-| [Disposables](Disposables/Disposables.md)() | Initializes a new instance of the [`Disposables`](Disposables.md) class. |
-| [Disposables](Disposables/Disposables.md)(…) | Initializes a new instance of the [`Disposables`](Disposables.md) class. |
+| [Disposables](Disposables/Disposables.md)() | Initializes a new instance of the [`Disposables`](./Disposables.md) class. |
+| [Disposables](Disposables/Disposables.md)(…) | Initializes a new instance of the [`Disposables`](./Disposables.md) class. |
 | [Add](Disposables/Add.md)(…) | Adds the specified disposable. |
 | [AddRange](Disposables/AddRange.md)(…) | Adds the specified disposables. |
 | [Dispose](Disposables/Dispose.md)() | Disposes all added disposables, in reverse order. |

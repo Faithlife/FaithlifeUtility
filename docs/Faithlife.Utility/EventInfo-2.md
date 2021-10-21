@@ -16,7 +16,7 @@ public class EventInfo<TSource, TEventHandler>
 
 | name | description |
 | --- | --- |
-| [EventInfo](EventInfo-2/EventInfo.md)(…) | Initializes a new instance of the [`EventInfo`](EventInfo-2.md) class. |
+| [EventInfo](EventInfo-2/EventInfo.md)(…) | Initializes a new instance of the [`EventInfo`](./EventInfo-2.md) class. |
 | [AddHandler](EventInfo-2/AddHandler.md)(…) | Adds an event handler to the event of the specified source. |
 | [RemoveHandler](EventInfo-2/RemoveHandler.md)(…) | Removes an event handler from the event of the specified source. |
 | [Subscribe](EventInfo-2/Subscribe.md)(…) | Subscribes to the event of the specified source. |

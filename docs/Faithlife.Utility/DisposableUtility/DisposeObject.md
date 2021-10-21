@@ -12,7 +12,7 @@ public static void DisposeObject<T>(ref T? obj)
 
 ## Remarks
 
-This method is similar to [`Dispose`](Dispose.md), but doesn't require that the parameter implement IDisposable; it will be checked at runtime.
+This method is similar to [`Dispose`](./Dispose.md), but doesn't require that the parameter implement IDisposable; it will be checked at runtime.
 
 ## See Also
 

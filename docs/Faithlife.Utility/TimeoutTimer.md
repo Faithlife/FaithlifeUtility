@@ -10,8 +10,8 @@ public sealed class TimeoutTimer
 
 | name | description |
 | --- | --- |
-| [TimeoutTimer](TimeoutTimer/TimeoutTimer.md)() | Initializes a new instance of the [`TimeoutTimer`](TimeoutTimer.md) class. |
-| [TimeoutTimer](TimeoutTimer/TimeoutTimer.md)(…) | Initializes a new instance of the [`TimeoutTimer`](TimeoutTimer.md) class. (2 constructors) |
+| [TimeoutTimer](TimeoutTimer/TimeoutTimer.md)() | Initializes a new instance of the [`TimeoutTimer`](./TimeoutTimer.md) class. |
+| [TimeoutTimer](TimeoutTimer/TimeoutTimer.md)(…) | Initializes a new instance of the [`TimeoutTimer`](./TimeoutTimer.md) class. (2 constructors) |
 | [ElapsedMilliseconds](TimeoutTimer/ElapsedMilliseconds.md) { get; } | Gets the time elapsed, in milliseconds. |
 | [ElapsedTimeSpan](TimeoutTimer/ElapsedTimeSpan.md) { get; } | Gets the time elapsed, in milliseconds. |
 | [IsInfinite](TimeoutTimer/IsInfinite.md) { get; } | Returns true for a timer that never times out. |

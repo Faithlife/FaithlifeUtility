@@ -14,16 +14,16 @@ public sealed class PriorityQueue<T> : ICollection, IEnumerable<T>
 
 | name | description |
 | --- | --- |
-| [PriorityQueue](PriorityQueue-1/PriorityQueue.md)() | Initializes a new instance of the [`PriorityQueue`](PriorityQueue-1.md) class that is empty, has the default initial capacity, and is sorted according to the default Comparer for the type of the data. |
-| [PriorityQueue](PriorityQueue-1/PriorityQueue.md)(…) | Initializes a new instance of the [`PriorityQueue`](PriorityQueue-1.md) class that is empty, has the specified initial capacity, and is sorted according to the default Comparer for the type of the data. (3 constructors) |
-| [Capacity](PriorityQueue-1/Capacity.md) { get; set; } | Gets or sets the number of elements that the [`PriorityQueue`](PriorityQueue-1.md) can contain. |
-| [Count](PriorityQueue-1/Count.md) { get; } | Gets the number of elements contained in the [`PriorityQueue`](PriorityQueue-1.md). |
-| [CopyTo](PriorityQueue-1/CopyTo.md)(…) | Copies the elements of the [`PriorityQueue`](PriorityQueue-1.md) to an existing one-dimensional Array, starting at a particular array index. |
-| [Dequeue](PriorityQueue-1/Dequeue.md)() | Removes and returns the smallest item from the [`PriorityQueue`](PriorityQueue-1.md). This operation takes O(log n) time. |
-| [Enqueue](PriorityQueue-1/Enqueue.md)(…) | Adds an object to the [`PriorityQueue`](PriorityQueue-1.md). This operation takes O(log n) time. |
-| [Peek](PriorityQueue-1/Peek.md)() | Returns (without removing) the smallest item in the [`PriorityQueue`](PriorityQueue-1.md). This operation takes O(1) time. |
+| [PriorityQueue](PriorityQueue-1/PriorityQueue.md)() | Initializes a new instance of the [`PriorityQueue`](./PriorityQueue-1.md) class that is empty, has the default initial capacity, and is sorted according to the default Comparer for the type of the data. |
+| [PriorityQueue](PriorityQueue-1/PriorityQueue.md)(…) | Initializes a new instance of the [`PriorityQueue`](./PriorityQueue-1.md) class that is empty, has the specified initial capacity, and is sorted according to the default Comparer for the type of the data. (3 constructors) |
+| [Capacity](PriorityQueue-1/Capacity.md) { get; set; } | Gets or sets the number of elements that the [`PriorityQueue`](./PriorityQueue-1.md) can contain. |
+| [Count](PriorityQueue-1/Count.md) { get; } | Gets the number of elements contained in the [`PriorityQueue`](./PriorityQueue-1.md). |
+| [CopyTo](PriorityQueue-1/CopyTo.md)(…) | Copies the elements of the [`PriorityQueue`](./PriorityQueue-1.md) to an existing one-dimensional Array, starting at a particular array index. |
+| [Dequeue](PriorityQueue-1/Dequeue.md)() | Removes and returns the smallest item from the [`PriorityQueue`](./PriorityQueue-1.md). This operation takes O(log n) time. |
+| [Enqueue](PriorityQueue-1/Enqueue.md)(…) | Adds an object to the [`PriorityQueue`](./PriorityQueue-1.md). This operation takes O(log n) time. |
+| [Peek](PriorityQueue-1/Peek.md)() | Returns (without removing) the smallest item in the [`PriorityQueue`](./PriorityQueue-1.md). This operation takes O(1) time. |
 | [Remove](PriorityQueue-1/Remove.md)(…) | Removes the first item equal to *item* in the priority queue. |
-| [RepositionHead](PriorityQueue-1/RepositionHead.md)() | Puts the item at the head of the queue into the correct place. If you modify the item returned by [`Peek`](PriorityQueue-1/Peek.md) such that its "priority" changes, call this method to restore the correct order in the [`PriorityQueue`](PriorityQueue-1.md). |
+| [RepositionHead](PriorityQueue-1/RepositionHead.md)() | Puts the item at the head of the queue into the correct place. If you modify the item returned by [`Peek`](./PriorityQueue-1/Peek.md) such that its "priority" changes, call this method to restore the correct order in the [`PriorityQueue`](./PriorityQueue-1.md). |
 | [SwapHead](PriorityQueue-1/SwapHead.md)(…) | Swaps the item at the head of the queue with a new item. The new item will be placed into the correct location in the priority queue. |
 
 ## See Also

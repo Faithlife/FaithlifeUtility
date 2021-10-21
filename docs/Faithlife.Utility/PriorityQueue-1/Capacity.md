@@ -10,7 +10,7 @@ public int Capacity { get; set; }
 
 | exception | condition |
 | --- | --- |
-| ArgumentOutOfRangeException | Capacity is set to a value that is less than [`Count`](Count.md). |
+| ArgumentOutOfRangeException | Capacity is set to a value that is less than [`Count`](./Count.md). |
 
 ## See Also
 

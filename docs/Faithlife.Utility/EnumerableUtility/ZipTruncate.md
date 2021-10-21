@@ -3,14 +3,14 @@
 Combines two sequences.
 
 ```csharp
-public static IEnumerable<ValueTuple<T1, T2>> ZipTruncate<T1, T2>(this IEnumerable<T1> first, 
+public static IEnumerable<(T1, T2)> ZipTruncate<T1, T2>(this IEnumerable<T1> first, 
     IEnumerable<T2> second)
 ```
 
 | parameter | description |
 | --- | --- |
-| first | An IEnumerable whos elements will be returned as ValueTuple.First. |
-| second | An IEnumerable whos elements will be returned as ValueTuple.Second. |
+| first | An IEnumerable whose elements will be returned as ValueTuple.First. |
+| second | An IEnumerable whose elements will be returned as ValueTuple.Second. |
 
 ## Return Value
 

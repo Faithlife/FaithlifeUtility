@@ -1,4 +1,20 @@
-# RebasedStream.WriteAsync method
+# RebasedStream.WriteAsync method (1 of 2)
+
+Asynchronously writes a sequence of bytes to the current stream, advances the current position within this stream by the number of bytes written, and monitors cancellation requests.
+
+```csharp
+public override ValueTask WriteAsync(ReadOnlyMemory<byte> buffer, 
+    CancellationToken cancellationToken)
+```
+
+## See Also
+
+* class [RebasedStream](../RebasedStream.md)
+* namespace [Faithlife.Utility](../../Faithlife.Utility.md)
+
+---
+
+# RebasedStream.WriteAsync method (2 of 2)
 
 Asynchronously writes a sequence of bytes to the current stream, advances the current position within this stream by the number of bytes written, and monitors cancellation requests.
 

@@ -10,16 +10,16 @@ public sealed class CachingStream : WrappingStreamBase
 
 | name | description |
 | --- | --- |
-| [CachingStream](CachingStream/CachingStream.md)(…) | Initializes a new instance of the [`CachingStream`](CachingStream.md) class. |
+| [CachingStream](CachingStream/CachingStream.md)(…) | Initializes a new instance of the [`CachingStream`](./CachingStream.md) class. |
 | override [CanWrite](CachingStream/CanWrite.md) { get; } | Gets a value indicating whether the current stream supports writing. |
 | override [Position](CachingStream/Position.md) { get; set; } | Gets or sets the position within the current stream. |
 | override [Read](CachingStream/Read.md)(…) | Reads a sequence of bytes from the current stream and advances the position within the stream by the number of bytes read. |
-| override [ReadAsync](CachingStream/ReadAsync.md)(…) | Reads a sequence of bytes from the current stream and advances the position within the stream by the number of bytes read. |
+| override [ReadAsync](CachingStream/ReadAsync.md)(…) | Reads a sequence of bytes from the current stream and advances the position within the stream by the number of bytes read. (2 methods) |
 | override [ReadByte](CachingStream/ReadByte.md)() | Reads a byte from the stream and advances the position within the stream by one byte, or returns -1 if at the end of the stream. |
 | override [Seek](CachingStream/Seek.md)(…) | Sets the position within the current stream. |
 | override [SetLength](CachingStream/SetLength.md)(…) | Sets the length of the current stream. |
 | override [Write](CachingStream/Write.md)(…) | Writes a sequence of bytes to the current stream and advances the current position within this stream by the number of bytes written. |
-| override [WriteAsync](CachingStream/WriteAsync.md)(…) | Asynchronously writes a sequence of bytes to the current stream, advances the current position within this stream by the number of bytes written, and monitors cancellation requests. |
+| override [WriteAsync](CachingStream/WriteAsync.md)(…) | Asynchronously writes a sequence of bytes to the current stream, advances the current position within this stream by the number of bytes written, and monitors cancellation requests. (2 methods) |
 
 ## Protected Members
 
@@ -33,7 +33,7 @@ This implementation doesn't enforce any upper bound on the amount of data that w
 
 ## See Also
 
-* class [WrappingStreamBase](WrappingStreamBase.md)
+* class [WrappingStreamBase](./WrappingStreamBase.md)
 * namespace [Faithlife.Utility](../Faithlife.Utility.md)
 * [CachingStream.cs](https://github.com/Faithlife/FaithlifeUtility/tree/master/src/Faithlife.Utility/CachingStream.cs)
 

@@ -8,7 +8,7 @@ public ReadOnlySet(ISet<T> set)
 
 | parameter | description |
 | --- | --- |
-| set | The HashSet to wrap. |
+| set | The ISet to wrap. |
 
 ## See Also
 

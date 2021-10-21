@@ -1,6 +1,6 @@
 # WrappingStream class
 
-A Stream that wraps another stream. One major feature of [`WrappingStream`](WrappingStream.md) is that it does not dispose the underlying stream when it is disposed if Ownership.None is used; this is useful when using classes such as BinaryReader that take ownership of the stream passed to their constructors.
+A Stream that wraps another stream. One major feature of [`WrappingStream`](./WrappingStream.md) is that it does not dispose the underlying stream when it is disposed if Ownership.None is used; this is useful when using classes such as BinaryReader that take ownership of the stream passed to their constructors.
 
 ```csharp
 public sealed class WrappingStream : Stream
@@ -10,7 +10,7 @@ public sealed class WrappingStream : Stream
 
 | name | description |
 | --- | --- |
-| [WrappingStream](WrappingStream/WrappingStream.md)(…) | Initializes a new instance of the [`WrappingStream`](WrappingStream.md) class. |
+| [WrappingStream](WrappingStream/WrappingStream.md)(…) | Initializes a new instance of the [`WrappingStream`](./WrappingStream.md) class. |
 | override [CanRead](WrappingStream/CanRead.md) { get; } | Gets a value indicating whether the current stream supports reading. |
 | override [CanSeek](WrappingStream/CanSeek.md) { get; } | Gets a value indicating whether the current stream supports seeking. |
 | override [CanTimeout](WrappingStream/CanTimeout.md) { get; } | Gets a value that determines whether the current stream can time out. |

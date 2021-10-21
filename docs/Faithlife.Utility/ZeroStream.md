@@ -10,8 +10,8 @@ public class ZeroStream : Stream
 
 | name | description |
 | --- | --- |
-| [ZeroStream](ZeroStream/ZeroStream.md)() | Initializes a new instance of the [`ZeroStream`](ZeroStream.md) class. |
-| [ZeroStream](ZeroStream/ZeroStream.md)(…) | Initializes a new instance of the [`ZeroStream`](ZeroStream.md) class. |
+| [ZeroStream](ZeroStream/ZeroStream.md)() | Initializes a new instance of the [`ZeroStream`](./ZeroStream.md) class. |
+| [ZeroStream](ZeroStream/ZeroStream.md)(…) | Initializes a new instance of the [`ZeroStream`](./ZeroStream.md) class. |
 | override [CanRead](ZeroStream/CanRead.md) { get; } | Returns whether the current stream supports reading. |
 | override [CanSeek](ZeroStream/CanSeek.md) { get; } | Returns whether the current stream supports seeking. |
 | override [CanWrite](ZeroStream/CanWrite.md) { get; } | Returns whether the current stream supports writing. |

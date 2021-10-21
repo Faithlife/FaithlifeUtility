@@ -29,7 +29,7 @@ public abstract class WrappingStreamBase : Stream
 
 | name | description |
 | --- | --- |
-| [WrappingStreamBase](WrappingStreamBase/WrappingStreamBase.md)(…) | Initializes a new instance of the [`WrappingStreamBase`](WrappingStreamBase.md) class. |
+| [WrappingStreamBase](WrappingStreamBase/WrappingStreamBase.md)(…) | Initializes a new instance of the [`WrappingStreamBase`](./WrappingStreamBase.md) class. |
 | [WrappedStream](WrappingStreamBase/WrappedStream.md) { get; } | Gets the wrapped stream. |
 | override [Dispose](WrappingStreamBase/Dispose.md)(…) | Disposes or releases the wrapped stream, based on the value of the Ownership parameter passed to the constructor. |
 | [ThrowIfDisposed](WrappingStreamBase/ThrowIfDisposed.md)() | Throws an ObjectDisposedException if this object has been disposed. |

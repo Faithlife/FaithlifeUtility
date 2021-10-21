@@ -1,6 +1,6 @@
 # TruncatedStream class
 
-[`TruncatedStream`](TruncatedStream.md) is a read-only stream wrapper that will not read past the specified length.
+[`TruncatedStream`](./TruncatedStream.md) is a read-only stream wrapper that will not read past the specified length.
 
 ```csharp
 public sealed class TruncatedStream : WrappingStreamBase
@@ -16,16 +16,16 @@ public sealed class TruncatedStream : WrappingStreamBase
 | override [Position](TruncatedStream/Position.md) { get; set; } | The current position in the stream. |
 | override [Flush](TruncatedStream/Flush.md)() | Throws an exception; writes are not supported. |
 | override [Read](TruncatedStream/Read.md)(…) | Reads from the stream. |
-| override [ReadAsync](TruncatedStream/ReadAsync.md)(…) | Reads from the stream asynchronously. |
+| override [ReadAsync](TruncatedStream/ReadAsync.md)(…) | Reads from the stream asynchronously. (2 methods) |
 | override [ReadByte](TruncatedStream/ReadByte.md)() | Reads a byte from the stream. |
 | override [Seek](TruncatedStream/Seek.md)(…) | Changes the current position in the stream. |
 | override [SetLength](TruncatedStream/SetLength.md)(…) | Throws an exception; writes are not supported. |
 | override [Write](TruncatedStream/Write.md)(…) | Throws an exception; writes are not supported. |
-| override [WriteAsync](TruncatedStream/WriteAsync.md)(…) | Asynchronously writes a sequence of bytes to the current stream, advances the current position within this stream by the number of bytes written, and monitors cancellation requests. |
+| override [WriteAsync](TruncatedStream/WriteAsync.md)(…) | Asynchronously writes a sequence of bytes to the current stream, advances the current position within this stream by the number of bytes written, and monitors cancellation requests. (2 methods) |
 
 ## See Also
 
-* class [WrappingStreamBase](WrappingStreamBase.md)
+* class [WrappingStreamBase](./WrappingStreamBase.md)
 * namespace [Faithlife.Utility](../Faithlife.Utility.md)
 * [TruncatedStream.cs](https://github.com/Faithlife/FaithlifeUtility/tree/master/src/Faithlife.Utility/TruncatedStream.cs)
 

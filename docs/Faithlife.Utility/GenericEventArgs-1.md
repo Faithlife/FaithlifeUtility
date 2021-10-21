@@ -10,7 +10,7 @@ public class GenericEventArgs<T> : EventArgs
 
 | name | description |
 | --- | --- |
-| [GenericEventArgs](GenericEventArgs-1/GenericEventArgs.md)(…) | Initializes a new instance of the [`GenericEventArgs`](GenericEventArgs-1.md) class. |
+| [GenericEventArgs](GenericEventArgs-1/GenericEventArgs.md)(…) | Initializes a new instance of the [`GenericEventArgs`](./GenericEventArgs-1.md) class. |
 | [Value](GenericEventArgs-1/Value.md) { get; } | Gets the value. |
 
 ## See Also

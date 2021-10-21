@@ -11,8 +11,8 @@ public sealed class Scope : IDisposable
 | name | description |
 | --- | --- |
 | static readonly [Empty](Scope/Empty.md) | An empty scope, which does nothing when disposed. |
-| static [Create](Scope/Create.md)(…) | Creates a [`Scope`](Scope.md) for the specified delegate. |
-| static [Create&lt;T&gt;](Scope/Create.md)(…) | Creates a [`Scope`](Scope.md) that disposes the specified object. |
+| static [Create](Scope/Create.md)(…) | Creates a [`Scope`](./Scope.md) for the specified delegate. |
+| static [Create&lt;T&gt;](Scope/Create.md)(…) | Creates a [`Scope`](./Scope.md) that disposes the specified object. |
 | [Cancel](Scope/Cancel.md)() | Cancel the call to the encapsulated delegate. |
 | [Dispose](Scope/Dispose.md)() | Calls the encapsulated delegate. |
 | [Transfer](Scope/Transfer.md)() | Returns a new Scope that will call the encapsulated delegate. |

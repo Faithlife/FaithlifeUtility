@@ -1,6 +1,6 @@
 # PriorityQueue&lt;T&gt;.RepositionHead method
 
-Puts the item at the head of the queue into the correct place. If you modify the item returned by [`Peek`](Peek.md) such that its "priority" changes, call this method to restore the correct order in the [`PriorityQueue`](../PriorityQueue-1.md).
+Puts the item at the head of the queue into the correct place. If you modify the item returned by [`Peek`](./Peek.md) such that its "priority" changes, call this method to restore the correct order in the [`PriorityQueue`](../PriorityQueue-1.md).
 
 ```csharp
 public void RepositionHead()

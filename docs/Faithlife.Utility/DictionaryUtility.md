@@ -13,7 +13,6 @@ public static class DictionaryUtility
 | static [AreEqual&lt;TKey,TValue&gt;](DictionaryUtility/AreEqual.md)(…) | Returns true if there is a one-to-one relationship between every key-value pair. |
 | static [AsReadOnly&lt;TKey,TValue&gt;](DictionaryUtility/AsReadOnly.md)(…) | Wraps the dictionary in a read-only dictionary. |
 | static [AsReadOnlyDictionary&lt;TKey,TValue&gt;](DictionaryUtility/AsReadOnlyDictionary.md)(…) | Represents the sequence of key-value pairs as a IReadOnlyDictionary. |
-| static [CreateKeyValuePair&lt;TKey,TValue&gt;](DictionaryUtility/CreateKeyValuePair.md)(…) | Creates a key value pair. |
 | static [GetOrAddValue&lt;TKey,TValue&gt;](DictionaryUtility/GetOrAddValue.md)(…) | Gets a value from the dictionary, adding and returning a new instance if it is missing. (2 methods) |
 | static [GetValueOrDefault&lt;TKey,TValue&gt;](DictionaryUtility/GetValueOrDefault.md)(…) | Gets a value from the dictionary, returning the generated default value if it is missing. |
 
