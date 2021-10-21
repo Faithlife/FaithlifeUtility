@@ -1,5 +1,9 @@
 # Release Notes
 
+## Unreleased
+
+* Revert breaking abstract `WrappingStreamBase.ReadAsync`/`WriteAsync` overloads for `Memory<byte>`.
+
 ## 0.12.0
 
 * **Breaking** Drop support for .NET Core 2.1.
