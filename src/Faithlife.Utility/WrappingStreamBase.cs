@@ -14,6 +14,7 @@ namespace Faithlife.Utility
 	/// correct behavior for ReadAsync and CopyToAsync.
 	/// </summary>
 	[SuppressMessage("Naming", "CA1710:Identifiers should have correct suffix", Justification = "Legacy.")]
+	[SuppressMessage("Naming", "CA1844", Justification = "Class is abstract.")]
 	public abstract class WrappingStreamBase : Stream
 	{
 		/// <summary>
@@ -75,13 +76,6 @@ namespace Faithlife.Utility
 		/// </summary>
 		public abstract override Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken);
 
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-		/// <summary>
-		/// Asynchronously reads a sequence of bytes from the current stream, advances the position within the stream by the number of bytes read, and monitors cancellation requests.
-		/// </summary>
-		public abstract override ValueTask<int> ReadAsync(Memory<byte> buffer, CancellationToken cancellationToken);
-#endif
-
 		/// <summary>
 		/// Gets or sets a value, in milliseconds, that determines how long the stream will attempt to read before timing out.
 		/// </summary>
@@ -111,14 +105,6 @@ namespace Faithlife.Utility
 		/// within this stream by the number of bytes written.
 		/// </summary>
 		public abstract override Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken);
-
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-		/// <summary>
-		/// Writes a sequence of bytes to the current stream and advances the current position
-		/// within this stream by the number of bytes written.
-		/// </summary>
-		public abstract override ValueTask WriteAsync(ReadOnlyMemory<byte> buffer, CancellationToken cancellationToken);
-#endif
 
 		/// <summary>
 		/// Gets or sets a value, in milliseconds, that determines how long the stream will attempt to write before timing out.
