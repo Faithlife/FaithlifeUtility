@@ -688,7 +688,7 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="array">The strings.</param>
 		/// <returns>All of the strings concatenated with no separator.</returns>
-		public static string Join(this string[] array) => string.Join(string.Empty, array);
+		public static string Join(this string[] array) => string.Join("", array);
 
 		/// <summary>
 		/// Joins the specified strings using the specified separator.
@@ -709,7 +709,7 @@ namespace Faithlife.Utility
 			if (separatorFormat is null)
 				throw new ArgumentNullException(nameof(separatorFormat));
 
-			return strings.Aggregate(string.Empty, (acc, src) => acc.Length == 0 ? src : separatorFormat.FormatInvariant(acc, src));
+			return strings.Aggregate("", (acc, src) => acc.Length == 0 ? src : separatorFormat.FormatInvariant(acc, src));
 		}
 
 		/// <summary>

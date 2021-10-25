@@ -76,7 +76,7 @@ namespace Faithlife.Utility
 		/// <summary>
 		/// An empty segment of the empty string.
 		/// </summary>
-		public static readonly StringSegment Empty = new StringSegment(string.Empty);
+		public static readonly StringSegment Empty = new StringSegment("");
 
 		/// <summary>
 		/// Gets the source string.

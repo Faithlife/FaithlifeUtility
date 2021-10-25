@@ -89,9 +89,9 @@ namespace Faithlife.Utility.Tests
 			var strActual = ((IEnumerable<string?>) astrStrings).Join(strSeparator);
 			Assert.AreEqual(string.Join(strSeparator, astrStrings), strActual);
 			strActual = ((IEnumerable<string?>) astrStrings).Join();
-			Assert.AreEqual(string.Join(string.Empty, astrStrings), strActual);
-			strActual = ((IEnumerable<string?>) astrStrings).Join(string.Empty);
-			Assert.AreEqual(string.Join(string.Empty, astrStrings), strActual);
+			Assert.AreEqual(string.Join("", astrStrings), strActual);
+			strActual = ((IEnumerable<string?>) astrStrings).Join("");
+			Assert.AreEqual(string.Join("", astrStrings), strActual);
 			strActual = ((IEnumerable<string?>) astrStrings).Join(null);
 			Assert.AreEqual(string.Join(null, astrStrings), strActual);
 		}
