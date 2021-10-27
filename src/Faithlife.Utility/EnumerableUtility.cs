@@ -755,7 +755,11 @@ namespace Faithlife.Utility
 			this
 #endif
 				IEnumerable<T1> first, IEnumerable<T2> second) =>
-			ZipImpl(first ?? throw new ArgumentNullException(nameof(first)), second ?? throw new ArgumentNullException(nameof(second)), UnbalancedZipStrategy.Throw);
+			ZipImpl(
+				first ?? throw new ArgumentNullException(nameof(first)),
+				second ?? throw new ArgumentNullException(nameof(second)),
+				(firstElement, secondElement) => (firstElement, secondElement),
+				UnbalancedZipStrategy.Throw);
 
 		/// <summary>
 		/// Combines two sequences.
@@ -765,7 +769,26 @@ namespace Faithlife.Utility
 		/// <returns>A sequence of tuples combining the input items. If the sequences don't have the same number of items, it stops at the end of the shorter sequence.</returns>
 		[SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1414:Tuple types in signatures should have element names", Justification = "By design.")]
 		public static IEnumerable<(T1, T2)> ZipTruncate<T1, T2>(this IEnumerable<T1> first, IEnumerable<T2> second) =>
-			ZipImpl(first ?? throw new ArgumentNullException(nameof(first)), second ?? throw new ArgumentNullException(nameof(second)), UnbalancedZipStrategy.Truncate);
+			ZipImpl(first ?? throw new ArgumentNullException(nameof(first)),
+				second ?? throw new ArgumentNullException(nameof(second)),
+				(firstElement, secondElement) => (firstElement, secondElement),
+				UnbalancedZipStrategy.Truncate);
+
+		/// <summary>
+		/// Combines two sequences.
+		/// </summary>
+		/// <param name="first">The first sequence to merge.</param>
+		/// <param name="second">The second sequence to merge.</param>
+		/// <param name="resultSelector">A function that specifies how to merge the elements from the input sequences.</param>
+		/// <returns>A sequence containing merged elements of the input sequences. If the sequences don't have the same number of items, it stops at the end of the shorter sequence.</returns>
+		public static IEnumerable<TResult> ZipTruncate<T1, T2, TResult>(this IEnumerable<T1> first,
+			IEnumerable<T2> second,
+			Func<T1, T2, TResult> resultSelector) =>
+			ZipImpl(
+				first ?? throw new ArgumentNullException(nameof(first)),
+				second ?? throw new ArgumentNullException(nameof(second)),
+				resultSelector ?? throw new ArgumentNullException(nameof(resultSelector)),
+				UnbalancedZipStrategy.Truncate);
 
 		/// <summary>
 		/// Makes distinct and then removes a single item from a sequence.
@@ -860,15 +883,18 @@ namespace Faithlife.Utility
 			Truncate,
 		}
 
-		[SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1414:Tuple types in signatures should have element names", Justification = "By design.")]
-		private static IEnumerable<(T1, T2)> ZipImpl<T1, T2>(IEnumerable<T1> first, IEnumerable<T2> second, UnbalancedZipStrategy strategy)
+		private static IEnumerable<TResult> ZipImpl<T1, T2, TResult>(
+			IEnumerable<T1> first,
+			IEnumerable<T2> second,
+			Func<T1, T2, TResult> resultSelector,
+			UnbalancedZipStrategy strategy)
 		{
 			using var firstEnumerator = first.GetEnumerator();
 			using var secondEnumerator = second.GetEnumerator();
 			while (firstEnumerator.MoveNext())
 			{
 				if (secondEnumerator.MoveNext())
-					yield return (firstEnumerator.Current, secondEnumerator.Current);
+					yield return resultSelector(firstEnumerator.Current, secondEnumerator.Current);
 				else if (strategy == UnbalancedZipStrategy.Truncate)
 					yield break;
 				else
