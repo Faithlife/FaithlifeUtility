@@ -112,17 +112,30 @@ namespace Faithlife.Utility.Tests
 		{
 			var seq1 = new[] { 1, 2 };
 			var seq2 = new[] { "a", "b" };
-			var expected = new[] { (1, "a"), (2, "b") };
-			var zipped = seq1.Zip(seq2).ToArray();
+			var expected2 = new[] { (1, "a"), (2, "b") };
+			var zipped2 = seq1.Zip(seq2).ToArray();
 
-			Assert.AreEqual(expected[0], zipped[0]);
-			Assert.AreEqual(expected[1], zipped[1]);
+			Assert.AreEqual(expected2[0], zipped2[0]);
+			Assert.AreEqual(expected2[1], zipped2[1]);
+
+			var seq3 = new[] { false, true };
+			var expected3 = new[] { (1, "a", false), (2, "b", true) };
+			var zipped3 = seq1.Zip(seq2, seq3).ToArray();
+
+			Assert.AreEqual(expected3[0], zipped3[0]);
+			Assert.AreEqual(expected3[1], zipped3[1]);
 
 			var seqLong = new[] { 1, 2, 3 };
 			Assert.Throws<ArgumentException>(() => EnumerableUtility.Zip(seq1, seqLong).ToList());
 			Assert.Throws<ArgumentException>(() => EnumerableUtility.Zip(seqLong, seq2).ToList());
+			Assert.Throws<ArgumentException>(() => EnumerableUtility.Zip(seqLong, seq2, seq3).ToList());
+			Assert.Throws<ArgumentException>(() => EnumerableUtility.Zip(seq1, seqLong, seq3).ToList());
+			Assert.Throws<ArgumentException>(() => EnumerableUtility.Zip(seq1, seq2, seqLong).ToList());
 			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.Zip(seq1, (IEnumerable<int>) null!));
 			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.Zip((IEnumerable<int>) null!, seq1));
+			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.Zip((IEnumerable<int>) null!, seq2, seq3));
+			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.Zip(seq1, (IEnumerable<int>) null!, seq3));
+			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.Zip(seq1, seq2, (IEnumerable<int>) null!));
 		}
 
 		// forces a sequence to be IEnumerable<T>, but not ICollection<T>
