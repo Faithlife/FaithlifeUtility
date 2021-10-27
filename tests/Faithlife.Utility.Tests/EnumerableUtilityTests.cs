@@ -138,6 +138,33 @@ namespace Faithlife.Utility.Tests
 			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.Zip(seq1, seq2, (IEnumerable<int>) null!));
 		}
 
+		[Test]
+		public void UnzipTest()
+		{
+			var source1 = new[] { (1, "a"), (2, "b") };
+			var expected1 = (new[] { 1, 2 }, new[] { "a", "b" });
+			var unzipped1 = source1.Unzip();
+
+			Assert.AreEqual(expected1.Item1[0], unzipped1.Item1.ElementAt(0));
+			Assert.AreEqual(expected1.Item1[1], unzipped1.Item1.ElementAt(1));
+			Assert.AreEqual(expected1.Item2[0], unzipped1.Item2.ElementAt(0));
+			Assert.AreEqual(expected1.Item2[1], unzipped1.Item2.ElementAt(1));
+
+			var source2 = new[] { (1, "a", false), (2, "b", true) };
+			var expected2 = (new[] { 1, 2 }, new[] { "a", "b" }, new[] { false, true });
+			var unzipped2 = source2.Unzip();
+
+			Assert.AreEqual(expected2.Item1[0], unzipped2.Item1.ElementAt(0));
+			Assert.AreEqual(expected2.Item1[1], unzipped2.Item1.ElementAt(1));
+			Assert.AreEqual(expected2.Item2[0], unzipped2.Item2.ElementAt(0));
+			Assert.AreEqual(expected2.Item2[1], unzipped2.Item2.ElementAt(1));
+			Assert.AreEqual(expected2.Item3[0], unzipped2.Item3.ElementAt(0));
+			Assert.AreEqual(expected2.Item3[1], unzipped2.Item3.ElementAt(1));
+
+			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.Unzip((IEnumerable<(int, string)>) null!));
+			Assert.Throws<ArgumentNullException>(() => EnumerableUtility.Unzip((IEnumerable<(int, string, bool)>) null!));
+		}
+
 		// forces a sequence to be IEnumerable<T>, but not ICollection<T>
 		private static IEnumerable<T> ToEnumerable<T>(IEnumerable<T> seq)
 		{
