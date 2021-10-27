@@ -762,6 +762,45 @@ namespace Faithlife.Utility
 				UnbalancedZipStrategy.Throw);
 
 		/// <summary>
+		/// Combines three same sized sequences.
+		/// </summary>
+		/// <param name="first">An IEnumerable whose elements will be returned as ValueTuple.First.</param>
+		/// <param name="second">An IEnumerable whose elements will be returned as ValueTuple.Second.</param>
+		/// <param name="third">An IEnumerable whose elements will be returned as ValueTuple.Third.</param>
+		/// <returns>A sequence of tuples combining the input items. Throws if the sequences don't have the same number of items.</returns>
+		[SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1414:Tuple types in signatures should have element names", Justification = "By design.")]
+		public static IEnumerable<(T1, T2, T3)> Zip<T1, T2, T3>(
+#if NETSTANDARD || NETCOREAPP || NET5_0
+			this
+#endif
+				IEnumerable<T1> first, IEnumerable<T2> second, IEnumerable<T3> third) =>
+			ZipImpl(
+				first ?? throw new ArgumentNullException(nameof(first)),
+				second ?? throw new ArgumentNullException(nameof(second)),
+				third ?? throw new ArgumentNullException(nameof(third)),
+				(firstElement, secondElement, thirdElement) => (firstElement, secondElement, thirdElement),
+				UnbalancedZipStrategy.Throw);
+
+		/// <summary>
+		/// Combines three same sized sequences.
+		/// </summary>
+		/// <param name="first">The first sequence to merge.</param>
+		/// <param name="second">The second sequence to merge.</param>
+		/// <param name="third">The third sequence to merge.</param>
+		/// <param name="resultSelector">A function that specifies how to merge the elements from the input sequences.</param>
+		/// <returns>A sequence containing merged elements of the input sequences. Throws if the sequences don't have the same number of items.</returns>
+		public static IEnumerable<TResult> Zip<T1, T2, T3, TResult>(this IEnumerable<T1> first,
+			IEnumerable<T2> second,
+			IEnumerable<T3> third,
+			Func<T1, T2, T3, TResult> resultSelector) =>
+			ZipImpl(
+				first ?? throw new ArgumentNullException(nameof(first)),
+				second ?? throw new ArgumentNullException(nameof(second)),
+				third ?? throw new ArgumentNullException(nameof(third)),
+				resultSelector ?? throw new ArgumentNullException(nameof(resultSelector)),
+				UnbalancedZipStrategy.Throw);
+
+		/// <summary>
 		/// Combines two sequences.
 		/// </summary>
 		/// <param name="first">An IEnumerable whose elements will be returned as ValueTuple.First.</param>
@@ -787,6 +826,41 @@ namespace Faithlife.Utility
 			ZipImpl(
 				first ?? throw new ArgumentNullException(nameof(first)),
 				second ?? throw new ArgumentNullException(nameof(second)),
+				resultSelector ?? throw new ArgumentNullException(nameof(resultSelector)),
+				UnbalancedZipStrategy.Truncate);
+
+		/// <summary>
+		/// Combines three sequences.
+		/// </summary>
+		/// <param name="first">An IEnumerable whose elements will be returned as ValueTuple.First.</param>
+		/// <param name="second">An IEnumerable whose elements will be returned as ValueTuple.Second.</param>
+		/// <param name="third">An IEnumerable whose elements will be returned as ValueTuple.Third.</param>
+		/// <returns>A sequence of tuples combining the input items. If the sequences don't have the same number of items, it stops at the end of the shortest sequence.</returns>
+		[SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1414:Tuple types in signatures should have element names", Justification = "By design.")]
+		public static IEnumerable<(T1, T2, T3)> ZipTruncate<T1, T2, T3>(this IEnumerable<T1> first, IEnumerable<T2> second, IEnumerable<T3> third) =>
+			ZipImpl(
+				first ?? throw new ArgumentNullException(nameof(first)),
+				second ?? throw new ArgumentNullException(nameof(second)),
+				third ?? throw new ArgumentNullException(nameof(third)),
+				(firstElement, secondElement, thirdElement) => (firstElement, secondElement, thirdElement),
+				UnbalancedZipStrategy.Truncate);
+
+		/// <summary>
+		/// Combines three sequences.
+		/// </summary>
+		/// <param name="first">The first sequence to merge.</param>
+		/// <param name="second">The second sequence to merge.</param>
+		/// <param name="third">The third sequence to merge.</param>
+		/// <param name="resultSelector">A function that specifies how to merge the elements from the input sequences.</param>
+		/// <returns>A sequence containing merged elements of the input sequences. If the sequences don't have the same number of items, it stops at the end of the shortest sequence.</returns>
+		public static IEnumerable<TResult> ZipTruncate<T1, T2, T3, TResult>(this IEnumerable<T1> first,
+			IEnumerable<T2> second,
+			IEnumerable<T3> third,
+			Func<T1, T2, T3, TResult> resultSelector) =>
+			ZipImpl(
+				first ?? throw new ArgumentNullException(nameof(first)),
+				second ?? throw new ArgumentNullException(nameof(second)),
+				third ?? throw new ArgumentNullException(nameof(third)),
 				resultSelector ?? throw new ArgumentNullException(nameof(resultSelector)),
 				UnbalancedZipStrategy.Truncate);
 
@@ -906,6 +980,41 @@ namespace Faithlife.Utility
 					yield break;
 				else
 					throw new ArgumentException("Both sequences must be of the same size, second is larger.", nameof(second));
+			}
+		}
+
+		private static IEnumerable<TResult> ZipImpl<T1, T2, T3, TResult>(
+			IEnumerable<T1> first,
+			IEnumerable<T2> second,
+			IEnumerable<T3> third,
+			Func<T1, T2, T3, TResult> resultSelector,
+			UnbalancedZipStrategy strategy)
+		{
+			using var firstEnumerator = first.GetEnumerator();
+			using var secondEnumerator = second.GetEnumerator();
+			using var thirdEnumerator = third.GetEnumerator();
+			while (firstEnumerator.MoveNext())
+			{
+				if (secondEnumerator.MoveNext() && thirdEnumerator.MoveNext())
+					yield return resultSelector(firstEnumerator.Current, secondEnumerator.Current, thirdEnumerator.Current);
+				else if (strategy == UnbalancedZipStrategy.Truncate)
+					yield break;
+				else
+					throw new ArgumentException("All sequences must be of the same size, first is larger.", nameof(first));
+			}
+			if (secondEnumerator.MoveNext())
+			{
+				if (strategy == UnbalancedZipStrategy.Truncate)
+					yield break;
+				else
+					throw new ArgumentException("All sequences must be of the same size, second is larger.", nameof(second));
+			}
+			if (thirdEnumerator.MoveNext())
+			{
+				if (strategy == UnbalancedZipStrategy.Truncate)
+					yield break;
+				else
+					throw new ArgumentException("All sequences must be of the same size, third is larger.", nameof(third));
 			}
 		}
 	}
