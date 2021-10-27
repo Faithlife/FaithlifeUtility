@@ -865,6 +865,38 @@ namespace Faithlife.Utility
 				UnbalancedZipStrategy.Truncate);
 
 		/// <summary>
+		/// Separates a sequence of tuples into a tuple of sequences.
+		/// </summary>
+		/// <param name="source">The sequence to separate.</param>
+		/// <returns>A tuple of sequences, separating the source sequence's <c>Item1</c> elements from its <c>Item2</c> elements.</returns>
+		[SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1414:Tuple types in signatures should have element names", Justification = "By design.")]
+		public static (IEnumerable<T1>, IEnumerable<T2>) Unzip<T1, T2>(this IEnumerable<(T1, T2)> source) =>
+			Unzip(source ?? throw new ArgumentNullException(nameof(source)), x => x.Item1, x => x.Item2);
+
+		/// <summary>
+		/// Separates a sequence into a tuple of sequences.
+		/// </summary>
+		/// <param name="source">The sequence to separate.</param>
+		/// <param name="firstSelector">A function for selecting the first return sequence's elements from the source sequence's elements.</param>
+		/// <param name="secondSelector">A function for selecting the second return sequence's elements from the source sequence's elements.</param>
+		/// <returns>A tuple of sequences, separating the source sequence according to the selector arguments.</returns>
+		[SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1414:Tuple types in signatures should have element names", Justification = "By design.")]
+		public static (IEnumerable<T1>, IEnumerable<T2>) Unzip<TSource, T1, T2>(
+			this IEnumerable<TSource> source,
+			Func<TSource, T1> firstSelector,
+			Func<TSource, T2> secondSelector)
+		{
+			var firstList = new List<T1>();
+			var secondList = new List<T2>();
+			foreach (var element in source ?? throw new ArgumentNullException(nameof(source)))
+			{
+				firstList.Add((firstSelector ?? throw new ArgumentNullException(nameof(firstSelector))).Invoke(element));
+				secondList.Add((secondSelector ?? throw new ArgumentNullException(nameof(secondSelector))).Invoke(element));
+			}
+			return (firstList, secondList);
+		}
+
+		/// <summary>
 		/// Makes distinct and then removes a single item from a sequence.
 		/// </summary>
 		/// <param name="source">A sequence whose elements not matching the specified item will be returned.</param>
