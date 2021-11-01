@@ -895,19 +895,11 @@ namespace Faithlife.Utility
 			Func<TSource, T1> firstSelector,
 			Func<TSource, T2> secondSelector)
 		{
-			if (firstSelector is null)
-				throw new ArgumentNullException(nameof(firstSelector));
-			if (secondSelector is null)
-				throw new ArgumentNullException(nameof(secondSelector));
-
-			var firstList = new List<T1>();
-			var secondList = new List<T2>();
-			foreach (var element in source ?? throw new ArgumentNullException(nameof(source)))
-			{
-				firstList.Add(firstSelector(element));
-				secondList.Add(secondSelector(element));
-			}
-			return (firstList, secondList);
+			var enumeratedSource = source?.ToArray() ?? throw new ArgumentNullException(nameof(source));
+			return (
+				enumeratedSource.Select(firstSelector ?? throw new ArgumentNullException(nameof(firstSelector))),
+				enumeratedSource.Select(secondSelector ?? throw new ArgumentNullException(nameof(secondSelector)))
+			);
 		}
 
 		/// <summary>
@@ -925,23 +917,12 @@ namespace Faithlife.Utility
 			Func<TSource, T2> secondSelector,
 			Func<TSource, T3> thirdSelector)
 		{
-			if (firstSelector is null)
-				throw new ArgumentNullException(nameof(firstSelector));
-			if (secondSelector is null)
-				throw new ArgumentNullException(nameof(secondSelector));
-			if (thirdSelector is null)
-				throw new ArgumentNullException(nameof(thirdSelector));
-
-			var firstList = new List<T1>();
-			var secondList = new List<T2>();
-			var thirdList = new List<T3>();
-			foreach (var element in source ?? throw new ArgumentNullException(nameof(source)))
-			{
-				firstList.Add(firstSelector(element));
-				secondList.Add(secondSelector(element));
-				thirdList.Add(thirdSelector(element));
-			}
-			return (firstList, secondList, thirdList);
+			var enumeratedSource = source?.ToArray() ?? throw new ArgumentNullException(nameof(source));
+			return (
+				enumeratedSource.Select(firstSelector ?? throw new ArgumentNullException(nameof(firstSelector))),
+				enumeratedSource.Select(secondSelector ?? throw new ArgumentNullException(nameof(secondSelector))),
+				enumeratedSource.Select(thirdSelector ?? throw new ArgumentNullException(nameof(thirdSelector)))
+			);
 		}
 
 		/// <summary>
