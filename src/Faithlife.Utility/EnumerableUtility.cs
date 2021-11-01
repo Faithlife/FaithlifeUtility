@@ -770,7 +770,7 @@ namespace Faithlife.Utility
 		/// <returns>A sequence of tuples combining the input items. Throws if the sequences don't have the same number of items.</returns>
 		[SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1414:Tuple types in signatures should have element names", Justification = "By design.")]
 		public static IEnumerable<(T1, T2, T3)> Zip<T1, T2, T3>(
-#if NETSTANDARD || NETCOREAPP || NET5_0
+#if !NET6_0_OR_GREATER
 			this
 #endif
 				IEnumerable<T1> first, IEnumerable<T2> second, IEnumerable<T3> third) =>
