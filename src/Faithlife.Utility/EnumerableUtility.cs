@@ -869,6 +869,9 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="source">The sequence to separate.</param>
 		/// <returns>A tuple of sequences, separating the source sequence's <c>Item1</c> elements from its <c>Item2</c> elements.</returns>
+		/// <remarks>
+		/// Enumerates <c>source</c> once before applying the unzip operation lazily.
+		/// </remarks>
 		[SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1414:Tuple types in signatures should have element names", Justification = "By design.")]
 		public static (IEnumerable<T1>, IEnumerable<T2>) Unzip<T1, T2>(this IEnumerable<(T1, T2)> source) =>
 			Unzip(source ?? throw new ArgumentNullException(nameof(source)), x => x.Item1, x => x.Item2);
@@ -878,6 +881,9 @@ namespace Faithlife.Utility
 		/// </summary>
 		/// <param name="source">The sequence to separate.</param>
 		/// <returns>A tuple of sequences, separating the source sequence's <c>Item1</c>, <c>Item2</c>, and <c>Item3</c> elements.</returns>
+		/// <remarks>
+		/// Enumerates <c>source</c> once before applying the unzip operation lazily.
+		/// </remarks>
 		[SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1414:Tuple types in signatures should have element names", Justification = "By design.")]
 		public static (IEnumerable<T1>, IEnumerable<T2>, IEnumerable<T3>) Unzip<T1, T2, T3>(this IEnumerable<(T1, T2, T3)> source) =>
 			Unzip(source ?? throw new ArgumentNullException(nameof(source)), x => x.Item1, x => x.Item2, x => x.Item3);
@@ -889,6 +895,9 @@ namespace Faithlife.Utility
 		/// <param name="firstSelector">A function for selecting the first return sequence's elements from the source sequence's elements.</param>
 		/// <param name="secondSelector">A function for selecting the second return sequence's elements from the source sequence's elements.</param>
 		/// <returns>A tuple of sequences, separating the source sequence according to the selector arguments.</returns>
+		/// <remarks>
+		/// Enumerates <c>source</c> once before applying the unzip operation lazily.
+		/// </remarks>
 		[SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1414:Tuple types in signatures should have element names", Justification = "By design.")]
 		public static (IEnumerable<T1>, IEnumerable<T2>) Unzip<TSource, T1, T2>(
 			this IEnumerable<TSource> source,
@@ -910,6 +919,9 @@ namespace Faithlife.Utility
 		/// <param name="secondSelector">A function for selecting the second return sequence's elements from the source sequence's elements.</param>
 		/// <param name="thirdSelector">A function for selecting the third return sequence's elements from the source sequence's elements.</param>
 		/// <returns>A tuple of sequences, separating the source sequence according to the selector arguments.</returns>
+		/// <remarks>
+		/// Enumerates <c>source</c> once before applying the unzip operation lazily.
+		/// </remarks>
 		[SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1414:Tuple types in signatures should have element names", Justification = "By design.")]
 		public static (IEnumerable<T1>, IEnumerable<T2>, IEnumerable<T3>) Unzip<TSource, T1, T2, T3>(
 			this IEnumerable<TSource> source,
