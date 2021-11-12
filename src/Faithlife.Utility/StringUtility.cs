@@ -890,6 +890,20 @@ namespace Faithlife.Utility
 		public static TextReader CreateDecompressingTextReader(Stream stream, Ownership ownership) =>
 			new DecompressingTextReader(stream, ownership);
 
+		public static bool ContainsOrdinal(this string source, char value) =>
+#if NETSTANDARD2_0
+			source.Contains(value);
+#else
+			source.Contains(value, StringComparison.Ordinal);
+#endif
+
+		public static bool ContainsOrdinal(this string source, string value) =>
+#if NETSTANDARD2_0
+			source.Contains(value);
+#else
+			source.Contains(value, StringComparison.Ordinal);
+#endif
+
 		private sealed class CompressingTextWriter : TextWriter
 		{
 			public CompressingTextWriter(Stream stream, Ownership ownership)
