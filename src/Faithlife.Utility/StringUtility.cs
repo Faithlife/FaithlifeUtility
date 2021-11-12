@@ -910,6 +910,11 @@ namespace Faithlife.Utility
 		public static bool ContainsAllOrdinal(this string source, params string[] values) =>
 			source.ContainsAllOrdinal(values.AsEnumerable());
 
+#if !NETSTANDARD2_0
+		public static bool ContainsAll(this string source, IEnumerable<string> values, StringComparison comparisonType) =>
+			values.All(value => source.Contains(value, comparisonType));
+#endif
+
 		private sealed class CompressingTextWriter : TextWriter
 		{
 			public CompressingTextWriter(Stream stream, Ownership ownership)
