@@ -78,10 +78,15 @@ namespace Faithlife.Utility
 #endif
 		}
 
+#if NETSTANDARD2_0
 		/// <summary>
-		/// Calls <see cref="string.Contains(char, StringComparison)">string.Contains</see> with
-		/// <see cref="StringComparison.Ordinal">StringComparison.Ordinal</see>.
+		/// Calls string.Contains with StringComparison.Ordinal.
 		/// </summary>
+#else
+		/// <summary>
+		/// Calls <see cref="string.Contains(char, StringComparison)">string.Contains</see> with <see cref="StringComparison.Ordinal">StringComparison.Ordinal</see>.
+		/// </summary>
+#endif
 		public static bool ContainsOrdinal(this string source, char value) =>
 #if NETSTANDARD2_0
 			source.Contains(value);
@@ -89,10 +94,15 @@ namespace Faithlife.Utility
 			source.Contains(value, StringComparison.Ordinal);
 #endif
 
+#if NETSTANDARD2_0
 		/// <summary>
-		/// Calls <see cref="string.Contains(string, StringComparison)">string.Contains</see> with
-		/// <see cref="StringComparison.Ordinal">StringComparison.Ordinal</see>.
+		/// Calls string.Contains with StringComparison.Ordinal.
 		/// </summary>
+#else
+		/// <summary>
+		/// Calls <see cref="string.Contains(char, StringComparison)">string.Contains</see> with <see cref="StringComparison.Ordinal">StringComparison.Ordinal</see>.
+		/// </summary>
+#endif
 		public static bool ContainsOrdinal(this string source, string value) =>
 #if NETSTANDARD2_0
 			source.Contains(value);
