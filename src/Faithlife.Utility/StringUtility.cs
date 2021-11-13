@@ -79,7 +79,8 @@ namespace Faithlife.Utility
 		}
 
 		/// <summary>
-		/// Calls string.<see cref="string.Contains(char, StringComparison)"/> with StringComparison.<see cref="StringComparison.Ordinal"/>.
+		/// Calls <see cref="string.Contains(char, StringComparison)">string.Contains</see> with
+		/// <see cref="StringComparison.Ordinal">StringComparison.Ordinal</see>.
 		/// </summary>
 		public static bool ContainsOrdinal(this string source, char value) =>
 #if NETSTANDARD2_0
@@ -89,7 +90,8 @@ namespace Faithlife.Utility
 #endif
 
 		/// <summary>
-		/// Calls string.<see cref="string.Contains(string, StringComparison)"/> with StringComparison.<see cref="StringComparison.Ordinal"/>.
+		/// Calls <see cref="string.Contains(string, StringComparison)">string.Contains</see> with
+		/// <see cref="StringComparison.Ordinal">StringComparison.Ordinal</see>.
 		/// </summary>
 		public static bool ContainsOrdinal(this string source, string value) =>
 #if NETSTANDARD2_0
