@@ -78,6 +78,20 @@ namespace Faithlife.Utility
 #endif
 		}
 
+		public static bool ContainsOrdinal(this string source, char value) =>
+#if NETSTANDARD2_0
+			source.Contains(value);
+#else
+			source.Contains(value, StringComparison.Ordinal);
+#endif
+
+		public static bool ContainsOrdinal(this string source, string value) =>
+#if NETSTANDARD2_0
+			source.Contains(value);
+#else
+			source.Contains(value, StringComparison.Ordinal);
+#endif
+
 		/// <summary>
 		/// Compares two specified <see cref="string"/> objects by comparing successive Unicode code points. This method differs from
 		/// <see cref="string.CompareOrdinal(string, string)"/> in that this method considers supplementary characters (which are
@@ -889,20 +903,6 @@ namespace Faithlife.Utility
 		/// <returns>The TextReader.</returns>
 		public static TextReader CreateDecompressingTextReader(Stream stream, Ownership ownership) =>
 			new DecompressingTextReader(stream, ownership);
-
-		public static bool ContainsOrdinal(this string source, char value) =>
-#if NETSTANDARD2_0
-			source.Contains(value);
-#else
-			source.Contains(value, StringComparison.Ordinal);
-#endif
-
-		public static bool ContainsOrdinal(this string source, string value) =>
-#if NETSTANDARD2_0
-			source.Contains(value);
-#else
-			source.Contains(value, StringComparison.Ordinal);
-#endif
 
 		private sealed class CompressingTextWriter : TextWriter
 		{
