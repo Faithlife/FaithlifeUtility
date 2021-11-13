@@ -33,6 +33,8 @@ namespace Faithlife.Utility.Tests
 			Assert.IsFalse("abc".StartsWithOrdinal("bc"));
 			Assert.IsFalse("abc".EndsWithOrdinal("ab"));
 			Assert.IsTrue("abc".EndsWithOrdinal("bc"));
+			Assert.IsTrue("abc".ContainsOrdinal("bc"));
+			Assert.IsFalse("abc".ContainsOrdinal("cd"));
 			Assert.AreEqual(1, "abcabc".IndexOfOrdinal("bc"));
 			Assert.AreEqual(-1, "abcabc".IndexOfOrdinal("ba"));
 			Assert.AreEqual(4, "abcabc".IndexOfOrdinal("bc", 2));
