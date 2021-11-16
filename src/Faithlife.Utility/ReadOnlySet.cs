@@ -8,9 +8,10 @@ namespace Faithlife.Utility
 	/// Implements a read-only wrapper around a <see cref="ISet{T}"/>.
 	/// </summary>
 	/// <typeparam name="T">The type of item in the ReadOnlySet.</typeparam>
+#if NET5_0_OR_GREATER
+	public sealed class ReadOnlySet<T> : ISet<T>, IReadOnlyCollection<T>, IReadOnlySet<T>
+#else
 	public sealed class ReadOnlySet<T> : ISet<T>, IReadOnlyCollection<T>
-#if NET5
-		, IReadOnlySet<T>
 #endif
 	{
 		/// <summary>
