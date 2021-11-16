@@ -103,6 +103,14 @@ namespace Faithlife.Utility.Tests
 			Assert.IsTrue(m_set.SetEquals(new[] { 1, 2, 3 }));
 		}
 
+		[Test]
+		public void ReadOnlySetInterface()
+		{
+#if NET5_0 || NET6_0
+			Assert.IsTrue(m_set is IReadOnlySet<int>);
+#endif
+		}
+
 #pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 		private ReadOnlySet<int> m_set;
 #pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.

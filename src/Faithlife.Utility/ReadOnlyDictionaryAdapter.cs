@@ -19,7 +19,7 @@ namespace Faithlife.Utility
 		public TValue this[TKey key] => m_dictionary[key];
 		public bool ContainsKey(TKey key) => m_dictionary.ContainsKey(key);
 		public bool TryGetValue(TKey key,
-#if !NETSTANDARD && !NETCOREAPP2_1
+#if !NETSTANDARD
 			[MaybeNullWhen(false)]
 #endif
 			out TValue value) => m_dictionary.TryGetValue(key, out value);

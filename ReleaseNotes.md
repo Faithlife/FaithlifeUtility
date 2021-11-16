@@ -1,5 +1,9 @@
 # Release Notes
 
+## 0.12.2
+
+* Make `ReadOnlySet` implement `IReadOnlySet` on .NET 5+.
+
 ## 0.12.1
 
 * Revert breaking abstract `WrappingStreamBase.ReadAsync`/`WriteAsync` overloads for `Memory<byte>`.
