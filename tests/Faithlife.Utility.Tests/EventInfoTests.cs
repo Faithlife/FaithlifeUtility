@@ -117,12 +117,9 @@ namespace Faithlife.Utility.Tests
 
 			public void RaiseEvents()
 			{
-				if (Updated != null)
-					Updated(this, EventArgs.Empty);
-				if (Closed != null)
-					Closed(this, EventArgs.Empty);
-				if (Terminated != null)
-					Terminated(this, EventArgs.Empty);
+				Updated?.Invoke(this, EventArgs.Empty);
+				Closed?.Invoke(this, EventArgs.Empty);
+				Terminated?.Invoke(this, EventArgs.Empty);
 			}
 		}
 

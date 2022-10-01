@@ -44,7 +44,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase("http://maps.google.com", null)]
 		public void MatchesDomainArgumentNullException(string? uristring, string? domain)
 		{
-			var uri = uristring != null ? new Uri(uristring) : null;
+			var uri = uristring is not null ? new Uri(uristring) : null;
 			Assert.Throws<ArgumentNullException>(() => UriUtility.MatchesDomain(uri!, domain!));
 		}
 

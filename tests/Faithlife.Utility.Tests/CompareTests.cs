@@ -49,7 +49,7 @@ namespace Faithlife.Utility.Tests
 
 			public int CompareTo(MyComparable? other)
 			{
-				return other == null ? 1 : m_n.CompareTo(other.m_n);
+				return other is null ? 1 : m_n.CompareTo(other.m_n);
 			}
 
 			int IComparable.CompareTo(object? obj)
@@ -59,7 +59,7 @@ namespace Faithlife.Utility.Tests
 
 			public bool Equals(MyComparable? other)
 			{
-				return other == null ? false : m_n == other.m_n;
+				return other is null ? false : m_n == other.m_n;
 			}
 
 			public override bool Equals(object? obj)

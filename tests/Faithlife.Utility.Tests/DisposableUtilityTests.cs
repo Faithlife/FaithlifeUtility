@@ -80,7 +80,7 @@ namespace Faithlife.Utility.Tests
 
 			public void Dispose()
 			{
-				if (m_disposeCallback != null)
+				if (m_disposeCallback is not null)
 					m_disposeCallback();
 			}
 
