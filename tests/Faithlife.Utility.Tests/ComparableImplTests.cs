@@ -122,12 +122,8 @@ namespace Faithlife.Utility.Tests
 				return ComparableImpl.CompareToObject(this, obj);
 			}
 
-			public int CompareTo(TestInt? other)
-			{
-				if (other == null)
-					return 1;
-				return m_nValue.CompareTo(other.m_nValue);
-			}
+			public int CompareTo(TestInt? other) =>
+				other is null ? 1 : m_nValue.CompareTo(other.m_nValue);
 
 			private readonly int m_nValue;
 		}

@@ -40,15 +40,9 @@ namespace Faithlife.Utility.Tests
 
 		public class EquatableClass : IEquatable<EquatableClass>
 		{
-			public EquatableClass(int i)
-			{
-				m_i = i;
-			}
+			public EquatableClass(int i) => m_i = i;
 
-			public bool Equals(EquatableClass? other)
-			{
-				return other != null && m_i == other.m_i;
-			}
+			public bool Equals(EquatableClass? other) => other?.m_i == m_i;
 
 			private readonly int m_i;
 		}

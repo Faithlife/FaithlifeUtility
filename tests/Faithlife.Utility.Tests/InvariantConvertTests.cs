@@ -34,7 +34,7 @@ namespace Faithlife.Utility.Tests
 				Assert.IsNull(value);
 			}
 
-			if (after != null)
+			if (after is not null)
 				Assert.AreEqual(after, ((bool) value).ToInvariantString());
 		}
 
@@ -79,7 +79,7 @@ namespace Faithlife.Utility.Tests
 				Assert.IsNull(value);
 			}
 
-			if (after != null)
+			if (after is not null)
 				Assert.AreEqual(after, ((double) value).ToInvariantString());
 		}
 
@@ -113,7 +113,7 @@ namespace Faithlife.Utility.Tests
 				Assert.IsNull(value);
 			}
 
-			if (after != null)
+			if (after is not null)
 				Assert.AreEqual(after, ((int) value).ToInvariantString());
 		}
 
@@ -147,7 +147,7 @@ namespace Faithlife.Utility.Tests
 				Assert.IsNull(value);
 			}
 
-			if (after != null)
+			if (after is not null)
 				Assert.AreEqual(after, ((long) value).ToInvariantString());
 		}
 
@@ -176,7 +176,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase("-10675199.02:48:05.4775809", null)]
 		public void TestTimeSpan(string before, string after)
 		{
-			var value = after != null ? TimeSpan.Parse(after) : default(TimeSpan?);
+			var value = after is not null ? TimeSpan.Parse(after) : default(TimeSpan?);
 
 			Assert.AreEqual(value, InvariantConvert.TryParseTimeSpan(before));
 
@@ -190,7 +190,7 @@ namespace Faithlife.Utility.Tests
 				Assert.IsNull(value);
 			}
 
-			if (after != null)
+			if (after is not null)
 				Assert.AreEqual(after, value!.Value.ToInvariantString());
 		}
 

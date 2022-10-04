@@ -355,8 +355,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase("02-00-00-00-00", "")]
 		public void Decompress(string? data, string? text)
 		{
-			var bytes = data == null ? null :
-				data.Split(new[] { '-' }, StringSplitOptions.RemoveEmptyEntries).Select(x => byte.Parse(x, NumberStyles.HexNumber)).ToArray();
+			var bytes = data?.Split(new[] { '-' }, StringSplitOptions.RemoveEmptyEntries).Select(x => byte.Parse(x, NumberStyles.HexNumber)).ToArray();
 			Assert.AreEqual(StringUtility.Decompress(bytes), text);
 		}
 
@@ -366,8 +365,7 @@ namespace Faithlife.Utility.Tests
 		[TestCase("01-00-00-00-01-00", "")]
 		public void DecompressFormatException(string? data, string? text)
 		{
-			var bytes = data == null ? null :
-				data.Split(new[] { '-' }, StringSplitOptions.RemoveEmptyEntries).Select(x => byte.Parse(x, NumberStyles.HexNumber)).ToArray();
+			var bytes = data?.Split(new[] { '-' }, StringSplitOptions.RemoveEmptyEntries).Select(x => byte.Parse(x, NumberStyles.HexNumber)).ToArray();
 			Assert.Throws<FormatException>(() => StringUtility.Decompress(bytes));
 		}
 

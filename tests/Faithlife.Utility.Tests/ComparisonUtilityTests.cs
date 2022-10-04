@@ -25,22 +25,22 @@ namespace Faithlife.Utility.Tests
 		[TestCase("1.1", "1.0")]
 		public void MinAndMaxWithVersions(string strVersionFirst, string strVersionSecond)
 		{
-			var verFirst = strVersionFirst == null ? null : new Version(strVersionFirst);
-			var verSecond = strVersionSecond == null ? null : new Version(strVersionSecond);
+			var verFirst = strVersionFirst is null ? null : new Version(strVersionFirst);
+			var verSecond = strVersionSecond is null ? null : new Version(strVersionSecond);
 
-			var verExpectedMax = verFirst == null ? verSecond :
-				verSecond == null ? verFirst :
+			var verExpectedMax = verFirst is null ? verSecond :
+				verSecond is null ? verFirst :
 				verFirst >= verSecond ? verFirst : verSecond;
 			var verMax = ComparisonUtility.Max(verFirst, verSecond);
 			Assert.AreEqual(verExpectedMax, verMax);
 
-			var verExpectedMin = verFirst == null ? verFirst :
-				verSecond == null ? verSecond :
+			var verExpectedMin = verFirst is null ? verFirst :
+				verSecond is null ? verSecond :
 				verFirst <= verSecond ? verFirst : verSecond;
 			var verMin = ComparisonUtility.Min(verFirst, verSecond);
 			Assert.AreEqual(verExpectedMin, verMin);
 
-			if (verFirst != null && verFirst.Equals(verSecond))
+			if (verFirst?.Equals(verSecond) is true)
 			{
 				Assert.AreSame(verFirst, verMax);
 				Assert.AreSame(verFirst, verMin);
