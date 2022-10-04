@@ -19,11 +19,34 @@ namespace Faithlife.Utility
 			if (value.Length % 2 != 0)
 				throw new ArgumentException("There must be an even number of characters in the string.", nameof(value));
 
+#if NET5_0_OR_GREATER
+			try
+			{
+				return Convert.FromHexString(value);
+			}
+			catch (Exception ex)
+			{
+				throw new ArgumentOutOfRangeException("'value' contained an invalid hex character", ex);
+			}
+#else
 			var bytes = new byte[value.Length / 2];
 			for (var index = 0; index < bytes.Length; index++)
 				bytes[index] = (byte) (ConvertToNibble(value[index * 2]) * 16 + ConvertToNibble(value[index * 2 + 1]));
 
 			return bytes;
+
+			static int ConvertToNibble(char ch)
+			{
+				if (ch >= '0' && ch <= '9')
+					return ch - '0';
+				else if (ch >= 'A' && ch <= 'F')
+					return ch - 'A' + 10;
+				else if (ch >= 'a' && ch <= 'f')
+					return ch - 'a' + 10;
+				else
+					throw new ArgumentOutOfRangeException(nameof(ch));
+			}
+#endif
 		}
 
 		/// <summary>
@@ -33,6 +56,9 @@ namespace Faithlife.Utility
 		/// <returns>A string containing two hexadecimal digits for each input byte.</returns>
 		public static string ToString(byte[] bytes)
 		{
+#if NET5_0_OR_GREATER
+			return Convert.ToHexString(bytes);
+#else
 			if (bytes is null)
 				throw new ArgumentNullException(nameof(bytes));
 
@@ -48,18 +74,7 @@ namespace Faithlife.Utility
 			}
 
 			return new string(chars);
-		}
-
-		private static int ConvertToNibble(char ch)
-		{
-			if (ch >= '0' && ch <= '9')
-				return ch - '0';
-			else if (ch >= 'A' && ch <= 'F')
-				return ch - 'A' + 10;
-			else if (ch >= 'a' && ch <= 'f')
-				return ch - 'a' + 10;
-			else
-				throw new ArgumentOutOfRangeException(nameof(ch));
+#endif
 		}
 	}
 }
